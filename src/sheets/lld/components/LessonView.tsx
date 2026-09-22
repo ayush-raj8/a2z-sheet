@@ -69,6 +69,53 @@ export default function LessonView({
         </Section>
       ) : null}
 
+      {lesson.tables?.length ? (
+        <Section title="Access summary">
+          <div className="space-y-6">
+            {lesson.tables.map((table) => (
+              <div key={table.title || table.headers.join('|')} className="overflow-x-auto">
+                {table.title ? (
+                  <h3 className="mb-2 text-base font-medium text-zinc-200">{table.title}</h3>
+                ) : null}
+                <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-zinc-700">
+                      {table.headers.map((h) => (
+                        <th
+                          key={h}
+                          className="px-3 py-2 font-medium text-zinc-200 whitespace-nowrap"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {table.rows.map((row) => (
+                      <tr key={row.join('|')} className="border-b border-zinc-800">
+                        {row.map((cell, i) => (
+                          <td
+                            key={`${row[0]}-${i}`}
+                            className={`px-3 py-2 whitespace-nowrap ${
+                              i === 0 ? 'font-medium text-zinc-200' : 'text-zinc-400'
+                            }`}
+                          >
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {table.caption ? (
+                  <p className="mt-2 text-xs text-zinc-500">{table.caption}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </Section>
+      ) : null}
+
       {lesson.mermaid ? (
         <Section title="Diagram">
           <Suspense fallback={<p className="text-sm text-zinc-500">Loading diagram…</p>}>

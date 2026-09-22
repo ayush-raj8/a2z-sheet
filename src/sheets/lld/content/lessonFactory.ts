@@ -1,4 +1,4 @@
-import type { Difficulty, Lesson, Quiz } from '../lib/types';
+import type { Difficulty, Lesson, LessonTable, Quiz } from '../lib/types';
 
 type Draft = {
   id: string;
@@ -14,6 +14,7 @@ type Draft = {
   why: string;
   theory: string[];
   mentalModel?: string;
+  tables?: LessonTable[];
   code?: string;
   codeTitle?: string;
   output?: string;
@@ -63,6 +64,7 @@ export function lesson(d: Draft): Lesson {
     why: d.why,
     theory: d.theory,
     mentalModel: d.mentalModel,
+    tables: d.tables,
     codeExamples,
     mistakes: d.mistakes,
     interview:

@@ -26,6 +26,13 @@ export type Exercise = {
   hints?: string[];
 };
 
+export type LessonTable = {
+  title?: string;
+  headers: string[];
+  rows: string[][];
+  caption?: string;
+};
+
 export type LessonMeta = {
   id: string;
   title: string;
@@ -44,6 +51,7 @@ export type Lesson = LessonMeta & {
   why: string;
   theory: string[];
   mentalModel?: string;
+  tables?: LessonTable[];
   codeExamples: CodeExample[];
   mistakes?: string[];
   interview?: InterviewQuestion[];
