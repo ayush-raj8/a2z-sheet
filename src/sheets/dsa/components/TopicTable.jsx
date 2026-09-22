@@ -1,9 +1,9 @@
-import blogLogo from '../../assets/logo/post.svg';
-import ytLogo from '../../assets/logo/yt.svg';
-import tufLogo from '../../assets/logo/tuf.svg';
-import gfgLogo from '../../assets/logo/gfg.svg';
-import cnLogo from '../../assets/logo/cn.svg';
-import lcLogo from '../../assets/logo/lc.svg';
+import blogLogo from '../../../../assets/logo/post.svg';
+import ytLogo from '../../../../assets/logo/yt.svg';
+import tufLogo from '../../../../assets/logo/tuf.svg';
+import gfgLogo from '../../../../assets/logo/gfg.svg';
+import cnLogo from '../../../../assets/logo/cn.svg';
+import lcLogo from '../../../../assets/logo/lc.svg';
 import { getDifficultyClass, parseTags } from '../lib/topics';
 
 const platformLogos = {

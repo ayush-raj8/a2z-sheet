@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import roadmap from '../a2z.json';
+import { Link } from 'react-router-dom';
+import roadmap from '../../../a2z.json';
 import { buildBackup, downloadBackup, parseBackup } from './lib/backup';
 import { initStore, persistNote, persistPalette, persistTopic, replaceUserData } from './lib/db';
 import { applyPalette, DEFAULT_PALETTE } from './lib/palettes';
@@ -7,8 +8,9 @@ import { collectExpandKeys, countProgress } from './lib/topics';
 import NoteEditor from './components/NoteEditor';
 import PalettePicker from './components/PalettePicker';
 import StepSection from './components/StepSection';
+import './styles.css';
 
-export default function App() {
+export default function DsaApp() {
   const [progress, setProgress] = useState({});
   const [notes, setNotes] = useState({});
   const [palette, setPalette] = useState(DEFAULT_PALETTE);
@@ -146,6 +148,9 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="topbar-copy">
+          <Link to="/" className="home-link">
+            ← Sheets
+          </Link>
           <h1>A2Z DSA Roadmap</h1>
           <p className="storage-note">Progress is saved in this browser.</p>
         </div>

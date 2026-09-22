@@ -64,6 +64,18 @@ input {
   letter-spacing: -0.03em;
 }
 
+.home-link {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.home-link:hover {
+  color: var(--text);
+}
+
 .storage-note {
   margin: 0.35rem 0 0;
   color: var(--muted);
