@@ -7,7 +7,7 @@ export default lesson({
   chapter: 'Design Quality',
   difficulty: 'intermediate',
   importance: 3,
-  order: 2,
+  order: 4,
   prerequisites: ['oop-coupling-cohesion'],
   summary:
     'Turn a problem statement into nouns, verbs, responsibilities, and a first-cut class model you can defend in an LLD interview.',
@@ -176,17 +176,19 @@ copy=AVAILABLE`,
     'Jumping to design patterns before entities exist.',
     'Ignoring edge cases (limits, double borrow) until the end.',
   ],
-  quiz: {
-    question: 'In a library domain, why model Book and BookCopy as separate types?',
-    options: [
-      'Java requires it for HashMap',
-      'Catalog identity (ISBN/title) differs from loanable physical instances',
-      'They are the same; separation is always over-engineering',
-      'Only for UML aesthetics',
-    ],
-    correctIndex: 1,
-    explain: 'Many copies share one catalog book; loans attach to copies, not the abstract title.',
-  },
+  quiz: [
+    {
+      question: 'In a library domain, why model Book and BookCopy as separate types?',
+      options: [
+        'Java requires it for HashMap',
+        'Catalog identity (ISBN/title) differs from loanable physical instances',
+        'They are the same; separation is always over-engineering',
+        'Only for UML aesthetics',
+      ],
+      correctIndex: 1,
+      explain: 'Many copies share one catalog book; loans attach to copies, not the abstract title.',
+    },
+  ],
   practice:
     'Write nouns/verbs and a CRC list for "ride hailing: rider requests trip, driver accepts, trip starts/ends, fare calculated". Identify at least one value object.',
   practiceHints: [

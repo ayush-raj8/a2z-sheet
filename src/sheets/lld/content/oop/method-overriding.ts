@@ -196,6 +196,44 @@ int:7`,
         'Interview one-liner: override = same signature + runtime; overload = different params + compile time.',
       ],
     },
+    {
+      title: '5) Covariant return types',
+      code: `class Animal {}
+class Dog extends Animal {}
+
+class Breeder {
+    Animal create() {
+        return new Animal();
+    }
+}
+
+class DogBreeder extends Breeder {
+    // Override with a NARROWER return type (subtype) — covariant return
+    @Override
+    Dog create() {
+        return new Dog();
+    }
+}
+
+public class CovariantReturnDemo {
+    public static void main(String[] args) {
+        Breeder b = new DogBreeder();
+        Animal a = b.create(); // reference type Animal; object is Dog
+        System.out.println(a.getClass().getSimpleName());
+
+        DogBreeder db = new DogBreeder();
+        Dog d = db.create(); // callers with DogBreeder ref see Dog without casting
+        System.out.println(d.getClass().getSimpleName());
+    }
+}`,
+      output: `Dog
+Dog`,
+      explain: [
+        'DogBreeder.create() overrides Breeder.create() but returns Dog (a subtype of Animal).',
+        'This is a covariant return — legal for overrides; parameter types must still match exactly.',
+        'Through a Breeder reference you still see Animal; through DogBreeder you get Dog directly.',
+      ],
+    },
   ],
   mistakes: [
     'Changing parameter types slightly and thinking you overrode (you overloaded).',

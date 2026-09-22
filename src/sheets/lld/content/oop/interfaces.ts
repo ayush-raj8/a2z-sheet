@@ -146,6 +146,87 @@ S-1`,
         'Diamond conflicts with two defaults of the same signature must be resolved explicitly.',
       ],
     },
+    {
+      title: '4) Interface inheritance — extends one or many (legal for interfaces)',
+      code: `public class InterfaceExtendsDemo {
+    interface Named {
+        String name();
+    }
+
+    interface Aged {
+        int age();
+    }
+
+    // Interface may extend one parent
+    interface Person extends Named {
+        String greet();
+    }
+
+    // Interface may extend MANY parents — illegal for classes (see Inheritance)
+    interface Citizen extends Named, Aged {
+        String id();
+    }
+
+    static class User implements Citizen {
+        private final String name;
+        private final int age;
+        private final String id;
+
+        User(String name, int age, String id) {
+            this.name = name;
+            this.age = age;
+            this.id = id;
+        }
+
+        public String name() { return name; }
+        public int age() { return age; }
+        public String id() { return id; }
+    }
+
+    public static void main(String[] args) {
+        Citizen c = new User("Ada", 36, "X-1");
+        Named n = c; // upcast along interface inheritance
+        System.out.println(n.name() + " age=" + c.age() + " id=" + c.id());
+        // class Bad extends Named, Aged {} // COMPILE ERROR — classes cannot multi-extend
+    }
+}`,
+      output: `Ada age=36 id=X-1`,
+      explain: [
+        'interface Person extends Named — single interface inheritance.',
+        'interface Citizen extends Named, Aged — multiple inheritance of interface contracts is legal.',
+        'Contrast with Inheritance (oop-inheritance): a class cannot extends two classes.',
+      ],
+    },
+    {
+      title: '5) @FunctionalInterface + lambda',
+      code: `public class FunctionalInterfaceDemo {
+    @FunctionalInterface
+    interface Validator {
+        boolean test(int value);
+        // only one abstract method — lambdas allowed
+    }
+
+    static boolean accepts(Validator v, int value) {
+        return v.test(value);
+    }
+
+    public static void main(String[] args) {
+        Validator positive = v -> v > 0;
+        Validator even = v -> v % 2 == 0;
+        System.out.println(accepts(positive, 3));
+        System.out.println(accepts(even, 3));
+        System.out.println(accepts(v -> v < 10, 3));
+    }
+}`,
+      output: `true
+false
+true`,
+      explain: [
+        '@FunctionalInterface documents the single-abstract-method contract (SAM).',
+        'positive / even are lambdas implementing Validator — no named class needed.',
+        'Same idea as Comparator, Runnable, Predicate in the JDK.',
+      ],
+    },
   ],
   mistakes: [
     'Putting mutable instance fields on an “interface” — you cannot; use a class.',

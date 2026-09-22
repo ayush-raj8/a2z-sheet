@@ -27,7 +27,7 @@ export default lesson({
     'Invariants are facts that must always stay true (balance ≥ 0, email contains @). Enforce them at every mutation path.',
     'Setters should validate or not exist. A setX that accepts anything is data hiding without encapsulation. Immutable objects often need neither getters-for-mutation nor setters for many fields.',
     'Getters are not automatically good — returning a live List leaks the capsule. Prefer unmodifiable views or copies.',
-    'Tell, Don’t Ask: prefer account.withdraw(x) over reading balance and mutating from outside.',
+    'Tell, Don’t Ask: prefer account.withdraw(x) over reading balance and mutating from outside — see Tell, Don’t Ask (oop-tell-dont-ask) for the full ask-vs-tell BankAccount continuation.',
   ],
   mentalModel:
     'A capsule medicine: the shell hides the powder (data hiding); the prescribed dose API is how you take it safely (encapsulation). Ripping the shell open (public fields) lets anyone overdose the object.',

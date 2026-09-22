@@ -26,6 +26,7 @@ export default lesson({
     'Types of cohesion (worse → better): coincidental, logical, temporal, procedural, communicational, sequential, functional (best — one focused task).',
     'DI and interfaces reduce coupling to concretes. Packages/modules with clear boundaries reduce accidental coupling.',
     'Trade-off: zero coupling is impossible in a working system. Optimize for change: couple along stable abstractions.',
+    'Concrete follow-up: Law of Demeter (oop-law-of-demeter) is a method-level rule for keeping coupling low — avoid train-wreck getter chains into friends of friends.',
   ],
   mentalModel: `Coupling is how tangled the headphone wires are between boxes. Cohesion is whether each box contains one gadget or a junk drawer. You want separate boxes (low coupling) each with one clear gadget (high cohesion).`,
   codeTitle: 'Loose coupling with cohesive collaborators',
@@ -117,17 +118,19 @@ total=1180`,
     'Saying microservices automatically mean low coupling — distributed coupling can be worse.',
     'Confusing cohesion with "lots of methods" — many methods can still be cohesive if they serve one purpose.',
   ],
-  quiz: {
-    question: 'A class named UserOrderEmailPdfTaxHelper most likely suffers from:',
-    options: [
-      'High cohesion',
-      'Low cohesion (many unrelated responsibilities)',
-      'Only inheritance issues',
-      'Too much encapsulation',
-    ],
-    correctIndex: 1,
-    explain: 'The name lists unrelated jobs — classic low cohesion / god-helper smell.',
-  },
+  quiz: [
+    {
+      question: 'A class named UserOrderEmailPdfTaxHelper most likely suffers from:',
+      options: [
+        'High cohesion',
+        'Low cohesion (many unrelated responsibilities)',
+        'Only inheritance issues',
+        'Too much encapsulation',
+      ],
+      correctIndex: 1,
+      explain: 'The name lists unrelated jobs — classic low cohesion / god-helper smell.',
+    },
+  ],
   practice:
     'Take a ReportGenerator that loads SQL, formats HTML, and emails the result. Split into three cohesive types and a thin orchestrator. List what each depends on.',
   practiceHints: [

@@ -135,12 +135,14 @@ charged=true`,
     'Saying aggregation means "no reference" — both usually hold references; lifecycle differs.',
     'Claiming Java GC makes composition meaningless — ownership still matters for APIs and correctness.',
   ],
-  quiz: {
-    question: 'OrderService receives PaymentGateway only as a method argument. This is best classified as:',
-    options: ['Composition', 'Aggregation', 'Dependency', 'Inheritance'],
-    correctIndex: 2,
-    explain: 'A short-lived uses-a relationship without owning the gateway is dependency.',
-  },
+  quiz: [
+    {
+      question: 'OrderService receives PaymentGateway only as a method argument. This is best classified as:',
+      options: ['Composition', 'Aggregation', 'Dependency', 'Inheritance'],
+      correctIndex: 2,
+      explain: 'A short-lived uses-a relationship without owning the gateway is dependency.',
+    },
+  ],
   practice:
     'Model a Car with Engine (composition) and a list of Driver licenses associated with people who may drive many cars (association). Sketch which objects create which.',
   practiceHints: [

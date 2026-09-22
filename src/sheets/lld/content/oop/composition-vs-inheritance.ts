@@ -144,17 +144,19 @@ size=1`,
     'Saying inheritance is always wrong — frameworks and skeletal abstract classes are valid.',
     'Equating composition with aggregation only — ownership can still be strong.',
   ],
-  quiz: {
-    question: 'Penguin extends Bird and overrides fly() to throw. The main design problem is:',
-    options: [
-      'Too much encapsulation',
-      'Broken is-a / LSP — Penguin is not substitutable as a flying Bird',
-      'Missing dependency injection framework',
-      'Lack of checked exceptions',
-    ],
-    correctIndex: 1,
-    explain: 'Subtypes must honor the parent contract; throwing where Bird.fly succeeds breaks substitutability.',
-  },
+  quiz: [
+    {
+      question: 'Penguin extends Bird and overrides fly() to throw. The main design problem is:',
+      options: [
+        'Too much encapsulation',
+        'Broken is-a / LSP — Penguin is not substitutable as a flying Bird',
+        'Missing dependency injection framework',
+        'Lack of checked exceptions',
+      ],
+      correctIndex: 1,
+      explain: 'Subtypes must honor the parent contract; throwing where Bird.fly succeeds breaks substitutability.',
+    },
+  ],
   practice:
     'Refactor a class hierarchy LoggedPrinter extends Printer extends Output into a Printer that composes an optional Logger and an Output destination.',
   practiceHints: [

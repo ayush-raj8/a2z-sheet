@@ -30,7 +30,7 @@ export default lesson({
     'Reference type (compile-time) = the variable’s declared type. Object type (runtime) = the real instance created with new. Method calls on instance methods use the object type (dynamic dispatch).',
     'Constructors are not inherited — subclass constructors call super(...).',
     '@Override documents replacing a superclass method; return types may be covariant.',
-    'final classes cannot be extended; final methods cannot be overridden.',
+    'final classes cannot be extended; final methods cannot be overridden — details and more examples live in Final Keyword (java-final-keyword).',
     'Prefer composition when you need reuse without substitutability (HAS-A vs IS-A).',
   ],
   mentalModel:
