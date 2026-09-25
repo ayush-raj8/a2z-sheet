@@ -1055,7 +1055,32 @@ tr.completed {
 }
 
 .company-table {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.company-topic-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-bottom: 2rem;
+}
+
+.company-topic-section {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg) 96%, var(--text) 4%);
+}
+
+.company-topic-header {
+  width: 100%;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0;
+}
+
+.company-topic-section .content-inner {
+  padding: 0 0.5rem 0.65rem;
 }
 
 .company-filter-row {
