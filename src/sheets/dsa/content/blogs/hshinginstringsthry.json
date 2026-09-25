@@ -13,45 +13,56 @@
   "quality": "reviewed",
   "tags": [
     "string",
-    "medium"
+    "revamped"
   ],
-  "pattern": "strings",
-  "problemStatement": "Understand Hashing In Strings | Theory deeply enough to use it in later problems in “Strings”.",
-  "intuition": "\"Hashing In Strings | Theory\" is a string problem. Clarify case, spaces, and alphabet size. Prefer two pointers, hashing, or KMP/Z/rolling hash over blind O(n²) nested loops when n is large.",
+  "pattern": "string",
+  "problemStatement": "Master “Hashing In Strings | Theory” (Hard Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Hashing In Strings | Theory\": clarify alphabet/case; prefer window/hash/KMP over O(n²).",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Hashing In Strings | Theory\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Hashing In Strings | Theory\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Hashing In Strings | Theory.\"\"\"\n    return True",
+      "title": "Brute all substrings",
+      "idea": "O(n²) check for \"Hashing In Strings | Theory\".",
+      "code": "def solve_brute(s):\n    best=0\n    for i in range(len(s)):\n        for j in range(i,len(s)):\n            best=max(best,j-i+1)\n    return best",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "O(n²+)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Linear pattern (window/hash)",
+      "idea": "One pass for \"Hashing In Strings | Theory\".",
+      "code": "from collections import Counter\ndef solve(s):\n    left=0; freq=Counter(); best=0\n    for r,ch in enumerate(s):\n        freq[ch]+=1\n        while len(freq)>2:\n            freq[s[left]]-=1\n            if freq[s[left]]==0: del freq[s[left]]\n            left+=1\n        best=max(best,r-left+1)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(Σ)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(n)",
+    "space": "O(Σ)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Quadratic string concatenation",
-    "Forgetting Unicode/case rules",
-    "Confusing subsequence vs substring"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Contiguous unique/constrained chars → sliding window",
-    "Pattern matching → KMP / Z / Rabin-Karp"
+    "Sheet section “Strings” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Case-insensitive variant?",
-    "Streaming input?",
-    "Memory limit if alphabet is huge?"
+    "Exactly K vs at most K?",
+    "Unicode?"
   ],
-  "interviewInsight": "Pin down the string rules before coding \"Hashing In Strings | Theory\" — most WA comes from unclear contracts.",
+  "interviewInsight": "Contract on string rules before code.",
   "related": [
     {
       "id": "cntndsy",

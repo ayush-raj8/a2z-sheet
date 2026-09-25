@@ -12,47 +12,72 @@
   "sourceUrl": "https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/",
   "quality": "reviewed",
   "tags": [
-    "stack-queue",
-    "medium"
+    "graph",
+    "shortest-path"
   ],
-  "pattern": "stack-queue",
-  "problemStatement": "Solve “Why priority Queue is used in Djisktra's Algorithm” as posed in the A2Z sheet (Shortest Path Algorithms and Problems).",
-  "intuition": "\"Why priority Queue is used in Djisktra's Algorithm\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "pattern": "dijkstra",
+  "problemStatement": "Single-source shortest paths on a graph with non-negative edge weights.",
+  "intuition": "Greedily settle the closest unsettled node (like BFS, but priority queue replaces FIFO). Fails with negative edges — use Bellman-Ford there.",
   "approaches": [
     {
-      "title": "Stack / monotonic stack skeleton",
-      "idea": "Maintain candidates in order; pop while invariant breaks.",
-      "code": "def solve(a):\n    # Skeleton for: Why priority Queue is used in Djisktra's Algorithm\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "title": "Brute: Bellman-Ford style relax-all (works but slower)",
+      "idea": "Relax every edge |V|-1 times — handles negatives too, but O(nm).",
+      "code": "def bellman_ref(n, edges, src):\n    # edges: (u,v,w)\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for _ in range(n - 1):\n        for u, v, w in edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
       "language": "python",
-      "time": "O(n)",
+      "time": "O(n·m)",
       "space": "O(n)",
-      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "Correct for non-negative too, but too slow when Dijkstra applies"
+      ]
+    },
+    {
+      "title": "Optimal: Dijkstra with min-heap",
+      "idea": "dist[], heap of (d,u); skip stale entries.",
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n        # g[v].append((u, w))  # if undirected\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue  # stale\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
+      "language": "python",
+      "time": "O((n + m) log n) with binary heap",
+      "space": "O(n + m)",
+      "dryRun": "Settle nodes in increasing distance order; once popped with dist[u], it is final (non-negative weights).",
+      "whyWorks": "Non-negative weights ⇒ no future path can improve a settled node.",
+      "flags": [
+        "WA"
+      ],
+      "limitations": [
+        "Negative edge → WRONG — algorithm assumption violated"
+      ]
     }
   ],
+  "specialTechnique": {
+    "title": "Algorithm choice table",
+    "body": "Unweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges → Bellman-Ford\n0/1 weights → 0-1 BFS\nAll-pairs → Floyd-Warshall (dense) / Dijkstra from each (sparse)"
+  },
   "complexity": {
-    "time": "O(n)",
-    "space": "O(n)"
+    "time": "O((n+m) log n)",
+    "space": "O(n+m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Unreachable nodes (inf)",
+    "Zero-weight edges",
+    "Disconnected graph"
   ],
   "commonMistakes": [
-    "Pop on empty",
-    "Storing values when indices are needed",
-    "Wrong inequality on monotonic stack"
+    "Running Dijkstra with negatives",
+    "Forgetting stale heap entries",
+    "Using visited-before-relax incorrectly"
   ],
   "patternRecognition": [
-    "Next greater/smaller → monotonic stack",
-    "Matching / parsing → classic stack"
+    "“Shortest path” + weights ≥ 0"
   ],
   "followUps": [
-    "Circular array variant?",
-    "Sum of subarray minimums connection?",
-    "Queue via two stacks?"
+    "Negative edges?",
+    "Why priority queue not queue?",
+    "Reconstruct path via parent[]?",
+    "K shortest paths / constraints on stops?"
   ],
-  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Why priority Queue is used in Djisktra's Algorithm\".",
+  "interviewInsight": "Draw the comparison table on the board before coding. That is SDE-2 behavior.",
   "related": [
     {
       "id": "djisktrslgrithm",

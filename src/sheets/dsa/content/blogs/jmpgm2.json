@@ -13,45 +13,52 @@
   "quality": "reviewed",
   "tags": [
     "greedy",
-    "medium"
+    "bfs"
   ],
-  "pattern": "greedy",
-  "problemStatement": "Solve “Jump Game 2” as posed in the A2Z sheet (Medium/Hard).",
-  "intuition": "\"Jump Game 2\" may admit a greedy choice. Sort by the right key, then take the next safe candidate. Prove exchange argument or cite a known theorem.",
+  "pattern": "jump-game-ii",
+  "problemStatement": "Minimum jumps to reach the end.",
+  "intuition": "BFS on index graph level-by-level, or greedy windows [L,R] counting levels.",
   "approaches": [
     {
-      "title": "Greedy after sorting",
-      "idea": "Sort, then scan once taking locally optimal safe moves.",
-      "code": "def solve(intervals):\n    # Skeleton for: Jump Game 2\n    intervals = sorted(intervals, key=lambda x: x[1])  # adapt key\n    ans = 0\n    last_end = float('-inf')\n    for start, end in intervals:\n        if start >= last_end:\n            ans += 1\n            last_end = end\n    return ans",
+      "title": "DP",
+      "idea": "dp[i]=min jumps to i.",
+      "code": "def jump_dp(a):\n    n=len(a); dp=[10**9]*n; dp[0]=0\n    for i in range(n):\n        for j in range(1, a[i]+1):\n            if i+j < n: dp[i+j]=min(dp[i+j], dp[i]+1)\n    return dp[-1]",
       "language": "python",
-      "time": "Usually O(n log n) from sort",
-      "space": "O(1)–O(n)",
-      "whyWorks": "Exchange: any optimal solution can be transformed into the greedy one without loss."
+      "time": "O(n²)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal greedy / BFS layers",
+      "idea": "Window end & farthest.",
+      "code": "def jump(a):\n    jumps=end=far=0\n    for i in range(len(a)-1):\n        far=max(far, i+a[i])\n        if i==end:\n            jumps+=1; end=far\n    return jumps",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Usually O(n log n) from sort",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Already at end",
+    "Forced jump over zeros"
   ],
   "commonMistakes": [
-    "Greedy without proof → WA on counterexamples",
-    "Sorting by the wrong key",
-    "Using DP when greedy suffices (or the reverse)"
-  ],
-  "patternRecognition": [
-    "Interval scheduling, jump reachability, Huffman-style choices"
+    "Off-by-one on last index",
+    "Infinite loop if end stuck"
   ],
   "followUps": [
-    "Counterexample if sorted by start instead?",
-    "DP fallback when greedy fails?",
-    "Online vs offline greedy?"
+    "Print one optimal jump path",
+    "When DP preferred?"
   ],
-  "interviewInsight": "For \"Jump Game 2\", the sort key is the interview; code is secondary.",
+  "interviewInsight": "Explain window as BFS level — connects greedy to graph BFS.",
+  "patternRecognition": [
+    "Minimum jumps = shortest path on unweighted index graph"
+  ],
   "related": [
     {
       "id": "jmpgm",

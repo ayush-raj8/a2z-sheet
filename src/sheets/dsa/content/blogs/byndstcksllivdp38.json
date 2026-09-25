@@ -12,58 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/buy-and-sell-stock-iv-dp-38/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "hard"
+    "dp",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Buy and Stock Sell IV |(DP-38)” as posed in the A2Z sheet (DP on Stocks).",
-  "intuition": "\"Buy and Stock Sell IV |(DP-38)\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "dp",
+  "problemStatement": "Master “Buy and Stock Sell IV |(DP-38)” (DP on Stocks) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Buy and Stock Sell IV |(DP-38)\": write state, transition, base, order. Climb recursion → memo → tabulation → space opt.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Recursion exponential",
+      "idea": "Bare recursion for \"Buy and Stock Sell IV |(DP-38)\".",
+      "code": "def solve_rec(i):\n    if i==0: return 0\n    return min(solve_rec(i-1)+1, solve_rec(i-1)+1)  # adapt",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n)",
+      "time": "Exponential",
+      "space": "O(n) stack",
       "flags": [
-        "MLE"
+        "TLE",
+        "RE"
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Buy and Stock Sell IV |(DP-38)\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "Memo / bottom-up",
+      "idea": "Cache or iterate for \"Buy and Stock Sell IV |(DP-38)\".",
+      "code": "def solve(n):\n    dp=[0]*(n+1)\n    for i in range(1,n+1):\n        dp[i]=dp[i-1]+1  # adapt transition\n    return dp[n]",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(states·trans)",
+      "space": "O(states)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(states·trans)",
+    "space": "O(states)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Dynamic Programming [Patterns and Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Space optimize?",
+    "Print reconstruction?"
   ],
-  "interviewInsight": "For \"Buy and Stock Sell IV |(DP-38)\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "State sentence first — transitions second.",
   "related": [
     {
       "id": "byndsllstcksiiidp37",

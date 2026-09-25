@@ -12,60 +12,70 @@
   "sourceUrl": "https://takeuforward.org/c/c-basic-input-output/",
   "quality": "reviewed",
   "tags": [
-    "io",
-    "basics"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Learn how to read input from stdin and write output to stdout correctly. Online judges treat your program as a pure function of the input stream — format mismatches cause WA even when logic is perfect.",
-  "example": "Input:\n3\nAda\n\nOutput:\n3 Ada",
-  "intuition": "Think of the judge as a pipe. You consume tokens in a known order and emit a deterministic answer. Types, separators, and newlines are part of the contract — not decoration.",
+  "pattern": "array",
+  "problemStatement": "Master “User Input / Output” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"User Input / Output\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Idiomatic Python I/O",
-      "idea": "Use input() for simple tasks. For multi-token / larger input, prefer sys.stdin.buffer.",
-      "algorithm": [
-        "Read tokens with the types the statement promises.",
-        "Compute.",
-        "Print exactly matching the sample (spaces/newlines)."
-      ],
-      "code": "import sys\n\ndef main():\n    data = sys.stdin.buffer.read().split()\n    a = int(data[0])\n    s = data[1].decode()\n    print(a, s)\n\nif __name__ == \"__main__\":\n    main()",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"User Input / Output\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(total input size)",
-      "space": "O(total input size) if you slurp; O(1) extra if you stream",
-      "spaceNote": "Slurping is fine for small tasks; stream tokens for huge input"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"User Input / Output\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(size of input)",
-    "space": "O(1) auxiliary if streamed"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Empty input",
-    "Multiple tests with leading t",
-    "Trailing whitespace"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Printing debug text to stdout (WA).",
-    "Heavy flushing on large output (TLE in C++).",
-    "Reading the wrong type."
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Every CP problem starts with an I/O contract.",
-    "n ≥ 1e5 in Python → prefer buffered reads to avoid TLE."
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "How do you handle 1e5 test cases efficiently in Python?",
-    "When does flushing matter?",
-    "Token vs full-line reads?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Interviews rarely quiz I/O, but messy I/O fails online assessments silently. Treat samples as a contract.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "dttyps",
       "title": "Data Types"
     },
     {
-      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
-      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
+      "id": "iflssttmnts",
+      "title": "If Else statements"
+    },
+    {
+      "id": "switchsttmnt",
+      "title": "Switch Statement"
     }
   ]
 }

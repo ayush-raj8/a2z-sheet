@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/search-in-a-sorted-2d-matrix/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "matrix"
+    "bs",
+    "revamped"
   ],
-  "pattern": "flatten to a 1-D binary search",
-  "problemStatement": "Search a target in a matrix where each row is sorted and the first element of a row exceeds the last of the previous row.",
-  "example": "[[1,3,5],[7,10,11],[16,20,30]], target 10 -> True",
-  "intuition": "The stated property means the matrix read row-major is one sorted array. Index i maps to (i // m, i % m), so a single binary search works over [0, n*m).",
+  "pattern": "bs",
+  "problemStatement": "Master “Search in a 2 D matrix” (BS on 2D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Search in a 2 D matrix\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: virtual flattening",
-      "idea": "Binary search 0..n*m-1 with index arithmetic.",
-      "code": "def search_matrix(mat: list[list[int]], target: int) -> bool:\n    if not mat or not mat[0]:\n        return False\n    n, m = len(mat), len(mat[0])\n    lo, hi = 0, n * m - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        val = mat[mid // m][mid % m]\n        if val == target:\n            return True\n        if val < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return False",
+      "title": "Linear scan",
+      "idea": "Scan for \"Search in a 2 D matrix\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(log(n*m))",
-      "space": "O(1) auxiliary",
-      "dryRun": "target=10, n=3 m=3, lo=0 hi=8\nmid=4 -> (1,1)=10 -> True",
-      "whyWorks": "The row-major reading is globally sorted, so one binary search suffices."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Search in a 2 D matrix\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(log(n*m))",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty matrix",
-    "Single row or column",
-    "Target outside the value range"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Dividing by n instead of m in the index mapping",
-    "Confusing this with the row/column-sorted variant (#108)"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Globally sorted matrix -> flatten; only row- and column-sorted -> staircase"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Search in a row and column wise sorted matrix (#108)",
-    "Count elements less than the target",
-    "Matrix median (#110)"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "The two \"search a matrix\" problems differ only in the sortedness guarantee — read the statement carefully.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "findthrwwithmximmnmbrf1s",
@@ -63,8 +73,8 @@
       "title": "Search in a row and column wise sorted matrix"
     },
     {
-      "id": "findpklmnt-i",
-      "title": "Find Peak Element (2D Matrix)"
+      "id": "kthlmntf2srtdrrys",
+      "title": "Kth element of 2 sorted arrays"
     }
   ]
 }

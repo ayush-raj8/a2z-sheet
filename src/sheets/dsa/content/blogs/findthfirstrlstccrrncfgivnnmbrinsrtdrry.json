@@ -12,46 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/last-occurrence-in-a-sorted-array/",
   "quality": "reviewed",
   "tags": [
-    "binary-search"
+    "bs",
+    "revamped"
   ],
-  "pattern": "two boundary searches",
-  "problemStatement": "Find the first and last index of a target in a sorted array with duplicates.",
-  "example": "[5,7,7,8,8,10], target 8 -> (3,4)",
-  "intuition": "Do not stop at the first match — keep searching the side that could contain an earlier (or later) occurrence.",
+  "pattern": "bs",
+  "problemStatement": "Master “Find the first or last occurrence of a given number in a sorted array” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Find the first or last occurrence of a given number in a sorted array\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: two boundary binary searches",
-      "idea": "first = lower_bound; last = upper_bound - 1.",
-      "code": "def first_last(a: list[int], target: int) -> tuple[int, int]:\n    def bound(pred) -> int:\n        lo, hi, ans = 0, len(a) - 1, len(a)\n        while lo <= hi:\n            mid = lo + (hi - lo) // 2\n            if pred(a[mid]):\n                ans = mid\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        return ans\n\n    first = bound(lambda v: v >= target)\n    if first == len(a) or a[first] != target:\n        return (-1, -1)\n    last = bound(lambda v: v > target) - 1\n    return (first, last)",
+      "title": "Linear scan",
+      "idea": "Scan for \"Find the first or last occurrence of a given number in a sorted array\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Find the first or last occurrence of a given number in a sorted array\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
       "language": "python",
       "time": "O(log n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[5,7,7,8,8,10] target=8\nlower_bound -> 3\nupper_bound -> 5, so last = 4 -> (3,4)",
-      "whyWorks": "Equal values occupy a contiguous block in a sorted array."
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Target absent -> (-1,-1)",
-    "Single occurrence",
-    "All elements equal to the target"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Returning on the first match instead of continuing the search",
-    "Forgetting to validate that a[first] actually equals the target"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Frequency / range queries on sorted data -> two boundary searches"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Count occurrences (#85)",
-    "Do it in one pass",
-    "Extend to counting in a range [lo, hi]"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Deriving last = upper_bound - 1 rather than writing a second bespoke loop is the clean answer.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "chckifinptrryissrtd",

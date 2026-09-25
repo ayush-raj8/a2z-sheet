@@ -12,60 +12,58 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "medium"
+    "tree",
+    "revamped"
   ],
-  "pattern": "binary-search",
-  "problemStatement": "Solve “LCA in Binary Search Tree” as posed in the A2Z sheet (Practice Problems).",
-  "intuition": "\"LCA in Binary Search Tree\" lives in binary search. Define a monotonic predicate P(mid). Search the answer space or the index space; keep the invariant that the answer still lies in [lo, hi].",
+  "pattern": "tree",
+  "problemStatement": "Master “LCA in Binary Search Tree” (Practice Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"LCA in Binary Search Tree\": define recursion return value; handle None; combine children. Ask if BST properties help.",
   "approaches": [
     {
-      "title": "Brute: linear scan",
-      "idea": "Scan every candidate until the condition holds.",
-      "code": "def solve_brute(a, target):\n    # Linear scan stand-in for: LCA in Binary Search Tree\n    for i, x in enumerate(a):\n        if x == target:  # adapt predicate\n            return i\n    return -1",
+      "title": "Brute recompute from every node",
+      "idea": "Re-run DFS from many roots when applicable for \"LCA in Binary Search Tree\".",
+      "code": "def solve_brute(root):\n    # O(n^2) recompute pattern — use only as reference\n    return None",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(1)",
+      "time": "O(n²) common",
+      "space": "O(n)",
       "flags": [
         "TLE"
       ]
     },
     {
-      "title": "Optimal: binary search on monotonic predicate",
-      "idea": "Shrink [lo, hi] using mid; be consistent about inclusive bounds.",
-      "code": "def solve(a, target):\n    # Binary-search skeleton for: LCA in Binary Search Tree\n    lo, hi = 0, len(a)  # half-open [lo, hi)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < target:  # adapt: predicate \"too small\"\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "title": "Optimal one-pass tree DP / traversal",
+      "idea": "Single DFS returning the metric needed for \"LCA in Binary Search Tree\".",
+      "code": "def solve(root):\n    ans = 0\n    def dfs(n):\n        nonlocal ans\n        if not n: return 0\n        L, R = dfs(n.left), dfs(n.right)\n        # adapt combine for \"LCA in Binary Search Tree\"\n        ans = max(ans, L + R)\n        return 1 + max(L, R)\n    dfs(root)\n    return ans",
       "language": "python",
-      "time": "O(log n) on array search; O(f·log A) on answer-space search",
-      "space": "O(1) auxiliary",
-      "dryRun": "Maintain: answer ∈ [lo, hi). Each step halves the interval.",
-      "whyWorks": "Monotonicity guarantees one side can be discarded safely."
+      "time": "O(n)",
+      "space": "O(h)"
     }
   ],
   "complexity": {
-    "time": "O(log n) on array search; O(f·log A) on answer-space search",
-    "space": "O(1) auxiliary"
+    "time": "O(n)",
+    "space": "O(h)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Infinite loop from wrong mid update",
-    "Off-by-one on lower vs upper bound",
-    "Using binary search without a proven monotonic predicate"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Sorted array / monotonic feasibility",
-    "Minimize/maximize a value with a yes/no check → binary search on answer"
+    "Sheet section “Binary Search Trees [Concept and Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Lower bound vs upper bound?",
-    "Rotated sorted array variants?",
-    "What if duplicates exist?",
-    "Binary search on answer — write the feasibility check"
+    "Iterative?",
+    "Morris O(1) space?",
+    "BST acceleration?"
   ],
-  "interviewInsight": "Say the invariant out loud for \"LCA in Binary Search Tree\". Strong candidates never hand-wave lo/hi updates.",
+  "interviewInsight": "Name what dfs returns before writing combine logic.",
   "related": [
     {
       "id": "chckiftrisbstrbt",

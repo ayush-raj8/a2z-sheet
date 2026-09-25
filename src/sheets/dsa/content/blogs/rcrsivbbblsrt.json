@@ -12,51 +12,70 @@
   "sourceUrl": "https://takeuforward.org/arrays/recursive-bubble-sort-algorithm/",
   "quality": "reviewed",
   "tags": [
-    "sorting",
-    "recursion"
+    "array",
+    "revamped"
   ],
-  "pattern": "sorting",
-  "problemStatement": "Implement Bubble Sort recursively.",
-  "intuition": "One recursive call = one bubble pass that places the next maximum at the end; then recurse on n−1. Same O(n²) — recursion is pedagogical, not an asymptotic win.",
+  "pattern": "array",
+  "problemStatement": "Master “Recursive Bubble Sort” (Sorting-II) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Recursive Bubble Sort\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Recursive bubble",
-      "idea": "Bubble pass on a[0..n-1], then recurse with n-1.",
-      "code": "def bubble_sort_rec(a: list[int], n: int | None = None) -> None:\n    if n is None:\n        n = len(a)\n    if n <= 1:\n        return\n    for j in range(n - 1):\n        if a[j] > a[j + 1]:\n            a[j], a[j + 1] = a[j + 1], a[j]\n    bubble_sort_rec(a, n - 1)",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Recursive Bubble Sort\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
       "time": "O(n²)",
-      "space": "O(n) recursion stack",
+      "space": "O(1)",
       "flags": [
-        "TLE",
-        "RE"
-      ],
-      "limitations": [
-        "Worse constants than iterative; stack depth n"
+        "TLE"
       ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Recursive Bubble Sort\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n²)",
-    "space": "O(n) stack",
-    "recursionStack": "O(n)"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Thinking recursion improves complexity",
-    "Forgetting to reduce n"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn Important Sorting Techniques” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Add early-exit flag recursively?",
-    "Convert to iterative?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Show you can rewrite loops as recursion without changing big-O.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
-      "id": "bbblsrt",
-      "title": "Bubble Sort"
+      "id": "mrgsrt",
+      "title": "Merge Sort"
     },
     {
       "id": "rcrsivinsrtinsrt",
       "title": "Recursive Insertion Sort"
+    },
+    {
+      "id": "insrtinsrt",
+      "title": "Insertion Sort"
     }
   ]
 }

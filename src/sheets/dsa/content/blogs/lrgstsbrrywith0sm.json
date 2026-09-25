@@ -12,48 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/length-of-the-longest-subarray-with-zero-sum/",
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "prefix-sum",
-    "hashing"
+    "array",
+    "revamped"
   ],
-  "pattern": "prefix sum repeat",
-  "problemStatement": "Length of the longest subarray whose elements sum to zero.",
-  "example": "[9,-3,3,-1,6,-5] -> 5",
-  "intuition": "If the same prefix sum appears at indices i and j, the elements between them cancel to zero. Longest means you keep the earliest index for each prefix value.",
+  "pattern": "array",
+  "problemStatement": "Master “Largest Subarray with 0 Sum” (Hard) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Largest Subarray with 0 Sum\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: first-occurrence prefix map",
-      "idea": "Seed {0: -1} so a zero-sum prefix is handled uniformly.",
-      "code": "def longest_zero_sum(a: list[int]) -> int:\n    first = {0: -1}\n    pre = 0\n    best = 0\n    for i, x in enumerate(a):\n        pre += x\n        if pre in first:\n            best = max(best, i - first[pre])\n        else:\n            first[pre] = i\n    return best",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Largest Subarray with 0 Sum\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n) average",
-      "space": "O(n)",
-      "dryRun": "a=[9,-3,3,-1,6,-5]\npre: 9,6,9,8,14,9\npre=9 first at 0, seen again at 2 -> len 2, and at 5 -> len 5",
-      "whyWorks": "Equal prefixes bracket a zero-sum block; earliest occurrence maximises the span."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Largest Subarray with 0 Sum\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n) average",
-    "space": "O(n)"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "No zero-sum subarray -> 0",
-    "Single 0 element -> 1",
-    "All zeros -> n"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Omitting the {0: -1} seed",
-    "Overwriting an existing prefix key"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Sum-K family with K = 0"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Longest subarray with equal 0s and 1s (map 0 -> -1)",
-    "Count zero-sum subarrays",
-    "Same idea on XOR (#72)"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "The 0/1-equal-count variant is the common disguise; mention the 0 -> -1 remap.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "4smprblm",

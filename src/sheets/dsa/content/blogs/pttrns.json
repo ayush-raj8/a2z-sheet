@@ -12,43 +12,70 @@
   "sourceUrl": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
   "quality": "reviewed",
   "tags": [
-    "patterns",
-    "nested-loops"
+    "array",
+    "revamped"
   ],
-  "pattern": "nested-loops",
-  "problemStatement": "Print grid patterns using nested loops — trains index formulas before matrices.",
-  "example": "n=3:\n*\n**\n***",
-  "intuition": "Outer loop = row r. Inner loop prints a function of r (and c). Derive the formula first.",
+  "pattern": "array",
+  "problemStatement": "Master “Patterns” (Build-up Logical Thinking) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Patterns\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Row formula → nested loops",
-      "idea": "For row r in 1..n print r stars.",
-      "code": "def triangle(n: int) -> None:\n    for r in range(1, n + 1):\n        print(\"*\" * r)\n\ndef pyramid(n: int) -> None:\n    for r in range(1, n + 1):\n        print(\" \" * (n - r) + \"*\" * (2 * r - 1))",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Patterns\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(total characters) ≈ O(n²)",
-      "space": "O(1) auxiliary"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Patterns\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n²) typical",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Wrong spaces/stars",
-    "Off-by-one in 2*r-1"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Row/column dependence → nested loops with a closed-form count"
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Stars in a full pyramid of height n?",
-    "Build list of lines instead of printing?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Warm-up: they care you can derive the formula, not memorize shapes.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
-      "id": "frlps",
-      "title": "For loops"
+      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
+      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
+    },
+    {
+      "id": "cstl",
+      "title": "C++ STL"
+    },
+    {
+      "id": "fnctinspssbyrfrncndvl",
+      "title": "Functions (Pass by Reference and Value)"
     }
   ]
 }

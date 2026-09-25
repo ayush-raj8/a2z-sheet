@@ -12,54 +12,70 @@
   "sourceUrl": "https://takeuforward.org/maths/reverse-digits-of-a-number",
   "quality": "reviewed",
   "tags": [
-    "math",
-    "overflow"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Reverse the digits of an integer. Discuss overflow if the reversed value must fit 32-bit.",
-  "example": "123 → 321\n-120 → -21 (sign kept, trailing zeros dropped)",
-  "intuition": "Pop digits with %10 and push into ans = ans*10 + digit. In fixed-width languages, check overflow before multiplying.",
+  "pattern": "array",
+  "problemStatement": "Master “Reverse a Number” (Know Basic Maths) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Reverse a Number\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Digit peel (Python — unbounded ints)",
-      "idea": "Python ints do not overflow; still show the overflow check interviewers expect in Java/C++.",
-      "code": "def reverse_number(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    ans = 0\n    while n:\n        ans = ans * 10 + n % 10\n        n //= 10\n    return sign * ans\n\n# Java/C++ interview variant must guard 32-bit overflow before ans*10",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Reverse a Number\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(log n)",
+      "time": "O(n²)",
       "space": "O(1)",
-      "dryRun": "n=123\nans=0\n3 → ans=3\n2 → ans=32\n1 → ans=321"
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Reverse a Number\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Trailing zeros",
-    "Negative inputs",
-    "Reversed value overflowing int32"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Ignoring overflow in Java",
-    "Losing the sign",
-    "Using strings without discussing tradeoffs"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Return 0 on overflow (LC7 style)?",
-    "Reverse only a portion of digits?",
-    "Palindrome check without full reverse?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Overflow handling on reverse is a favorite Java follow-up.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
+    },
     {
       "id": "chckplindrm",
       "title": "Check Palindrome"
     },
     {
-      "id": "cntdigits",
-      "title": "Count Digits"
+      "id": "jvcllctins",
+      "title": "Java Collections"
     }
-  ],
-  "patternRecognition": [
-    "Digit manipulation problems"
   ]
 }

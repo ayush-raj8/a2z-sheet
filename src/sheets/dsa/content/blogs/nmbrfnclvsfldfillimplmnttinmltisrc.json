@@ -12,58 +12,54 @@
   "sourceUrl": "https://takeuforward.org/graph/number-of-enclaves/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "hard"
+    "graph",
+    "dfs",
+    "grid"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Number of Enclaves flood fill implementation - multisource” as posed in the A2Z sheet (Problems on BFS/DFS).",
-  "intuition": "\"Number of Enclaves flood fill implementation - multisource\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "flood-fill",
+  "problemStatement": "Replace the connected component color of a starting cell with a new color (4-directional).",
+  "intuition": "DFS/BFS from start over equal-colored neighbors. Classic connected component on implicit grid graph.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "DFS flood fill",
+      "idea": "Recolor and recurse.",
+      "code": "def flood_fill(image, sr, sc, color):\n    n, m = len(image), len(image[0])\n    src = image[sr][sc]\n    if src == color:\n        return image\n    def dfs(i, j):\n        if not (0 <= i < n and 0 <= j < m) or image[i][j] != src:\n            return\n        image[i][j] = color\n        for di, dj in ((1,0),(-1,0),(0,1),(0,-1)):\n            dfs(i + di, j + dj)\n    dfs(sr, sc)\n    return image",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n)",
+      "time": "O(n·m)",
+      "space": "O(n·m) stack worst",
       "flags": [
-        "MLE"
+        "RE"
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Number of Enclaves flood fill implementation - multisource\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "BFS flood fill (safer stack)",
+      "idea": "Iterative queue.",
+      "code": "from collections import deque\n\ndef flood_fill_bfs(image, sr, sc, color):\n    n, m = len(image), len(image[0])\n    src = image[sr][sc]\n    if src == color:\n        return image\n    q = deque([(sr, sc)])\n    image[sr][sc] = color\n    while q:\n        i, j = q.popleft()\n        for di, dj in ((1,0),(-1,0),(0,1),(0,-1)):\n            ni, nj = i + di, j + dj\n            if 0 <= ni < n and 0 <= nj < m and image[ni][nj] == src:\n                image[ni][nj] = color\n                q.append((ni, nj))\n    return image",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(n·m)",
+      "space": "O(n·m)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(n·m)",
+    "space": "O(n·m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "New color equals old",
+    "1x1"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
-  ],
-  "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Infinite recursion when color == src without guard",
+    "Diagonal moves if not asked"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Number of islands?",
+    "Enclaves / surrounded regions?"
   ],
-  "interviewInsight": "For \"Number of Enclaves flood fill implementation - multisource\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Guard `src == color` immediately — classic bug.",
+  "patternRecognition": [
+    "Grid connected component"
+  ],
   "related": [
     {
       "id": "srrnddrginsdfs",

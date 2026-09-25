@@ -13,65 +13,63 @@
   "quality": "reviewed",
   "tags": [
     "graph",
-    "hard"
+    "cycle"
   ],
-  "pattern": "graphs",
-  "problemStatement": "Solve “Cycle Detection in Directed Graph (DFS)” as posed in the A2Z sheet (Problems on BFS/DFS).",
-  "intuition": "\"Cycle Detection in Directed Graph (DFS)\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "pattern": "cycle-detection",
+  "problemStatement": "Cycle Detection in Directed Graph (DFS)",
+  "intuition": "Directed: 3-color DFS (active path stack) or Kahn leftover nodes.",
   "approaches": [
     {
-      "title": "Traversal / shortest-path skeleton",
-      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Cycle Detection in Directed Graph (DFS)\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "title": "DFS 3-color",
+      "idea": "0=unseen,1=active,2=done; edge to active ⇒ back-edge ⇒ cycle.",
+      "code": "from collections import defaultdict\n\ndef has_cycle_directed(n, edges):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n    state = [0] * n\n\n    def dfs(u):\n        state[u] = 1\n        for v in g[u]:\n            if state[v] == 1:\n                return True\n            if state[v] == 0 and dfs(v):\n                return True\n        state[u] = 2\n        return False\n\n    return any(state[u] == 0 and dfs(u) for u in range(n))",
       "language": "python",
-      "time": "O(n + m) for BFS/DFS",
-      "space": "O(n + m)",
-      "flags": [
-        "TLE",
-        "MLE"
-      ],
-      "limitations": [
-        "Wrong algorithm for weights → WA; huge adj lists → MLE"
-      ]
+      "time": "O(n + m)",
+      "space": "O(n + m)"
+    },
+    {
+      "title": "Kahn leftover",
+      "idea": "If topo cannot include all nodes ⇒ cycle.",
+      "code": "from collections import defaultdict, deque\n\ndef has_cycle_kahn(n, edges):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v in edges:\n        g[u].append(v)\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    seen = 0\n    while q:\n        u = q.popleft()\n        seen += 1\n        for v in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return seen != n",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(n + m)"
     }
   ],
   "complexity": {
-    "time": "O(n + m) for BFS/DFS",
+    "time": "O(n + m)",
     "space": "O(n + m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Self-loop",
+    "Multiple components",
+    "DAG with no cycle"
   ],
   "commonMistakes": [
-    "DFS for unweighted shortest path",
-    "Forgetting visited → infinite loops",
-    "1-index vs 0-index bugs"
+    "Using undirected algorithm on directed graphs",
+    "Forgetting parent in undirected DFS"
   ],
   "patternRecognition": [
-    "Shortest unweighted → BFS",
-    "Multi-source spreading → multi-source BFS",
-    "Ordering with prerequisites → topo"
+    "“Detect cycle” → pick directed vs undirected first"
   ],
   "followUps": [
-    "Weighted edges?",
-    "Negative cycles?",
-    "Connected components count?"
+    "Print a cycle",
+    "Count cycles (hard)",
+    "Earliest edge that creates a cycle"
   ],
-  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Cycle Detection in Directed Graph (DFS)\".",
+  "interviewInsight": "Clarify directed vs undirected in sentence one — prevents a full rewrite.",
   "related": [
     {
       "id": "biprtitgrphdfs",
       "title": "Bipartite Graph (DFS)"
     },
     {
-      "id": "nmbrfdistinctislndsdfsmltisrc",
-      "title": "Number of Distinct Islands [dfs multisource]"
+      "id": "tpsrt",
+      "title": "Topo Sort"
     },
     {
-      "id": "wrdlddr2",
-      "title": "Word ladder - 2"
+      "id": "nmbrfdistinctislndsdfsmltisrc",
+      "title": "Number of Distinct Islands [dfs multisource]"
     }
   ]
 }

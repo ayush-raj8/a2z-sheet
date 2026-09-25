@@ -12,58 +12,58 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "medium"
+    "tree",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Number of substring containing all three characters” as posed in the A2Z sheet (Medium Problems).",
-  "intuition": "\"Number of substring containing all three characters\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "tree",
+  "problemStatement": "Master “Number of substring containing all three characters” (Medium Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Number of substring containing all three characters\": define recursion return value; handle None; combine children. Ask if BST properties help.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Brute recompute from every node",
+      "idea": "Re-run DFS from many roots when applicable for \"Number of substring containing all three characters\".",
+      "code": "def solve_brute(root):\n    # O(n^2) recompute pattern — use only as reference\n    return None",
       "language": "python",
-      "time": "O(n)",
+      "time": "O(n²) common",
       "space": "O(n)",
       "flags": [
-        "MLE"
+        "TLE"
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Number of substring containing all three characters\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "Optimal one-pass tree DP / traversal",
+      "idea": "Single DFS returning the metric needed for \"Number of substring containing all three characters\".",
+      "code": "def solve(root):\n    ans = 0\n    def dfs(n):\n        nonlocal ans\n        if not n: return 0\n        L, R = dfs(n.left), dfs(n.right)\n        # adapt combine for \"Number of substring containing all three characters\"\n        ans = max(ans, L + R)\n        return 1 + max(L, R)\n    dfs(root)\n    return ans",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(n)",
+      "space": "O(h)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(n)",
+    "space": "O(h)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Sliding Window & Two Pointer Combined Problems” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Iterative?",
+    "Morris O(1) space?",
+    "BST acceleration?"
   ],
-  "interviewInsight": "For \"Number of substring containing all three characters\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Name what dfs returns before writing combine logic.",
   "related": [
     {
       "id": "cntnmbrfnicsbrrys",

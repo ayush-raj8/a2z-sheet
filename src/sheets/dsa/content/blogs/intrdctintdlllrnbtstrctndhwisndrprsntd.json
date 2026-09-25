@@ -12,59 +12,69 @@
   "sourceUrl": "https://takeuforward.org/linked-list/introduction-to-doubly-linked-list",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "easy"
+    "ll",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Understand Introduction to DLL, learn about struct, and how is node represented deeply enough to use it in later problems in “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]”.",
-  "intuition": "\"Introduction to DLL, learn about struct, and how is node represented\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "ll",
+  "problemStatement": "Master “Introduction to DLL, learn about struct, and how is node represented” (Learn Doubly LinkedList) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Introduction to DLL, learn about struct, and how is node represented\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Introduction to DLL, learn about struct, and how is node represented\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Introduction to DLL, learn about struct, and how is node represented\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Introduction to DLL, learn about struct, and how is node represented.\"\"\"\n    return True",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Introduction to DLL, learn about struct, and how is node represented\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Introduction to DLL, learn about struct, and how is node represented\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "For \"Introduction to DLL, learn about struct, and how is node represented\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
+    {
+      "id": "srchnlmntinthll",
+      "title": "Search an element in the LL"
+    },
     {
       "id": "insrtndindll",
       "title": "Insert a node in DLL"
     },
     {
-      "id": "dltndindll",
-      "title": "Delete a node in DLL"
-    },
-    {
-      "id": "rvrsdll",
-      "title": "Reverse a DLL"
+      "id": "findthlngthfthlinkdlistlrntrvrsl",
+      "title": "Find the length of the linkedlist [learn traversal]"
     }
   ]
 }

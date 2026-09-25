@@ -13,49 +13,49 @@
   "quality": "reviewed",
   "tags": [
     "tree",
-    "easy"
+    "bfs"
   ],
-  "pattern": "trees",
-  "problemStatement": "Solve “Zig Zag Traversal of Binary Tree” as posed in the A2Z sheet (Medium Problems).",
-  "intuition": "\"Zig Zag Traversal of Binary Tree\" is tree recursion: null base case, recurse on children, combine. Prefer clear traversal order; iterative/Morris when O(1) aux is required.",
+  "pattern": "level-order",
+  "problemStatement": "Zig Zag Traversal of Binary Tree",
+  "intuition": "Tree BFS with queue; optional reverse every other level for zigzag.",
   "approaches": [
     {
-      "title": "Recursive DFS template",
-      "idea": "Define what each call returns; handle None.",
-      "code": "class Node:\n    def __init__(self, val=0, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef solve(root):\n    # Skeleton for: Zig Zag Traversal of Binary Tree\n    def dfs(node):\n        if not node:\n            return 0  # adapt base\n        left = dfs(node.left)\n        right = dfs(node.right)\n        return 1 + max(left, right)  # adapt combine\n    return dfs(root)",
+      "title": "DFS by depth collecting lists",
+      "idea": "Pass depth index.",
+      "code": "def level_dfs(root):\n    ans = []\n    def dfs(n, d):\n        if not n: return\n        if d == len(ans): ans.append([])\n        ans[d].append(n.val)\n        dfs(n.left, d+1); dfs(n.right, d+1)\n    dfs(root, 0)\n    return ans",
       "language": "python",
       "time": "O(n)",
-      "space": "O(h) recursion stack",
-      "flags": [
-        "RE"
-      ],
-      "spaceNote": "Skewed tree → O(n) stack"
+      "space": "O(h) + output"
+    },
+    {
+      "title": "Optimal: BFS queue",
+      "idea": "Classic level loop.",
+      "code": "from collections import deque\ndef level_order(root):\n    if not root: return []\n    ans, q = [], deque([root])\n    while q:\n        lvl = []\n        for _ in range(len(q)):\n            n = q.popleft(); lvl.append(n.val)\n            if n.left: q.append(n.left)\n            if n.right: q.append(n.right)\n        ans.append(lvl)\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(width)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion stack"
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty",
+    "Single node"
   ],
   "commonMistakes": [
-    "Null dereference",
-    "Wrong combine of child answers",
-    "Calling stack O(1) on skewed trees"
-  ],
-  "patternRecognition": [
-    "Node-wise decisions → tree DP",
-    "Order matters → traversal choice"
+    "Not freezing level size",
+    "Zigzag reverse wrong levels"
   ],
   "followUps": [
-    "Iterative version?",
-    "Morris O(1) aux?",
-    "BST-specific acceleration?"
+    "Spiral / zigzag",
+    "Right view = last in level"
   ],
-  "interviewInsight": "Specify the return meaning of dfs() before coding \"Zig Zag Traversal of Binary Tree\".",
+  "interviewInsight": "len(q) snapshot is the key idiom.",
+  "patternRecognition": [
+    "Anything “per level” → tree BFS"
+  ],
   "related": [
     {
       "id": "chckiftwtrsridnticlrnt",

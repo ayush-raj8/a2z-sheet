@@ -12,54 +12,69 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "strings"
+    "string",
+    "revamped"
   ],
-  "problemStatement": "Arrays/strings are contiguous sequences with O(1) index access — the default DSA canvas.",
-  "intuition": "Index → value in O(1). Python strings are immutable — concat in a loop is a hidden O(n²) TLE trap. Use lists + join.",
+  "pattern": "string",
+  "problemStatement": "Master “What are arrays, strings?” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"What are arrays, strings?\": clarify alphabet/case; prefer window/hash/KMP over O(n²).",
   "approaches": [
     {
-      "title": "Indexing, mutability, building strings",
-      "idea": "list for mutable sequences; build strings with join.",
-      "code": "a = [3, 1, 4]\na[0] = 2\ns = \"ada\"\nchars = list(s)\nchars[0] = \"A\"\ns2 = \"\".join(chars)\n\nparts = []\nfor ch in \"abc\":\n    parts.append(ch)\nprint(\"\".join(parts))  # O(n)",
+      "title": "Brute all substrings",
+      "idea": "O(n²) check for \"What are arrays, strings?\".",
+      "code": "def solve_brute(s):\n    best=0\n    for i in range(len(s)):\n        for j in range(i,len(s)):\n            best=max(best,j-i+1)\n    return best",
       "language": "python",
-      "time": "Access O(1); scan O(n)",
-      "space": "O(n) to copy/build",
+      "time": "O(n²+)",
+      "space": "O(1)",
       "flags": [
         "TLE"
-      ],
-      "limitations": [
-        "Naive string += in a loop → O(n²) → TLE for n~1e5"
       ]
+    },
+    {
+      "title": "Linear pattern (window/hash)",
+      "idea": "One pass for \"What are arrays, strings?\".",
+      "code": "from collections import Counter\ndef solve(s):\n    left=0; freq=Counter(); best=0\n    for r,ch in enumerate(s):\n        freq[ch]+=1\n        while len(freq)>2:\n            freq[s[left]]-=1\n            if freq[s[left]]==0: del freq[s[left]]\n            left+=1\n        best=max(best,r-left+1)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(Σ)"
     }
   ],
   "complexity": {
-    "time": "Access O(1), scan O(n)",
-    "space": "O(1) extra for scans; O(n) for copies"
+    "time": "O(n)",
+    "space": "O(Σ)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Quadratic string concatenation",
-    "Subsequence vs substring confusion",
-    "1-based thinking in 0-based languages"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Contiguous → two pointers / sliding window / prefix sums",
-    "Frequencies → hashing"
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Why is list.append amortized O(1)?",
-    "Array vs linked list access?",
-    "Copy vs in-place?"
+    "Exactly K vs at most K?",
+    "Unicode?"
   ],
-  "interviewInsight": "Random vs sequential access tradeoffs should be automatic.",
+  "interviewInsight": "Contract on string rules before code.",
   "related": [
+    {
+      "id": "switchsttmnt",
+      "title": "Switch Statement"
+    },
     {
       "id": "frlps",
       "title": "For loops"
     },
     {
-      "id": "cntdigits",
-      "title": "Count Digits"
+      "id": "iflssttmnts",
+      "title": "If Else statements"
     }
   ]
 }

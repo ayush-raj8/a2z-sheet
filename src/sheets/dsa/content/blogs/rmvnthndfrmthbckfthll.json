@@ -12,51 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/remove-n-th-node-from-the-end-of-a-linked-list/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "two-pointers"
+    "ll",
+    "revamped"
   ],
-  "pattern": "gap of n + dummy head",
-  "problemStatement": "Remove the n-th node from the end of a list in one pass.",
-  "example": "1->2->3->4->5, n=2 -> 1->2->3->5",
-  "intuition": "Give the fast pointer an n-node head start. When fast hits the end, slow is exactly n nodes from it — sitting on the node before the target if you offset by one. A dummy head removes the \"delete the head\" special case.",
+  "pattern": "ll",
+  "problemStatement": "Master “Remove Nth node from the back of the LL” (Medium Problems of LL) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Remove Nth node from the back of the LL\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Optimal: dummy + n-gap two pointers",
-      "idea": "One pass, no length computation.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef remove_nth_from_end(head, n: int):\n    dummy = Node(0, head)\n    fast = slow = dummy\n    for _ in range(n):\n        if fast.next is None:\n            return head\n        fast = fast.next\n    while fast.next:\n        fast = fast.next\n        slow = slow.next\n    slow.next = slow.next.next\n    return dummy.next",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Remove Nth node from the back of the LL\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
-      "time": "O(n) single pass",
-      "space": "O(1) auxiliary",
-      "dryRun": "1->2->3->4->5 n=2\nfast advances 2 to node 2\nboth advance until fast at 5: slow at 3\nslow.next = 5 -> 1->2->3->5",
-      "whyWorks": "A constant gap of n means slow trails the end by exactly n nodes."
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Remove Nth node from the back of the LL\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
-  "specialTechnique": {
-    "title": "Dummy head node",
-    "body": "Whenever a deletion or insertion can touch the head, allocate a dummy node in front. It removes an entire class of null checks."
-  },
   "complexity": {
     "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "n equals the list length (removing the head)",
-    "n = 1 (removing the tail)",
-    "n larger than the length"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Not using a dummy and crashing when removing the head",
-    "Off-by-one: landing on the target instead of its predecessor"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Fixed-gap two pointers for \"k-th from the end\" queries"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Delete the middle node (#144)",
-    "Remove duplicates from a sorted list",
-    "Return the k-th from the end without deleting"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "Leading with \"I will use a dummy head\" signals experience immediately.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
     {
       "id": "sgrrgtddndvnndsinll",

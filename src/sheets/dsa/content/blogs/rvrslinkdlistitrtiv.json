@@ -12,46 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/reverse-a-linked-list/",
   "quality": "reviewed",
   "tags": [
-    "linked-list"
+    "ll",
+    "revamped"
   ],
-  "pattern": "three-pointer reversal",
-  "problemStatement": "Reverse a singly linked list iteratively.",
-  "example": "1->2->3 -> 3->2->1",
-  "intuition": "Walk the list flipping one next pointer at a time. You need three references: the node before, the current node, and the next node you are about to lose.",
+  "pattern": "ll",
+  "problemStatement": "Master “Reverse a LinkedList [Iterative]” (Medium Problems of LL) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Reverse a LinkedList [Iterative]\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Optimal: prev / curr / next",
-      "idea": "Save next, flip, advance both pointers.",
-      "code": "def reverse_list(head):\n    prev = None\n    curr = head\n    while curr:\n        nxt = curr.next\n        curr.next = prev\n        prev = curr\n        curr = nxt\n    return prev",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Reverse a LinkedList [Iterative]\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
       "time": "O(n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "1->2->3\ncurr=1: 1->None, prev=1\ncurr=2: 2->1, prev=2\ncurr=3: 3->2, prev=3 -> head 3",
-      "whyWorks": "Each iteration reverses exactly one edge while preserving access to the untouched suffix."
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Reverse a LinkedList [Iterative]\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty list",
-    "Single node",
-    "Losing the head reference in the caller"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Not saving curr.next before overwriting it",
-    "Returning head instead of prev"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Pointer rewiring: reverse in k-groups, palindrome check, reorder list"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Recursive reversal (#137)",
-    "Reverse in groups of k (#153)",
-    "Reverse a sublist between positions m and n"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "Draw the three pointers before coding. Interviewers can tell instantly whether you understand or memorised it.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
     {
       "id": "middlflinkdlisttrtishrmthd",
@@ -62,8 +73,8 @@
       "title": "Reverse a LL [Recursive]"
     },
     {
-      "id": "dtctlpinll",
-      "title": "Detect a loop in LL"
+      "id": "rvrsdll",
+      "title": "Reverse a DLL"
     }
   ]
 }

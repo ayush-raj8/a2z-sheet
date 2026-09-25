@@ -13,44 +13,53 @@
   "quality": "reviewed",
   "tags": [
     "bit",
-    "easy"
+    "revamped"
   ],
-  "pattern": "bit-manipulation",
-  "problemStatement": "Solve “Count the number of set bits” as posed in the A2Z sheet (Learn Bit Manipulation).",
-  "intuition": "\"Count the number of set bits\" uses bits as flags or XOR cancellations. Know shifts, masks, and that Python ints are unbounded (still discuss fixed-width in interviews).",
+  "pattern": "bit",
+  "problemStatement": "Master “Count the number of set bits” (Learn Bit Manipulation) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Count the number of set bits\": bits as set membership / XOR cancel pairs / shifts for ×2.",
   "approaches": [
     {
-      "title": "Bit trick / mask approach",
-      "idea": "Map the operation to AND/OR/XOR/shifts.",
-      "code": "def solve(n: int) -> int:\n    # Skeleton for: Count the number of set bits\n    # Example idioms:\n    # n & 1        -> parity\n    # n & (n - 1)  -> drop lowest set bit\n    # n & -n       -> isolate lowest set bit\n    cnt = 0\n    while n:\n        n &= n - 1\n        cnt += 1\n    return cnt",
+      "title": "Brute arithmetic / loops",
+      "idea": "Simulate without bit tricks for \"Count the number of set bits\".",
+      "code": "def solve_brute(n):\n    return bin(n).count('1')",
       "language": "python",
-      "time": "O(#bits) or O(1) with hw instructions",
+      "time": "O(#bits) or worse",
+      "space": "O(1)"
+    },
+    {
+      "title": "Optimal bit idiom",
+      "idea": "Use &-tricks for \"Count the number of set bits\".",
+      "code": "def solve(n):\n    # drop lowest set bit loop as a common idiom — adapt\n    c=0\n    while n:\n        n &= n-1; c+=1\n    return c",
+      "language": "python",
+      "time": "O(#setbits)",
       "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(#bits) or O(1) with hw instructions",
+    "time": "O(#setbits)",
     "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Arithmetic vs logical shifts in signed languages",
-    "Forgetting n=0 edge cases",
-    "Assuming 32-bit when Python is unbounded"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Powers of two, subset masks, XOR pairing"
+    "Sheet section “Bit Manipulation [Concepts & Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Hardware popcount?",
-    "Subset DP over masks?",
-    "XOR of range?"
+    "Fixed 32-bit vs Python ints?",
+    "Subset masks DP?"
   ],
-  "interviewInsight": "State the invariant (e.g. XOR of pairs cancels) before the code for \"Count the number of set bits\".",
+  "interviewInsight": "State the invariant (XOR pairs cancel, etc.) first.",
   "related": [
     {
       "id": "chckifnmbrispwrf2rnt",

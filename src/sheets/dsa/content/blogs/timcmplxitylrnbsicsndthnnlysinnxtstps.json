@@ -12,63 +12,70 @@
   "sourceUrl": "https://takeuforward.org/time-complexity/time-and-space-complexity-strivers-a2z-dsa-course/",
   "quality": "reviewed",
   "tags": [
-    "complexity",
-    "tle",
-    "mle"
+    "array",
+    "revamped"
   ],
-  "pattern": "complexity-analysis",
-  "problemStatement": "Estimate runtime and memory scaling to predict TLE / MLE before you code.",
-  "intuition": "Drop constants and lower-order terms. ~1e8 ops/sec rule of thumb. O(n²) with n=1e5 → TLE. O(n²) int tables with n=1e4 → MLE risk. Recursion stack is not O(1).",
+  "pattern": "array",
+  "problemStatement": "Master “Time Complexity [Learn Basics, and then analyse in next Steps]” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Time Complexity [Learn Basics, and then analyse in next Steps]\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Constraints → algorithm family",
-      "idea": "Read limits first; pick a complexity budget; reject impossible families.",
-      "algorithm": [
-        "Identify n, m, k from constraints.",
-        "Count nested loops / branching / heavy ops.",
-        "Compare to time/memory limits → TLE/MLE flags."
-      ],
-      "code": "# Feasibility sketch (typical single-test):\n# n <= 20      → O(2^n * poly)\n# n <= 400     → O(n^3) borderline\n# n <= 5000    → O(n^2) usually OK\n# n <= 1e5     → O(n log n) / O(n)\n# n <= 1e12    → O(log n) / math\n\ndef looks_quadratic(a: list[int]) -> int:\n    n = len(a)\n    best = 0\n    for i in range(n):          # O(n^2) — TLE if n ~ 1e5\n        for j in range(i, n):\n            best = max(best, a[j])\n    return best",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Time Complexity [Learn Basics, and then analyse in next Steps]\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "Analysis — not a runtime",
-      "space": "—",
+      "time": "O(n²)",
+      "space": "O(1)",
       "flags": [
-        "TLE",
-        "MLE"
+        "TLE"
       ]
-    }
-  ],
-  "specialTechnique": {
-    "title": "TLE / MLE / RE / WA",
-    "body": "TLE — too slow (or constant too large).\nMLE — too much memory.\nRE — crash (OOB, div0, recursion depth).\nWA — wrong answer.\n\nAlways separate:\n• Time\n• Auxiliary space\n• Input space\n• Recursion stack depth"
-  },
-  "complexity": {
-    "time": "Depends on algorithm",
-    "space": "Depends on algorithm"
-  },
-  "commonMistakes": [
-    "Calling recursion stack O(1)",
-    "Assuming hashmap worst-case O(1)",
-    "O(n²) DP for large n → MLE+TLE"
-  ],
-  "patternRecognition": [
-    "Read constraints before choosing the family.",
-    "n=1e5 ⇒ discard O(n²) unless asked for brute force first."
-  ],
-  "followUps": [
-    "Auxiliary vs total space?",
-    "Why Python O(n log n) may TLE where C++ passes?",
-    "Amortized append complexity?"
-  ],
-  "interviewInsight": "Narrating complexity and TLE/MLE risk before coding is a strong SDE-2/3 signal.",
-  "related": [
-    {
-      "id": "frlps",
-      "title": "For loops"
     },
     {
-      "id": "cntdigits",
-      "title": "Count Digits"
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Time Complexity [Learn Basics, and then analyse in next Steps]\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
+    }
+  ],
+  "complexity": {
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
+  },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
+  "commonMistakes": [
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
+  ],
+  "followUps": [
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
+  ],
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
+  "related": [
+    {
+      "id": "fnctinspssbyrfrncndvl",
+      "title": "Functions (Pass by Reference and Value)"
+    },
+    {
+      "id": "pttrns",
+      "title": "Patterns"
+    },
+    {
+      "id": "whillps",
+      "title": "While loops"
     }
   ]
 }

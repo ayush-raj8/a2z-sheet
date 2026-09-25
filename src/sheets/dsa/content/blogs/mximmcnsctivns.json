@@ -12,47 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/count-maximum-consecutive-ones-in-the-array/",
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "counting"
+    "array",
+    "revamped"
   ],
-  "pattern": "running streak",
-  "problemStatement": "Find the length of the longest run of consecutive 1s in a binary array.",
-  "example": "[1,1,0,1,1,1] -> 3",
-  "intuition": "Keep a current streak that resets on 0 and a best streak that never decreases.",
+  "pattern": "array",
+  "problemStatement": "Master “Maximum Consecutive Ones” (Easy) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Maximum Consecutive Ones\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: streak counter",
-      "idea": "count++ on 1, count=0 on 0, best=max(best,count).",
-      "code": "def max_consecutive_ones(a: list[int]) -> int:\n    best = count = 0\n    for x in a:\n        count = count + 1 if x == 1 else 0\n        best = max(best, count)\n    return best",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Maximum Consecutive Ones\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[1,1,0,1,1,1]\ncount 1,2 best=2\n0 -> count=0\ncount 1,2,3 best=3",
-      "whyWorks": "Any maximal run is fully observed before the reset that ends it."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Maximum Consecutive Ones\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "All zeros -> 0",
-    "All ones -> n",
-    "Run ends at the last index"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Updating best only on reset, which misses a trailing run",
-    "Forgetting to reset count"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Run-length / streak problems; the k-flip version becomes a sliding window"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Max consecutive ones if you may flip at most k zeros (#231)",
-    "Longest run of any repeated value",
-    "Return the start index of the best run"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "The natural follow-up is the sliding-window \"flip k zeros\" version — be ready to pivot.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "findmissingnmbrinnrry",

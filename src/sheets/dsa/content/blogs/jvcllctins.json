@@ -12,39 +12,70 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "collections",
-    "java"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Java Collections counterparts for common DSA needs — mirrored here in Python for this sheet’s default language.",
-  "intuition": "ArrayList≈list, HashMap≈dict, HashSet≈set, ArrayDeque≈deque, PriorityQueue≈heapq. Know average costs and when TreeMap-order matters.",
+  "pattern": "array",
+  "problemStatement": "Master “Java Collections” (Learn STL/Java-Collections or similar thing in your language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Java Collections\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Common structures in Python",
-      "idea": "Same selection criteria as Java Collections.",
-      "code": "from collections import deque, Counter\nimport heapq\n\nfreqs = Counter([1, 1, 2])\ndq = deque()\ndq.append(1)\ndq.appendleft(0)\ndq.pop()\nheap = []\nheapq.heappush(heap, 5)\nheapq.heappush(heap, 1)\nprint(heapq.heappop(heap))  # 1",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Java Collections\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "dict/Counter avg O(1); heap push/pop O(log n)",
-      "space": "O(n)"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Java Collections\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "Per-operation",
-    "space": "O(n) typical"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Modifying a dict while iterating keys",
-    "Using list as a queue (O(n) pop(0)) → TLE"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Why ArrayDeque over Stack in Java?",
-    "LinkedHashMap use cases?",
-    "Heap as min vs max?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Using list.pop(0) as queue is a Python TLE classic — prefer deque.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "cstl",
       "title": "C++ STL"
+    },
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
+    },
+    {
+      "id": "pttrns",
+      "title": "Patterns"
     }
   ]
 }

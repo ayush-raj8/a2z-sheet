@@ -12,46 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/linear-search-in-c/",
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "search"
+    "array",
+    "revamped"
   ],
-  "pattern": "linear scan",
-  "problemStatement": "Return the index of target in an array, or -1.",
-  "example": "[4,1,9], target 9 -> 2",
-  "intuition": "With no structure on the data you must be prepared to inspect every element; linear search is optimal for unsorted input.",
+  "pattern": "array",
+  "problemStatement": "Master “Linear Search” (Easy) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Linear Search\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Linear scan",
-      "idea": "Walk left to right, return on the first match.",
-      "code": "def linear_search(a: list[int], target: int) -> int:\n    for i, x in enumerate(a):\n        if x == target:\n            return i\n    return -1",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Linear Search\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n) worst case, O(1) best",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[4,1,9] target=9\ni=0 4!=9\ni=1 1!=9\ni=2 match -> 2"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Linear Search\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Empty array",
-    "Target absent",
-    "Duplicates -> first index returned"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Returning True/False when an index was requested",
-    "Returning 0 for \"not found\""
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Unsorted data + single query -> linear; many queries -> preprocess (sort/hash)"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "When does sorting first and binary searching pay off?",
-    "Return the last occurrence instead",
-    "Search in a sorted array in O(log n)"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "The interesting answer is the trade-off: sorting costs O(n log n) and only pays off across many queries.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "mvzrstnd",

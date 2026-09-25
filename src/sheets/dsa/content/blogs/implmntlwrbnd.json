@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/implement-lower-bound-bs-2/",
   "quality": "reviewed",
   "tags": [
-    "binary-search"
+    "bs",
+    "revamped"
   ],
-  "pattern": "first index satisfying a predicate",
-  "problemStatement": "Return the first index i with a[i] >= x (n if none).",
-  "example": "[1,2,2,3], x=2 -> 1",
-  "intuition": "Lower bound is binary search on the predicate \"a[i] >= x\", which is False...False,True...True. You are finding the boundary, not a value.",
+  "pattern": "bs",
+  "problemStatement": "Master “Implement Lower Bound” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Implement Lower Bound\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: boundary binary search",
-      "idea": "Keep a candidate answer; shrink hi when the predicate holds.",
-      "code": "def lower_bound(a: list[int], x: int) -> int:\n    lo, hi = 0, len(a) - 1\n    ans = len(a)\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] >= x:\n            ans = mid\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return ans",
+      "title": "Linear scan",
+      "idea": "Scan for \"Implement Lower Bound\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Implement Lower Bound\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
       "language": "python",
       "time": "O(log n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[1,2,2,3] x=2\nmid=1 a=2>=2 ans=1 hi=0\nmid=0 a=1<2 lo=1 -> stop, ans=1",
-      "whyWorks": "The predicate is monotone, so the first True is a well-defined boundary."
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "x greater than all -> n",
-    "x smaller than all -> 0",
-    "Empty array",
-    "Many duplicates of x"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Initialising ans = -1 instead of n",
-    "Confusing lower bound with upper bound"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Monotone predicate -> record-and-shrink template"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Upper bound",
-    "Count occurrences as upper - lower",
-    "Search insert position"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Lower/upper bound is the reusable primitive; most sorted-array questions are one line once you have it.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "binrysrchtfindxinsrtdrry",

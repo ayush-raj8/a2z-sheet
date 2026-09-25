@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/search-element-in-rotated-sorted-array-ii/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "rotated-array"
+    "bs",
+    "revamped"
   ],
-  "pattern": "sorted-half test with duplicate shrink",
-  "problemStatement": "Search in a rotated sorted array that may contain duplicates. Return True/False.",
-  "example": "[2,5,6,0,0,1,2], target 0 -> True",
-  "intuition": "Duplicates can make a[lo] == a[mid] == a[hi], destroying the information about which half is sorted. The only safe move is to shrink both ends by one — which is why the worst case is O(n).",
+  "pattern": "bs",
+  "problemStatement": "Master “Search in Rotated Sorted Array II” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Search in Rotated Sorted Array II\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal-in-practice: binary search + ambiguity shrink",
-      "idea": "Handle the a[lo] == a[mid] == a[hi] case explicitly.",
-      "code": "def search_rotated_dup(a: list[int], t: int) -> bool:\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] == t:\n            return True\n        if a[lo] == a[mid] == a[hi]:\n            lo += 1\n            hi -= 1\n            continue\n        if a[lo] <= a[mid]:\n            if a[lo] <= t < a[mid]:\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        else:\n            if a[mid] < t <= a[hi]:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n    return False",
+      "title": "Linear scan",
+      "idea": "Scan for \"Search in Rotated Sorted Array II\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(log n) average, O(n) worst case",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[3,1,2,3,3,3,3] t=2\nmid=3: a[lo]=a[mid]=a[hi]=3 -> shrink to [1,2,3,3,3]\ncontinue until the sorted-half test becomes informative",
-      "whyWorks": "Shrinking by one discards at most one occurrence of an ambiguous value, never the answer."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Search in Rotated Sorted Array II\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(log n) average, O(n) worst case",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "All elements identical -> O(n)",
-    "Target absent",
-    "No rotation"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Claiming O(log n) worst case",
-    "Shrinking only one side, which can skip the answer"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Duplicates break monotonicity -> degrade gracefully instead of failing"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Why can you not do better than O(n) worst case?",
-    "Minimum in a rotated array with duplicates",
-    "Distinct-values version (#86)"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Stating the O(n) worst case unprompted is exactly what distinguishes this from problem #86.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "srchinrttdsrtdrryi",

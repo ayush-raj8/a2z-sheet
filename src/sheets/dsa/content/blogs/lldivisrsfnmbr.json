@@ -12,58 +12,54 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "easy"
+    "bit",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “All Divisors of a Number” as posed in the A2Z sheet (Advanced Maths).",
-  "intuition": "\"All Divisors of a Number\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "bit",
+  "problemStatement": "Master “All Divisors of a Number” (Advanced Maths) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"All Divisors of a Number\": bits as set membership / XOR cancel pairs / shifts for ×2.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Brute arithmetic / loops",
+      "idea": "Simulate without bit tricks for \"All Divisors of a Number\".",
+      "code": "def solve_brute(n):\n    return bin(n).count('1')",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n)",
-      "flags": [
-        "MLE"
-      ]
+      "time": "O(#bits) or worse",
+      "space": "O(1)"
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: All Divisors of a Number\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "Optimal bit idiom",
+      "idea": "Use &-tricks for \"All Divisors of a Number\".",
+      "code": "def solve(n):\n    # drop lowest set bit loop as a common idiom — adapt\n    c=0\n    while n:\n        n &= n-1; c+=1\n    return c",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(#setbits)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(#setbits)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Bit Manipulation [Concepts & Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Fixed 32-bit vs Python ints?",
+    "Subset masks DP?"
   ],
-  "interviewInsight": "For \"All Divisors of a Number\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "State the invariant (XOR pairs cancel, etc.) first.",
   "related": [
     {
       "id": "printprimfctrsfnmbr",
@@ -74,8 +70,8 @@
       "title": "Sieve of Eratosthenes"
     },
     {
-      "id": "findprimfctristinfnmbrsingsiv",
-      "title": "Find Prime Factorisation of a Number using Sieve"
+      "id": "findthtwnmbrsppringddnmbrftims",
+      "title": "Find the two numbers appearing odd number of times"
     }
   ]
 }

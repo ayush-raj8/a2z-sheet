@@ -13,44 +13,53 @@
   "quality": "reviewed",
   "tags": [
     "bit",
-    "easy"
+    "revamped"
   ],
-  "pattern": "bit-manipulation",
-  "problemStatement": "Understand Introduction to Bit Manipulation Theory deeply enough to use it in later problems in “Bit Manipulation [Concepts & Problems]”.",
-  "intuition": "\"Introduction to Bit Manipulation Theory\" uses bits as flags or XOR cancellations. Know shifts, masks, and that Python ints are unbounded (still discuss fixed-width in interviews).",
+  "pattern": "bit",
+  "problemStatement": "Master “Introduction to Bit Manipulation [Theory]” (Learn Bit Manipulation) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Introduction to Bit Manipulation [Theory]\": bits as set membership / XOR cancel pairs / shifts for ×2.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Introduction to Bit Manipulation Theory\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Introduction to Bit Manipulation Theory\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Introduction to Bit Manipulation Theory.\"\"\"\n    return True",
+      "title": "Brute arithmetic / loops",
+      "idea": "Simulate without bit tricks for \"Introduction to Bit Manipulation [Theory]\".",
+      "code": "def solve_brute(n):\n    return bin(n).count('1')",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "O(#bits) or worse",
+      "space": "O(1)"
+    },
+    {
+      "title": "Optimal bit idiom",
+      "idea": "Use &-tricks for \"Introduction to Bit Manipulation [Theory]\".",
+      "code": "def solve(n):\n    # drop lowest set bit loop as a common idiom — adapt\n    c=0\n    while n:\n        n &= n-1; c+=1\n    return c",
+      "language": "python",
+      "time": "O(#setbits)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(#setbits)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Arithmetic vs logical shifts in signed languages",
-    "Forgetting n=0 edge cases",
-    "Assuming 32-bit when Python is unbounded"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Powers of two, subset masks, XOR pairing"
+    "Sheet section “Bit Manipulation [Concepts & Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Hardware popcount?",
-    "Subset DP over masks?",
-    "XOR of range?"
+    "Fixed 32-bit vs Python ints?",
+    "Subset masks DP?"
   ],
-  "interviewInsight": "State the invariant (e.g. XOR of pairs cancels) before the code for \"Introduction to Bit Manipulation Theory\".",
+  "interviewInsight": "State the invariant (XOR pairs cancel, etc.) first.",
   "related": [
     {
       "id": "chckifthithbitisstrnt",

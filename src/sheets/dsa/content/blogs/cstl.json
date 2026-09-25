@@ -12,36 +12,63 @@
   "sourceUrl": "https://takeuforward.org/c/c-stl-tutorial-most-frequent-used-stl-containers/",
   "quality": "reviewed",
   "tags": [
-    "stl",
-    "containers"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Know the core C++ STL containers/algorithms — and their Python equivalents — by access pattern.",
-  "intuition": "Pick containers by operations: sequence → vector/list; ordered unique → set; average lookup → unordered_map/dict; extremes → priority_queue/heapq.",
+  "pattern": "array",
+  "problemStatement": "Master “C++ STL” (Learn STL/Java-Collections or similar thing in your language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"C++ STL\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Python equivalents cheat-sheet",
-      "idea": "Map STL → Python for interview bilingualism.",
-      "code": "# vector          → list\n# stack/queue      → list / collections.deque\n# priority_queue   → heapq\n# set / map        → set / dict (ordered variants: sorted containers manually)\n# unordered_map    → dict\n# sort             → list.sort / sorted\n# lower_bound      → bisect.bisect_left\n\nfrom collections import deque\nimport heapq\nimport bisect\n\na = [3, 1, 2]\na.sort()\nidx = bisect.bisect_left(a, 2)\ndq = deque([1, 2])\ndq.appendleft(0)\nheap = [5, 1, 3]\nheapq.heapify(heap)\nheapq.heappush(heap, 0)",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"C++ STL\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "Container-specific (know dict avg O(1), sort O(n log n))",
-      "space": "Container-specific"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"C++ STL\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "Know per-operation costs",
-    "space": "Know per-structure costs"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Using sorted map when hash map suffices (extra log)",
-    "Iterator invalidation habits from C++ applied blindly"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "When ordered map vs hash map?",
-    "Amortized cost of vector push_back?",
-    "Python dict average vs worst case?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Naming the right structure in 10 seconds beats micro-optimizing the wrong one.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
+    {
+      "id": "pttrns",
+      "title": "Patterns"
+    },
     {
       "id": "jvcllctins",
       "title": "Java Collections"

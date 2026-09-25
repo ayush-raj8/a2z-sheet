@@ -13,55 +13,57 @@
   "quality": "reviewed",
   "tags": [
     "dp",
-    "hard"
+    "revamped"
   ],
-  "pattern": "dynamic-programming",
-  "problemStatement": "Solve “Minimum Coins (DP - 20)” as posed in the A2Z sheet (DP on Subsequences).",
-  "intuition": "\"Minimum Coins (DP - 20)\" needs DP: define state, transition, base, order. Start from recursion → memo → tabulation → space opt when safe.",
+  "pattern": "dp",
+  "problemStatement": "Master “Minimum Coins (DP - 20)” (DP on Subsequences) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Minimum Coins (DP - 20)\": write state, transition, base, order. Climb recursion → memo → tabulation → space opt.",
   "approaches": [
     {
-      "title": "Recursion + memo",
-      "idea": "Top-down cache of subproblems.",
-      "code": "def solve(nums):\n    # Skeleton for: Minimum Coins (DP - 20)\n    memo = {}\n    def dp(i):\n        if i in memo:\n            return memo[i]\n        if i >= len(nums):\n            return 0  # adapt base\n        # adapt transition\n        memo[i] = max(dp(i + 1), nums[i] + dp(i + 2))\n        return memo[i]\n    return dp(0)",
+      "title": "Recursion exponential",
+      "idea": "Bare recursion for \"Minimum Coins (DP - 20)\".",
+      "code": "def solve_rec(i):\n    if i==0: return 0\n    return min(solve_rec(i-1)+1, solve_rec(i-1)+1)  # adapt",
       "language": "python",
-      "time": "O(states · transition)",
-      "space": "O(states) + recursion stack",
+      "time": "Exponential",
+      "space": "O(n) stack",
       "flags": [
+        "TLE",
         "RE"
       ]
     },
     {
-      "title": "Bottom-up",
-      "idea": "Iterate in dependency order.",
-      "code": "def solve_bottom_up(nums):\n    n = len(nums)\n    if n == 0:\n        return 0\n    dp = [0] * (n + 1)\n    dp[1] = nums[0]\n    for i in range(2, n + 1):\n        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1])\n    return dp[n]",
+      "title": "Memo / bottom-up",
+      "idea": "Cache or iterate for \"Minimum Coins (DP - 20)\".",
+      "code": "def solve(n):\n    dp=[0]*(n+1)\n    for i in range(1,n+1):\n        dp[i]=dp[i-1]+1  # adapt transition\n    return dp[n]",
       "language": "python",
-      "time": "O(n) for 1D patterns like this skeleton",
-      "space": "O(n); often O(1) with rolling vars"
+      "time": "O(states·trans)",
+      "space": "O(states)"
     }
   ],
   "complexity": {
-    "time": "O(n) for 1D patterns like this skeleton",
-    "space": "O(n); often O(1) with rolling vars"
+    "time": "O(states·trans)",
+    "space": "O(states)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Wrong base cases",
-    "Iterating in an order that uses uncomputed states",
-    "Confusing subsequence vs substring"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Overlapping subproblems + optimal substructure"
+    "Sheet section “Dynamic Programming [Patterns and Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Space-optimize dimensions?",
-    "Print the chosen subset/path?",
-    "Modulo arithmetic version?"
+    "Space optimize?",
+    "Print reconstruction?"
   ],
-  "interviewInsight": "Write state meaning in one sentence before transitions for \"Minimum Coins (DP - 20)\".",
+  "interviewInsight": "State sentence first — transitions second.",
   "related": [
     {
       "id": "01knpsckdp19",

@@ -12,47 +12,57 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "medium"
+    "bt",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Understand Learn All Patterns of Subsequences (Theory) deeply enough to use it in later problems in “Recursion [PatternWise]”.",
-  "intuition": "\"Learn All Patterns of Subsequences (Theory)\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "bt",
+  "problemStatement": "Master “Learn All Patterns of Subsequences (Theory)” (Subsequences Pattern) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Learn All Patterns of Subsequences (Theory)\": choose → recurse → undo; prune hard.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Learn All Patterns of Subsequences (Theory)\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Learn All Patterns of Subsequences (Theory)\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Learn All Patterns of Subsequences (Theory).\"\"\"\n    return True",
+      "title": "Unpruned search",
+      "idea": "Full tree for \"Learn All Patterns of Subsequences (Theory)\".",
+      "code": "def solve(n):\n    ans=[]\n    def dfs(path):\n        if len(path)==n: ans.append(path[:]); return\n        for i in range(n):\n            if i in path: continue\n            path.append(i); dfs(path); path.pop()\n    dfs([])\n    return ans",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "O(n!)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Backtracking with prune",
+      "idea": "Add constraints for \"Learn All Patterns of Subsequences (Theory)\".",
+      "code": "def solve(n):\n    ans=[]; path=[]\n    def dfs(start):\n        ans.append(path[:])\n        for i in range(start,n):\n            path.append(i); dfs(i+1); path.pop()\n    dfs(0)\n    return ans",
+      "language": "python",
+      "time": "O(2^n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(2^n)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Recursion [PatternWise]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Dedup?",
+    "Bitmask DP alternative?"
   ],
-  "interviewInsight": "For \"Learn All Patterns of Subsequences (Theory)\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Name choose/constraint/undo explicitly.",
   "related": [
     {
       "id": "printllsbsqncspwrst",

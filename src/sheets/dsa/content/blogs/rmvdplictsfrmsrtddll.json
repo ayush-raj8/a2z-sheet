@@ -12,17 +12,17 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "medium"
+    "ll",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Remove duplicates from sorted DLL” as posed in the A2Z sheet (Medium Problems of DLL).",
-  "intuition": "\"Remove duplicates from sorted DLL\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "ll",
+  "problemStatement": "Master “Remove duplicates from sorted DLL” (Medium Problems of DLL) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Remove duplicates from sorted DLL\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Remove duplicates from sorted DLL\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
       "time": "O(n)",
       "space": "O(n)",
@@ -31,39 +31,38 @@
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Remove duplicates from sorted DLL\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Remove duplicates from sorted DLL\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "For \"Remove duplicates from sorted DLL\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
     {
       "id": "findpirswithgivnsmindll",

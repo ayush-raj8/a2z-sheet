@@ -12,47 +12,57 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "trie",
-    "hard"
+    "string",
+    "revamped"
   ],
-  "pattern": "trie",
-  "problemStatement": "Solve “Longest happy prefix” as posed in the A2Z sheet (Hard Problems).",
-  "intuition": "\"Longest happy prefix\" indexes strings by shared prefixes. Each edge is a character; end markers denote keys.",
+  "pattern": "string",
+  "problemStatement": "Master “Longest happy prefix” (Hard Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Longest happy prefix\": clarify alphabet/case; prefer window/hash/KMP over O(n²).",
   "approaches": [
     {
-      "title": "Trie insert / search",
-      "idea": "Walk/create nodes per character.",
-      "code": "class Node:\n    def __init__(self):\n        self.next = {}\n        self.end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word: str) -> None:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                cur.next[ch] = Node()\n            cur = cur.next[ch]\n        cur.end = True\n\n    def search(self, word: str) -> bool:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                return False\n            cur = cur.next[ch]\n        return cur.end\n# Adapt API for: Longest happy prefix",
+      "title": "Brute all substrings",
+      "idea": "O(n²) check for \"Longest happy prefix\".",
+      "code": "def solve_brute(s):\n    best=0\n    for i in range(len(s)):\n        for j in range(i,len(s)):\n            best=max(best,j-i+1)\n    return best",
       "language": "python",
-      "time": "O(total characters)",
-      "space": "O(total characters · Σ)",
+      "time": "O(n²+)",
+      "space": "O(1)",
       "flags": [
-        "MLE"
+        "TLE"
       ]
+    },
+    {
+      "title": "Linear pattern (window/hash)",
+      "idea": "One pass for \"Longest happy prefix\".",
+      "code": "from collections import Counter\ndef solve(s):\n    left=0; freq=Counter(); best=0\n    for r,ch in enumerate(s):\n        freq[ch]+=1\n        while len(freq)>2:\n            freq[s[left]]-=1\n            if freq[s[left]]==0: del freq[s[left]]\n            left+=1\n        best=max(best,r-left+1)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(Σ)"
     }
   ],
   "complexity": {
-    "time": "O(total characters)",
-    "space": "O(total characters · Σ)"
+    "time": "O(n)",
+    "space": "O(Σ)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting end marker",
-    "Huge alphabet memory blow-ups"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Prefix queries, autocomplete, XOR bit tries"
+    "Sheet section “Strings” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Delete operation?",
-    "Compressed trie / radix tree?",
-    "Bit trie for XOR maxima?"
+    "Exactly K vs at most K?",
+    "Unicode?"
   ],
-  "interviewInsight": "Memory layout matters for \"Longest happy prefix\" — mention MLE risk on dense alphabets.",
+  "interviewInsight": "Contract on string rules before code.",
   "related": [
     {
       "id": "shrtstplindrm",

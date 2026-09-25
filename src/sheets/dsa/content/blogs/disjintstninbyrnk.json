@@ -13,53 +13,53 @@
   "quality": "reviewed",
   "tags": [
     "graph",
-    "hard"
+    "dsu"
   ],
-  "pattern": "graphs",
-  "problemStatement": "Solve “Disjoint Set Union by Rank” as posed in the A2Z sheet (MinimumSpanningTree/Disjoint Set and Problems).",
-  "intuition": "\"Disjoint Set Union by Rank\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "pattern": "union-find",
+  "problemStatement": "Disjoint Set Union (Union-Find): maintain partitions with union and find.",
+  "intuition": "Parent pointers + path compression + union by rank/size ≈ almost O(1) per op (inverse Ackermann).",
   "approaches": [
     {
-      "title": "Traversal / shortest-path skeleton",
-      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Disjoint Set Union by Rank\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "title": "Naive parent without compression",
+      "idea": "Works but can degrade to O(n) chains.",
+      "code": "class DSUNaive:\n    def __init__(self, n):\n        self.p = list(range(n))\n    def find(self, x):\n        while x != self.p[x]:\n            x = self.p[x]\n        return x\n    def union(self, a, b):\n        ra, rb = self.find(a), self.find(b)\n        if ra != rb:\n            self.p[rb] = ra",
       "language": "python",
-      "time": "O(n + m) for BFS/DFS",
-      "space": "O(n + m)",
+      "time": "O(n) per find worst-case",
+      "space": "O(n)",
       "flags": [
-        "TLE",
-        "MLE"
-      ],
-      "limitations": [
-        "Wrong algorithm for weights → WA; huge adj lists → MLE"
+        "TLE"
       ]
+    },
+    {
+      "title": "Optimal: path compression + union by rank",
+      "idea": "Nearly constant amortized time.",
+      "code": "class DSU:\n    def __init__(self, n):\n        self.p = list(range(n))\n        self.r = [0] * n\n    def find(self, x):\n        if self.p[x] != x:\n            self.p[x] = self.find(self.p[x])\n        return self.p[x]\n    def union(self, a, b):\n        ra, rb = self.find(a), self.find(b)\n        if ra == rb:\n            return False\n        if self.r[ra] < self.r[rb]:\n            ra, rb = rb, ra\n        self.p[rb] = ra\n        if self.r[ra] == self.r[rb]:\n            self.r[ra] += 1\n        return True",
+      "language": "python",
+      "time": "Amortized ≈ O(α(n)) ≈ O(1)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n + m) for BFS/DFS",
-    "space": "O(n + m)"
+    "time": "≈ O(1) amortized / op",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Union same set",
+    "n=1"
   ],
   "commonMistakes": [
-    "DFS for unweighted shortest path",
-    "Forgetting visited → infinite loops",
-    "1-index vs 0-index bugs"
+    "Forgetting path compression",
+    "Comparing nodes not roots"
   ],
   "patternRecognition": [
-    "Shortest unweighted → BFS",
-    "Multi-source spreading → multi-source BFS",
-    "Ordering with prerequisites → topo"
+    "Kruskal, connectivity queries, accounts merge"
   ],
   "followUps": [
-    "Weighted edges?",
-    "Negative cycles?",
-    "Connected components count?"
+    "Union by size vs rank?",
+    "Rollback DSU?",
+    "Dynamic connectivity?"
   ],
-  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Disjoint Set Union by Rank\".",
+  "interviewInsight": "Implement find with compression from memory cleanly — muscle memory matter.",
   "related": [
     {
       "id": "primslgrithm",

@@ -12,45 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/search-insert-position/",
   "quality": "reviewed",
   "tags": [
-    "binary-search"
+    "bs",
+    "revamped"
   ],
-  "pattern": "lower bound",
-  "problemStatement": "Return the index of target, or the index where it would be inserted to keep the array sorted.",
-  "example": "[1,3,5,6], target 2 -> 1",
-  "intuition": "This is exactly lower_bound: the first position whose value is >= target.",
+  "pattern": "bs",
+  "problemStatement": "Master “Search Insert Position” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Search Insert Position\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: lower bound",
-      "idea": "Answer is the insertion point whether or not the target exists.",
-      "code": "def search_insert(a: list[int], target: int) -> int:\n    lo, hi = 0, len(a) - 1\n    ans = len(a)\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] >= target:\n            ans = mid\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return ans",
+      "title": "Linear scan",
+      "idea": "Scan for \"Search Insert Position\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Search Insert Position\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
       "language": "python",
       "time": "O(log n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[1,3,5,6] target=2\nmid=1 (3>=2) ans=1 hi=0\nmid=0 (1<2) lo=1 -> 1"
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Insert at the end",
-    "Insert at the front",
-    "Target already present"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Special-casing the found value unnecessarily",
-    "Returning -1 when absent"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Insertion position == lower bound"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "What if duplicates exist and you must insert after them? (upper bound)",
-    "Insert into a sorted linked list",
-    "Search insert in a rotated array"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Recognising it as lower_bound turns a \"medium\" into two lines.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "implmntpprbnd",

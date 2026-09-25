@@ -12,48 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/4-sum-find-quads-that-add-up-to-a-target-value/",
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "two-pointers",
-    "sorting"
+    "array",
+    "revamped"
   ],
-  "pattern": "sort + fix two + two pointers",
-  "problemStatement": "Return all unique quadruplets summing to a target.",
-  "example": "[1,0,-1,0,-2,2], target 0 -> [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]",
-  "intuition": "Exactly 3-Sum with one more fixed index. The skip-duplicates discipline is applied at all four levels.",
+  "pattern": "array",
+  "problemStatement": "Master “4-Sum Problem” (Hard) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"4-Sum Problem\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: two nested loops + two pointers",
-      "idea": "Sort once; skip duplicates at i, j, lo and hi.",
-      "code": "def four_sum(a: list[int], target: int) -> list[list[int]]:\n    a.sort()\n    n = len(a)\n    out: list[list[int]] = []\n    for i in range(n - 3):\n        if i > 0 and a[i] == a[i - 1]:\n            continue\n        for j in range(i + 1, n - 2):\n            if j > i + 1 and a[j] == a[j - 1]:\n                continue\n            lo, hi = j + 1, n - 1\n            while lo < hi:\n                s = a[i] + a[j] + a[lo] + a[hi]\n                if s < target:\n                    lo += 1\n                elif s > target:\n                    hi -= 1\n                else:\n                    out.append([a[i], a[j], a[lo], a[hi]])\n                    lo += 1\n                    hi -= 1\n                    while lo < hi and a[lo] == a[lo - 1]:\n                        lo += 1\n                    while lo < hi and a[hi] == a[hi + 1]:\n                        hi -= 1\n    return out",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"4-Sum Problem\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n^3)",
-      "space": "O(1) auxiliary beyond sorting",
-      "dryRun": "sorted: [-2,-1,0,0,1,2] target 0\ni=-2, j=-1 -> lo/hi find (1,2)\ni=-2, j=0 -> (0,2)\ni=-1, j=0 -> (0,1)",
-      "whyWorks": "Fixing two indices reduces to sorted 2-Sum, which is linear."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"4-Sum Problem\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n^3)",
-    "space": "O(1) auxiliary beyond sorting"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Integer overflow in C++/Java (use 64-bit)",
-    "Heavy duplicates",
-    "n < 4"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Skipping j duplicates with `j > 0` instead of `j > i + 1`",
-    "Forgetting that the sum can overflow 32-bit ints in other languages"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "k-Sum -> fix k-2 indices and run two pointers"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Generic k-Sum via recursion",
-    "Count quadruplets instead of listing them",
-    "Can you beat O(n^3)? (meet in the middle, O(n^2 log n))"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "The meet-in-the-middle O(n^2) pair-hash answer is a strong bonus if you have time to mention it.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "3smprblm",

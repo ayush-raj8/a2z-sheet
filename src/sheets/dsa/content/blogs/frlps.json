@@ -12,46 +12,70 @@
   "sourceUrl": "https://takeuforward.org/for-loop/understanding-for-loop/",
   "quality": "reviewed",
   "tags": [
-    "loops"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Counted iteration with correct inclusive/exclusive bounds.",
-  "intuition": "Decide index meaning first, then write the header. Verify n=0 and n=1. Nested loops → state O(n²) and TLE risk when n=1e5.",
+  "pattern": "array",
+  "problemStatement": "Master “For loops” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"For loops\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "range mastery",
-      "idea": "range(n) → 0..n-1; range(1,n+1) → 1..n.",
-      "code": "def print_1_to_n(n: int) -> None:\n    for i in range(1, n + 1):\n        print(i, end=\" \")\n    print()\n\ndef sum_array(a: list[int]) -> int:\n    total = 0\n    for x in a:\n        total += x\n    return total",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"For loops\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n) for n iterations",
-      "space": "O(1) auxiliary"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"For loops\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(iterations)",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "n=0",
-    "n=1",
-    "empty list"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Off-by-one",
-    "Accidental O(n²) nested loops → TLE"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "When is while clearer?",
-    "enumerate for index+value?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Narrate “nested loop is O(n²); n=1e5 TLEs” — SDE-2 habit.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
+    {
+      "id": "whtrrrysstrings",
+      "title": "What are arrays, strings?"
+    },
     {
       "id": "whillps",
       "title": "While loops"
     },
     {
-      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
-      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
+      "id": "switchsttmnt",
+      "title": "Switch Statement"
     }
   ]
 }

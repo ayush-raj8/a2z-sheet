@@ -12,45 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/bubble-sort-algorithm/",
   "quality": "reviewed",
   "tags": [
-    "sorting"
+    "array",
+    "revamped"
   ],
-  "pattern": "sorting",
-  "problemStatement": "Sort an array using Bubble Sort (with optimized early exit).",
-  "example": "[4,1,3,2] → [1,2,3,4]",
-  "intuition": "Repeatedly swap adjacent out-of-order pairs; each pass bubbles the next maximum to the end. If a pass does zero swaps, the array is sorted — early exit.",
+  "pattern": "array",
+  "problemStatement": "Master “Bubble Sort” (Sorting-I) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Bubble Sort\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Bubble sort (optimized)",
-      "idea": "n-1 passes; shrink unsorted suffix; break if no swaps.",
-      "code": "def bubble_sort(a: list[int]) -> None:\n    n = len(a)\n    for pass_i in range(n - 1):\n        swapped = False\n        for j in range(0, n - 1 - pass_i):\n            if a[j] > a[j + 1]:\n                a[j], a[j + 1] = a[j + 1], a[j]\n                swapped = True\n        if not swapped:\n            break",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Bubble Sort\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n²) worst / avg; O(n) best when already sorted",
-      "space": "O(1) auxiliary",
+      "time": "O(n²)",
+      "space": "O(1)",
       "flags": [
         "TLE"
-      ],
-      "dryRun": "[4,1,3,2]\\npass: (1,4,3,2)→(1,3,4,2)→(1,3,2,4)\\nthen … → [1,2,3,4]",
-      "whyWorks": "After k passes, the k largest elements are in the last k positions."
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Bubble Sort\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n²) worst; O(n) best with flag",
-    "space": "O(1) aux"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Already sorted (should O(n) with flag)",
-    "Single element"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting early-exit flag",
-    "Wrong j range causing index errors"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn Important Sorting Techniques” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Is bubble stable? (yes)",
-    "Cocktail shaker sort?",
-    "Why never use in production?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Mention best-case O(n) with swap flag — shows you know adaptive behavior.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "slctinsrt",
@@ -61,8 +74,8 @@
       "title": "Insertion Sort"
     },
     {
-      "id": "rcrsivbbblsrt",
-      "title": "Recursive Bubble Sort"
+      "id": "mrgsrt",
+      "title": "Merge Sort"
     }
   ]
 }

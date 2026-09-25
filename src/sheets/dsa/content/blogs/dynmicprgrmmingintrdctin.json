@@ -13,44 +13,57 @@
   "quality": "reviewed",
   "tags": [
     "dp",
-    "medium"
+    "revamped"
   ],
-  "pattern": "dynamic-programming",
-  "problemStatement": "Understand Dynamic Programming Introduction deeply enough to use it in later problems in “Dynamic Programming [Patterns and Problems]”.",
-  "intuition": "\"Dynamic Programming Introduction\" needs DP: define state, transition, base, order. Start from recursion → memo → tabulation → space opt when safe.",
+  "pattern": "dp",
+  "problemStatement": "Master “Dynamic Programming Introduction” (Introduction to DP) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Dynamic Programming Introduction\": write state, transition, base, order. Climb recursion → memo → tabulation → space opt.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Dynamic Programming Introduction\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Dynamic Programming Introduction\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Dynamic Programming Introduction.\"\"\"\n    return True",
+      "title": "Recursion exponential",
+      "idea": "Bare recursion for \"Dynamic Programming Introduction\".",
+      "code": "def solve_rec(i):\n    if i==0: return 0\n    return min(solve_rec(i-1)+1, solve_rec(i-1)+1)  # adapt",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "Exponential",
+      "space": "O(n) stack",
+      "flags": [
+        "TLE",
+        "RE"
+      ]
+    },
+    {
+      "title": "Memo / bottom-up",
+      "idea": "Cache or iterate for \"Dynamic Programming Introduction\".",
+      "code": "def solve(n):\n    dp=[0]*(n+1)\n    for i in range(1,n+1):\n        dp[i]=dp[i-1]+1  # adapt transition\n    return dp[n]",
+      "language": "python",
+      "time": "O(states·trans)",
+      "space": "O(states)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(states·trans)",
+    "space": "O(states)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Wrong base cases",
-    "Iterating in an order that uses uncomputed states",
-    "Confusing subsequence vs substring"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Overlapping subproblems + optimal substructure"
+    "Sheet section “Dynamic Programming [Patterns and Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Space-optimize dimensions?",
-    "Print the chosen subset/path?",
-    "Modulo arithmetic version?"
+    "Space optimize?",
+    "Print reconstruction?"
   ],
-  "interviewInsight": "Write state meaning in one sentence before transitions for \"Dynamic Programming Introduction\".",
+  "interviewInsight": "State sentence first — transitions second.",
   "related": [
     {
       "id": "climbingstrs",

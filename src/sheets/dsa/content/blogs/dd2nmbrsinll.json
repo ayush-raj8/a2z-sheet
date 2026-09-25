@@ -12,60 +12,69 @@
   "sourceUrl": "https://takeuforward.org/data-structure/add-two-numbers-represented-as-linked-lists/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "math"
+    "ll",
+    "revamped"
   ],
-  "pattern": "digit-wise addition with carry",
-  "problemStatement": "Add two numbers represented as linked lists with digits in reverse order.",
-  "example": "(2->4->3) + (5->6->4) = 7->0->8  (342 + 465 = 807)",
-  "intuition": "Reverse order is a gift: the heads are the least significant digits, so you can add left to right exactly like grade-school addition.",
+  "pattern": "ll",
+  "problemStatement": "Master “Add 2 numbers in LL” (Medium Problems of LL) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Add 2 numbers in LL\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Optimal: single pass with carry",
-      "idea": "Loop while either list remains or a carry is pending.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef add_two_numbers(l1, l2):\n    dummy = tail = Node(0)\n    carry = 0\n    while l1 or l2 or carry:\n        total = carry\n        if l1:\n            total += l1.val\n            l1 = l1.next\n        if l2:\n            total += l2.val\n            l2 = l2.next\n        carry, digit = divmod(total, 10)\n        tail.next = Node(digit)\n        tail = tail.next\n    return dummy.next",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Add 2 numbers in LL\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
-      "time": "O(max(n, m))",
-      "space": "O(max(n, m)) for the output",
-      "dryRun": "2+5=7; 4+6=10 -> digit 0 carry 1; 3+4+1=8 -> 7->0->8",
-      "whyWorks": "The `or carry` condition handles the final carry-out uniformly."
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Add 2 numbers in LL\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(max(n, m))",
-    "space": "O(max(n, m)) output"
+    "time": "O(n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Different lengths",
-    "Final carry creating a new digit (99 + 1)",
-    "One list empty",
-    "Leading zeros"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Dropping the last carry",
-    "Assuming equal lengths"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Carry propagation appears in add-1, big-integer addition and binary addition"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Digits in forward order (use stacks or reverse first)",
-    "Add 1 to a number in a list (#148)",
-    "Multiply two numbers represented as lists"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "The `while l1 or l2 or carry` loop condition is the clean idiom; writing three separate loops is the giveaway.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
     {
       "id": "dd1tnmbrrprsntdbyll",
       "title": "Add 1 to a number represented by LL"
     },
     {
-      "id": "findthintrsctinpintfyll",
-      "title": "Find the intersection point of Y LL"
+      "id": "dltllccrrncsfkyindll",
+      "title": "Delete all occurrences of a key in DLL"
     },
     {
-      "id": "srtllf0s1snd2sbychnginglinks",
-      "title": "Sort a LL of 0's 1's and 2's by changing links"
+      "id": "findthintrsctinpintfyll",
+      "title": "Find the intersection point of Y LL"
     }
   ]
 }

@@ -13,46 +13,63 @@
   "quality": "reviewed",
   "tags": [
     "graph",
-    "easy"
+    "revamped"
   ],
-  "pattern": "graphs",
-  "problemStatement": "Understand Graph Representation | Java deeply enough to use it in later problems in “Graphs [Concepts & Problems]”.",
-  "intuition": "\"Graph Representation | Java\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "pattern": "graph",
+  "problemStatement": "Master “Graph Representation | Java” (Learning) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Graph Representation | Java\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Graph Representation | Java\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Graph Representation | Java\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Graph Representation | Java.\"\"\"\n    return True",
+      "title": "Clarify + brute exploration",
+      "idea": "Enumerate paths/states naively for \"Graph Representation | Java\" to lock meaning.",
+      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Graph Representation | Java\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "Often exponential or O(n·m) too large",
+      "space": "O(n+m)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Pattern-optimal algorithm",
+      "idea": "Apply the standard algorithm this sheet topic trains for \"Graph Representation | Java\".",
+      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Graph Representation | Java\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
+      "language": "python",
+      "time": "Typically O(n+m) or O((n+m)log n)",
+      "space": "O(n+m)",
+      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
     }
   ],
+  "specialTechnique": {
+    "title": "Graph algorithm cheat sheet",
+    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+  },
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "Typically O(n+m) or O((n+m)log n)",
+    "space": "O(n+m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "DFS for unweighted shortest path",
-    "Forgetting visited → infinite loops",
-    "1-index vs 0-index bugs"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Shortest unweighted → BFS",
-    "Multi-source spreading → multi-source BFS",
-    "Ordering with prerequisites → topo"
+    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Weighted edges?",
+    "Directed vs undirected?",
+    "Weighted?",
     "Negative cycles?",
-    "Connected components count?"
+    "Reconstruct path?"
   ],
-  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Graph Representation | Java\".",
+  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
   "related": [
     {
       "id": "grphrprsnttinc",

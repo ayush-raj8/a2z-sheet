@@ -13,45 +13,57 @@
   "quality": "reviewed",
   "tags": [
     "greedy",
-    "medium"
+    "revamped"
   ],
   "pattern": "greedy",
-  "problemStatement": "Solve “Job sequencing Problem” as posed in the A2Z sheet (Medium/Hard).",
-  "intuition": "\"Job sequencing Problem\" may admit a greedy choice. Sort by the right key, then take the next safe candidate. Prove exchange argument or cite a known theorem.",
+  "problemStatement": "Master “Job sequencing Problem” (Medium/Hard) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Job sequencing Problem\": propose a sort key + greedy choice; give exchange argument or counterexample if wrong.",
   "approaches": [
     {
-      "title": "Greedy after sorting",
-      "idea": "Sort, then scan once taking locally optimal safe moves.",
-      "code": "def solve(intervals):\n    # Skeleton for: Job sequencing Problem\n    intervals = sorted(intervals, key=lambda x: x[1])  # adapt key\n    ans = 0\n    last_end = float('-inf')\n    for start, end in intervals:\n        if start >= last_end:\n            ans += 1\n            last_end = end\n    return ans",
+      "title": "Brute subsets / DP",
+      "idea": "Exponential or DP reference for \"Job sequencing Problem\".",
+      "code": "def solve_brute(items):\n    # exponential check\n    return None",
       "language": "python",
-      "time": "Usually O(n log n) from sort",
+      "time": "Exponential / DP heavier",
+      "space": "—",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal greedy",
+      "idea": "Sort then scan for \"Job sequencing Problem\".",
+      "code": "def solve(items):\n    items=sorted(items)  # adapt key\n    ans=0\n    # take next safe item\n    return ans",
+      "language": "python",
+      "time": "O(n log n)",
       "space": "O(1)–O(n)",
-      "whyWorks": "Exchange: any optimal solution can be transformed into the greedy one without loss."
+      "whyWorks": "Exchange argument: any optimal can be transformed into greedy."
     }
   ],
   "complexity": {
-    "time": "Usually O(n log n) from sort",
+    "time": "O(n log n)",
     "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Greedy without proof → WA on counterexamples",
-    "Sorting by the wrong key",
-    "Using DP when greedy suffices (or the reverse)"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Interval scheduling, jump reachability, Huffman-style choices"
+    "Sheet section “Greedy Algorithms [Easy, Medium/Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Counterexample if sorted by start instead?",
-    "DP fallback when greedy fails?",
-    "Online vs offline greedy?"
+    "Wrong sort key counterexample?",
+    "When must use DP?"
   ],
-  "interviewInsight": "For \"Job sequencing Problem\", the sort key is the interview; code is secondary.",
+  "interviewInsight": "Greedy interviews are won on the proof, not the loop.",
   "related": [
     {
       "id": "minimmnmbrfpltfrmsrqirdfrrilwy",

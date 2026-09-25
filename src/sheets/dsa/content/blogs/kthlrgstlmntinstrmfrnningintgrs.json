@@ -13,58 +13,53 @@
   "quality": "reviewed",
   "tags": [
     "heap",
-    "easy"
+    "revamped"
   ],
   "pattern": "heap",
-  "problemStatement": "Solve “Kth largest element in a stream of running integers” as posed in the A2Z sheet (Hard Problems).",
-  "intuition": "\"Kth largest element in a stream of running integers\" needs repeated access to extremes → heap (priority queue). Top-K often uses a size-k heap for O(n log k).",
+  "problemStatement": "Master “Kth largest element in a stream of running integers” (Hard Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Kth largest element in a stream of running integers\": repeated extremes → heap; top-k → size-k heap.",
   "approaches": [
     {
-      "title": "Sort-based",
-      "idea": "Sort and pick — simpler but usually O(n log n).",
-      "code": "def solve_sort(a, k):\n    return sorted(a, reverse=True)[:k]  # adapt",
+      "title": "Sort",
+      "idea": "Full sort then pick for \"Kth largest element in a stream of running integers\".",
+      "code": "def solve_sort(a,k):\n    return sorted(a)[:k]",
       "language": "python",
       "time": "O(n log n)",
       "space": "O(n)"
     },
     {
-      "title": "Optimal: heap",
-      "idea": "Push/pop extremes; keep heap size bounded by k when possible.",
-      "code": "import heapq\n\ndef solve(a, k):\n    # Skeleton for: Kth largest element in a stream of running integers\n    heap = []\n    for x in a:\n        heapq.heappush(heap, x)  # min-heap; adapt for max-heap via -x\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return list(heap)",
+      "title": "Heap",
+      "idea": "Bounded heap for \"Kth largest element in a stream of running integers\".",
+      "code": "import heapq\ndef solve(a,k):\n    h=[]\n    for x in a:\n        heapq.heappush(h,x)\n        if len(h)>k: heapq.heappop(h)\n    return h",
       "language": "python",
-      "time": "O(n log k) for top-k patterns",
-      "space": "O(k)",
-      "flags": [
-        "MLE"
-      ],
-      "limitations": [
-        "Unbounded heap on huge streams → MLE"
-      ]
+      "time": "O(n log k)",
+      "space": "O(k)"
     }
   ],
   "complexity": {
-    "time": "O(n log k) for top-k patterns",
+    "time": "O(n log k)",
     "space": "O(k)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Min vs max heap confusion",
-    "Growing heap without bound",
-    "Comparing tuples incorrectly"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Top-K, running median, merge K lists"
+    "Sheet section “Heaps [Learning, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Quickselect average O(n)?",
-    "Running median with two heaps?",
-    "Memory constraints for streams?"
+    "Quickselect?",
+    "Running median two heaps?"
   ],
-  "interviewInsight": "State why size-k heap beats full sort for \"Kth largest element in a stream of running integers\" when only K matters.",
+  "interviewInsight": "Explain why k-heap beats n-log-n when only K matter.",
   "related": [
     {
       "id": "cnnctnrpswithminimlcst",

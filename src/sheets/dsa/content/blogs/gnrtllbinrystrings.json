@@ -12,70 +12,69 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "medium"
+    "string",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Generate all binary strings” as posed in the A2Z sheet (Subsequences Pattern).",
-  "intuition": "\"Generate all binary strings\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "string",
+  "problemStatement": "Master “Generate all binary strings” (Subsequences Pattern) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Generate all binary strings\": clarify alphabet/case; prefer window/hash/KMP over O(n²).",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Brute all substrings",
+      "idea": "O(n²) check for \"Generate all binary strings\".",
+      "code": "def solve_brute(s):\n    best=0\n    for i in range(len(s)):\n        for j in range(i,len(s)):\n            best=max(best,j-i+1)\n    return best",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n)",
+      "time": "O(n²+)",
+      "space": "O(1)",
       "flags": [
-        "MLE"
+        "TLE"
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Generate all binary strings\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "Linear pattern (window/hash)",
+      "idea": "One pass for \"Generate all binary strings\".",
+      "code": "from collections import Counter\ndef solve(s):\n    left=0; freq=Counter(); best=0\n    for r,ch in enumerate(s):\n        freq[ch]+=1\n        while len(freq)>2:\n            freq[s[left]]-=1\n            if freq[s[left]]==0: del freq[s[left]]\n            left+=1\n        best=max(best,r-left+1)\n    return best",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(n)",
+      "space": "O(Σ)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(n)",
+    "space": "O(Σ)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Recursion [PatternWise]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Exactly K vs at most K?",
+    "Unicode?"
   ],
-  "interviewInsight": "For \"Generate all binary strings\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Contract on string rules before code.",
   "related": [
+    {
+      "id": "rvrsstcksingrcrsin",
+      "title": "Reverse a stack using recursion"
+    },
     {
       "id": "gnrtprnthsis",
       "title": "Generate Paranthesis"
     },
     {
-      "id": "printllsbsqncspwrst",
-      "title": "Print all subsequences/Power Set"
-    },
-    {
-      "id": "lrnllpttrnsfsbsqncsthry",
-      "title": "Learn All Patterns of Subsequences (Theory)"
+      "id": "srtstcksingrcrsin",
+      "title": "Sort a stack using recursion"
     }
   ]
 }

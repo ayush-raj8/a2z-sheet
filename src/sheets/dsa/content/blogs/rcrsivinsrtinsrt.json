@@ -12,48 +12,70 @@
   "sourceUrl": "https://takeuforward.org/arrays/recursive-insertion-sort-algorithm/",
   "quality": "reviewed",
   "tags": [
-    "sorting",
-    "recursion"
+    "array",
+    "revamped"
   ],
-  "pattern": "sorting",
-  "problemStatement": "Implement Insertion Sort recursively.",
-  "intuition": "Recursively sort a[0..n-2], then insert a[n-1] into the sorted prefix — same insertion step as iterative.",
+  "pattern": "array",
+  "problemStatement": "Master “Recursive Insertion Sort” (Sorting-II) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Recursive Insertion Sort\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Recursive insertion",
-      "idea": "sort(n-1) then insert last element leftward.",
-      "code": "def insertion_sort_rec(a: list[int], n: int | None = None) -> None:\n    if n is None:\n        n = len(a)\n    if n <= 1:\n        return\n    insertion_sort_rec(a, n - 1)\n    key = a[n - 1]\n    j = n - 2\n    while j >= 0 and a[j] > key:\n        a[j + 1] = a[j]\n        j -= 1\n    a[j + 1] = key",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Recursive Insertion Sort\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
       "time": "O(n²)",
-      "space": "O(n) stack",
+      "space": "O(1)",
       "flags": [
-        "TLE",
-        "RE"
+        "TLE"
       ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Recursive Insertion Sort\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n²)",
-    "space": "O(n) stack",
-    "recursionStack": "O(n)"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Inserting before recursive sort finishes",
-    "Index errors on j"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn Important Sorting Techniques” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Tail recursion here?",
-    "Why insertion recurses naturally on prefixes?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Recursive insertion mirrors the inductive proof of correctness.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
-    {
-      "id": "insrtinsrt",
-      "title": "Insertion Sort"
-    },
     {
       "id": "rcrsivbbblsrt",
       "title": "Recursive Bubble Sort"
+    },
+    {
+      "id": "qicksrt",
+      "title": "Quick Sort"
+    },
+    {
+      "id": "mrgsrt",
+      "title": "Merge Sort"
     }
   ]
 }

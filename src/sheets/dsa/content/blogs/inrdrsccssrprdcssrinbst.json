@@ -12,60 +12,62 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "medium"
+    "tree",
+    "traversal"
   ],
-  "pattern": "binary-search",
-  "problemStatement": "Solve “Inorder Successor/Predecessor in BST” as posed in the A2Z sheet (Practice Problems).",
-  "intuition": "\"Inorder Successor/Predecessor in BST\" lives in binary search. Define a monotonic predicate P(mid). Search the answer space or the index space; keep the invariant that the answer still lies in [lo, hi].",
+  "pattern": "inorder",
+  "problemStatement": "Inorder traversal: Left → Node → Right. For BST, yields sorted values.",
+  "intuition": "Recursive definition matches BST structure. Iterative uses explicit stack; Morris uses threaded links for O(1) aux.",
   "approaches": [
     {
-      "title": "Brute: linear scan",
-      "idea": "Scan every candidate until the condition holds.",
-      "code": "def solve_brute(a, target):\n    # Linear scan stand-in for: Inorder Successor/Predecessor in BST\n    for i, x in enumerate(a):\n        if x == target:  # adapt predicate\n            return i\n    return -1",
+      "title": "Recursive",
+      "idea": "Classic.",
+      "code": "def inorder(root):\n    ans = []\n    def dfs(n):\n        if not n: return\n        dfs(n.left); ans.append(n.val); dfs(n.right)\n    dfs(root)\n    return ans",
       "language": "python",
       "time": "O(n)",
-      "space": "O(1)",
+      "space": "O(h) stack",
       "flags": [
-        "TLE"
+        "RE"
       ]
     },
     {
-      "title": "Optimal: binary search on monotonic predicate",
-      "idea": "Shrink [lo, hi] using mid; be consistent about inclusive bounds.",
-      "code": "def solve(a, target):\n    # Binary-search skeleton for: Inorder Successor/Predecessor in BST\n    lo, hi = 0, len(a)  # half-open [lo, hi)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < target:  # adapt: predicate \"too small\"\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "title": "Iterative stack",
+      "idea": "Pointer + stack.",
+      "code": "def inorder_iter(root):\n    ans, st, cur = [], [], root\n    while cur or st:\n        while cur:\n            st.append(cur); cur = cur.left\n        cur = st.pop(); ans.append(cur.val); cur = cur.right\n    return ans",
       "language": "python",
-      "time": "O(log n) on array search; O(f·log A) on answer-space search",
+      "time": "O(n)",
+      "space": "O(h)"
+    },
+    {
+      "title": "Morris O(1) aux",
+      "idea": "Thread predecessor.right to current; remove threads after visit.",
+      "code": "def inorder_morris(root):\n    ans = []\n    cur = root\n    while cur:\n        if not cur.left:\n            ans.append(cur.val); cur = cur.right\n        else:\n            pred = cur.left\n            while pred.right and pred.right is not cur:\n                pred = pred.right\n            if not pred.right:\n                pred.right = cur; cur = cur.left\n            else:\n                pred.right = None; ans.append(cur.val); cur = cur.right\n    return ans",
+      "language": "python",
+      "time": "O(n)",
       "space": "O(1) auxiliary",
-      "dryRun": "Maintain: answer ∈ [lo, hi). Each step halves the interval.",
-      "whyWorks": "Monotonicity guarantees one side can be discarded safely."
+      "whyWorks": "Each edge threaded then removed; visits once."
     }
   ],
   "complexity": {
-    "time": "O(log n) on array search; O(f·log A) on answer-space search",
-    "space": "O(1) auxiliary"
+    "time": "O(n)",
+    "space": "O(1) Morris / O(h) otherwise"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty",
+    "Skewed"
   ],
   "commonMistakes": [
-    "Infinite loop from wrong mid update",
-    "Off-by-one on lower vs upper bound",
-    "Using binary search without a proven monotonic predicate"
-  ],
-  "patternRecognition": [
-    "Sorted array / monotonic feasibility",
-    "Minimize/maximize a value with a yes/no check → binary search on answer"
+    "Not clearing Morris threads",
+    "Confusing with preorder"
   ],
   "followUps": [
-    "Lower bound vs upper bound?",
-    "Rotated sorted array variants?",
-    "What if duplicates exist?",
-    "Binary search on answer — write the feasibility check"
+    "BST validation via inorder?",
+    "Kth smallest?"
   ],
-  "interviewInsight": "Say the invariant out loud for \"Inorder Successor/Predecessor in BST\". Strong candidates never hand-wave lo/hi updates.",
+  "interviewInsight": "Mention Morris when asked for O(1) space — rare but impressive if correct.",
+  "patternRecognition": [
+    "BST sorted order ↔ inorder"
+  ],
   "related": [
     {
       "id": "cnstrctbstfrmprrdrtrvrsl",

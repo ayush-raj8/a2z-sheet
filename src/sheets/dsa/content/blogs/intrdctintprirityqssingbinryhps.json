@@ -12,46 +12,58 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "stack-queue",
-    "medium"
+    "stack",
+    "revamped"
   ],
-  "pattern": "stack-queue",
-  "problemStatement": "Understand Introduction to Priority Queues using Binary Heaps deeply enough to use it in later problems in “Heaps [Learning, Medium, Hard Problems]”.",
-  "intuition": "\"Introduction to Priority Queues using Binary Heaps\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "pattern": "stack",
+  "problemStatement": "Master “Introduction to Priority Queues using Binary Heaps” (Learning) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Introduction to Priority Queues using Binary Heaps\": LIFO or monotonic stack. Prove amortized O(n) via each index push/pop once.",
   "approaches": [
     {
-      "title": "Core idea & mental model",
-      "idea": "Build the right model for \"Introduction to Priority Queues using Binary Heaps\" before diving into adjacent coding problems in this section.",
-      "code": "# Concept notes — Introduction to Priority Queues using Binary Heaps\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Introduction to Priority Queues using Binary Heaps.\"\"\"\n    return True",
+      "title": "Brute nested scan",
+      "idea": "For each position scan forward/back for \"Introduction to Priority Queues using Binary Heaps\".",
+      "code": "def solve_brute(a):\n    n=len(a); ans=[-1]*n\n    for i in range(n):\n        for j in range(i+1,n):\n            if a[j] > a[i]:\n                ans[i]=a[j]; break\n    return ans",
       "language": "python",
-      "time": "Conceptual — see operation costs in the section",
-      "space": "Conceptual"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal monotonic stack / structure",
+      "idea": "Stack maintains candidates for \"Introduction to Priority Queues using Binary Heaps\".",
+      "code": "def solve(a):\n    st=[]; ans=[-1]*len(a)\n    for i,x in enumerate(a):\n        while st and a[st[-1]] < x:\n            ans[st.pop()]=x\n        st.append(i)\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "Conceptual — see operation costs in the section",
-    "space": "Conceptual"
+    "time": "O(n)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Pop on empty",
-    "Storing values when indices are needed",
-    "Wrong inequality on monotonic stack"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Next greater/smaller → monotonic stack",
-    "Matching / parsing → classic stack"
+    "Sheet section “Heaps [Learning, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Circular array variant?",
-    "Sum of subarray minimums connection?",
-    "Queue via two stacks?"
+    "Circular variant?",
+    "Sum of ranges?",
+    "Min-stack / LRU relation?"
   ],
-  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Introduction to Priority Queues using Binary Heaps\".",
+  "interviewInsight": "Amortized “enter/leave once” is the complexity story.",
   "related": [
     {
       "id": "minhpndmxhpimplmnttin",

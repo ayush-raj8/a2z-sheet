@@ -12,41 +12,69 @@
   "sourceUrl": "https://takeuforward.org/recursion/print-n-to-1-using-recursion/",
   "quality": "reviewed",
   "tags": [
-    "recursion"
+    "bt",
+    "revamped"
   ],
-  "pattern": "recursion",
-  "problemStatement": "Print numbers from N down to 1 using recursion.",
-  "example": "N=4 → 4 3 2 1",
-  "intuition": "Print N first, then solve N−1. Mirror of 1..N with print-after-recurse.",
+  "pattern": "bt",
+  "problemStatement": "Master “Print N to 1 using recursion” (Learn Basic Recursion) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Print N to 1 using recursion\": choose → recurse → undo; prune hard.",
   "approaches": [
     {
-      "title": "Print then recurse",
-      "idea": "Base n<1; else print n and recurse n-1.",
-      "code": "def print_n_to_1(n: int) -> None:\n    if n < 1:\n        return\n    print(n, end=\" \")\n    print_n_to_1(n - 1)",
+      "title": "Unpruned search",
+      "idea": "Full tree for \"Print N to 1 using recursion\".",
+      "code": "def solve(n):\n    ans=[]\n    def dfs(path):\n        if len(path)==n: ans.append(path[:]); return\n        for i in range(n):\n            if i in path: continue\n            path.append(i); dfs(path); path.pop()\n    dfs([])\n    return ans",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n) stack",
-      "dryRun": "n=3\\nprint 3; call 2\\nprint 2; call 1\\nprint 1; call 0"
+      "time": "O(n!)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Backtracking with prune",
+      "idea": "Add constraints for \"Print N to 1 using recursion\".",
+      "code": "def solve(n):\n    ans=[]; path=[]\n    def dfs(start):\n        ans.append(path[:])\n        for i in range(start,n):\n            path.append(i); dfs(i+1); path.pop()\n    dfs(0)\n    return ans",
+      "language": "python",
+      "time": "O(2^n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(n) recursion stack",
-    "recursionStack": "O(n)"
+    "time": "O(2^n)",
+    "space": "O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Swapping with 1..N accidentally",
-    "Missing base case"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Implement with print-after-recurse (trickier)",
-    "Iterative reverse range"
+    "Dedup?",
+    "Bitmask DP alternative?"
   ],
-  "interviewInsight": "Pair with 1..N to prove you control stack order, not copy-paste.",
+  "interviewInsight": "Name choose/constraint/undo explicitly.",
   "related": [
     {
       "id": "print1tnsingrcrsin",
       "title": "Print 1 to N using recursion"
+    },
+    {
+      "id": "smffirstnnmbrs",
+      "title": "Sum of first N numbers"
+    },
+    {
+      "id": "printnmntimssingrcrsin",
+      "title": "Print name N times using recursion"
     }
   ]
 }

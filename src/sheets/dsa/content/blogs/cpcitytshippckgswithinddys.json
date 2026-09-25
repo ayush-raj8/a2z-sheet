@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/capacity-to-ship-packages-within-d-days/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "binary-search-on-answer"
+    "bs",
+    "revamped"
   ],
-  "pattern": "BS on answer with greedy packing",
-  "problemStatement": "Find the least ship capacity that delivers all packages, in order, within D days.",
-  "example": "weights=[1..10], D=5 -> 15",
-  "intuition": "The range is bounded below by max(weight) (a package must fit) and above by sum(weights) (ship everything in one day). Greedy day-filling checks feasibility in O(n).",
+  "pattern": "bs",
+  "problemStatement": "Master “Capacity to Ship Packages within D Days” (BS on Answers) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Capacity to Ship Packages within D Days\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: binary search over capacity",
-      "idea": "Greedy: keep loading until the next package overflows, then start a new day.",
-      "code": "def ship_within_days(weights: list[int], days: int) -> int:\n    def needed(cap: int) -> int:\n        d, load = 1, 0\n        for w in weights:\n            if load + w > cap:\n                d += 1\n                load = 0\n            load += w\n        return d\n\n    lo, hi = max(weights), sum(weights)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if needed(mid) <= days:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "title": "Linear scan",
+      "idea": "Scan for \"Capacity to Ship Packages within D Days\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(n log(sum of weights))",
-      "space": "O(1) auxiliary",
-      "dryRun": "weights 1..10 D=5, range [10,55]\ncap=32 -> 2 days feasible\ncap=21 -> 3 days feasible\ncap=15 -> 5 days feasible\ncap=14 -> 6 days infeasible -> 15",
-      "whyWorks": "Greedy filling minimises the day count for a fixed capacity, so it is an exact feasibility test."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Capacity to Ship Packages within D Days\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(n log(sum))",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "D = 1 -> sum of weights",
-    "D >= n -> max weight",
-    "Single package"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Starting the low bound at 1 instead of max(weights)",
-    "Off-by-one in the day counter (starting at 0)"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Identical to split-array-largest-sum, book allocation and painter partition"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Split array largest sum (#101)",
-    "Book allocation (#100)",
-    "Painter's partition (#102)"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Naming the four equivalent problems in one breath is a strong signal of pattern mastery.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "findthsmllstdivisr",

@@ -13,53 +13,67 @@
   "quality": "reviewed",
   "tags": [
     "graph",
-    "hard"
+    "bfs"
   ],
-  "pattern": "graphs",
-  "problemStatement": "Solve “Cycle Detection in Directed Graph (BFS)” as posed in the A2Z sheet (Topo Sort and Problems).",
-  "intuition": "\"Cycle Detection in Directed Graph (BFS)\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "pattern": "bfs",
+  "problemStatement": "Traverse a graph breadth-first: visit nodes level by level from a source. BFS is the algorithm for shortest paths in unweighted graphs.",
+  "example": "Adj: 0:[1,2] 1:[3] 2:[3] → BFS from 0 order: 0,1,2,3 with dist [0,1,1,2]",
+  "intuition": "DFS dives deep; BFS expands a wavefront. The first time you reach a node in an unweighted graph is via a shortest path — that is the interview punchline.",
   "approaches": [
     {
-      "title": "Traversal / shortest-path skeleton",
-      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Cycle Detection in Directed Graph (BFS)\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "title": "Brute / wrong instinct: DFS for “shortest”",
+      "idea": "DFS can find a path, but not the shortest unweighted path. Include this only to contrast.",
+      "code": "def path_exists_dfs(g, src, dst, seen=None):\n    if seen is None:\n        seen = set()\n    if src == dst:\n        return True\n    seen.add(src)\n    for v in g[src]:\n        if v not in seen and path_exists_dfs(g, v, dst, seen):\n            return True\n    return False\n# Finds SOME path — NOT shortest. Using this for distances → WA.",
       "language": "python",
-      "time": "O(n + m) for BFS/DFS",
-      "space": "O(n + m)",
+      "time": "O(n + m) to explore",
+      "space": "O(n) stack",
       "flags": [
-        "TLE",
-        "MLE"
+        "WA"
       ],
       "limitations": [
-        "Wrong algorithm for weights → WA; huge adj lists → MLE"
+        "Wrong tool for unweighted shortest paths"
       ]
+    },
+    {
+      "title": "Optimal: BFS with distance array",
+      "idea": "Queue + visited. dist[v] = dist[u] + 1 when first discovered.",
+      "code": "from collections import defaultdict, deque\n\ndef bfs(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    order = []\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return order, dist",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "dryRun": "src=0\nqueue=[0] dist0=0\npop0 → push1,2\npop1 → push3\npop2 → 3 already seen\npop3 done",
+      "whyWorks": "Edges have equal weight 1, so FIFO order expands by increasing distance."
     }
   ],
+  "specialTechnique": {
+    "title": "When BFS beats DFS",
+    "body": "Unweighted shortest path, minimum moves on a grid, multi-source spreading (rotten oranges), bipartite check via 2-coloring — all BFS-shaped."
+  },
   "complexity": {
-    "time": "O(n + m) for BFS/DFS",
+    "time": "O(n + m)",
     "space": "O(n + m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Disconnected nodes (dist stays -1)",
+    "Single node",
+    "Self-loops / parallel edges"
   ],
   "commonMistakes": [
-    "DFS for unweighted shortest path",
-    "Forgetting visited → infinite loops",
-    "1-index vs 0-index bugs"
+    "Marking visited too late → exponential blow-up / TLE",
+    "Using DFS for shortest unweighted path",
+    "Forgetting 0-index vs 1-index"
   ],
   "patternRecognition": [
-    "Shortest unweighted → BFS",
-    "Multi-source spreading → multi-source BFS",
-    "Ordering with prerequisites → topo"
+    "“Minimum number of edges / moves” + unweighted → BFS",
+    "Level-by-level expansion"
   ],
   "followUps": [
-    "Weighted edges?",
-    "Negative cycles?",
-    "Connected components count?"
+    "What if edges have weights?",
+    "0-1 weights → 0-1 BFS (deque)",
+    "Multi-source BFS?",
+    "Why can DFS not guarantee shortest paths?"
   ],
-  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Cycle Detection in Directed Graph (BFS)\".",
+  "interviewInsight": "State “unweighted ⇒ BFS” in the first 10 seconds. Then code clean visited-on-enqueue.",
   "related": [
     {
       "id": "khnslgrithm",

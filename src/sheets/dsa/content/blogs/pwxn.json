@@ -12,51 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/implement-powxn-x-raised-to-the-power-n/",
   "quality": "reviewed",
   "tags": [
-    "backtracking",
-    "medium"
+    "bt",
+    "revamped"
   ],
-  "pattern": "backtracking",
-  "problemStatement": "Solve “Pow(x, n)” as posed in the A2Z sheet (Get a Strong Hold).",
-  "intuition": "\"Pow(x, n)\" explores a decision tree: choose → recurse → undo. Prune early with constraints. Watch exponential blow-up (TLE) and recursion depth (RE).",
+  "pattern": "bt",
+  "problemStatement": "Master “Pow(x, n)” (Get a Strong Hold) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Pow(x, n)\": choose → recurse → undo; prune hard.",
   "approaches": [
     {
-      "title": "Backtracking template",
-      "idea": "Maintain path; at leaf record answer; undo after recurse.",
-      "code": "def solve(n):\n    ans = []\n    path = []\n\n    def dfs(start):\n        # adapt base condition for: Pow(x, n)\n        ans.append(path.copy())\n        for i in range(start, n):\n            path.append(i)\n            dfs(i + 1)\n            path.pop()  # undo\n\n    dfs(0)\n    return ans",
+      "title": "Unpruned search",
+      "idea": "Full tree for \"Pow(x, n)\".",
+      "code": "def solve(n):\n    ans=[]\n    def dfs(path):\n        if len(path)==n: ans.append(path[:]); return\n        for i in range(n):\n            if i in path: continue\n            path.append(i); dfs(path); path.pop()\n    dfs([])\n    return ans",
       "language": "python",
-      "time": "O(2^n · poly) typical for subsets; worse for permutations",
-      "space": "O(n) recursion depth + output size",
+      "time": "O(n!)",
+      "space": "O(n)",
       "flags": [
-        "TLE",
-        "RE"
-      ],
-      "dryRun": "Show one choose/undo branch on a tiny n."
+        "TLE"
+      ]
+    },
+    {
+      "title": "Backtracking with prune",
+      "idea": "Add constraints for \"Pow(x, n)\".",
+      "code": "def solve(n):\n    ans=[]; path=[]\n    def dfs(start):\n        ans.append(path[:])\n        for i in range(start,n):\n            path.append(i); dfs(i+1); path.pop()\n    dfs(0)\n    return ans",
+      "language": "python",
+      "time": "O(2^n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "O(2^n · poly) typical for subsets; worse for permutations",
-    "space": "O(n) recursion depth + output size"
+    "time": "O(2^n)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting to undo (path pollution)",
-    "Not copying path when recording answers",
-    "Missing prune → TLE"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Generate all / find configurations under constraints",
-    "Explicit undo step"
+    "Sheet section “Recursion [PatternWise]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "How do you prune?",
-    "Dedup strategies for duplicate inputs?",
-    "Convert to iterative BFS of states?"
+    "Dedup?",
+    "Bitmask DP alternative?"
   ],
-  "interviewInsight": "Name the state, the choice, and the undo for \"Pow(x, n)\" — that is the interview answer.",
+  "interviewInsight": "Name choose/constraint/undo explicitly.",
   "related": [
     {
       "id": "rcrsivimplmnttinfti",

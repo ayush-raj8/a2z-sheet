@@ -13,53 +13,53 @@
   "quality": "reviewed",
   "tags": [
     "graph",
-    "medium"
+    "mst"
   ],
-  "pattern": "graphs",
-  "problemStatement": "Solve “Find Prime Factorisation of a Number using Sieve” as posed in the A2Z sheet (Advanced Maths).",
-  "intuition": "\"Find Prime Factorisation of a Number using Sieve\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "pattern": "prim",
+  "problemStatement": "Minimum Spanning Tree via Prim: grow a tree from a start node by lightest edge out.",
+  "intuition": "Like Dijkstra but keys are edge weights to the tree, not path distances.",
   "approaches": [
     {
-      "title": "Traversal / shortest-path skeleton",
-      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Find Prime Factorisation of a Number using Sieve\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "title": "Brute: try all spanning trees",
+      "idea": "Not feasible.",
+      "code": "# Enumerating spanning trees is exponential.",
       "language": "python",
-      "time": "O(n + m) for BFS/DFS",
-      "space": "O(n + m)",
+      "time": "Exponential",
+      "space": "—",
       "flags": [
-        "TLE",
-        "MLE"
-      ],
-      "limitations": [
-        "Wrong algorithm for weights → WA; huge adj lists → MLE"
+        "TLE"
       ]
+    },
+    {
+      "title": "Optimal: Prim with heap",
+      "idea": "key[v] = min edge weight connecting v to the tree.",
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef prim(n, edges, start=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n        g[v].append((u, w))\n    in_mst = [False] * n\n    h = [(0, start)]  # (key, node)\n    total = 0\n    taken = 0\n    while h and taken < n:\n        w, u = heapq.heappop(h)\n        if in_mst[u]:\n            continue\n        in_mst[u] = True\n        total += w\n        taken += 1\n        for v, wt in g[u]:\n            if not in_mst[v]:\n                heapq.heappush(h, (wt, v))\n    return total if taken == n else None",
+      "language": "python",
+      "time": "O(m log n)",
+      "space": "O(n + m)"
     }
   ],
   "complexity": {
-    "time": "O(n + m) for BFS/DFS",
+    "time": "O(m log n)",
     "space": "O(n + m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Disconnected → no MST",
+    "Equal weights"
   ],
   "commonMistakes": [
-    "DFS for unweighted shortest path",
-    "Forgetting visited → infinite loops",
-    "1-index vs 0-index bugs"
-  ],
-  "patternRecognition": [
-    "Shortest unweighted → BFS",
-    "Multi-source spreading → multi-source BFS",
-    "Ordering with prerequisites → topo"
+    "Confusing Prim with Dijkstra keys",
+    "Directed graphs"
   ],
   "followUps": [
-    "Weighted edges?",
-    "Negative cycles?",
-    "Connected components count?"
+    "Kruskal vs Prim?",
+    "Max spanning tree?",
+    "MST uniqueness?"
   ],
-  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Find Prime Factorisation of a Number using Sieve\".",
+  "interviewInsight": "Contrast cut property: both Prim and Kruskal rest on it.",
+  "patternRecognition": [
+    "Undirected connected weighted → MST"
+  ],
   "related": [
     {
       "id": "sivfrtsthns",

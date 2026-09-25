@@ -12,50 +12,57 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "strings",
-    "parsing"
+    "string",
+    "revamped"
   ],
-  "pattern": "careful state machine",
-  "problemStatement": "Implement atoi: parse a leading integer from a string with whitespace, an optional sign, and clamping to 32-bit range.",
-  "example": "\"   -42abc\" -> -42; \"91283472332\" -> 2147483647",
-  "intuition": "There is no algorithmic trick here — the whole problem is specification discipline: skip whitespace, read at most one sign, consume digits, stop at the first non-digit, and clamp.",
+  "pattern": "string",
+  "problemStatement": "Master “Implement Atoi” (Medium String Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Implement Atoi\": clarify alphabet/case; prefer window/hash/KMP over O(n²).",
   "approaches": [
     {
-      "title": "Iterative parse with clamping",
-      "idea": "Clamp during accumulation so intermediate values stay in range.",
-      "code": "INT_MIN, INT_MAX = -2**31, 2**31 - 1\n\n\ndef my_atoi(s: str) -> int:\n    i, n = 0, len(s)\n    while i < n and s[i] == \" \":\n        i += 1\n    sign = 1\n    if i < n and s[i] in \"+-\":\n        sign = -1 if s[i] == \"-\" else 1\n        i += 1\n    total = 0\n    while i < n and s[i].isdigit():\n        total = total * 10 + int(s[i])\n        if sign == 1 and total > INT_MAX:\n            return INT_MAX\n        if sign == -1 and -total < INT_MIN:\n            return INT_MIN\n        i += 1\n    return sign * total",
+      "title": "Brute all substrings",
+      "idea": "O(n²) check for \"Implement Atoi\".",
+      "code": "def solve_brute(s):\n    best=0\n    for i in range(len(s)):\n        for j in range(i,len(s)):\n            best=max(best,j-i+1)\n    return best",
+      "language": "python",
+      "time": "O(n²+)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Linear pattern (window/hash)",
+      "idea": "One pass for \"Implement Atoi\".",
+      "code": "from collections import Counter\ndef solve(s):\n    left=0; freq=Counter(); best=0\n    for r,ch in enumerate(s):\n        freq[ch]+=1\n        while len(freq)>2:\n            freq[s[left]]-=1\n            if freq[s[left]]==0: del freq[s[left]]\n            left+=1\n        best=max(best,r-left+1)\n    return best",
       "language": "python",
       "time": "O(n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "\"   -42abc\"\nskip 3 spaces; sign = -1; digits 4,2 -> 42; \"a\" stops -> -42",
-      "whyWorks": "Checking the bound after each digit prevents overflow in fixed-width languages."
+      "space": "O(Σ)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "space": "O(Σ)"
   },
   "edgeCases": [
-    "Only whitespace or an empty string -> 0",
-    "Sign with no digits -> 0",
-    "Multiple signs \"+-12\" -> 0",
-    "Leading zeros",
-    "Overflow in both directions"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Checking overflow only at the end",
-    "Allowing more than one sign character",
-    "Using int(s) and ignoring the spec"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Spec-heavy parsing -> enumerate the rules before writing code"
+    "Sheet section “Strings [Basic and Medium]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Recursive implementation (#157)",
-    "Parse floats too",
-    "Validate a number string (state machine)"
+    "Exactly K vs at most K?",
+    "Unicode?"
   ],
-  "interviewInsight": "Restate all five rules back to the interviewer first; this problem is graded on cases, not cleverness.",
+  "interviewInsight": "Contract on string rules before code.",
   "related": [
     {
       "id": "rmnnmbrtintgrndvicvrs",

@@ -13,49 +13,61 @@
   "quality": "reviewed",
   "tags": [
     "tree",
-    "easy"
+    "traversal"
   ],
-  "pattern": "trees",
-  "problemStatement": "Solve “Inorder Traversal of Binary Tree” as posed in the A2Z sheet (Traversals).",
-  "intuition": "\"Inorder Traversal of Binary Tree\" is tree recursion: null base case, recurse on children, combine. Prefer clear traversal order; iterative/Morris when O(1) aux is required.",
+  "pattern": "inorder",
+  "problemStatement": "Inorder traversal: Left → Node → Right. For BST, yields sorted values.",
+  "intuition": "Recursive definition matches BST structure. Iterative uses explicit stack; Morris uses threaded links for O(1) aux.",
   "approaches": [
     {
-      "title": "Recursive DFS template",
-      "idea": "Define what each call returns; handle None.",
-      "code": "class Node:\n    def __init__(self, val=0, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef solve(root):\n    # Skeleton for: Inorder Traversal of Binary Tree\n    def dfs(node):\n        if not node:\n            return 0  # adapt base\n        left = dfs(node.left)\n        right = dfs(node.right)\n        return 1 + max(left, right)  # adapt combine\n    return dfs(root)",
+      "title": "Recursive",
+      "idea": "Classic.",
+      "code": "def inorder(root):\n    ans = []\n    def dfs(n):\n        if not n: return\n        dfs(n.left); ans.append(n.val); dfs(n.right)\n    dfs(root)\n    return ans",
       "language": "python",
       "time": "O(n)",
-      "space": "O(h) recursion stack",
+      "space": "O(h) stack",
       "flags": [
         "RE"
-      ],
-      "spaceNote": "Skewed tree → O(n) stack"
+      ]
+    },
+    {
+      "title": "Iterative stack",
+      "idea": "Pointer + stack.",
+      "code": "def inorder_iter(root):\n    ans, st, cur = [], [], root\n    while cur or st:\n        while cur:\n            st.append(cur); cur = cur.left\n        cur = st.pop(); ans.append(cur.val); cur = cur.right\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(h)"
+    },
+    {
+      "title": "Morris O(1) aux",
+      "idea": "Thread predecessor.right to current; remove threads after visit.",
+      "code": "def inorder_morris(root):\n    ans = []\n    cur = root\n    while cur:\n        if not cur.left:\n            ans.append(cur.val); cur = cur.right\n        else:\n            pred = cur.left\n            while pred.right and pred.right is not cur:\n                pred = pred.right\n            if not pred.right:\n                pred.right = cur; cur = cur.left\n            else:\n                pred.right = None; ans.append(cur.val); cur = cur.right\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "whyWorks": "Each edge threaded then removed; visits once."
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion stack"
+    "space": "O(1) Morris / O(h) otherwise"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty",
+    "Skewed"
   ],
   "commonMistakes": [
-    "Null dereference",
-    "Wrong combine of child answers",
-    "Calling stack O(1) on skewed trees"
-  ],
-  "patternRecognition": [
-    "Node-wise decisions → tree DP",
-    "Order matters → traversal choice"
+    "Not clearing Morris threads",
+    "Confusing with preorder"
   ],
   "followUps": [
-    "Iterative version?",
-    "Morris O(1) aux?",
-    "BST-specific acceleration?"
+    "BST validation via inorder?",
+    "Kth smallest?"
   ],
-  "interviewInsight": "Specify the return meaning of dfs() before coding \"Inorder Traversal of Binary Tree\".",
+  "interviewInsight": "Mention Morris when asked for O(1) space — rare but impressive if correct.",
+  "patternRecognition": [
+    "BST sorted order ↔ inorder"
+  ],
   "related": [
     {
       "id": "prrdrtrvrslfbinrytr",

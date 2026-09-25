@@ -12,46 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/painters-partition-problem/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "binary-search-on-answer"
+    "bs",
+    "revamped"
   ],
-  "pattern": "minimise the maximum time",
-  "problemStatement": "k painters paint contiguous boards; minimise the time taken by the slowest painter.",
-  "example": "boards=[10,20,30,40], k=2 -> 60",
-  "intuition": "Same template as book allocation, with time replacing pages.",
+  "pattern": "bs",
+  "problemStatement": "Master “Painter's partition” (BS on Answers) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Painter's partition\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: binary search over the time limit",
-      "idea": "Greedy assignment counts painters needed.",
-      "code": "def painters_partition(boards: list[int], k: int) -> int:\n    def painters(cap: int) -> int:\n        cnt, cur = 1, 0\n        for b in boards:\n            if cur + b > cap:\n                cnt += 1\n                cur = 0\n            cur += b\n        return cnt\n\n    lo, hi = max(boards), sum(boards)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if painters(mid) <= k:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "title": "Linear scan",
+      "idea": "Scan for \"Painter's partition\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(n log(sum))",
-      "space": "O(1) auxiliary",
-      "dryRun": "boards=[10,20,30,40] k=2 range [40,100]\ncap=70 -> 2 feasible\ncap=55 -> 3 infeasible\ncap=60 -> 2 feasible -> 60"
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Painter's partition\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(n log(sum))",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "k >= n -> max board",
-    "k = 1 -> sum",
-    "Per-unit time multiplier if the problem states one"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting a per-unit time factor when the statement includes it",
-    "Allowing non-contiguous boards"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Third member of the book-allocation family"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Ship packages within D days (#97)",
-    "Split array largest sum (#101)",
-    "Non-contiguous variant (becomes NP-hard scheduling)"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Point out that dropping contiguity turns this into a hard scheduling problem — it shows you know why the constraint matters.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "splitrrylrgstsm",

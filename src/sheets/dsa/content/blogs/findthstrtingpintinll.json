@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/starting-point-of-loop-in-a-linked-list/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "two-pointers"
+    "ll",
+    "revamped"
   ],
-  "pattern": "Floyd's phase 2",
-  "problemStatement": "Return the node where the cycle begins, or None.",
-  "example": "1->2->3->4->2(cycle) -> node 2",
-  "intuition": "If the distance from head to the cycle start is L and the meeting point is k into the cycle, then L and k are congruent modulo the cycle length. Restarting one pointer at the head makes both arrive at the start together.",
+  "pattern": "ll",
+  "problemStatement": "Master “Find the starting point in LL” (Medium Problems of LL) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Find the starting point in LL\": draw pointers; dummy head; never lose next.",
   "approaches": [
     {
-      "title": "Optimal: Floyd's two phases",
-      "idea": "Detect the meeting point, then advance one pointer from the head at equal speed.",
-      "code": "def detect_cycle_start(head):\n    slow = fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow is fast:\n            ptr = head\n            while ptr is not slow:\n                ptr = ptr.next\n                slow = slow.next\n            return ptr\n    return None",
+      "title": "Hash / extra structures",
+      "idea": "Map nodes for \"Find the starting point in LL\".",
+      "code": "def solve_hash(head):\n    seen=set(); cur=head\n    while cur:\n        if cur in seen: return cur\n        seen.add(cur); cur=cur.next\n    return None",
       "language": "python",
       "time": "O(n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "Meeting happens inside the loop; walking one pointer from head and one from the meeting point converges at node 2",
-      "whyWorks": "2*(L + k) = L + k + m*C implies L = m*C - k, so both pointers cover equal distance to the entry."
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "In-place two pointers",
+      "idea": "Floyd / reverse / align for \"Find the starting point in LL\".",
+      "code": "def solve(head):\n    slow=fast=head\n    while fast and fast.next:\n        slow=slow.next; fast=fast.next.next\n        # adapt for problem\n    return slow",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "No cycle -> None",
-    "Cycle starts at the head",
-    "Self-loop"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Restarting the wrong pointer",
-    "Comparing values rather than node identity"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Same math powers \"find the duplicate number\" in O(1) space"
+    "Sheet section “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Cycle length (#140)",
-    "Remove the cycle",
-    "Find the duplicate number (LeetCode 287)"
+    "O(1) space?",
+    "Dummy head cases?"
   ],
-  "interviewInsight": "Have the modular-arithmetic proof ready in one sentence — it is the standard follow-up.",
+  "interviewInsight": "Pointer hygiene > cleverness.",
   "related": [
     {
       "id": "dtctlpinll",

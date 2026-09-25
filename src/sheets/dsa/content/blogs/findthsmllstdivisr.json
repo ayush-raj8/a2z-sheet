@@ -12,47 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/find-the-smallest-divisor-given-a-threshold/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "binary-search-on-answer"
+    "bs",
+    "revamped"
   ],
-  "pattern": "BS on answer",
-  "problemStatement": "Find the smallest divisor d such that the sum of ceil(a[i]/d) is <= threshold.",
-  "example": "a=[1,2,5,9], threshold=6 -> 5",
-  "intuition": "The ceiling sum decreases as d grows, so feasibility is monotone. Search d in [1, max(a)].",
+  "pattern": "bs",
+  "problemStatement": "Master “Find the smallest Divisor” (BS on Answers) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Find the smallest Divisor\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: binary search on d",
-      "idea": "Integer ceiling division in the check.",
-      "code": "def smallest_divisor(a: list[int], threshold: int) -> int:\n    def total(d: int) -> int:\n        return sum((x + d - 1) // d for x in a)\n\n    lo, hi = 1, max(a)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if total(mid) <= threshold:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "title": "Linear scan",
+      "idea": "Scan for \"Find the smallest Divisor\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(n log(max a))",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[1,2,5,9] threshold=6\nd=5 -> 1+1+1+2=5 <= 6 feasible\nd=3 -> 1+1+2+3=7 > 6\nd=4 -> 1+1+2+3=7 > 6 -> answer 5",
-      "whyWorks": "ceil(x/d) is non-increasing in d, so the sum is too."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Find the smallest Divisor\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(n log(max a))",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "threshold < n -> impossible (each term is at least 1)",
-    "All elements equal",
-    "threshold >= sum(a) -> d = 1"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Float division rounding errors",
-    "Starting the range at 0"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Same shape as Koko: rate vs total-work predicate"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Ship packages in D days (#97)",
-    "Maximum divisor under a lower-bound constraint",
-    "Prove monotonicity"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Notice this is literally Koko with different names; saying so shows pattern transfer.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "minimmdystmkmbqts",

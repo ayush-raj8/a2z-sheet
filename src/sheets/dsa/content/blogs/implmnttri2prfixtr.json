@@ -12,48 +12,63 @@
   "sourceUrl": "https://takeuforward.org/data-structure/implement-trie-ii/",
   "quality": "reviewed",
   "tags": [
-    "trie",
-    "hard"
+    "tree",
+    "revamped"
   ],
-  "pattern": "trie",
-  "problemStatement": "Solve “Implement Trie - 2 (Prefix Tree)” as posed in the A2Z sheet (Problems).",
-  "intuition": "\"Implement Trie - 2 (Prefix Tree)\" indexes strings by shared prefixes. Each edge is a character; end markers denote keys.",
+  "pattern": "tree",
+  "problemStatement": "Master “Implement Trie - 2 (Prefix Tree)” (Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Implement Trie - 2 (Prefix Tree)\": define recursion return value; handle None; combine children. Ask if BST properties help.",
   "approaches": [
     {
-      "title": "Trie insert / search",
-      "idea": "Walk/create nodes per character.",
-      "code": "class Node:\n    def __init__(self):\n        self.next = {}\n        self.end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word: str) -> None:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                cur.next[ch] = Node()\n            cur = cur.next[ch]\n        cur.end = True\n\n    def search(self, word: str) -> bool:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                return False\n            cur = cur.next[ch]\n        return cur.end\n# Adapt API for: Implement Trie - 2 (Prefix Tree)",
+      "title": "Brute recompute from every node",
+      "idea": "Re-run DFS from many roots when applicable for \"Implement Trie - 2 (Prefix Tree)\".",
+      "code": "def solve_brute(root):\n    # O(n^2) recompute pattern — use only as reference\n    return None",
       "language": "python",
-      "time": "O(total characters)",
-      "space": "O(total characters · Σ)",
+      "time": "O(n²) common",
+      "space": "O(n)",
       "flags": [
-        "MLE"
+        "TLE"
       ]
+    },
+    {
+      "title": "Optimal one-pass tree DP / traversal",
+      "idea": "Single DFS returning the metric needed for \"Implement Trie - 2 (Prefix Tree)\".",
+      "code": "def solve(root):\n    ans = 0\n    def dfs(n):\n        nonlocal ans\n        if not n: return 0\n        L, R = dfs(n.left), dfs(n.right)\n        # adapt combine for \"Implement Trie - 2 (Prefix Tree)\"\n        ans = max(ans, L + R)\n        return 1 + max(L, R)\n    dfs(root)\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(h)"
     }
   ],
   "complexity": {
-    "time": "O(total characters)",
-    "space": "O(total characters · Σ)"
+    "time": "O(n)",
+    "space": "O(h)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting end marker",
-    "Huge alphabet memory blow-ups"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Prefix queries, autocomplete, XOR bit tries"
+    "Sheet section “Tries” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Delete operation?",
-    "Compressed trie / radix tree?",
-    "Bit trie for XOR maxima?"
+    "Iterative?",
+    "Morris O(1) space?",
+    "BST acceleration?"
   ],
-  "interviewInsight": "Memory layout matters for \"Implement Trie - 2 (Prefix Tree)\" — mention MLE risk on dense alphabets.",
+  "interviewInsight": "Name what dfs returns before writing combine logic.",
   "related": [
+    {
+      "id": "implmnttriinsrtsrchstrtswith",
+      "title": "Implement TRIE | INSERT | SEARCH | STARTSWITH"
+    },
     {
       "id": "lngststringwithllprfixs",
       "title": "Longest String with All Prefixes"
@@ -61,10 +76,6 @@
     {
       "id": "nmbrfdistinctsbstringsinstring",
       "title": "Number of Distinct Substrings in a String"
-    },
-    {
-      "id": "bitprrqisitsfrtriprblms",
-      "title": "Bit PreRequisites for TRIE Problems"
     }
   ]
 }

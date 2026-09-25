@@ -12,47 +12,70 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "types",
-    "overflow"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Understand primitive types and ranges so arithmetic does not silently overflow or truncate.",
-  "intuition": "Constraints tell you the type. If intermediates can exceed 2^31−1, use 64-bit (C++/Java) — Python ints grow automatically, but float precision and // truncation still bite.",
+  "pattern": "array",
+  "problemStatement": "Master “Data Types” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Data Types\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Choose types from constraints",
-      "idea": "Map constraint maxima to types before coding.",
-      "code": "def safe_product(a: int, b: int) -> int:\n    return a * b  # Python OK\n\n# Interview note (C++/Java):\n# cast before multiply: 1LL * a * b  /  1L * a * b\n# when a*b may exceed 2^31-1",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Data Types\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(1)",
-      "space": "O(1)"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Data Types\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(1)",
-    "space": "O(1)"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Peak products near 1e9×1e9",
-    "Negatives with division"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Multiplying ints before widening in C++/Java.",
-    "Using float for exact integer problems."
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Range of 32-bit signed int?",
-    "When BigInteger vs long long?",
-    "Why float equality fails?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Saying “I’ll use 64-bit because sum ≤ n·maxA” signals constraint awareness.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "srinpttpt",
       "title": "User Input / Output"
     },
     {
-      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
-      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
+      "id": "iflssttmnts",
+      "title": "If Else statements"
+    },
+    {
+      "id": "switchsttmnt",
+      "title": "Switch Statement"
     }
   ]
 }

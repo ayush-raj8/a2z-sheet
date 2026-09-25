@@ -12,46 +12,52 @@
   "sourceUrl": "https://takeuforward.org/Greedy/jump-game-i",
   "quality": "reviewed",
   "tags": [
-    "greedy",
-    "medium"
+    "greedy"
   ],
-  "pattern": "greedy",
-  "problemStatement": "Solve “Jump Game” as posed in the A2Z sheet (Medium/Hard).",
-  "intuition": "\"Jump Game\" may admit a greedy choice. Sort by the right key, then take the next safe candidate. Prove exchange argument or cite a known theorem.",
+  "pattern": "jump-game",
+  "problemStatement": "Can you reach the last index? a[i] = max jump length from i.",
+  "intuition": "Track farthest reachable; if i > farthest, fail; extend farthest while scanning.",
   "approaches": [
     {
-      "title": "Greedy after sorting",
-      "idea": "Sort, then scan once taking locally optimal safe moves.",
-      "code": "def solve(intervals):\n    # Skeleton for: Jump Game\n    intervals = sorted(intervals, key=lambda x: x[1])  # adapt key\n    ans = 0\n    last_end = float('-inf')\n    for start, end in intervals:\n        if start >= last_end:\n            ans += 1\n            last_end = end\n    return ans",
+      "title": "Brute DFS/BFS of positions",
+      "idea": "Explore all jumps.",
+      "code": "def can_brute(a):\n    n=len(a); seen={0}; st=[0]\n    while st:\n        i=st.pop()\n        if i>=n-1: return True\n        for j in range(1, a[i]+1):\n            ni=i+j\n            if ni not in seen and ni < n:\n                seen.add(ni); st.append(ni)\n    return False",
       "language": "python",
-      "time": "Usually O(n log n) from sort",
-      "space": "O(1)–O(n)",
-      "whyWorks": "Exchange: any optimal solution can be transformed into the greedy one without loss."
+      "time": "O(n²)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal greedy farthest",
+      "idea": "One pass.",
+      "code": "def canJump(a):\n    far=0\n    for i,x in enumerate(a):\n        if i>far: return False\n        far=max(far, i+x)\n    return True",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "Usually O(n log n) from sort",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "[0]",
+    "[0,1]",
+    "zeros in middle"
   ],
   "commonMistakes": [
-    "Greedy without proof → WA on counterexamples",
-    "Sorting by the wrong key",
-    "Using DP when greedy suffices (or the reverse)"
-  ],
-  "patternRecognition": [
-    "Interval scheduling, jump reachability, Huffman-style choices"
+    "DP O(n²) without need"
   ],
   "followUps": [
-    "Counterexample if sorted by start instead?",
-    "DP fallback when greedy fails?",
-    "Online vs offline greedy?"
+    "Jump Game II minimum jumps",
+    "Jump Game III"
   ],
-  "interviewInsight": "For \"Jump Game\", the sort key is the interview; code is secondary.",
+  "interviewInsight": "Greedy farthest is the intended solution — say why DP is overkill.",
+  "patternRecognition": [
+    "Reachability with expanding coverage"
+  ],
   "related": [
     {
       "id": "nmtingsinnrm",
@@ -62,8 +68,8 @@
       "title": "Jump Game 2"
     },
     {
-      "id": "minimmnmbrfpltfrmsrqirdfrrilwy",
-      "title": "Minimum number of platforms required for a railway"
+      "id": "vlidprnthsischckr",
+      "title": "Valid Paranthesis Checker"
     }
   ]
 }

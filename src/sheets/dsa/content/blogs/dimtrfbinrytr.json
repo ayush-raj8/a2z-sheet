@@ -13,49 +13,52 @@
   "quality": "reviewed",
   "tags": [
     "tree",
-    "medium"
+    "dp"
   ],
-  "pattern": "trees",
-  "problemStatement": "Solve “Diameter of Binary Tree” as posed in the A2Z sheet (Medium Problems).",
-  "intuition": "\"Diameter of Binary Tree\" is tree recursion: null base case, recurse on children, combine. Prefer clear traversal order; iterative/Morris when O(1) aux is required.",
+  "pattern": "tree-dp",
+  "problemStatement": "Diameter = longest path between any two nodes (by edges or nodes — clarify).",
+  "intuition": "For each node, diameter through it = left_height + right_height. Track global max while computing heights.",
   "approaches": [
     {
-      "title": "Recursive DFS template",
-      "idea": "Define what each call returns; handle None.",
-      "code": "class Node:\n    def __init__(self, val=0, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef solve(root):\n    # Skeleton for: Diameter of Binary Tree\n    def dfs(node):\n        if not node:\n            return 0  # adapt base\n        left = dfs(node.left)\n        right = dfs(node.right)\n        return 1 + max(left, right)  # adapt combine\n    return dfs(root)",
+      "title": "Brute: for every node run DFS farthest twice",
+      "idea": "Correct but O(n²).",
+      "code": "# omitted slow all-roots",
+      "language": "python",
+      "time": "O(n²)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: one DFS computing height + global diameter",
+      "idea": "Classic tree DP.",
+      "code": "def diameter(root):\n    best = 0\n    def height(n):\n        nonlocal best\n        if not n: return 0\n        lh, rh = height(n.left), height(n.right)\n        best = max(best, lh + rh)\n        return 1 + max(lh, rh)\n    height(root)\n    return best  # edges",
       "language": "python",
       "time": "O(n)",
-      "space": "O(h) recursion stack",
-      "flags": [
-        "RE"
-      ],
-      "spaceNote": "Skewed tree → O(n) stack"
+      "space": "O(h)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion stack"
+    "space": "O(h)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Single node diameter 0",
+    "Linear chain"
   ],
   "commonMistakes": [
-    "Null dereference",
-    "Wrong combine of child answers",
-    "Calling stack O(1) on skewed trees"
-  ],
-  "patternRecognition": [
-    "Node-wise decisions → tree DP",
-    "Order matters → traversal choice"
+    "Returning height instead of diameter",
+    "Node-count vs edge-count"
   ],
   "followUps": [
-    "Iterative version?",
-    "Morris O(1) aux?",
-    "BST-specific acceleration?"
+    "Maximum path sum (node values)?",
+    "Binary tree cameras style DP?"
   ],
-  "interviewInsight": "Specify the return meaning of dfs() before coding \"Diameter of Binary Tree\".",
+  "interviewInsight": "Global accumulator + height return pair is the pattern.",
+  "patternRecognition": [
+    "Path through node = combine child answers"
+  ],
   "related": [
     {
       "id": "chckifthbinrytrishightblncdrnt",

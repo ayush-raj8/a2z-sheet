@@ -12,43 +12,70 @@
   "sourceUrl": "https://takeuforward.org/while-loop/while-loops-in-programming/",
   "quality": "reviewed",
   "tags": [
-    "loops"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Repeat while a condition holds; guarantee progress toward termination.",
-  "intuition": "Identify a progress measure (i increases, window shrinks, queue drains). No progress ⇒ infinite loop ⇒ TLE.",
+  "pattern": "array",
+  "problemStatement": "Master “While loops” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"While loops\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Initialize → condition → update",
-      "idea": "All three parts must be correct.",
-      "code": "def countdown(n: int) -> None:\n    while n > 0:\n        print(n)\n        n -= 1\n\ndef has_pair_sum_sorted(a: list[int], target: int) -> bool:\n    i, j = 0, len(a) - 1\n    while i < j:\n        s = a[i] + a[j]\n        if s == target:\n            return True\n        if s < target:\n            i += 1\n        else:\n            j -= 1\n    return False",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"While loops\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n) typical for linear scans",
+      "time": "O(n²)",
       "space": "O(1)",
       "flags": [
         "TLE"
-      ],
-      "limitations": [
-        "Missing update → infinite loop → TLE"
       ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"While loops\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "Depends on iterations until exit",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "Forgot update (infinite loop)",
-    "i < j vs i <= j mistakes"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Prove termination?",
-    "Convert while → for when bounds known?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Narrate the progress measure out loud in live coding.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "frlps",
       "title": "For loops"
+    },
+    {
+      "id": "fnctinspssbyrfrncndvl",
+      "title": "Functions (Pass by Reference and Value)"
+    },
+    {
+      "id": "whtrrrysstrings",
+      "title": "What are arrays, strings?"
     }
   ]
 }

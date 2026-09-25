@@ -12,48 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/spiral-traversal-of-matrix/",
   "quality": "reviewed",
   "tags": [
-    "matrix",
-    "simulation"
+    "array",
+    "revamped"
   ],
-  "pattern": "four shrinking boundaries",
-  "problemStatement": "Print all elements of a matrix in spiral order.",
-  "example": "[[1,2,3],[4,5,6],[7,8,9]] -> 1 2 3 6 9 8 7 4 5",
-  "intuition": "Maintain top/bottom/left/right walls. Traverse one wall, then retract it. The only subtlety is re-checking the bounds before the two return legs.",
+  "pattern": "array",
+  "problemStatement": "Master “Print the matrix in spiral manner” (Medium) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Print the matrix in spiral manner\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: boundary simulation",
-      "idea": "Right across the top, down the right, left across the bottom, up the left; repeat.",
-      "code": "def spiral_order(m: list[list[int]]) -> list[int]:\n    if not m or not m[0]:\n        return []\n    top, bottom = 0, len(m) - 1\n    left, right = 0, len(m[0]) - 1\n    out: list[int] = []\n    while top <= bottom and left <= right:\n        for j in range(left, right + 1):\n            out.append(m[top][j])\n        top += 1\n        for i in range(top, bottom + 1):\n            out.append(m[i][right])\n        right -= 1\n        if top <= bottom:\n            for j in range(right, left - 1, -1):\n                out.append(m[bottom][j])\n            bottom -= 1\n        if left <= right:\n            for i in range(bottom, top - 1, -1):\n                out.append(m[i][left])\n            left += 1\n    return out",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Print the matrix in spiral manner\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n*m)",
-      "space": "O(1) auxiliary beyond the output",
-      "dryRun": "3x3: top row 1,2,3 (top=1)\nright col 6,9 (right=1)\nbottom row 8,7 (bottom=1)\nleft col 4 (left=1)\nremaining top row 5",
-      "whyWorks": "Each cell lies on exactly one wall at the moment it is visited."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Print the matrix in spiral manner\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n*m)",
-    "space": "O(1) auxiliary beyond the output"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Single row",
-    "Single column",
-    "Empty matrix",
-    "Non-square matrix"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Skipping the `if top <= bottom` / `if left <= right` guards, which double-prints the middle line",
-    "Off-by-one in the reverse ranges"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Layer-by-layer matrix traversal with shrinking boundaries"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Generate a spiral matrix from 1..n^2",
-    "Anticlockwise spiral",
-    "Spiral traversal of a binary tree (level order zig-zag)"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Single-row and single-column matrices are the fastest way to expose a missing guard. Test them aloud.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "rttmtrixby90dgrs",

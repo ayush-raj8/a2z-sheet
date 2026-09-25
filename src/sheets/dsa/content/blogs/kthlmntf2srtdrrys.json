@@ -12,59 +12,69 @@
   "sourceUrl": "https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "partition"
+    "bs",
+    "revamped"
   ],
-  "pattern": "partition search generalised",
-  "problemStatement": "Find the k-th smallest element across two sorted arrays.",
-  "example": "a=[2,3,6,7,9], b=[1,4,8,10], k=5 -> 6",
-  "intuition": "Same partition search as the median, with the left-half size fixed at k instead of half the total.",
+  "pattern": "bs",
+  "problemStatement": "Master “Kth element of 2 sorted arrays” (BS on Answers) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Kth element of 2 sorted arrays\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: partition search",
-      "idea": "Cut the smaller array; the rest comes from the other.",
-      "code": "def kth_element(a: list[int], b: list[int], k: int) -> int:\n    if len(a) > len(b):\n        a, b = b, a\n    n, m = len(a), len(b)\n    lo, hi = max(0, k - m), min(k, n)\n    while lo <= hi:\n        cut_a = (lo + hi) // 2\n        cut_b = k - cut_a\n        left_a = a[cut_a - 1] if cut_a > 0 else float(\"-inf\")\n        right_a = a[cut_a] if cut_a < n else float(\"inf\")\n        left_b = b[cut_b - 1] if cut_b > 0 else float(\"-inf\")\n        right_b = b[cut_b] if cut_b < m else float(\"inf\")\n        if left_a <= right_b and left_b <= right_a:\n            return int(max(left_a, left_b))\n        if left_a > right_b:\n            hi = cut_a - 1\n        else:\n            lo = cut_a + 1\n    raise ValueError(\"invalid input\")",
+      "title": "Linear scan",
+      "idea": "Scan for \"Kth element of 2 sorted arrays\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(log(min(n, m)))",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[2,3,6,7,9] b=[1,4,8,10] k=5\nvalid cut: cut_a=3 cut_b=2 -> left max(6,4)=6",
-      "whyWorks": "The k-th smallest is the largest element on the left of a valid partition of size k."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Kth element of 2 sorted arrays\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(log(min(n, m)))",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "k = 1 or k = n+m",
-    "One array empty",
-    "k larger than one array entirely"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting the lo = max(0, k - m) clamp",
-    "1-indexed vs 0-indexed k confusion"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Order statistics across sorted arrays -> partition search"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Median (#104)",
-    "k-th smallest in a sorted matrix",
-    "k-th smallest in a BST (#321)"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "The clamped search range is the detail that breaks naive implementations on skewed inputs.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "mdinf2srtdrrys",
       "title": "Median of 2 sorted arrays"
     },
     {
-      "id": "minimizmxdistnctgssttin",
-      "title": "Minimize Max Distance to Gas Station"
+      "id": "findthrwwithmximmnmbrf1s",
+      "title": "Find the row with maximum number of 1's"
     },
     {
-      "id": "painterspartition",
-      "title": "Painter's partition"
+      "id": "minimizmxdistnctgssttin",
+      "title": "Minimize Max Distance to Gas Station"
     }
   ]
 }

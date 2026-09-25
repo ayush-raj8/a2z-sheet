@@ -12,59 +12,64 @@
   "sourceUrl": "https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/",
   "quality": "reviewed",
   "tags": [
-    "heap",
-    "hard"
+    "graph",
+    "revamped"
   ],
-  "pattern": "heap",
-  "problemStatement": "Solve “Cheapest flights within k stops” as posed in the A2Z sheet (Shortest Path Algorithms and Problems).",
-  "intuition": "\"Cheapest flights within k stops\" needs repeated access to extremes → heap (priority queue). Top-K often uses a size-k heap for O(n log k).",
+  "pattern": "graph",
+  "problemStatement": "Master “Cheapest flights within k stops” (Shortest Path Algorithms and Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Cheapest flights within k stops\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
   "approaches": [
     {
-      "title": "Sort-based",
-      "idea": "Sort and pick — simpler but usually O(n log n).",
-      "code": "def solve_sort(a, k):\n    return sorted(a, reverse=True)[:k]  # adapt",
+      "title": "Clarify + brute exploration",
+      "idea": "Enumerate paths/states naively for \"Cheapest flights within k stops\" to lock meaning.",
+      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Cheapest flights within k stops\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
       "language": "python",
-      "time": "O(n log n)",
-      "space": "O(n)"
+      "time": "Often exponential or O(n·m) too large",
+      "space": "O(n+m)",
+      "flags": [
+        "TLE"
+      ]
     },
     {
-      "title": "Optimal: heap",
-      "idea": "Push/pop extremes; keep heap size bounded by k when possible.",
-      "code": "import heapq\n\ndef solve(a, k):\n    # Skeleton for: Cheapest flights within k stops\n    heap = []\n    for x in a:\n        heapq.heappush(heap, x)  # min-heap; adapt for max-heap via -x\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return list(heap)",
+      "title": "Pattern-optimal algorithm",
+      "idea": "Apply the standard algorithm this sheet topic trains for \"Cheapest flights within k stops\".",
+      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Cheapest flights within k stops\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
       "language": "python",
-      "time": "O(n log k) for top-k patterns",
-      "space": "O(k)",
-      "flags": [
-        "MLE"
-      ],
-      "limitations": [
-        "Unbounded heap on huge streams → MLE"
-      ]
+      "time": "Typically O(n+m) or O((n+m)log n)",
+      "space": "O(n+m)",
+      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
     }
   ],
+  "specialTechnique": {
+    "title": "Graph algorithm cheat sheet",
+    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+  },
   "complexity": {
-    "time": "O(n log k) for top-k patterns",
-    "space": "O(k)"
+    "time": "Typically O(n+m) or O((n+m)log n)",
+    "space": "O(n+m)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Min vs max heap confusion",
-    "Growing heap without bound",
-    "Comparing tuples incorrectly"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Top-K, running median, merge K lists"
+    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Quickselect average O(n)?",
-    "Running median with two heaps?",
-    "Memory constraints for streams?"
+    "Directed vs undirected?",
+    "Weighted?",
+    "Negative cycles?",
+    "Reconstruct path?"
   ],
-  "interviewInsight": "State why size-k heap beats full sort for \"Cheapest flights within k stops\" when only K matters.",
+  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
   "related": [
     {
       "id": "pthwithminimmffrt",

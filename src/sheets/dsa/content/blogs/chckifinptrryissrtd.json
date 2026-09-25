@@ -12,46 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/floor-and-ceil-in-sorted-array/",
   "quality": "reviewed",
   "tags": [
-    "binary-search"
+    "bs",
+    "revamped"
   ],
-  "pattern": "floor / ceil via bounds",
-  "problemStatement": "Find the floor (largest value <= x) and ceil (smallest value >= x) in a sorted array.",
-  "example": "[3,4,4,7,8,10], x=5 -> floor 4, ceil 7",
-  "intuition": "Ceil is lower_bound. Floor is the element just before it. One binary search answers both.",
+  "pattern": "bs",
+  "problemStatement": "Master “Floor/Ceil in Sorted Array” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Floor/Ceil in Sorted Array\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: one binary search tracking both",
-      "idea": "Update floor on the left branch, ceil on the right.",
-      "code": "def floor_ceil(a: list[int], x: int) -> tuple[int | None, int | None]:\n    lo, hi = 0, len(a) - 1\n    floor = ceil = None\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] == x:\n            return a[mid], a[mid]\n        if a[mid] < x:\n            floor = a[mid]\n            lo = mid + 1\n        else:\n            ceil = a[mid]\n            hi = mid - 1\n    return floor, ceil",
+      "title": "Linear scan",
+      "idea": "Scan for \"Floor/Ceil in Sorted Array\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Floor/Ceil in Sorted Array\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
       "language": "python",
       "time": "O(log n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[3,4,4,7,8,10] x=5\nmid=2 (4<5) floor=4 lo=3\nmid=4 (8>=5) ceil=8 hi=3\nmid=3 (7>=5) ceil=7 hi=2 -> (4,7)",
-      "whyWorks": "Every discarded half is provably on the wrong side of x."
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "x below the minimum -> floor None",
-    "x above the maximum -> ceil None",
-    "x present -> both equal x"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Returning indices where values were asked (or vice versa)",
-    "Updating the wrong tracker on each branch"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Floor/ceil are the lower/upper bound pair in disguise"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Floor/ceil in a BST (#317, #318)",
-    "Nearest element to x",
-    "Ceil when duplicates exist"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Tie it back to lower/upper bound explicitly; interviewers like the unification.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "srchinsrtpsitin",

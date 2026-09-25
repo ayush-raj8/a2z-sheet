@@ -12,44 +12,57 @@
   "sourceUrl": "https://takeuforward.org/arrays/implement-upper-bound/",
   "quality": "reviewed",
   "tags": [
-    "binary-search"
+    "bs",
+    "revamped"
   ],
-  "pattern": "first index strictly greater",
-  "problemStatement": "Return the first index i with a[i] > x (n if none).",
-  "example": "[1,2,2,3], x=2 -> 3",
-  "intuition": "Identical to lower bound with the comparison changed from >= to >.",
+  "pattern": "bs",
+  "problemStatement": "Master “Implement Upper Bound” (BS on 1D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Implement Upper Bound\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: boundary binary search",
-      "idea": "Same template, strict comparison.",
-      "code": "def upper_bound(a: list[int], x: int) -> int:\n    lo, hi = 0, len(a) - 1\n    ans = len(a)\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] > x:\n            ans = mid\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return ans",
+      "title": "Linear scan",
+      "idea": "Scan for \"Implement Upper Bound\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Implement Upper Bound\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
       "language": "python",
       "time": "O(log n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[1,2,2,3] x=2\nmid=1 (2>2 false) lo=2\nmid=2 (2>2 false) lo=3\nmid=3 (3>2) ans=3"
+      "space": "O(1)"
     }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1) auxiliary"
+    "space": "O(1)"
   },
   "edgeCases": [
-    "x >= max -> n",
-    "x < min -> 0",
-    "Empty array"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Using >= and silently implementing lower bound"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "upper_bound(x) - lower_bound(x) = frequency of x"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Count occurrences in O(log n)",
-    "Floor and ceil",
-    "Fractional/real-valued upper bound"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "Knowing that the pair gives frequency in O(log n) answers several downstream questions for free.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "implmntlwrbnd",

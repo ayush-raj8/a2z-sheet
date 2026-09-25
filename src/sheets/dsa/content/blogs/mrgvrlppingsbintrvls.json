@@ -12,60 +12,70 @@
   "sourceUrl": "https://takeuforward.org/data-structure/merge-overlapping-sub-intervals/",
   "quality": "reviewed",
   "tags": [
-    "intervals",
-    "sorting",
-    "greedy"
+    "array",
+    "revamped"
   ],
-  "pattern": "sort by start + sweep",
-  "problemStatement": "Merge all overlapping intervals.",
-  "example": "[[1,3],[2,6],[8,10]] -> [[1,6],[8,10]]",
-  "intuition": "Sorting by start time means any interval can only overlap the one currently open. That reduces merging to a single comparison per interval.",
+  "pattern": "array",
+  "problemStatement": "Master “Merge Overlapping Subintervals” (Hard) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Merge Overlapping Subintervals\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: sort then extend or push",
-      "idea": "If the next start <= current end, extend the end; else start a new interval.",
-      "code": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    if not intervals:\n        return []\n    intervals.sort(key=lambda p: p[0])\n    out = [list(intervals[0])]\n    for start, end in intervals[1:]:\n        if start <= out[-1][1]:\n            out[-1][1] = max(out[-1][1], end)\n        else:\n            out.append([start, end])\n    return out",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Merge Overlapping Subintervals\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n log n)",
-      "space": "O(1) auxiliary beyond the output",
-      "dryRun": "[[1,3],[2,6],[8,10]]\nopen [1,3]; 2 <= 3 -> extend to [1,6]; 8 > 6 -> push [8,10]",
-      "whyWorks": "After sorting by start, an interval that does not overlap the open one cannot overlap any earlier one."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Merge Overlapping Subintervals\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n log n)",
-    "space": "O(1) auxiliary beyond the output"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "Touching intervals [1,2],[2,3] — merge or not? Clarify",
-    "Fully nested intervals",
-    "Single interval"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Setting end = next_end instead of max(end, next_end), which loses nested intervals",
-    "Sorting by end time"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Interval problems: sort by start to merge, sort by end to schedule greedily"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Insert an interval into a sorted list (#272)",
-    "Minimum removals for non-overlap (#274)",
-    "Meeting rooms II / platform count (#267)"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "The max() on the end is the classic silent bug — a nested [1,10] inside gets truncated without it.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
-      "id": "mrgintrvls",
-      "title": "Merge Intervals"
+      "id": "cntnmbrfsbrryswithgivnxrk",
+      "title": "Count number of subarrays with given xor K"
     },
     {
-      "id": "insrtintrvl",
-      "title": "Insert Interval"
+      "id": "mrgtwsrtdrryswithtxtrspc",
+      "title": "Merge two sorted arrays without extra space"
     },
     {
-      "id": "nnvrlppingintrvls",
-      "title": "Non-overlapping Intervals"
+      "id": "lrgstsbrrywith0sm",
+      "title": "Largest Subarray with 0 Sum"
     }
   ]
 }

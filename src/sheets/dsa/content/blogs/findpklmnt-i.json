@@ -12,47 +12,57 @@
   "sourceUrl": null,
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "matrix"
+    "bs",
+    "revamped"
   ],
-  "pattern": "binary search on columns",
-  "problemStatement": "Find any cell strictly greater than its four neighbours in a 2-D grid.",
-  "example": "[[1,4],[3,2]] -> (0,1)",
-  "intuition": "Binary search over columns: take the middle column, find its maximum row, and compare with the horizontal neighbours. The greater side is guaranteed to contain a peak.",
+  "pattern": "bs",
+  "problemStatement": "Master “Find Peak Element (2D Matrix)” (BS on 2D Arrays) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Find Peak Element (2D Matrix)\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: column binary search with a row max",
-      "idea": "O(log m) columns, each scanned in O(n).",
-      "code": "def find_peak_grid(mat: list[list[int]]) -> tuple[int, int]:\n    n, m = len(mat), len(mat[0])\n    lo, hi = 0, m - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        best_row = max(range(n), key=lambda r: mat[r][mid])\n        left = mat[best_row][mid - 1] if mid > 0 else -1\n        right = mat[best_row][mid + 1] if mid < m - 1 else -1\n        if mat[best_row][mid] > left and mat[best_row][mid] > right:\n            return best_row, mid\n        if left > mat[best_row][mid]:\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return -1, -1",
+      "title": "Linear scan",
+      "idea": "Scan for \"Find Peak Element (2D Matrix)\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(n log m)",
-      "space": "O(1) auxiliary",
-      "dryRun": "mat=[[1,4],[3,2]] columns 0..1\nmid=0: best row 1 (value 3), right neighbour 2 < 3 and no left -> peak (1,0)",
-      "whyWorks": "The column maximum only needs to beat its horizontal neighbours — vertically it already wins."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Find Peak Element (2D Matrix)\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(n log m)",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "Single row or column (reduces to 1-D)",
-    "Boundaries treated as -1/-inf",
-    "Multiple peaks"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Comparing only against neighbours in the same column",
-    "Searching over rows and columns simultaneously"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Reduce 2-D to 1-D by taking a column extremum"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "1-D peak (#91)",
-    "Prove a peak always exists",
-    "O(n + m) algorithms for special grids"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "The correctness argument (why the column max is the right probe) matters far more than the code.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "SearchRowColumnWiseSortedMatrix",

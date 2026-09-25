@@ -12,65 +12,69 @@
   "sourceUrl": "https://takeuforward.org/recursion/introduction-to-recursion-understand-recursion-by-printing-something-n-times/",
   "quality": "reviewed",
   "tags": [
-    "recursion"
+    "bt",
+    "revamped"
   ],
-  "pattern": "recursion",
-  "problemStatement": "Understand recursion by printing a message N times using recursive calls (no loop).",
-  "example": "N=3 → print a line three times",
-  "intuition": "Recursion = base case + smaller self-call. Printing N times: print once, then solve N−1. Stack depth is N — for huge N this is RE (recursion limit) / MLE on stack, even if time looks fine.",
+  "pattern": "bt",
+  "problemStatement": "Master “Understand recursion by print something N times” (Learn Basic Recursion) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Understand recursion by print something N times\": choose → recurse → undo; prune hard.",
   "approaches": [
     {
-      "title": "Recursive print",
-      "idea": "Base: n==0 stop. Else print and recurse n-1.",
-      "code": "import sys\nsys.setrecursionlimit(10**5)  # demo only — prefer loops for huge N\n\ndef print_n_times(n: int, msg: str = \"hello\") -> None:\n    if n == 0:\n        return\n    print(msg)\n    print_n_times(n - 1, msg)",
+      "title": "Unpruned search",
+      "idea": "Full tree for \"Understand recursion by print something N times\".",
+      "code": "def solve(n):\n    ans=[]\n    def dfs(path):\n        if len(path)==n: ans.append(path[:]); return\n        for i in range(n):\n            if i in path: continue\n            path.append(i); dfs(path); path.pop()\n    dfs([])\n    return ans",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(n) recursion stack",
-      "spaceNote": "Stack is not O(1) — n=1e6 likely RE/MLE",
+      "time": "O(n!)",
+      "space": "O(n)",
       "flags": [
-        "RE",
-        "MLE"
-      ],
-      "dryRun": "n=3\nprint; call 2\nprint; call 1\nprint; call 0 return",
-      "whyWorks": "Each call handles one print; induction covers all n≥0."
+        "TLE"
+      ]
+    },
+    {
+      "title": "Backtracking with prune",
+      "idea": "Add constraints for \"Understand recursion by print something N times\".",
+      "code": "def solve(n):\n    ans=[]; path=[]\n    def dfs(start):\n        ans.append(path[:])\n        for i in range(start,n):\n            path.append(i); dfs(i+1); path.pop()\n    dfs(0)\n    return ans",
+      "language": "python",
+      "time": "O(2^n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(n) recursion stack",
-    "recursionStack": "O(n)"
+    "time": "O(2^n)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "n=0",
-    "large n → recursion limit"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Missing base case → infinite recursion → RE",
-    "Calling stack space O(1)",
-    "Using recursion where a loop is clearer/safer"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Problem defined in terms of a smaller subproblem",
-    "Tree/graph DFS naturally recursive"
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Convert to iterative?",
-    "What is Python’s default recursion limit?",
-    "Tail recursion elimination in Python? (not guaranteed)"
+    "Dedup?",
+    "Bitmask DP alternative?"
   ],
-  "interviewInsight": "They check base case + stack-cost awareness. Saying “O(n) stack, may RE for large n” is the mature answer.",
+  "interviewInsight": "Name choose/constraint/undo explicitly.",
   "related": [
+    {
+      "id": "chckfrprim",
+      "title": "Check for Prime"
+    },
     {
       "id": "printnmntimssingrcrsin",
       "title": "Print name N times using recursion"
     },
     {
-      "id": "print1tnsingrcrsin",
-      "title": "Print 1 to N using recursion"
-    },
-    {
-      "id": "smffirstnnmbrs",
-      "title": "Sum of first N numbers"
+      "id": "printlldivisrs",
+      "title": "Print all Divisors"
     }
   ]
 }

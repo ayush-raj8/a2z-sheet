@@ -12,58 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/word-search-leetcode/",
   "quality": "reviewed",
   "tags": [
-    "linked-list",
-    "medium"
+    "bt",
+    "revamped"
   ],
-  "pattern": "linked-list",
-  "problemStatement": "Solve “Word Search” as posed in the A2Z sheet (Trying out all Combos / Hard).",
-  "intuition": "\"Word Search\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "pattern": "bt",
+  "problemStatement": "Master “Word Search” (Trying out all Combos / Hard) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Word Search\": choose → recurse → undo; prune hard.",
   "approaches": [
     {
-      "title": "Hash / multi-pass when helpful",
-      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
-      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "title": "Unpruned search",
+      "idea": "Full tree for \"Word Search\".",
+      "code": "def solve(n):\n    ans=[]\n    def dfs(path):\n        if len(path)==n: ans.append(path[:]); return\n        for i in range(n):\n            if i in path: continue\n            path.append(i); dfs(path); path.pop()\n    dfs([])\n    return ans",
       "language": "python",
-      "time": "O(n)",
+      "time": "O(n!)",
       "space": "O(n)",
       "flags": [
-        "MLE"
+        "TLE"
       ]
     },
     {
-      "title": "Optimal pointer technique",
-      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
-      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Word Search\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "title": "Backtracking with prune",
+      "idea": "Add constraints for \"Word Search\".",
+      "code": "def solve(n):\n    ans=[]; path=[]\n    def dfs(start):\n        ans.append(path[:])\n        for i in range(start,n):\n            path.append(i); dfs(i+1); path.pop()\n    dfs(0)\n    return ans",
       "language": "python",
-      "time": "Typically O(n)",
-      "space": "O(1) auxiliary when in-place"
+      "time": "O(2^n)",
+      "space": "O(n)"
     }
   ],
   "complexity": {
-    "time": "Typically O(n)",
-    "space": "O(1) auxiliary when in-place"
+    "time": "O(2^n)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Losing next before rewiring",
-    "Forgetting dummy head for head-deletion cases",
-    "Off-by-one on k-th node"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Cycle → Floyd",
-    "Reverse / k-group → local reverse + reconnect",
-    "Intersection → length align or switch pointers"
+    "Sheet section “Recursion [PatternWise]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "O(1) space version?",
-    "Doubly linked variant?",
-    "Recursive vs iterative?"
+    "Dedup?",
+    "Bitmask DP alternative?"
   ],
-  "interviewInsight": "For \"Word Search\", interviewers watch pointer hygiene more than clever tricks.",
+  "interviewInsight": "Name choose/constraint/undo explicitly.",
   "related": [
     {
       "id": "plindrmprtitining",
@@ -74,8 +73,8 @@
       "title": "N Queen"
     },
     {
-      "id": "rtinmz",
-      "title": "Rat in a Maze"
+      "id": "lttrcmbintinsfphnnmbr",
+      "title": "Letter Combinations of a Phone number"
     }
   ]
 }

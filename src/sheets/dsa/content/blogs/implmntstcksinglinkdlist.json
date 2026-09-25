@@ -12,21 +12,31 @@
   "sourceUrl": "https://takeuforward.org/data-structure/implement-stack-using-linked-list/",
   "quality": "reviewed",
   "tags": [
-    "stack-queue",
-    "easy"
+    "stack",
+    "revamped"
   ],
-  "pattern": "stack-queue",
-  "problemStatement": "Solve “Implement stack using Linkedlist” as posed in the A2Z sheet (Learning).",
-  "intuition": "\"Implement stack using Linkedlist\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "pattern": "stack",
+  "problemStatement": "Master “Implement stack using Linkedlist” (Learning) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Implement stack using Linkedlist\": LIFO or monotonic stack. Prove amortized O(n) via each index push/pop once.",
   "approaches": [
     {
-      "title": "Stack / monotonic stack skeleton",
-      "idea": "Maintain candidates in order; pop while invariant breaks.",
-      "code": "def solve(a):\n    # Skeleton for: Implement stack using Linkedlist\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "title": "Brute nested scan",
+      "idea": "For each position scan forward/back for \"Implement stack using Linkedlist\".",
+      "code": "def solve_brute(a):\n    n=len(a); ans=[-1]*n\n    for i in range(n):\n        for j in range(i+1,n):\n            if a[j] > a[i]:\n                ans[i]=a[j]; break\n    return ans",
+      "language": "python",
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal monotonic stack / structure",
+      "idea": "Stack maintains candidates for \"Implement stack using Linkedlist\".",
+      "code": "def solve(a):\n    st=[]; ans=[-1]*len(a)\n    for i,x in enumerate(a):\n        while st and a[st[-1]] < x:\n            ans[st.pop()]=x\n        st.append(i)\n    return ans",
       "language": "python",
       "time": "O(n)",
-      "space": "O(n)",
-      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+      "space": "O(n)"
     }
   ],
   "complexity": {
@@ -34,25 +44,26 @@
     "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Pop on empty",
-    "Storing values when indices are needed",
-    "Wrong inequality on monotonic stack"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Next greater/smaller → monotonic stack",
-    "Matching / parsing → classic stack"
+    "Sheet section “Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Circular array variant?",
-    "Sum of subarray minimums connection?",
-    "Queue via two stacks?"
+    "Circular variant?",
+    "Sum of ranges?",
+    "Min-stack / LRU relation?"
   ],
-  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Implement stack using Linkedlist\".",
+  "interviewInsight": "Amortized “enter/leave once” is the complexity story.",
   "related": [
     {
       "id": "implmntqsingstck",

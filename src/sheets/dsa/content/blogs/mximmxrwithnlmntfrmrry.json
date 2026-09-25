@@ -13,46 +13,56 @@
   "quality": "reviewed",
   "tags": [
     "trie",
-    "hard"
+    "revamped"
   ],
   "pattern": "trie",
-  "problemStatement": "Solve “Maximum XOR With an Element From Array” as posed in the A2Z sheet (Problems).",
-  "intuition": "\"Maximum XOR With an Element From Array\" indexes strings by shared prefixes. Each edge is a character; end markers denote keys.",
+  "problemStatement": "Master “Maximum XOR With an Element From Array” (Problems) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Maximum XOR With an Element From Array\": shared prefixes; watch memory.",
   "approaches": [
     {
-      "title": "Trie insert / search",
-      "idea": "Walk/create nodes per character.",
-      "code": "class Node:\n    def __init__(self):\n        self.next = {}\n        self.end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word: str) -> None:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                cur.next[ch] = Node()\n            cur = cur.next[ch]\n        cur.end = True\n\n    def search(self, word: str) -> bool:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                return False\n            cur = cur.next[ch]\n        return cur.end\n# Adapt API for: Maximum XOR With an Element From Array",
+      "title": "Hash set of all prefixes",
+      "idea": "Store strings' prefixes for \"Maximum XOR With an Element From Array\".",
+      "code": "def solve_hash(words):\n    s=set()\n    for w in words:\n        for i in range(len(w)):\n            s.add(w[:i+1])\n    return s",
       "language": "python",
-      "time": "O(total characters)",
-      "space": "O(total characters · Σ)",
+      "time": "O(total chars)",
+      "space": "O(total chars)",
       "flags": [
         "MLE"
       ]
+    },
+    {
+      "title": "Trie",
+      "idea": "Node map per char for \"Maximum XOR With an Element From Array\".",
+      "code": "class Node:\n    def __init__(self):\n        self.next={}; self.end=False\nclass Trie:\n    def __init__(self):\n        self.root=Node()\n    def insert(self,w):\n        cur=self.root\n        for ch in w:\n            cur=cur.next.setdefault(ch, Node())\n        cur.end=True",
+      "language": "python",
+      "time": "O(total chars)",
+      "space": "O(total chars · Σ)"
     }
   ],
   "complexity": {
-    "time": "O(total characters)",
-    "space": "O(total characters · Σ)"
+    "time": "O(total chars)",
+    "space": "O(total chars · Σ)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Forgetting end marker",
-    "Huge alphabet memory blow-ups"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Prefix queries, autocomplete, XOR bit tries"
+    "Sheet section “Tries” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Delete operation?",
-    "Compressed trie / radix tree?",
-    "Bit trie for XOR maxima?"
+    "Delete?",
+    "XOR bit trie?"
   ],
-  "interviewInsight": "Memory layout matters for \"Maximum XOR With an Element From Array\" — mention MLE risk on dense alphabets.",
+  "interviewInsight": "Discuss MLE on alphabet size.",
   "related": [
     {
       "id": "mximmxrftwnmbrsinnrry",

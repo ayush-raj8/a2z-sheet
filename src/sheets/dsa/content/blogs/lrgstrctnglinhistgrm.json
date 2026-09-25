@@ -12,21 +12,30 @@
   "sourceUrl": "https://takeuforward.org/data-structure/area-of-largest-rectangle-in-histogram/",
   "quality": "reviewed",
   "tags": [
-    "stack-queue",
-    "medium"
+    "stack"
   ],
-  "pattern": "stack-queue",
-  "problemStatement": "Solve “Largest rectangle in a histogram” as posed in the A2Z sheet (Monotonic Stack/Queue Problems [VVV. Imp]).",
-  "intuition": "\"Largest rectangle in a histogram\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "pattern": "largest-rectangle-histogram",
+  "problemStatement": "Largest rectangle area in histogram.",
+  "intuition": "For each bar, find previous/next smaller; width = R-L-1; area = h*width. Monotonic stack.",
   "approaches": [
     {
-      "title": "Stack / monotonic stack skeleton",
-      "idea": "Maintain candidates in order; pop while invariant breaks.",
-      "code": "def solve(a):\n    # Skeleton for: Largest rectangle in a histogram\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "title": "Brute",
+      "idea": "For each pair of bounds.",
+      "code": "def largest_brute(h):\n    n=len(h); best=0\n    for i in range(n):\n        mn=h[i]\n        for j in range(i,n):\n            mn=min(mn,h[j]); best=max(best, mn*(j-i+1))\n    return best",
+      "language": "python",
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: monotonic stack",
+      "idea": "Increasing stack of indices.",
+      "code": "def largestRectangleArea(heights):\n    h = heights + [0]\n    st = [-1]\n    best = 0\n    for i, x in enumerate(h):\n        while st[-1] != -1 and h[st[-1]] > x:\n            height = h[st.pop()]\n            width = i - st[-1] - 1\n            best = max(best, height * width)\n        st.append(i)\n    return best",
       "language": "python",
       "time": "O(n)",
-      "space": "O(n)",
-      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+      "space": "O(n)"
     }
   ],
   "complexity": {
@@ -34,25 +43,22 @@
     "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "All equal",
+    "Single bar",
+    "Strictly sorted"
   ],
   "commonMistakes": [
-    "Pop on empty",
-    "Storing values when indices are needed",
-    "Wrong inequality on monotonic stack"
-  ],
-  "patternRecognition": [
-    "Next greater/smaller → monotonic stack",
-    "Matching / parsing → classic stack"
+    "Sentinel 0 missing",
+    "Width formula wrong"
   ],
   "followUps": [
-    "Circular array variant?",
-    "Sum of subarray minimums connection?",
-    "Queue via two stacks?"
+    "Maximal rectangle in binary matrix?",
+    "Sum of subarray minimums"
   ],
-  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Largest rectangle in a histogram\".",
+  "interviewInsight": "Sentinel bar of height 0 simplifies flushing the stack.",
+  "patternRecognition": [
+    "NSL/NSR → area"
+  ],
   "related": [
     {
       "id": "rmvkdigits",

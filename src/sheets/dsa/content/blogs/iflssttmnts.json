@@ -12,42 +12,70 @@
   "sourceUrl": "https://takeuforward.org/if-else/if-else-statements/",
   "quality": "reviewed",
   "tags": [
-    "branching"
+    "array",
+    "revamped"
   ],
-  "problemStatement": "Encode decision rules with conditionals without overlapping bugs.",
-  "intuition": "Translate English into coherent predicates. Order matters when ranges overlap — test equal / just-below / just-above.",
+  "pattern": "array",
+  "problemStatement": "Master “If Else statements” (Things to Know in C++/Java/Python or any language) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"If Else statements\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Decision table → if/elif/else",
-      "idea": "Most specific cases first; residual in else. Prefer early returns over deep nesting.",
-      "code": "def classify(n: int) -> str:\n    if n > 0:\n        return \"positive\"\n    if n < 0:\n        return \"negative\"\n    return \"zero\"\n\ndef withdraw(balance: int, amount: int) -> int:\n    if amount <= 0:\n        raise ValueError(\"amount\")\n    if amount > balance:\n        raise ValueError(\"insufficient\")\n    return balance - amount",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"If Else statements\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(1)",
-      "space": "O(1)"
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"If Else statements\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(1)",
-    "space": "O(1)"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
+  "edgeCases": [
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
+  ],
   "commonMistakes": [
-    "= instead of == in C++/Java/Go",
-    "Wrong order of overlapping ranges",
-    "Deep nesting"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
+  ],
+  "patternRecognition": [
+    "Sheet section “Learn the basics” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Rewrite nested ifs with early returns?",
-    "When is a lookup table clearer?"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Shallow, readable branching is a live-coding readability signal.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
+    {
+      "id": "dttyps",
+      "title": "Data Types"
+    },
     {
       "id": "switchsttmnt",
       "title": "Switch Statement"
     },
     {
-      "id": "frlps",
-      "title": "For loops"
+      "id": "srinpttpt",
+      "title": "User Input / Output"
     }
   ]
 }

@@ -12,48 +12,57 @@
   "sourceUrl": "https://takeuforward.org/data-structure/nth-root-of-a-number-using-binary-search/",
   "quality": "reviewed",
   "tags": [
-    "binary-search",
-    "math"
+    "bs",
+    "revamped"
   ],
-  "pattern": "binary search on the answer with overflow guard",
-  "problemStatement": "Find the integer m with m^n = x, or -1 if none exists.",
-  "example": "n=3, x=27 -> 3",
-  "intuition": "m^n is monotone in m. The practical catch is that m^n explodes, so compute the power with early termination once it exceeds x.",
+  "pattern": "bs",
+  "problemStatement": "Master “Find the Nth root of a number using binary search” (BS on Answers) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Find the Nth root of a number using binary search\": monotonic predicate; invariant answer in [lo,hi).",
   "approaches": [
     {
-      "title": "Optimal: binary search with capped power",
-      "idea": "Stop multiplying as soon as the product passes x.",
-      "code": "def nth_root(n: int, x: int) -> int:\n    def power_cmp(m: int) -> int:\n        p = 1\n        for _ in range(n):\n            p *= m\n            if p > x:\n                return 1\n        return 0 if p == x else -1\n\n    lo, hi = 1, x\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        c = power_cmp(mid)\n        if c == 0:\n            return mid\n        if c < 0:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1",
+      "title": "Linear scan",
+      "idea": "Scan for \"Find the Nth root of a number using binary search\".",
+      "code": "def solve_brute(a,x):\n    for i,v in enumerate(a):\n        if v>=x: return i\n    return len(a)",
       "language": "python",
-      "time": "O(n log x)",
-      "space": "O(1) auxiliary",
-      "dryRun": "n=3 x=27\nmid=14 -> 14^3 > 27 -> hi=13\n... converges to mid=3 -> 27 == 27 -> 3",
-      "whyWorks": "Capping the power keeps intermediate values bounded while preserving the comparison result."
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Binary search",
+      "idea": "Lower-bound style for \"Find the Nth root of a number using binary search\".",
+      "code": "def solve(a,x):\n    lo,hi=0,len(a)\n    while lo<hi:\n        mid=(lo+hi)//2\n        if a[mid]<x: lo=mid+1\n        else: hi=mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
     }
   ],
   "complexity": {
-    "time": "O(n log x)",
-    "space": "O(1) auxiliary"
+    "time": "O(log n)",
+    "space": "O(1)"
   },
   "edgeCases": [
-    "x = 1 -> 1 for any n",
-    "No integer root -> -1",
-    "n = 1",
-    "Overflow in fixed-width languages"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Computing pow() fully and overflowing",
-    "Using floating point and getting off-by-one roots"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Monotone function + comparison helper = binary search on the answer"
+    "Sheet section “Binary Search [1D, 2D Arrays, Search Space]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Real-valued nth root to precision eps",
-    "Fast exponentiation (#199)",
-    "Handle negative x with odd n"
+    "Upper bound?",
+    "Answer-space search?"
   ],
-  "interviewInsight": "The early-exit power helper is the detail interviewers wait for.",
+  "interviewInsight": "Speak the invariant every iteration.",
   "related": [
     {
       "id": "findsqrrtfnmbrinlgn",
@@ -64,8 +73,8 @@
       "title": "Koko Eating Bananas"
     },
     {
-      "id": "minimmdystmkmbqts",
-      "title": "Minimum days to make M bouquets"
+      "id": "findpklmnt",
+      "title": "Find peak element"
     }
   ]
 }

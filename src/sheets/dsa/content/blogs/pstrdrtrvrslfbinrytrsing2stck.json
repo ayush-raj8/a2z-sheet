@@ -12,47 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/iterative-postorder-traversal-of-binary-tree-using-2-stack",
   "quality": "reviewed",
   "tags": [
-    "stack-queue",
-    "easy"
+    "tree",
+    "revamped"
   ],
-  "pattern": "stack-queue",
-  "problemStatement": "Solve “Post-order Traversal of Binary Tree using 2 stack” as posed in the A2Z sheet (Traversals).",
-  "intuition": "\"Post-order Traversal of Binary Tree using 2 stack\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "pattern": "tree",
+  "problemStatement": "Master “Post-order Traversal of Binary Tree using 2 stack” (Traversals) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Post-order Traversal of Binary Tree using 2 stack\": define recursion return value; handle None; combine children. Ask if BST properties help.",
   "approaches": [
     {
-      "title": "Stack / monotonic stack skeleton",
-      "idea": "Maintain candidates in order; pop while invariant breaks.",
-      "code": "def solve(a):\n    # Skeleton for: Post-order Traversal of Binary Tree using 2 stack\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "title": "Brute recompute from every node",
+      "idea": "Re-run DFS from many roots when applicable for \"Post-order Traversal of Binary Tree using 2 stack\".",
+      "code": "def solve_brute(root):\n    # O(n^2) recompute pattern — use only as reference\n    return None",
+      "language": "python",
+      "time": "O(n²) common",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal one-pass tree DP / traversal",
+      "idea": "Single DFS returning the metric needed for \"Post-order Traversal of Binary Tree using 2 stack\".",
+      "code": "def solve(root):\n    ans = 0\n    def dfs(n):\n        nonlocal ans\n        if not n: return 0\n        L, R = dfs(n.left), dfs(n.right)\n        # adapt combine for \"Post-order Traversal of Binary Tree using 2 stack\"\n        ans = max(ans, L + R)\n        return 1 + max(L, R)\n    dfs(root)\n    return ans",
       "language": "python",
       "time": "O(n)",
-      "space": "O(n)",
-      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+      "space": "O(h)"
     }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(n)"
+    "space": "O(h)"
   },
   "edgeCases": [
-    "Empty / single-element input when applicable",
-    "Duplicates and extremes at constraints",
-    "Impossible / already-optimal inputs"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Pop on empty",
-    "Storing values when indices are needed",
-    "Wrong inequality on monotonic stack"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "Next greater/smaller → monotonic stack",
-    "Matching / parsing → classic stack"
+    "Sheet section “Binary Trees [Traversals, Medium and Hard Problems]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Circular array variant?",
-    "Sum of subarray minimums connection?",
-    "Queue via two stacks?"
+    "Iterative?",
+    "Morris O(1) space?",
+    "BST acceleration?"
   ],
-  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Post-order Traversal of Binary Tree using 2 stack\".",
+  "interviewInsight": "Name what dfs returns before writing combine logic.",
   "related": [
     {
       "id": "itrtivinrdrtrvrslfbinrytr",

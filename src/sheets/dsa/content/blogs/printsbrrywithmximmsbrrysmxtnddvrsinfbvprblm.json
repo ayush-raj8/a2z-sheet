@@ -12,47 +12,58 @@
   "sourceUrl": "https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array/",
   "quality": "reviewed",
   "tags": [
-    "arrays",
-    "kadane"
+    "array",
+    "revamped"
   ],
-  "pattern": "Kadane's algorithm + index tracking",
-  "problemStatement": "Return the actual subarray achieving the maximum sum, not just the value.",
-  "example": "[-2,1,-3,4,-1,2,1,-5,4] -> [4,-1,2,1]",
-  "intuition": "Kadane already knows when a new subarray begins — it is precisely the moment cur restarts at a[i]. Record that index and close the interval whenever best improves.",
+  "pattern": "array",
+  "problemStatement": "Master “Print subarray with maximum subarray sum (extended version of above problem)” (Medium) the way an interviewer expects: classify, brute, optimize, prove.",
+  "intuition": "\"Print subarray with maximum subarray sum (extended version of above problem)\": constraints decide hashing vs two pointers vs prefix vs in-place.",
   "approaches": [
     {
-      "title": "Optimal: Kadane with start/end bookkeeping",
-      "idea": "tentative start moves on restart; commit start/end when best updates.",
-      "code": "def max_subarray_with_indices(a: list[int]) -> tuple[int, int, int]:\n    best = cur = a[0]\n    start = end = tentative = 0\n    for i in range(1, len(a)):\n        if cur + a[i] < a[i]:\n            cur = a[i]\n            tentative = i\n        else:\n            cur += a[i]\n        if cur > best:\n            best = cur\n            start, end = tentative, i\n    return best, start, end",
+      "title": "Brute",
+      "idea": "Nested / multi-pass for \"Print subarray with maximum subarray sum (extended version of above problem)\".",
+      "code": "def solve_brute(a):\n    n=len(a); best=float('-inf')\n    for i in range(n):\n        s=0\n        for j in range(i,n):\n            s+=a[j]; best=max(best,s)\n    return best",
       "language": "python",
-      "time": "O(n)",
-      "space": "O(1) auxiliary",
-      "dryRun": "a=[-2,1,-3,4,-1,2,1,-5,4]\nrestart at i=1 (tentative=1), i=3 (tentative=3)\nbest becomes 6 at i=6 -> start=3 end=6 -> [4,-1,2,1]",
-      "whyWorks": "A restart is the only place a new optimal subarray can begin."
+      "time": "O(n²)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern",
+      "idea": "Linear / n log n approach for \"Print subarray with maximum subarray sum (extended version of above problem)\".",
+      "code": "def solve(a):\n    # adapt: kadane / hash / two pointers / sort\n    best=cur=a[0]\n    for x in a[1:]:\n        cur=max(x, cur+x); best=max(best,cur)\n    return best",
+      "language": "python",
+      "time": "O(n) typical",
+      "space": "O(1)–O(n)"
     }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(1) auxiliary"
+    "time": "O(n) typical",
+    "space": "O(1)–O(n)"
   },
   "edgeCases": [
-    "All negatives -> single best element",
-    "Ties — which subarray do you return?",
-    "Single element"
+    "Empty / trivial sizes",
+    "Duplicates",
+    "Constraint extremes",
+    "Impossible cases"
   ],
   "commonMistakes": [
-    "Updating start at every restart instead of only when best improves",
-    "Returning indices from a run that was later beaten"
+    "Jumping to code without classifying constraints",
+    "Claiming O(1) recursion stack",
+    "Missing the brute→optimal story"
   ],
   "patternRecognition": [
-    "\"Reconstruct the witness\" -> store the decision point, not the whole history"
+    "Sheet section “Solve Problems on Arrays [Easy -> Medium -> Hard]” signals the intended family",
+    "Keywords in the title usually name the algorithm"
   ],
   "followUps": [
-    "Return the shortest such subarray on ties",
-    "Circular version",
-    "Maximum sum rectangle in a 2-D matrix"
+    "O(1) space?",
+    "Sorted input changes?",
+    "Streaming?"
   ],
-  "interviewInsight": "Reconstruction questions are really about DP traceback discipline; the tentative/committed split is the whole trick.",
+  "interviewInsight": "Narrate brute→bottleneck→pattern every time.",
   "related": [
     {
       "id": "kdnslgrithmmximmsbrrysm",
