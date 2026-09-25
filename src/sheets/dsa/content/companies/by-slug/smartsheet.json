@@ -1,0 +1,1 @@
+{"slug":"smartsheet","name":"Smartsheet","counts":{"30d":0,"3m":1,"6m":1,"6m+":0,"all":1},"problems":[{"title":"Group Anagrams","difficulty":"MEDIUM","frequency":100,"acceptance":0.007312905429484083,"lcSlug":"group-anagrams","lcUrl":"https://leetcode.com/problems/group-anagrams","topics":["Array","Hash Table","String","Sorting"],"windows":["3m","6m","all"],"a2zIds":[]}]}

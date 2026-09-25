@@ -12,7 +12,8 @@
     "blogs:batch1": "node scripts/write-blog-batch1.mjs",
     "blogs:batch2": "node scripts/write-blog-batch2.mjs",
     "blogs:remaining": "node scripts/write-reviewed-remaining.mjs",
-    "blogs:inventory": "node scripts/build-topic-inventory.mjs"
+    "blogs:inventory": "node scripts/build-topic-inventory.mjs",
+    "companies:build": "node scripts/build-company-data.mjs"
   },
   "dependencies": {
     "mermaid": "^11.12.0",

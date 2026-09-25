@@ -19,9 +19,24 @@ function CollapsibleButton({ className, open, complete, percent, title, count, o
   );
 }
 
-function SubStep({ stepNo, subStep, open, progress, notes, onToggleOpen, onToggleTopic, onEditNote }) {
-  const stats = countGroup(subStep.topics, progress);
+function SubStep({
+  stepNo,
+  subStep,
+  open,
+  progress,
+  notes,
+  onToggleOpen,
+  onToggleTopic,
+  onEditNote,
+  topicFilterIds,
+}) {
+  const topics = topicFilterIds
+    ? (subStep.topics || []).filter((t) => topicFilterIds.has(t.id))
+    : subStep.topics || [];
+  const stats = countGroup(topics, progress);
   const key = `sub-${stepNo}-${subStep.sub_step_no}`;
+
+  if (topicFilterIds && topics.length === 0) return null;
 
   return (
     <div className="sub-step">
@@ -37,7 +52,7 @@ function SubStep({ stepNo, subStep, open, progress, notes, onToggleOpen, onToggl
       {open ? (
         <div className="content-inner">
           <TopicTable
-            topics={subStep.topics}
+            topics={topics}
             progress={progress}
             notes={notes}
             onToggle={onToggleTopic}
@@ -57,9 +72,15 @@ export default function StepSection({
   onToggleOpen,
   onToggleTopic,
   onEditNote,
+  topicFilterIds,
 }) {
   const allTopics = (step.sub_steps || []).flatMap((subStep) => subStep.topics || []);
-  const stats = countGroup(allTopics, progress);
+  const visibleTopics = topicFilterIds
+    ? allTopics.filter((t) => topicFilterIds.has(t.id))
+    : allTopics;
+  if (topicFilterIds && visibleTopics.length === 0) return null;
+
+  const stats = countGroup(visibleTopics, progress);
   const stepKey = `step-${step.step_no}`;
   const open = openKeys.has(stepKey);
 
@@ -87,6 +108,7 @@ export default function StepSection({
               onToggleOpen={onToggleOpen}
               onToggleTopic={onToggleTopic}
               onEditNote={onEditNote}
+              topicFilterIds={topicFilterIds}
             />
           ))}
         </div>

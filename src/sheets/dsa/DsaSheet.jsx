@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import roadmap from '../../../a2z.json';
 import { buildBackup, downloadBackup, parseBackup } from './lib/backup';
+import { a2zIdsForCompanyFilter, companiesOnA2zSheet } from './lib/companyLoader';
 import { initStore, persistNote, persistPalette, persistTopic, replaceUserData } from './lib/db';
 import { applyPalette, DEFAULT_PALETTE } from './lib/palettes';
 import { collectExpandKeys, countProgress } from './lib/topics';
@@ -20,9 +21,26 @@ export default function DsaSheet() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [editingTopic, setEditingTopic] = useState(null);
+  const [companyFilter, setCompanyFilter] = useState('');
   const fileRef = useRef(null);
 
-  const stats = useMemo(() => countProgress(roadmap, progress), [progress]);
+  const companyOptions = useMemo(() => companiesOnA2zSheet(), []);
+  const topicFilterIds = useMemo(() => {
+    if (!companyFilter) return null;
+    return a2zIdsForCompanyFilter(companyFilter);
+  }, [companyFilter]);
+
+  const stats = useMemo(() => {
+    if (!topicFilterIds) return countProgress(roadmap, progress);
+    let total = 0;
+    let completed = 0;
+    for (const id of topicFilterIds) {
+      total += 1;
+      if (progress[id]) completed += 1;
+    }
+    return { total, completed };
+  }, [progress, topicFilterIds]);
+
   const rawPercent = stats.total > 0 ? (stats.completed / stats.total) * 100 : 0;
   const percentLabel = rawPercent > 0 && rawPercent < 1 ? '<1%' : `${Math.round(rawPercent)}%`;
   const allKeys = useMemo(() => collectExpandKeys(roadmap), []);
@@ -59,6 +77,11 @@ export default function DsaSheet() {
     const timer = window.setTimeout(() => setMessage(''), 3200);
     return () => window.clearTimeout(timer);
   }, [message]);
+
+  useEffect(() => {
+    if (!companyFilter) return;
+    setOpenKeys(new Set(allKeys));
+  }, [companyFilter, allKeys]);
 
   function toggleOpen(key) {
     setOpenKeys((current) => {
@@ -155,6 +178,9 @@ export default function DsaSheet() {
           <p className="storage-note">Progress is saved in this browser.</p>
         </div>
         <div className="topbar-actions">
+          <Link to="/dsa/companies" className="ghost-btn">
+            Companies
+          </Link>
           <PalettePicker value={palette} onChange={changePalette} />
           <button type="button" className="ghost-btn" onClick={exportProgress}>
             Export
@@ -177,13 +203,39 @@ export default function DsaSheet() {
 
       <section className="overview" aria-label="Overall progress">
         <div className="overview-top">
-          <span>Overall progress</span>
+          <span>Overall progress{companyFilter ? ' (filtered)' : ''}</span>
           <span className="overview-count">
             {stats.completed}/{stats.total} · {percentLabel}
           </span>
         </div>
         <div className="overview-bar" aria-hidden="true">
           <div className="overview-bar-fill" style={{ width: `${rawPercent}%` }} />
+        </div>
+        <div className="company-filter-row">
+          <label>
+            Company filter
+            <select
+              value={companyFilter}
+              onChange={(e) => setCompanyFilter(e.target.value)}
+              aria-label="Filter A2Z topics by company"
+            >
+              <option value="">All companies</option>
+              {companyOptions.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  {c.name} ({c.count})
+                </option>
+              ))}
+            </select>
+          </label>
+          {companyFilter ? (
+            <Link to={`/dsa/companies/${companyFilter}`} className="company-filter-link">
+              Open full company list →
+            </Link>
+          ) : (
+            <span className="company-filter-hint">
+              Chips link to company pages · {companyOptions.length} companies overlap A2Z via LC
+            </span>
+          )}
         </div>
         {message ? <p className="status-message">{message}</p> : null}
       </section>
@@ -199,6 +251,7 @@ export default function DsaSheet() {
             onToggleOpen={toggleOpen}
             onToggleTopic={toggleTopic}
             onEditNote={setEditingTopic}
+            topicFilterIds={topicFilterIds}
           />
         ))}
       </main>

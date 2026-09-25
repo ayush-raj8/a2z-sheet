@@ -1,0 +1,6144 @@
+{
+  "generatedAt": "2026-09-25T12:48:10.503Z",
+  "companyCount": 470,
+  "problemRows": 17340,
+  "windows": [
+    {
+      "id": "30d",
+      "label": "30 days",
+      "order": 0
+    },
+    {
+      "id": "3m",
+      "label": "3 months",
+      "order": 1
+    },
+    {
+      "id": "6m",
+      "label": "6 months",
+      "order": 2
+    },
+    {
+      "id": "6m+",
+      "label": ">6 months",
+      "order": 3
+    },
+    {
+      "id": "all",
+      "label": "All",
+      "order": 4
+    }
+  ],
+  "companies": [
+    {
+      "slug": "google",
+      "name": "Google",
+      "problemCount": 2344,
+      "counts": {
+        "30d": 183,
+        "3m": 496,
+        "6m": 785,
+        "6m+": 1931,
+        "all": 2344
+      },
+      "a2zOverlap": 247
+    },
+    {
+      "slug": "amazon",
+      "name": "Amazon",
+      "problemCount": 2011,
+      "counts": {
+        "30d": 171,
+        "3m": 450,
+        "6m": 725,
+        "6m+": 1633,
+        "all": 2011
+      },
+      "a2zOverlap": 246
+    },
+    {
+      "slug": "meta",
+      "name": "Meta",
+      "problemCount": 1399,
+      "counts": {
+        "30d": 55,
+        "3m": 197,
+        "6m": 377,
+        "6m+": 1249,
+        "all": 1399
+      },
+      "a2zOverlap": 238
+    },
+    {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "problemCount": 1384,
+      "counts": {
+        "30d": 43,
+        "3m": 199,
+        "6m": 411,
+        "6m+": 1171,
+        "all": 1384
+      },
+      "a2zOverlap": 238
+    },
+    {
+      "slug": "bloomberg",
+      "name": "Bloomberg",
+      "problemCount": 1223,
+      "counts": {
+        "30d": 57,
+        "3m": 248,
+        "6m": 405,
+        "6m+": 1084,
+        "all": 1223
+      },
+      "a2zOverlap": 233
+    },
+    {
+      "slug": "uber",
+      "name": "Uber",
+      "problemCount": 359,
+      "counts": {
+        "30d": 2,
+        "3m": 18,
+        "6m": 57,
+        "6m+": 245,
+        "all": 359
+      },
+      "a2zOverlap": 102
+    },
+    {
+      "slug": "tiktok",
+      "name": "TikTok",
+      "problemCount": 348,
+      "counts": {
+        "30d": 2,
+        "3m": 15,
+        "6m": 36,
+        "6m+": 315,
+        "all": 348
+      },
+      "a2zOverlap": 121
+    },
+    {
+      "slug": "oracle",
+      "name": "Oracle",
+      "problemCount": 299,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 14,
+        "6m+": 274,
+        "all": 299
+      },
+      "a2zOverlap": 118
+    },
+    {
+      "slug": "apple",
+      "name": "Apple",
+      "problemCount": 298,
+      "counts": {
+        "30d": 4,
+        "3m": 29,
+        "6m": 69,
+        "6m+": 246,
+        "all": 298
+      },
+      "a2zOverlap": 122
+    },
+    {
+      "slug": "goldman-sachs",
+      "name": "Goldman Sachs",
+      "problemCount": 264,
+      "counts": {
+        "30d": 6,
+        "3m": 18,
+        "6m": 38,
+        "6m+": 213,
+        "all": 264
+      },
+      "a2zOverlap": 112
+    },
+    {
+      "slug": "tcs",
+      "name": "tcs",
+      "problemCount": 253,
+      "counts": {
+        "30d": 25,
+        "3m": 64,
+        "6m": 94,
+        "6m+": 179,
+        "all": 253
+      },
+      "a2zOverlap": 113
+    },
+    {
+      "slug": "infosys",
+      "name": "Infosys",
+      "problemCount": 221,
+      "counts": {
+        "30d": 33,
+        "3m": 60,
+        "6m": 89,
+        "6m+": 116,
+        "all": 221
+      },
+      "a2zOverlap": 95
+    },
+    {
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "problemCount": 193,
+      "counts": {
+        "30d": 5,
+        "3m": 23,
+        "6m": 32,
+        "6m+": 139,
+        "all": 193
+      },
+      "a2zOverlap": 67
+    },
+    {
+      "slug": "linkedin",
+      "name": "LinkedIn",
+      "problemCount": 175,
+      "counts": {
+        "30d": 5,
+        "3m": 6,
+        "6m": 36,
+        "6m+": 141,
+        "all": 175
+      },
+      "a2zOverlap": 71
+    },
+    {
+      "slug": "ibm",
+      "name": "IBM",
+      "problemCount": 173,
+      "counts": {
+        "30d": 0,
+        "3m": 5,
+        "6m": 26,
+        "6m+": 143,
+        "all": 173
+      },
+      "a2zOverlap": 68
+    },
+    {
+      "slug": "zoho",
+      "name": "Zoho",
+      "problemCount": 155,
+      "counts": {
+        "30d": 1,
+        "3m": 3,
+        "6m": 11,
+        "6m+": 134,
+        "all": 155
+      },
+      "a2zOverlap": 76
+    },
+    {
+      "slug": "walmart-labs",
+      "name": "Walmart Labs",
+      "problemCount": 152,
+      "counts": {
+        "30d": 2,
+        "3m": 5,
+        "6m": 20,
+        "6m+": 122,
+        "all": 152
+      },
+      "a2zOverlap": 80
+    },
+    {
+      "slug": "adobe",
+      "name": "Adobe",
+      "problemCount": 148,
+      "counts": {
+        "30d": 3,
+        "3m": 3,
+        "6m": 12,
+        "6m+": 107,
+        "all": 148
+      },
+      "a2zOverlap": 67
+    },
+    {
+      "slug": "visa",
+      "name": "Visa",
+      "problemCount": 145,
+      "counts": {
+        "30d": 1,
+        "3m": 10,
+        "6m": 22,
+        "6m+": 111,
+        "all": 145
+      },
+      "a2zOverlap": 61
+    },
+    {
+      "slug": "nvidia",
+      "name": "Nvidia",
+      "problemCount": 136,
+      "counts": {
+        "30d": 0,
+        "3m": 6,
+        "6m": 19,
+        "6m+": 111,
+        "all": 136
+      },
+      "a2zOverlap": 66
+    },
+    {
+      "slug": "yandex",
+      "name": "Yandex",
+      "problemCount": 131,
+      "counts": {
+        "30d": 2,
+        "3m": 11,
+        "6m": 24,
+        "6m+": 119,
+        "all": 131
+      },
+      "a2zOverlap": 57
+    },
+    {
+      "slug": "accenture",
+      "name": "Accenture",
+      "problemCount": 129,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 11,
+        "6m+": 110,
+        "all": 129
+      },
+      "a2zOverlap": 68
+    },
+    {
+      "slug": "de-shaw",
+      "name": "DE Shaw",
+      "problemCount": 116,
+      "counts": {
+        "30d": 5,
+        "3m": 10,
+        "6m": 15,
+        "6m+": 80,
+        "all": 116
+      },
+      "a2zOverlap": 39
+    },
+    {
+      "slug": "flipkart",
+      "name": "Flipkart",
+      "problemCount": 108,
+      "counts": {
+        "30d": 3,
+        "3m": 3,
+        "6m": 7,
+        "6m+": 87,
+        "all": 108
+      },
+      "a2zOverlap": 56
+    },
+    {
+      "slug": "paypal",
+      "name": "PayPal",
+      "problemCount": 103,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 4,
+        "6m+": 86,
+        "all": 103
+      },
+      "a2zOverlap": 48
+    },
+    {
+      "slug": "snowflake",
+      "name": "Snowflake",
+      "problemCount": 101,
+      "counts": {
+        "30d": 1,
+        "3m": 4,
+        "6m": 26,
+        "6m+": 86,
+        "all": 101
+      },
+      "a2zOverlap": 28
+    },
+    {
+      "slug": "phonepe",
+      "name": "PhonePe",
+      "problemCount": 95,
+      "counts": {
+        "30d": 6,
+        "3m": 7,
+        "6m": 7,
+        "6m+": 81,
+        "all": 95
+      },
+      "a2zOverlap": 30
+    },
+    {
+      "slug": "cisco",
+      "name": "Cisco",
+      "problemCount": 88,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 4,
+        "6m+": 71,
+        "all": 88
+      },
+      "a2zOverlap": 45
+    },
+    {
+      "slug": "citadel",
+      "name": "Citadel",
+      "problemCount": 87,
+      "counts": {
+        "30d": 3,
+        "3m": 3,
+        "6m": 6,
+        "6m+": 76,
+        "all": 87
+      },
+      "a2zOverlap": 37
+    },
+    {
+      "slug": "snap",
+      "name": "Snap",
+      "problemCount": 80,
+      "counts": {
+        "30d": 2,
+        "3m": 3,
+        "6m": 6,
+        "6m+": 50,
+        "all": 80
+      },
+      "a2zOverlap": 31
+    },
+    {
+      "slug": "doordash",
+      "name": "DoorDash",
+      "problemCount": 74,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 4,
+        "6m+": 68,
+        "all": 74
+      },
+      "a2zOverlap": 29
+    },
+    {
+      "slug": "expedia",
+      "name": "Expedia",
+      "problemCount": 69,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 12,
+        "6m+": 39,
+        "all": 69
+      },
+      "a2zOverlap": 26
+    },
+    {
+      "slug": "nutanix",
+      "name": "Nutanix",
+      "problemCount": 67,
+      "counts": {
+        "30d": 1,
+        "3m": 2,
+        "6m": 4,
+        "6m+": 49,
+        "all": 67
+      },
+      "a2zOverlap": 32
+    },
+    {
+      "slug": "servicenow",
+      "name": "ServiceNow",
+      "problemCount": 67,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 60,
+        "all": 67
+      },
+      "a2zOverlap": 41
+    },
+    {
+      "slug": "ebay",
+      "name": "eBay",
+      "problemCount": 64,
+      "counts": {
+        "30d": 1,
+        "3m": 4,
+        "6m": 13,
+        "6m+": 43,
+        "all": 64
+      },
+      "a2zOverlap": 31
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "problemCount": 63,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 10,
+        "6m+": 28,
+        "all": 63
+      },
+      "a2zOverlap": 17
+    },
+    {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "problemCount": 63,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 4,
+        "6m+": 56,
+        "all": 63
+      },
+      "a2zOverlap": 38
+    },
+    {
+      "slug": "capital-one",
+      "name": "Capital One",
+      "problemCount": 63,
+      "counts": {
+        "30d": 4,
+        "3m": 5,
+        "6m": 15,
+        "6m+": 52,
+        "all": 63
+      },
+      "a2zOverlap": 19
+    },
+    {
+      "slug": "intuit",
+      "name": "Intuit",
+      "problemCount": 62,
+      "counts": {
+        "30d": 4,
+        "3m": 5,
+        "6m": 9,
+        "6m+": 42,
+        "all": 62
+      },
+      "a2zOverlap": 26
+    },
+    {
+      "slug": "morgan-stanley",
+      "name": "Morgan Stanley",
+      "problemCount": 62,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 4,
+        "6m+": 42,
+        "all": 62
+      },
+      "a2zOverlap": 33
+    },
+    {
+      "slug": "samsung",
+      "name": "Samsung",
+      "problemCount": 62,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 46,
+        "all": 62
+      },
+      "a2zOverlap": 34
+    },
+    {
+      "slug": "atlassian",
+      "name": "Atlassian",
+      "problemCount": 58,
+      "counts": {
+        "30d": 1,
+        "3m": 3,
+        "6m": 4,
+        "6m+": 47,
+        "all": 58
+      },
+      "a2zOverlap": 19
+    },
+    {
+      "slug": "roblox",
+      "name": "Roblox",
+      "problemCount": 56,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 4,
+        "6m+": 48,
+        "all": 56
+      },
+      "a2zOverlap": 18
+    },
+    {
+      "slug": "wix",
+      "name": "Wix",
+      "problemCount": 56,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 21,
+        "all": 56
+      },
+      "a2zOverlap": 27
+    },
+    {
+      "slug": "anduril",
+      "name": "Anduril",
+      "problemCount": 54,
+      "counts": {
+        "30d": 2,
+        "3m": 11,
+        "6m": 22,
+        "6m+": 38,
+        "all": 54
+      },
+      "a2zOverlap": 22
+    },
+    {
+      "slug": "qualcomm",
+      "name": "Qualcomm",
+      "problemCount": 53,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 9,
+        "6m+": 45,
+        "all": 53
+      },
+      "a2zOverlap": 33
+    },
+    {
+      "slug": "x",
+      "name": "X",
+      "problemCount": 51,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 51
+      },
+      "a2zOverlap": 13
+    },
+    {
+      "slug": "epam-systems",
+      "name": "EPAM Systems",
+      "problemCount": 49,
+      "counts": {
+        "30d": 2,
+        "3m": 7,
+        "6m": 10,
+        "6m+": 40,
+        "all": 49
+      },
+      "a2zOverlap": 32
+    },
+    {
+      "slug": "palo-alto-networks",
+      "name": "Palo Alto Networks",
+      "problemCount": 49,
+      "counts": {
+        "30d": 1,
+        "3m": 3,
+        "6m": 12,
+        "6m+": 39,
+        "all": 49
+      },
+      "a2zOverlap": 22
+    },
+    {
+      "slug": "coupang",
+      "name": "Coupang",
+      "problemCount": 48,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 39,
+        "all": 48
+      },
+      "a2zOverlap": 24
+    },
+    {
+      "slug": "cognizant",
+      "name": "Cognizant",
+      "problemCount": 47,
+      "counts": {
+        "30d": 0,
+        "3m": 5,
+        "6m": 9,
+        "6m+": 37,
+        "all": 47
+      },
+      "a2zOverlap": 27
+    },
+    {
+      "slug": "pinterest",
+      "name": "Pinterest",
+      "problemCount": 45,
+      "counts": {
+        "30d": 6,
+        "3m": 8,
+        "6m": 14,
+        "6m+": 38,
+        "all": 45
+      },
+      "a2zOverlap": 15
+    },
+    {
+      "slug": "deloitte",
+      "name": "Deloitte",
+      "problemCount": 44,
+      "counts": {
+        "30d": 0,
+        "3m": 4,
+        "6m": 9,
+        "6m+": 35,
+        "all": 44
+      },
+      "a2zOverlap": 28
+    },
+    {
+      "slug": "agoda",
+      "name": "Agoda",
+      "problemCount": 43,
+      "counts": {
+        "30d": 1,
+        "3m": 4,
+        "6m": 11,
+        "6m+": 38,
+        "all": 43
+      },
+      "a2zOverlap": 20
+    },
+    {
+      "slug": "sprinklr",
+      "name": "Sprinklr",
+      "problemCount": 43,
+      "counts": {
+        "30d": 1,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 23,
+        "all": 43
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "sap",
+      "name": "SAP",
+      "problemCount": 42,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 32,
+        "all": 42
+      },
+      "a2zOverlap": 28
+    },
+    {
+      "slug": "tesla",
+      "name": "Tesla",
+      "problemCount": 42,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 7,
+        "6m+": 30,
+        "all": 42
+      },
+      "a2zOverlap": 18
+    },
+    {
+      "slug": "meesho",
+      "name": "Meesho",
+      "problemCount": 40,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 32,
+        "all": 40
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "arista-networks",
+      "name": "Arista Networks",
+      "problemCount": 39,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 29,
+        "all": 39
+      },
+      "a2zOverlap": 17
+    },
+    {
+      "slug": "capgemini",
+      "name": "Capgemini",
+      "problemCount": 36,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 31,
+        "all": 36
+      },
+      "a2zOverlap": 20
+    },
+    {
+      "slug": "josh-technology",
+      "name": "josh technology",
+      "problemCount": 36,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 4,
+        "6m+": 32,
+        "all": 36
+      },
+      "a2zOverlap": 16
+    },
+    {
+      "slug": "rubrik",
+      "name": "Rubrik",
+      "problemCount": 36,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 24,
+        "all": 36
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "swiggy",
+      "name": "Swiggy",
+      "problemCount": 36,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 32,
+        "all": 36
+      },
+      "a2zOverlap": 19
+    },
+    {
+      "slug": "media-net",
+      "name": "Media.net",
+      "problemCount": 35,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 17,
+        "all": 35
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "turing",
+      "name": "Turing",
+      "problemCount": 35,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 5,
+        "6m+": 31,
+        "all": 35
+      },
+      "a2zOverlap": 13
+    },
+    {
+      "slug": "docusign",
+      "name": "Docusign",
+      "problemCount": 33,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 3,
+        "6m+": 28,
+        "all": 33
+      },
+      "a2zOverlap": 14
+    },
+    {
+      "slug": "yahoo",
+      "name": "Yahoo",
+      "problemCount": 32,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 32
+      },
+      "a2zOverlap": 20
+    },
+    {
+      "slug": "autodesk",
+      "name": "Autodesk",
+      "problemCount": 31,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 4,
+        "6m+": 22,
+        "all": 31
+      },
+      "a2zOverlap": 19
+    },
+    {
+      "slug": "databricks",
+      "name": "Databricks",
+      "problemCount": 31,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 8,
+        "6m+": 28,
+        "all": 31
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "hashedin",
+      "name": "HashedIn",
+      "problemCount": 31,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 28,
+        "all": 31
+      },
+      "a2zOverlap": 16
+    },
+    {
+      "slug": "grammarly",
+      "name": "Grammarly",
+      "problemCount": 30,
+      "counts": {
+        "30d": 2,
+        "3m": 6,
+        "6m": 7,
+        "6m+": 23,
+        "all": 30
+      },
+      "a2zOverlap": 11
+    },
+    {
+      "slug": "zomato",
+      "name": "Zomato",
+      "problemCount": 30,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 19,
+        "all": 30
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "netflix",
+      "name": "Netflix",
+      "problemCount": 29,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 7,
+        "6m+": 23,
+        "all": 29
+      },
+      "a2zOverlap": 13
+    },
+    {
+      "slug": "paytm",
+      "name": "Paytm",
+      "problemCount": 29,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 17,
+        "all": 29
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "rippling",
+      "name": "Rippling",
+      "problemCount": 29,
+      "counts": {
+        "30d": 4,
+        "3m": 5,
+        "6m": 6,
+        "6m+": 22,
+        "all": 29
+      },
+      "a2zOverlap": 9
+    },
+    {
+      "slug": "waymo",
+      "name": "Waymo",
+      "problemCount": 29,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 7,
+        "6m+": 18,
+        "all": 29
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "mathworks",
+      "name": "MathWorks",
+      "problemCount": 28,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 19,
+        "all": 28
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "yelp",
+      "name": "Yelp",
+      "problemCount": 28,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 28
+      },
+      "a2zOverlap": 11
+    },
+    {
+      "slug": "zeta",
+      "name": "Zeta",
+      "problemCount": 28,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 27,
+        "all": 28
+      },
+      "a2zOverlap": 15
+    },
+    {
+      "slug": "american-express",
+      "name": "American Express",
+      "problemCount": 27,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 13,
+        "all": 27
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "tekion",
+      "name": "Tekion",
+      "problemCount": 27,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 6,
+        "6m+": 17,
+        "all": 27
+      },
+      "a2zOverlap": 16
+    },
+    {
+      "slug": "squarepoint-capital",
+      "name": "Squarepoint Capital",
+      "problemCount": 26,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 22,
+        "all": 26
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "lyft",
+      "name": "Lyft",
+      "problemCount": 25,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 4,
+        "6m+": 19,
+        "all": 25
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "problemCount": 25,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 4,
+        "6m+": 18,
+        "all": 25
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "ola-cabs",
+      "name": "Ola Cabs",
+      "problemCount": 24,
+      "counts": {
+        "30d": 24,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 17
+    },
+    {
+      "slug": "deutsche-bank",
+      "name": "Deutsche Bank",
+      "problemCount": 22,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 11,
+        "all": 22
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "dropbox",
+      "name": "Dropbox",
+      "problemCount": 22,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 22
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "siemens",
+      "name": "Siemens",
+      "problemCount": 21,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 15,
+        "all": 21
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "zenefits",
+      "name": "Zenefits",
+      "problemCount": 21,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 21
+      },
+      "a2zOverlap": 13
+    },
+    {
+      "slug": "zepto",
+      "name": "Zepto",
+      "problemCount": 21,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 19,
+        "all": 21
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "intel",
+      "name": "Intel",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 16,
+        "all": 20
+      },
+      "a2zOverlap": 16
+    },
+    {
+      "slug": "juspay",
+      "name": "Juspay",
+      "problemCount": 20,
+      "counts": {
+        "30d": 1,
+        "3m": 3,
+        "6m": 5,
+        "6m+": 14,
+        "all": 20
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "myntra",
+      "name": "Myntra",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 18,
+        "all": 20
+      },
+      "a2zOverlap": 11
+    },
+    {
+      "slug": "tinkoff",
+      "name": "Tinkoff",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 18,
+        "all": 20
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "wayfair",
+      "name": "Wayfair",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 10,
+        "all": 20
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "wells-fargo",
+      "name": "Wells Fargo",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 19,
+        "all": 20
+      },
+      "a2zOverlap": 9
+    },
+    {
+      "slug": "wipro",
+      "name": "Wipro",
+      "problemCount": 20,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 13,
+        "all": 20
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "accolite",
+      "name": "Accolite",
+      "problemCount": 19,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 15,
+        "all": 19
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "bny-mellon",
+      "name": "BNY Mellon",
+      "problemCount": 19,
+      "counts": {
+        "30d": 4,
+        "3m": 4,
+        "6m": 4,
+        "6m+": 10,
+        "all": 19
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "makemytrip",
+      "name": "MakeMyTrip",
+      "problemCount": 19,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 19
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "quora",
+      "name": "Quora",
+      "problemCount": 19,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 6,
+        "all": 19
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "two-sigma",
+      "name": "Two Sigma",
+      "problemCount": 19,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 10,
+        "all": 19
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "verkada",
+      "name": "Verkada",
+      "problemCount": 19,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 18,
+        "all": 19
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "hcl",
+      "name": "HCL",
+      "problemCount": 18,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 15,
+        "all": 18
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "okta",
+      "name": "Okta",
+      "problemCount": 18,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 15,
+        "all": 18
+      },
+      "a2zOverlap": 9
+    },
+    {
+      "slug": "roku",
+      "name": "Roku",
+      "problemCount": 18,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 18
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "akuna-capital",
+      "name": "Akuna Capital",
+      "problemCount": 17,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 17
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "amd",
+      "name": "AMD",
+      "problemCount": 17,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 15,
+        "all": 17
+      },
+      "a2zOverlap": 15
+    },
+    {
+      "slug": "blackrock",
+      "name": "BlackRock",
+      "problemCount": 17,
+      "counts": {
+        "30d": 4,
+        "3m": 4,
+        "6m": 4,
+        "6m+": 13,
+        "all": 17
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "geico",
+      "name": "Geico",
+      "problemCount": 17,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 16,
+        "all": 17
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "huawei",
+      "name": "Huawei",
+      "problemCount": 17,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 17
+      },
+      "a2zOverlap": 11
+    },
+    {
+      "slug": "ixl",
+      "name": "IXL",
+      "problemCount": 17,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 12,
+        "all": 17
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "openai",
+      "name": "OpenAI",
+      "problemCount": 17,
+      "counts": {
+        "30d": 2,
+        "3m": 3,
+        "6m": 3,
+        "6m+": 13,
+        "all": 17
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "barclays",
+      "name": "Barclays",
+      "problemCount": 16,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 4,
+        "6m+": 8,
+        "all": 16
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "epic-systems",
+      "name": "Epic Systems",
+      "problemCount": 16,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 13,
+        "all": 16
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "hudson-river-trading",
+      "name": "Hudson River Trading",
+      "problemCount": 16,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 1,
+        "all": 16
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "zscaler",
+      "name": "ZScaler",
+      "problemCount": 16,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 9,
+        "all": 16
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "bitgo",
+      "name": "BitGo",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 15
+      },
+      "a2zOverlap": 11
+    },
+    {
+      "slug": "booking-com",
+      "name": "Booking.com",
+      "problemCount": 15,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 10,
+        "all": 15
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "grab",
+      "name": "Grab",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 10,
+        "all": 15
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "moloco",
+      "name": "Moloco",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 11,
+        "all": 15
+      },
+      "a2zOverlap": 10
+    },
+    {
+      "slug": "pocket-gems",
+      "name": "Pocket Gems",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 15
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "robinhood",
+      "name": "Robinhood",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 7,
+        "all": 15
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "sigmoid",
+      "name": "Sigmoid",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 12,
+        "all": 15
+      },
+      "a2zOverlap": 12
+    },
+    {
+      "slug": "sofi",
+      "name": "SoFi",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 4,
+        "6m+": 12,
+        "all": 15
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "uipath",
+      "name": "UiPath",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 9,
+        "all": 15
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "zopsmart",
+      "name": "Zopsmart",
+      "problemCount": 15,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 4,
+        "6m+": 12,
+        "all": 15
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "dell",
+      "name": "Dell",
+      "problemCount": 14,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 13,
+        "all": 14
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "jane-street",
+      "name": "Jane Street",
+      "problemCount": 14,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 12,
+        "all": 14
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "mitsogo",
+      "name": "Mitsogo",
+      "problemCount": 14,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 14
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "problemCount": 14,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 14
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "spotify",
+      "name": "Spotify",
+      "problemCount": 14,
+      "counts": {
+        "30d": 0,
+        "3m": 4,
+        "6m": 5,
+        "6m+": 11,
+        "all": 14
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "akamai",
+      "name": "Akamai",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 7,
+        "all": 13
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "aurora",
+      "name": "Aurora",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 3,
+        "6m+": 8,
+        "all": 13
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "datadog",
+      "name": "Datadog",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 13,
+        "all": 13
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "general-motors",
+      "name": "General Motors",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 10,
+        "all": 13
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "inmobi",
+      "name": "InMobi",
+      "problemCount": 13,
+      "counts": {
+        "30d": 3,
+        "3m": 3,
+        "6m": 3,
+        "6m+": 9,
+        "all": 13
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "nuro",
+      "name": "Nuro",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 11,
+        "all": 13
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "stripe",
+      "name": "Stripe",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 10,
+        "all": 13
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "vk",
+      "name": "VK",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 12,
+        "all": 13
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "whatnot",
+      "name": "Whatnot",
+      "problemCount": 13,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 10,
+        "all": 13
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "dp-world",
+      "name": "DP world",
+      "problemCount": 12,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 11,
+        "all": 12
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "dream11",
+      "name": "Dream11",
+      "problemCount": 12,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 11,
+        "all": 12
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "mastercard",
+      "name": "Mastercard",
+      "problemCount": 12,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 9,
+        "all": 12
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "millennium",
+      "name": "Millennium",
+      "problemCount": 12,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 9,
+        "all": 12
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "revolut",
+      "name": "Revolut",
+      "problemCount": 12,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 10,
+        "all": 12
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "applied-intuition",
+      "name": "Applied Intuition",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "baidu",
+      "name": "Baidu",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 11
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "cloudflare",
+      "name": "Cloudflare",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 11,
+        "all": 11
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "coinbase",
+      "name": "Coinbase",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "crowdstrike",
+      "name": "CrowdStrike",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "disney",
+      "name": "Disney",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 7,
+        "all": 11
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "hubspot",
+      "name": "Hubspot",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 11,
+        "all": 11
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "netapp",
+      "name": "NetApp",
+      "problemCount": 11,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 6,
+        "all": 11
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "ozon",
+      "name": "Ozon",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "pornhub",
+      "name": "PornHub",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 8,
+        "all": 11
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "razorpay",
+      "name": "razorpay",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 7,
+        "all": 11
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "sig",
+      "name": "SIG",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "splunk",
+      "name": "Splunk",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "twilio",
+      "name": "Twilio",
+      "problemCount": 11,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 6,
+        "all": 11
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "ukg",
+      "name": "UKG",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 10,
+        "all": 11
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "verily",
+      "name": "Verily",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 9,
+        "all": 11
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "wissen-technology",
+      "name": "Wissen Technology",
+      "problemCount": 11,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 8,
+        "all": 11
+      },
+      "a2zOverlap": 8
+    },
+    {
+      "slug": "affirm",
+      "name": "Affirm",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 9,
+        "all": 10
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "arcesium",
+      "name": "Arcesium",
+      "problemCount": 10,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 4,
+        "all": 10
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "criteo",
+      "name": "Criteo",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 8,
+        "all": 10
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "flexport",
+      "name": "Flexport",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 8,
+        "all": 10
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "karat",
+      "name": "Karat",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 9,
+        "all": 10
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "microstrategy",
+      "name": "Microstrategy",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 8,
+        "all": 10
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "weride",
+      "name": "WeRide",
+      "problemCount": 10,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 9,
+        "all": 10
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "avito",
+      "name": "Avito",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 8,
+        "all": 9
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "compass",
+      "name": "Compass",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 8,
+        "all": 9
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "confluent",
+      "name": "Confluent",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 3,
+        "6m+": 8,
+        "all": 9
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "coursera",
+      "name": "Coursera",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 9
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "freshworks",
+      "name": "FreshWorks",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 5,
+        "all": 9
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "instacart",
+      "name": "Instacart",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 8,
+        "all": 9
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "nokia",
+      "name": "Nokia",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 6,
+        "all": 9
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "opentext",
+      "name": "opentext",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 3,
+        "6m": 3,
+        "6m+": 4,
+        "all": 9
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "publicis-sapient",
+      "name": "Publicis Sapient",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 9
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "rivian",
+      "name": "Rivian",
+      "problemCount": 9,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 9,
+        "all": 9
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "axon",
+      "name": "Axon",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 7,
+        "6m+": 6,
+        "all": 8
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "directi",
+      "name": "Directi",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 8
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "info-edge",
+      "name": "Info Edge",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 7,
+        "all": 8
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "kla",
+      "name": "KLA",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 8,
+        "all": 8
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "lti",
+      "name": "LTI",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 6,
+        "all": 8
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "nagarro",
+      "name": "Nagarro",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 8
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "netskope",
+      "name": "Netskope",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 8,
+        "all": 8
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "oyo",
+      "name": "oyo",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 7,
+        "all": 8
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "persistent-systems",
+      "name": "persistent systems",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 7,
+        "all": 8
+      },
+      "a2zOverlap": 7
+    },
+    {
+      "slug": "pure-storage",
+      "name": "Pure Storage",
+      "problemCount": 8,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 6,
+        "all": 8
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "airtel",
+      "name": "Airtel",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "audible",
+      "name": "Audible",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 1,
+        "all": 7
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "box",
+      "name": "Box",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 6,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "citigroup",
+      "name": "Citigroup",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 7
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "dunzo",
+      "name": "Dunzo",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 7
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "groww",
+      "name": "Groww",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "hive",
+      "name": "Hive",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "imc",
+      "name": "IMC",
+      "problemCount": 7,
+      "counts": {
+        "30d": 1,
+        "3m": 2,
+        "6m": 3,
+        "6m+": 4,
+        "all": 7
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "jio",
+      "name": "jio",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 7,
+        "all": 7
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "optiver",
+      "name": "Optiver",
+      "problemCount": 7,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "rakuten",
+      "name": "Rakuten",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 7
+      },
+      "a2zOverlap": 6
+    },
+    {
+      "slug": "shopee",
+      "name": "Shopee",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "twitch",
+      "name": "Twitch",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 4,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "urban-company",
+      "name": "Urban Company",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "vimeo",
+      "name": "Vimeo",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 7
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "vmware",
+      "name": "VMware",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "warnermedia",
+      "name": "Warnermedia",
+      "problemCount": 7,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 7
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "cadence",
+      "name": "Cadence",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 6
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "cashfree",
+      "name": "Cashfree",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "comcast",
+      "name": "Comcast",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "darwinbox",
+      "name": "Darwinbox",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "faire",
+      "name": "Faire",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 5,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "fidelity",
+      "name": "Fidelity",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 6
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "hsbc",
+      "name": "HSBC",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "indeed",
+      "name": "Indeed",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 6
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "liveramp",
+      "name": "LiveRamp",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 6
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "lowe-s",
+      "name": "Lowe's",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "lucid",
+      "name": "Lucid",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 6
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "maq-software",
+      "name": "MAQ Software",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 6
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "mercari",
+      "name": "Mercari",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 0,
+        "all": 6
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "moveworks",
+      "name": "Moveworks",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "optum",
+      "name": "Optum",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 2,
+        "all": 6
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "paypay",
+      "name": "PayPay",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 6
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "point72",
+      "name": "Point72",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 6
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ripple",
+      "name": "Ripple",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "rokt",
+      "name": "Rokt",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "target",
+      "name": "Target",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "trilogy",
+      "name": "Trilogy",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 6
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "upstart",
+      "name": "Upstart",
+      "problemCount": 6,
+      "counts": {
+        "30d": 1,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "virtu-financial",
+      "name": "Virtu Financial",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 5,
+        "all": 6
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "virtusa",
+      "name": "Virtusa",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 6
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "wise",
+      "name": "Wise",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 3,
+        "6m+": 3,
+        "all": 6
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "workday",
+      "name": "Workday",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "zoox",
+      "name": "Zoox",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 6,
+        "all": 6
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "zs-associates",
+      "name": "ZS Associates",
+      "problemCount": 6,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 6
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "alibaba",
+      "name": "Alibaba",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "amdocs",
+      "name": "Amdocs",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "aon",
+      "name": "Aon",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "asana",
+      "name": "Asana",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "athenahealth",
+      "name": "athenahealth",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "attentive",
+      "name": "Attentive",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "bolt",
+      "name": "Bolt",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 3,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "careem",
+      "name": "Careem",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "chewy",
+      "name": "Chewy",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "duolingo",
+      "name": "Duolingo",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 3,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "garmin",
+      "name": "Garmin",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "godaddy",
+      "name": "GoDaddy",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "gsn-games",
+      "name": "GSN Games",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "guidewire",
+      "name": "Guidewire",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "gusto",
+      "name": "Gusto",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "hp",
+      "name": "HP",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "hulu",
+      "name": "Hulu",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "nielsen",
+      "name": "Nielsen",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "qualtrics",
+      "name": "Qualtrics",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "reddit",
+      "name": "Reddit",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "remitly",
+      "name": "Remitly",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "riot-games",
+      "name": "Riot Games",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "shopify",
+      "name": "Shopify",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "sony",
+      "name": "Sony",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "squarespace",
+      "name": "Squarespace",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 2,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "teradata",
+      "name": "Teradata",
+      "problemCount": 5,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 2,
+        "all": 5
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "the-trade-desk",
+      "name": "The Trade Desk",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "toast",
+      "name": "Toast",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 5,
+        "all": 5
+      },
+      "a2zOverlap": 5
+    },
+    {
+      "slug": "tripadvisor",
+      "name": "Tripadvisor",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 4,
+        "all": 5
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "wish",
+      "name": "Wish",
+      "problemCount": 5,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 5
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "acko",
+      "name": "Acko",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "airbus-se",
+      "name": "Airbus SE",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "altimetrik",
+      "name": "Altimetrik",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "blinkit",
+      "name": "blinkit",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "citrix",
+      "name": "Citrix",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cohesity",
+      "name": "Cohesity",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "commvault",
+      "name": "Commvault",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "delhivery",
+      "name": "Delhivery",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "devrev",
+      "name": "DevRev",
+      "problemCount": 4,
+      "counts": {
+        "30d": 2,
+        "3m": 2,
+        "6m": 2,
+        "6m+": 2,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "earnin",
+      "name": "EarnIn",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "factset",
+      "name": "FactSet",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "fortinet",
+      "name": "Fortinet",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "gameskraft",
+      "name": "Gameskraft",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "harness",
+      "name": "Harness",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "honeywell",
+      "name": "Honeywell",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "hpe",
+      "name": "HPE",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "liftoff",
+      "name": "Liftoff",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mindtickle",
+      "name": "Mindtickle",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "mindtree",
+      "name": "MindTree",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "nordstrom",
+      "name": "Nordstrom",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "nykaa",
+      "name": "Nykaa",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "otter-ai",
+      "name": "Otter.ai",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "patreon",
+      "name": "Patreon",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "pony-ai",
+      "name": "Pony.ai",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "poshmark",
+      "name": "Poshmark",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "pwc",
+      "name": "Pwc",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 4
+    },
+    {
+      "slug": "societe-generale",
+      "name": "Societe Generale",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "texas-instruments",
+      "name": "Texas Instruments",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "thoughtspot",
+      "name": "thoughtspot",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "trexquant",
+      "name": "Trexquant",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 4,
+        "all": 4
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "tusimple",
+      "name": "TuSimple",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 4
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ubs",
+      "name": "UBS",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "valve",
+      "name": "Valve",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "works-applications",
+      "name": "Works Applications",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "ziprecruiter",
+      "name": "ZipRecruiter",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 3,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "zoom",
+      "name": "Zoom",
+      "problemCount": 4,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 4
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "activision",
+      "name": "Activision",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "airwallex",
+      "name": "Airwallex",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "apollo-io",
+      "name": "Apollo.io",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "appfolio",
+      "name": "AppFolio",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "aqr-capital-management",
+      "name": "AQR Capital Management",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "carwale",
+      "name": "carwale",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "chime",
+      "name": "Chime",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 2,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ciena",
+      "name": "ciena",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "clari",
+      "name": "Clari",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cloudera",
+      "name": "Cloudera",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cme-group",
+      "name": "CME Group",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "deliveroo",
+      "name": "Deliveroo",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "deltax",
+      "name": "DeltaX",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "drw",
+      "name": "DRW",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "fourkites",
+      "name": "fourkites",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "freecharge",
+      "name": "Freecharge",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "ge-digital",
+      "name": "GE Digital",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ge-healthcare",
+      "name": "GE Healthcare",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "hilabs",
+      "name": "HiLabs",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "larsen-and-toubro",
+      "name": "Larsen & Toubro",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "navan",
+      "name": "Navan",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "navi",
+      "name": "Navi",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "ncr",
+      "name": "NCR",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "nextdoor",
+      "name": "Nextdoor",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "niantic",
+      "name": "Niantic",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "odoo",
+      "name": "Odoo",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 3,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "postmates",
+      "name": "Postmates",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "samsara",
+      "name": "Samsara",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "sumo-logic",
+      "name": "Sumo Logic",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "tech-mahindra",
+      "name": "Tech Mahindra",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 3
+    },
+    {
+      "slug": "tencent",
+      "name": "Tencent",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "thoughtworks",
+      "name": "ThoughtWorks",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "thousandeyes",
+      "name": "ThousandEyes",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "tiger-analytics",
+      "name": "Tiger Analytics",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "tinder",
+      "name": "Tinder",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "toptal",
+      "name": "Toptal",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "tower-research-capital",
+      "name": "Tower Research Capital",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "usaa",
+      "name": "USAA",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 3
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "worldquant",
+      "name": "WorldQuant",
+      "problemCount": 3,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 3,
+        "all": 3
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "amadeus",
+      "name": "Amadeus",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "analytics-quotient",
+      "name": "Analytics quotient",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "appdynamics",
+      "name": "AppDynamics",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "bank-of-america",
+      "name": "Bank of America",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "blackstone",
+      "name": "BlackStone",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "bridgewater-associates",
+      "name": "Bridgewater Associates",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "canonical",
+      "name": "Canonical",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cars24",
+      "name": "CARS24",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "cred",
+      "name": "CRED",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "cruise",
+      "name": "Cruise",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "dataminr",
+      "name": "Dataminr",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ey",
+      "name": "EY",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "fiverr",
+      "name": "Fiverr",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "flexera",
+      "name": "Flexera",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "groupon",
+      "name": "Groupon",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "grubhub",
+      "name": "Grubhub",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "hotstar",
+      "name": "Hotstar",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "houzz",
+      "name": "Houzz",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "informatica",
+      "name": "Informatica",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "instabase",
+      "name": "instabase",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "ivp",
+      "name": "IVP",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "jump-trading",
+      "name": "Jump Trading",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "kakao",
+      "name": "Kakao",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "line",
+      "name": "LINE",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "luxoft",
+      "name": "Luxoft",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "machine-zone",
+      "name": "Machine Zone",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mckinsey",
+      "name": "McKinsey",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mixpanel",
+      "name": "Mixpanel",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "national-payments-corporation-of-india",
+      "name": "National Payments Corporation of India",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "netease",
+      "name": "NetEase",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "netsuite",
+      "name": "Netsuite",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "paycom",
+      "name": "Paycom",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "peak6",
+      "name": "peak6",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "peloton",
+      "name": "Peloton",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "pubmatic",
+      "name": "PubMatic",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "rbc",
+      "name": "RBC",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "sentry",
+      "name": "Sentry",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "sharechat",
+      "name": "ShareChat",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "snapdeal",
+      "name": "Snapdeal",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "softwire",
+      "name": "Softwire",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "soundhound",
+      "name": "SoundHound",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "stackadapt",
+      "name": "StackAdapt",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "stackline",
+      "name": "Stackline",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "tanium",
+      "name": "Tanium",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "tesco",
+      "name": "Tesco",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 1,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 2
+    },
+    {
+      "slug": "thomson-reuters",
+      "name": "Thomson Reuters",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "turvo",
+      "name": "Turvo",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "unity",
+      "name": "Unity",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "zalando",
+      "name": "Zalando",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "zendesk",
+      "name": "Zendesk",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "zluri",
+      "name": "Zluri",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 2
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "zynga",
+      "name": "Zynga",
+      "problemCount": 2,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 2,
+        "all": 2
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "avalara",
+      "name": "Avalara",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "braze",
+      "name": "Braze",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "circle",
+      "name": "Circle",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cleartrip",
+      "name": "Cleartrip",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ctc",
+      "name": "CTC",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "curefit",
+      "name": "CureFit",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cvent",
+      "name": "CVENT",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "devsinc",
+      "name": "Devsinc",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "druva",
+      "name": "Druva",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "edelweiss-group",
+      "name": "Edelweiss Group",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "fastenal",
+      "name": "Fastenal",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "fpt",
+      "name": "FPT",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "gsa-capital",
+      "name": "GSA Capital",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "highspot",
+      "name": "Highspot",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "iit-bombay",
+      "name": "IIT Bombay",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "juniper-networks",
+      "name": "Juniper Networks",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "lendingkart-technologies",
+      "name": "Lendingkart Technologies",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "lenskart",
+      "name": "Lenskart",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mapbox",
+      "name": "Mapbox",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mobileye",
+      "name": "Mobileye",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "moengage",
+      "name": "Moengage",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "national-instruments",
+      "name": "National Instruments",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "okx",
+      "name": "OKX",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "payu",
+      "name": "PayU",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "redbus",
+      "name": "redbus",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "scale-ai",
+      "name": "Scale AI",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "slice",
+      "name": "Slice",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "smartnews",
+      "name": "smartnews",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "smartsheet",
+      "name": "Smartsheet",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 1,
+        "6m": 1,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "soti",
+      "name": "SOTI",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "synopsys",
+      "name": "Synopsys",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "veeva-systems",
+      "name": "Veeva Systems",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "veritas",
+      "name": "Veritas",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "wealthfront",
+      "name": "Wealthfront",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "western-digital",
+      "name": "Western Digital",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "zeta-suite",
+      "name": "zeta suite",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 1
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "zillow",
+      "name": "Zillow",
+      "problemCount": 1,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 1,
+        "all": 1
+      },
+      "a2zOverlap": 1
+    },
+    {
+      "slug": "bentley-systems",
+      "name": "Bentley Systems",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "bharatpe",
+      "name": "BharatPe",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "bill-holdings",
+      "name": "BILL Holdings",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "blizzard",
+      "name": "Blizzard",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "block",
+      "name": "Block",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "bosch",
+      "name": "Bosch",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "bp",
+      "name": "BP",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "brex",
+      "name": "Brex",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "cedcoss",
+      "name": "CEDCOSS",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "celigo",
+      "name": "Celigo",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "coforge",
+      "name": "Coforge",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "consultadd",
+      "name": "ConsultAdd",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "coveo",
+      "name": "Coveo",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "credit-karma",
+      "name": "Credit Karma",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "devtron",
+      "name": "Devtron",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "dxc-technology",
+      "name": "DXC Technology",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "electronic-arts",
+      "name": "Electronic Arts",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "genpact",
+      "name": "Genpact",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "gojek",
+      "name": "Gojek",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "graviton",
+      "name": "Graviton",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "hertz",
+      "name": "Hertz",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "hiver",
+      "name": "Hiver",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "indmoney",
+      "name": "INDmoney",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "j-p-morgan",
+      "name": "J.P. Morgan",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "komprise",
+      "name": "Komprise",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "licious",
+      "name": "Licious",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "miro",
+      "name": "Miro",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "mountblue",
+      "name": "Mountblue",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "msci",
+      "name": "MSCI",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "ninjacart",
+      "name": "NinjaCart",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "notion",
+      "name": "Notion",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "opendoor",
+      "name": "Opendoor",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "palantir-technologies",
+      "name": "Palantir Technologies",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "qburst",
+      "name": "QBurst",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "roche",
+      "name": "Roche",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "tejas-networks",
+      "name": "Tejas Networks",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "turo",
+      "name": "Turo",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "vanguard",
+      "name": "Vanguard",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "watchguard",
+      "name": "WatchGuard",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "winzo",
+      "name": "WinZO",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    },
+    {
+      "slug": "yext",
+      "name": "Yext",
+      "problemCount": 0,
+      "counts": {
+        "30d": 0,
+        "3m": 0,
+        "6m": 0,
+        "6m+": 0,
+        "all": 0
+      },
+      "a2zOverlap": 0
+    }
+  ]
+}

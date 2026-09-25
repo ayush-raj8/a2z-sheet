@@ -1,0 +1,1 @@
+{"slug":"veeva-systems","name":"Veeva Systems","counts":{"30d":0,"3m":0,"6m":0,"6m+":1,"all":1},"problems":[{"title":"Count and Say","difficulty":"MEDIUM","frequency":100,"acceptance":0.006362006830398445,"lcSlug":"count-and-say","lcUrl":"https://leetcode.com/problems/count-and-say","topics":["String"],"windows":["6m+","all"],"a2zIds":["cntndsy"]}]}

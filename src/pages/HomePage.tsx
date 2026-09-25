@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 const sheets = [
   {
     to: '/dsa',
-    title: 'A2Z DSA Sheet',
-    blurb: 'Track 455 DSA problems with notes, progress, and export/import.',
+    title: 'A2Z DSA Roadmap',
+    blurb: '455 DSA topics with blogs, progress, and company chips mapped via LeetCode links.',
     tag: 'Practice',
+  },
+  {
+    to: '/dsa/companies',
+    title: 'Company-wise DSA',
+    blurb: '470 companies from LC frequency lists — filter by window, jump into A2Z blogs when mapped.',
+    tag: 'Interview',
   },
   {
     to: '/lld',
@@ -28,7 +34,7 @@ export default function HomePage() {
           neither slows the other down.
         </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {sheets.map((sheet) => (
             <Link
               key={sheet.to}

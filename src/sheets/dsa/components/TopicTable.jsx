@@ -5,6 +5,7 @@ import gfgLogo from '../../../../assets/logo/gfg.svg';
 import cnLogo from '../../../../assets/logo/cn.svg';
 import lcLogo from '../../../../assets/logo/lc.svg';
 import { hasBlog } from '../content/blogLoader';
+import { getCompaniesForA2z } from '../lib/companyLoader';
 import { getDifficultyClass, parseTags } from '../lib/topics';
 
 const platformLogos = {
@@ -45,7 +46,29 @@ function BlogCell({ topic }) {
   );
 }
 
-function TopicRow({ topic, completed, note, onToggle, onEditNote }) {
+function CompanyChips({ topicId }) {
+  const all = getCompaniesForA2z(topicId);
+  const companies = all.slice(0, 4);
+  if (!companies.length) return null;
+  return (
+    <div className="topic-companies">
+      {companies.map((c) => (
+        <Link
+          key={c.slug}
+          to={`/dsa/companies/${c.slug}`}
+          className="topic-company-chip"
+          title={`${c.name} (freq ${c.frequency})`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {c.name}
+        </Link>
+      ))}
+      {all.length > 4 ? <span className="topic-company-more">+{all.length - 4}</span> : null}
+    </div>
+  );
+}
+
+function TopicRow({ topic, completed, note, onToggle, onEditNote, showCompanies }) {
   const tags = parseTags(topic.ques_topic);
   const className = [getDifficultyClass(topic.difficulty), completed ? 'completed' : '']
     .filter(Boolean)
@@ -55,6 +78,7 @@ function TopicRow({ topic, completed, note, onToggle, onEditNote }) {
     <tr className={className}>
       <td className="topic-cell" title={tags}>
         <div className="topic-title">{topic.question_title}</div>
+        {showCompanies ? <CompanyChips topicId={topic.id} /> : null}
       </td>
       <BlogCell topic={topic} />
       <LinkCell url={topic.yt_link} label="YT" />
@@ -93,7 +117,14 @@ function TopicRow({ topic, completed, note, onToggle, onEditNote }) {
   );
 }
 
-export default function TopicTable({ topics, progress, notes, onToggle, onEditNote }) {
+export default function TopicTable({
+  topics,
+  progress,
+  notes,
+  onToggle,
+  onEditNote,
+  showCompanies = true,
+}) {
   return (
     <div className="table-container">
       <table>
@@ -118,6 +149,7 @@ export default function TopicTable({ topics, progress, notes, onToggle, onEditNo
               note={notes[topic.id]}
               onToggle={onToggle}
               onEditNote={onEditNote}
+              showCompanies={showCompanies}
             />
           ))}
         </tbody>

@@ -1,0 +1,1 @@
+{"slug":"fastenal","name":"Fastenal","counts":{"30d":0,"3m":0,"6m":0,"6m+":1,"all":1},"problems":[{"title":"Number of Atoms","difficulty":"HARD","frequency":100,"acceptance":0.006524251244310877,"lcSlug":"number-of-atoms","lcUrl":"https://leetcode.com/problems/number-of-atoms","topics":["Hash Table","String","Stack","Sorting"],"windows":["6m+","all"],"a2zIds":[]}]}
