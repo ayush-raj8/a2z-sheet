@@ -10,6 +10,7 @@ import {
   type CompanyProblem,
   type CompanyWindowId,
 } from '../lib/companyLoader';
+import { pickCanonicalTopic } from '../lib/companyTopics';
 import { initStore, persistTopic, replaceUserData } from '../lib/db';
 import { DEFAULT_PALETTE } from '../lib/palettes';
 import '../styles.css';
@@ -25,7 +26,15 @@ const WINDOW_TABS: Array<{ id: CompanyWindowId | 'all'; label: string }> = [
 const DIFF_ORDER: Record<string, number> = { EASY: 0, MEDIUM: 1, HARD: 2 };
 
 function primaryTopic(p: CompanyProblem): string {
-  return p.topics?.[0]?.trim() || 'Untagged';
+  return pickCanonicalTopic(p.topics);
+}
+
+function otherTags(p: CompanyProblem): string[] {
+  const canon = primaryTopic(p);
+  return (p.topics || []).filter((t) => {
+    const bucket = pickCanonicalTopic([t]);
+    return bucket !== canon && t.trim() !== canon;
+  });
 }
 
 function sortProblems(list: CompanyProblem[]): CompanyProblem[] {
@@ -77,7 +86,7 @@ function ProblemTable({
         </thead>
         <tbody>
           {problems.map((p) => {
-            const extra = (p.topics || []).slice(1);
+            const extra = otherTags(p);
             const id = companyProgressId(p);
             const completed = Boolean(progress[id]);
             const rowClass = [difficultyClass(p.difficulty), completed ? 'completed' : '']
@@ -331,7 +340,8 @@ export default function CompanyDetailPage() {
           </Link>
           <h1>{data.name}</h1>
           <p className="storage-note">
-            Progress saved in this browser (same store as A2Z · import/export)
+            Progress saved in this browser (same store as A2Z · import/export) ·
+            grouped by strongest topic (DP/Graph/Tree beat Array)
             {meta?.a2zOverlap ? ` · ${meta.a2zOverlap} overlap A2Z` : ''}
           </p>
         </div>
