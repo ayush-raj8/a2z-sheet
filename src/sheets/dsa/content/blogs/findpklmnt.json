@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "findpklmnt",
   "title": "Find peak element",
+  "topicNumber": 91,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/peak-element-in-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “peak element in array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "binary search on slope",
+  "problemStatement": "Find any index i with a[i] > a[i-1] and a[i] > a[i+1] (out-of-range neighbours are -inf).",
+  "example": "[1,2,1,3,5,6,4] -> 1 or 5",
+  "intuition": "If a[mid] < a[mid+1] you are on an ascending slope, and a peak must exist to the right (the array ends at -inf). That is a monotone decision even though the array is not sorted.",
+  "approaches": [
+    {
+      "title": "Brute: check every index",
+      "idea": "Linear scan comparing neighbours.",
+      "code": "def find_peak_linear(a: list[int]) -> int:\n    n = len(a)\n    for i in range(n):\n        left = a[i - 1] if i > 0 else float(\"-inf\")\n        right = a[i + 1] if i < n - 1 else float(\"-inf\")\n        if a[i] > left and a[i] > right:\n            return i\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the slope",
+      "idea": "Move toward the higher neighbour; a peak is guaranteed on that side.",
+      "code": "def find_peak(a: list[int]) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] < a[mid + 1]:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,1,3,5,6,4]\nmid=3 (3<5) lo=4\nmid=5 (6>4) hi=5\nmid=4 (5<6) lo=5 -> peak index 5",
+      "whyWorks": "The boundaries act as -inf, so an ascending step always has a peak ahead of it."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Strictly increasing -> last index",
+    "Strictly decreasing -> index 0",
+    "Single element",
+    "Multiple peaks (any is valid)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find peak element” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Trying to find the global maximum",
+    "Reading a[mid+1] when mid is the last index"
+  ],
+  "patternRecognition": [
+    "Binary search needs a monotone *decision*, not a sorted array"
+  ],
+  "followUps": [
+    "2-D peak finding (#109)",
+    "Find all peaks",
+    "Why is a peak guaranteed to exist?"
+  ],
+  "interviewInsight": "This problem exists to break the belief that binary search requires sorted input. Say that out loud.",
+  "related": [
+    {
+      "id": "singllmntinsrtdrry",
+      "title": "Single element in a Sorted Array"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findthwmnytimshsnrrybnrttd",
+      "title": "Find out how many times has an array been rotated"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "findminimminrttdsrtdrry",
+      "title": "Find minimum in Rotated Sorted Array"
     }
-  }
+  ]
 }

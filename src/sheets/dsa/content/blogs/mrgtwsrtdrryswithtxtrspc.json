@@ -1,40 +1,94 @@
 {
+  "version": 2,
   "id": "mrgtwsrtdrryswithtxtrspc",
   "title": "Merge two sorted arrays without extra space",
+  "topicNumber": 74,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/merge-two-sorted-arrays-without-extra-space/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers",
+    "gap-method"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Merge two sorted arrays without extra space\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Merge two sorted arrays without extra space\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "Shell-sort gap method",
+  "problemStatement": "Merge two sorted arrays in-place, with O(1) extra space.",
+  "example": "a=[1,4,8,10], b=[2,3,9] -> a=[1,2,3,4], b=[8,9,10]",
+  "intuition": "Treat the two arrays as one virtual array of length n+m. The gap method repeatedly compares elements a fixed distance apart and halves the gap — exactly Shell sort restricted to already-sorted halves.",
+  "approaches": [
+    {
+      "title": "Brute: merge into a third array",
+      "idea": "Standard merge, then copy back.",
+      "code": "def merge_extra(a: list[int], b: list[int]) -> None:\n    merged = sorted(a + b)\n    a[:] = merged[: len(a)]\n    b[:] = merged[len(a):]",
+      "language": "python",
+      "time": "O((n+m) log(n+m)) with sort, O(n+m) with a real merge",
+      "space": "O(n+m)",
+      "flags": [
+        "MLE"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Merge two sorted arrays without extra space\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Merge two sorted arrays without extra space\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "title": "Better: swap-and-sort (O(1) space)",
+      "idea": "Swap out-of-order pairs across the boundary, then re-sort both halves.",
+      "code": "def merge_swap(a: list[int], b: list[int]) -> None:\n    i, j = len(a) - 1, 0\n    while i >= 0 and j < len(b) and a[i] > b[j]:\n        a[i], b[j] = b[j], a[i]\n        i -= 1\n        j += 1\n    a.sort()\n    b.sort()",
+      "language": "python",
+      "time": "O(n log n + m log m)",
+      "space": "O(1) auxiliary"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Merge two sorted arrays without extra space\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Merge two sorted arrays without extra space\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Merge two sorted arrays without extra space\nfunc solve(a []int) int {\n    // TODO: core idea for \"Merge two sorted arrays without extra space\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: gap method",
+      "idea": "gap = ceil((n+m)/2), halve each round, compare elements gap apart in the virtual array.",
+      "code": "def merge_gap(a: list[int], b: list[int]) -> None:\n    n, m = len(a), len(b)\n    total = n + m\n\n    def get(idx: int) -> int:\n        return a[idx] if idx < n else b[idx - n]\n\n    def put(idx: int, val: int) -> None:\n        if idx < n:\n            a[idx] = val\n        else:\n            b[idx - n] = val\n\n    gap = (total + 1) // 2\n    while gap > 0:\n        i = 0\n        while i + gap < total:\n            if get(i) > get(i + gap):\n                x, y = get(i), get(i + gap)\n                put(i, y)\n                put(i + gap, x)\n            i += 1\n        gap = 0 if gap == 1 else (gap + 1) // 2",
+      "language": "python",
+      "time": "O((n+m) log(n+m))",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,4,8,10] b=[2,3,9] total=7 gap=4\ncompare (0,4),(1,5),(2,6) and swap where needed\ngap 2, then 1, then stop -> a=[1,2,3,4] b=[8,9,10]",
+      "whyWorks": "Each gap pass fixes all inversions at that distance; halving down to 1 leaves the virtual array sorted."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Gap (Shell) method",
+    "body": "Use ceil when halving the gap, and stop after the gap-1 pass. Getting gap = 1 but never running it is the classic off-by-one."
+  },
+  "complexity": {
+    "time": "O((n+m) log(n+m))",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "Either array empty",
+    "All of b smaller than all of a",
+    "Equal elements across the boundary"
+  ],
+  "commonMistakes": [
+    "Halving with floor, which skips the final gap-1 pass",
+    "Mixing up index mapping in the virtual array"
+  ],
+  "patternRecognition": [
+    "\"In-place merge\" -> gap method; \"extra space allowed\" -> plain two-pointer merge"
+  ],
+  "followUps": [
+    "LeetCode 88 variant where a has trailing space (merge from the back)",
+    "Merge k sorted arrays",
+    "Stability of the gap method"
+  ],
+  "interviewInsight": "Present all three tiers. The gap method is the differentiator but the back-to-front merge is what LeetCode 88 wants.",
+  "related": [
+    {
+      "id": "mrgvrlppingsbintrvls",
+      "title": "Merge Overlapping Subintervals"
+    },
+    {
+      "id": "findthrptingndmissingnmbr-i",
+      "title": "Find the repeating and missing number"
+    },
+    {
+      "id": "cntnmbrfsbrryswithgivnxrk",
+      "title": "Count number of subarrays with given xor K"
+    }
+  ]
 }

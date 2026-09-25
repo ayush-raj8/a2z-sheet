@@ -1,37 +1,78 @@
 {
+  "version": 2,
   "id": "SearchRowColumnWiseSortedMatrix",
   "title": "Search in a row and column wise sorted matrix",
+  "topicNumber": 108,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 2D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 2D Arrays",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/search-in-a-row-and-column-wise-sorted-matrix/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "matrix",
+    "two-pointers"
+  ],
+  "pattern": "staircase search",
+  "problemStatement": "Search a target in a matrix whose rows and columns are each sorted ascending.",
+  "example": "[[1,4,7],[2,5,8],[3,6,9]], target 5 -> True",
+  "intuition": "Start at the top-right corner: it is the maximum of its row and the minimum of its column. So one comparison always eliminates an entire row or column.",
+  "approaches": [
+    {
+      "title": "Better: binary search each row",
+      "idea": "O(n log m), ignores the column ordering.",
+      "code": "import bisect\n\n\ndef search_rows(mat: list[list[int]], target: int) -> bool:\n    for row in mat:\n        i = bisect.bisect_left(row, target)\n        if i < len(row) and row[i] == target:\n            return True\n    return False",
+      "language": "python",
+      "time": "O(n log m)",
+      "space": "O(1)"
+    },
+    {
+      "title": "Optimal: staircase from the top-right",
+      "idea": "Move left when too big, down when too small.",
+      "code": "def search_matrix_2d(mat: list[list[int]], target: int) -> bool:\n    if not mat or not mat[0]:\n        return False\n    i, j = 0, len(mat[0]) - 1\n    while i < len(mat) and j >= 0:\n        v = mat[i][j]\n        if v == target:\n            return True\n        if v > target:\n            j -= 1\n        else:\n            i += 1\n    return False",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(1) auxiliary",
+      "dryRun": "mat=[[1,4,7],[2,5,8],[3,6,9]] target=5\n(0,2)=7 > 5 -> j=1\n(0,1)=4 < 5 -> i=1\n(1,1)=5 -> True",
+      "whyWorks": "The corner is extremal in both directions, so each step removes a whole row or column."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n + m)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Target absent",
+    "Single row or column",
+    "Empty matrix"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Search in a row and column wise sorted matrix” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Starting from the top-left corner, where no elimination is possible",
+    "Confusing this with the globally sorted variant (#107)"
+  ],
+  "patternRecognition": [
+    "Two-dimensional monotonicity -> corner elimination"
+  ],
+  "followUps": [
+    "Count elements less than the target",
+    "k-th smallest in such a matrix",
+    "Find the peak in a 2-D grid (#109)"
+  ],
+  "interviewInsight": "Explaining why the top-left corner fails is the fastest way to prove you understand the invariant.",
+  "related": [
+    {
+      "id": "srchin2dmtrix",
+      "title": "Search in a 2 D matrix"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findpklmnt-i",
+      "title": "Find Peak Element (2D Matrix)"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "findthrwwithmximmnmbrf1s",
+      "title": "Find the row with maximum number of 1's"
     }
-  }
+  ]
 }

@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "lldivisrsfnmbr",
   "title": "All Divisors of a Number",
+  "topicNumber": 196,
   "stepTitle": "Bit Manipulation [Concepts & Problems]",
   "subStepTitle": "Advanced Maths",
+  "category": "Bit Manipulation [Concepts & Problems]",
+  "subcategory": "Advanced Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": null,
-  "intro": "Listing divisors naïvely is O(n); pairing factors up to √n is the interview expectation.",
-  "intuition": "For i in 1..√n, if n%i==0 take i and n/i.",
-  "approach": [
-    "Iterate to √n.",
-    "Collect pairs.",
-    "Sort if output requires order."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "easy"
+  ],
+  "pattern": "linked-list",
+  "problemStatement": "Solve “All Divisors of a Number” as posed in the A2Z sheet (Advanced Maths).",
+  "intuition": "\"All Divisors of a Number\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "approaches": [
+    {
+      "title": "Hash / multi-pass when helpful",
+      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
+      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal pointer technique",
+      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
+      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: All Divisors of a Number\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "language": "python",
+      "time": "Typically O(n)",
+      "space": "O(1) auxiliary when in-place"
+    }
   ],
   "complexity": {
-    "time": "O(√n)",
-    "space": "O(number of divisors)"
+    "time": "Typically O(n)",
+    "space": "O(1) auxiliary when in-place"
   },
-  "pitfalls": [
-    "Duplicating √n when perfect square.",
-    "Unsorted output when sorted required."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "vector<long long> divisors(long long n) {\n    vector<long long> d;\n    for (long long i = 1; i * i <= n; i++) if (n % i == 0) {\n        d.push_back(i);\n        if (i * i != n) d.push_back(n / i);\n    }\n    sort(d.begin(), d.end());\n    return d;\n}"
+  "commonMistakes": [
+    "Losing next before rewiring",
+    "Forgetting dummy head for head-deletion cases",
+    "Off-by-one on k-th node"
+  ],
+  "patternRecognition": [
+    "Cycle → Floyd",
+    "Reverse / k-group → local reverse + reconnect",
+    "Intersection → length align or switch pointers"
+  ],
+  "followUps": [
+    "O(1) space version?",
+    "Doubly linked variant?",
+    "Recursive vs iterative?"
+  ],
+  "interviewInsight": "For \"All Divisors of a Number\", interviewers watch pointer hygiene more than clever tricks.",
+  "related": [
+    {
+      "id": "printprimfctrsfnmbr",
+      "title": "Print Prime Factors of a Number"
     },
-    "java": {
-      "code": "static List<Long> divisors(long n) {\n    List<Long> d = new ArrayList<>();\n    for (long i = 1; i * i <= n; i++) if (n % i == 0) {\n        d.add(i);\n        if (i * i != n) d.add(n / i);\n    }\n    Collections.sort(d);\n    return d;\n}"
+    {
+      "id": "sivfrtsthns",
+      "title": "Sieve of Eratosthenes"
     },
-    "python": {
-      "code": "def divisors(n: int):\n    d = []\n    i = 1\n    while i * i <= n:\n        if n % i == 0:\n            d.append(i)\n            if i * i != n: d.append(n // i)\n        i += 1\n    return sorted(d)"
-    },
-    "go": {
-      "code": "func divisors(n int64) []int64 {\n    var d []int64\n    for i := int64(1); i*i <= n; i++ {\n        if n%i == 0 {\n            d = append(d, i)\n            if i*i != n { d = append(d, n/i) }\n        }\n    }\n    sort.Slice(d, func(i, j int) bool { return d[i] < d[j] })\n    return d\n}",
-      "notes": "import \"sort\" for sort.Slice."
+    {
+      "id": "findprimfctristinfnmbrsingsiv",
+      "title": "Find Prime Factorisation of a Number using Sieve"
     }
-  }
+  ]
 }

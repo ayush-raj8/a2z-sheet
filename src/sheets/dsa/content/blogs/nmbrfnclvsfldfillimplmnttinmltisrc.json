@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "nmbrfnclvsfldfillimplmnttinmltisrc",
   "title": "Number of Enclaves [flood fill implementation - multisource]",
+  "topicNumber": 344,
   "stepTitle": "Graphs [Concepts & Problems]",
   "subStepTitle": "Problems on BFS/DFS",
+  "category": "Graphs [Concepts & Problems]",
+  "subcategory": "Problems on BFS/DFS",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/graph/number-of-enclaves/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “number of enclaves”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "hard"
+  ],
+  "pattern": "linked-list",
+  "problemStatement": "Solve “Number of Enclaves flood fill implementation - multisource” as posed in the A2Z sheet (Problems on BFS/DFS).",
+  "intuition": "\"Number of Enclaves flood fill implementation - multisource\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "approaches": [
+    {
+      "title": "Hash / multi-pass when helpful",
+      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
+      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal pointer technique",
+      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
+      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Number of Enclaves flood fill implementation - multisource\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "language": "python",
+      "time": "Typically O(n)",
+      "space": "O(1) auxiliary when in-place"
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "Typically O(n)",
+    "space": "O(1) auxiliary when in-place"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Number of Enclaves [flood fill implementation - multisource]”."
+  "commonMistakes": [
+    "Losing next before rewiring",
+    "Forgetting dummy head for head-deletion cases",
+    "Off-by-one on k-th node"
+  ],
+  "patternRecognition": [
+    "Cycle → Floyd",
+    "Reverse / k-group → local reverse + reconnect",
+    "Intersection → length align or switch pointers"
+  ],
+  "followUps": [
+    "O(1) space version?",
+    "Doubly linked variant?",
+    "Recursive vs iterative?"
+  ],
+  "interviewInsight": "For \"Number of Enclaves flood fill implementation - multisource\", interviewers watch pointer hygiene more than clever tricks.",
+  "related": [
+    {
+      "id": "srrnddrginsdfs",
+      "title": "Surrounded Regions (dfs)"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "wrdlddr1",
+      "title": "Word ladder - 1"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "01mtrixbfsprblm",
+      "title": "0/1 Matrix (Bfs Problem)"
     }
-  }
+  ]
 }

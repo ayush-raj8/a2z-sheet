@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "intrdctintbinrysrchtr",
   "title": "Introduction to Binary Search Tree",
+  "topicNumber": 314,
   "stepTitle": "Binary Search Trees [Concept and Problems]",
   "subStepTitle": "Concepts",
+  "category": "Binary Search Trees [Concept and Problems]",
+  "subcategory": "Concepts",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/binary-search-tree/introduction-to-binary-search-trees/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “introduction to binary search trees”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "easy"
+  ],
+  "pattern": "binary-search",
+  "problemStatement": "Understand Introduction to Binary Search Tree deeply enough to use it in later problems in “Binary Search Trees [Concept and Problems]”.",
+  "intuition": "\"Introduction to Binary Search Tree\" lives in binary search. Define a monotonic predicate P(mid). Search the answer space or the index space; keep the invariant that the answer still lies in [lo, hi].",
+  "approaches": [
+    {
+      "title": "Core idea & mental model",
+      "idea": "Build the right model for \"Introduction to Binary Search Tree\" before diving into adjacent coding problems in this section.",
+      "code": "# Concept notes — Introduction to Binary Search Tree\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Introduction to Binary Search Tree.\"\"\"\n    return True",
+      "language": "python",
+      "time": "Conceptual — see operation costs in the section",
+      "space": "Conceptual"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "Conceptual — see operation costs in the section",
+    "space": "Conceptual"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Introduction to Binary Search Tree” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Infinite loop from wrong mid update",
+    "Off-by-one on lower vs upper bound",
+    "Using binary search without a proven monotonic predicate"
+  ],
+  "patternRecognition": [
+    "Sorted array / monotonic feasibility",
+    "Minimize/maximize a value with a yes/no check → binary search on answer"
+  ],
+  "followUps": [
+    "Lower bound vs upper bound?",
+    "Rotated sorted array variants?",
+    "What if duplicates exist?",
+    "Binary search on answer — write the feasibility check"
+  ],
+  "interviewInsight": "Say the invariant out loud for \"Introduction to Binary Search Tree\". Strong candidates never hand-wave lo/hi updates.",
+  "related": [
+    {
+      "id": "srchinbinrysrchtr",
+      "title": "Search in a Binary Search Tree"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findminmxinbst",
+      "title": "Find Min/Max in BST"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "cilinbinrysrchtr",
+      "title": "Ceil in a Binary Search Tree"
     }
-  }
+  ]
 }

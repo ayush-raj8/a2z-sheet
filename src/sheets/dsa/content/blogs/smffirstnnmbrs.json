@@ -1,38 +1,93 @@
 {
+  "version": 2,
   "id": "smffirstnnmbrs",
   "title": "Sum of first N numbers",
+  "topicNumber": 24,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/sum-of-first-n-natural-numbers/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “sum of first n natural numbers”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion",
+    "math"
+  ],
+  "pattern": "recursion",
+  "problemStatement": "Compute S(N) = 1+2+…+N. Show recursive thinking and the closed form.",
+  "example": "N=5 → 15",
+  "intuition": "Recurrence: S(N)=N+S(N−1), S(0)=0. Also S(N)=N(N+1)/2 — interviewers expect both, and overflow notes for fixed-width ints.",
+  "approaches": [
+    {
+      "title": "Brute: loop",
+      "idea": "Accumulate 1..N.",
+      "code": "def sum_n_loop(n: int) -> int:\n    return sum(range(1, n + 1))",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "Fine for teaching; O(n) unnecessary once formula is known"
+      ]
+    },
+    {
+      "title": "Recursive recurrence",
+      "idea": "S(n)=n+S(n-1).",
+      "code": "def sum_n_rec(n: int) -> int:\n    if n <= 0:\n        return 0\n    return n + sum_n_rec(n - 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) stack",
+      "flags": [
+        "RE",
+        "TLE"
+      ],
+      "limitations": [
+        "Stack depth n — use formula in practice"
+      ]
+    },
+    {
+      "title": "Optimal: closed form",
+      "idea": "N(N+1)/2 — watch overflow in C++/Java (use 64-bit).",
+      "code": "def sum_n(n: int) -> int:\n    return n * (n + 1) // 2",
+      "language": "python",
+      "time": "O(1)",
+      "space": "O(1)",
+      "whyWorks": "Pair 1+(N), 2+(N−1), … → N/2 pairs each summing to N+1."
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(1) optimal",
+    "space": "O(1) optimal; O(n) if recursive"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "edgeCases": [
+    "n=0",
+    "large n → overflow in 32-bit"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Sum of first N numbers”."
+  "commonMistakes": [
+    "Integer overflow on n*(n+1) before divide in C++",
+    "Calling recursive version O(1) space"
+  ],
+  "followUps": [
+    "Sum of squares formula?",
+    "Modulo M version?",
+    "Prove formula by induction"
+  ],
+  "interviewInsight": "Moving recurrence → closed form is the optimization story they want.",
+  "related": [
+    {
+      "id": "fctrilfnnmbrs",
+      "title": "Factorial of N numbers"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
+      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
     }
-  }
+  ],
+  "patternRecognition": [
+    "Problems with simple linear recurrence often have closed forms"
+  ]
 }

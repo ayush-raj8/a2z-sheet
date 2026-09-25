@@ -1,40 +1,63 @@
 {
+  "version": 2,
   "id": "fnctinspssbyrfrncndvl",
   "title": "Functions (Pass by Reference and Value)",
+  "topicNumber": 8,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": null,
-  "intro": "Functions carve a problem into named units. Pass-by-value vs reference decides whether the callee can mutate the caller’s data — interviewers love this distinction.",
-  "intuition": "Name inputs/outputs. If the callee must edit caller memory, pass a reference/pointer (or return a new value).",
-  "approach": [
-    "Extract a pure helper for the core calculation.",
-    "Decide value vs reference parameters.",
-    "Return results instead of printing inside helpers when possible."
+  "quality": "reviewed",
+  "tags": [
+    "functions",
+    "memory-model"
+  ],
+  "problemStatement": "Know whether a callee can mutate caller data: Python’s object-reference model vs C++ value/reference.",
+  "intuition": "Rebinding a parameter does not rebind the caller’s name. In-place mutation of a mutable object is visible to the caller. C++ makes this explicit with &.",
+  "approaches": [
+    {
+      "title": "Rebind vs mutate",
+      "idea": "Demonstrate both behaviors.",
+      "code": "def rebind(x: int) -> None:\n    x = x + 1  # local only\n\ndef mutate(a: list[int]) -> None:\n    a.append(99)  # visible\n\nn = 3\nrebind(n)\nprint(n)  # 3\n\narr = [1, 2]\nmutate(arr)\nprint(arr)  # [1, 2, 99]\n\n# C++ mapping:\n# void f(int x)              // by value\n# void g(int& x)             // by reference\n# void h(const vector<int>&) // cheap read-only",
+      "language": "python",
+      "time": "O(1) for the call mechanism",
+      "space": "O(1) frame + callee; recursion adds stack",
+      "flags": [
+        "MLE",
+        "TLE"
+      ],
+      "limitations": [
+        "Passing huge vectors by value in C++ → MLE/TLE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "Depends on callee work",
-    "space": "O(1) extra for the call"
+    "time": "Depends on callee",
+    "space": "Call overhead O(1) + callee",
+    "recursionStack": "O(depth) if recursive"
   },
-  "pitfalls": [
-    "Assuming pass-by-reference when it is pass-by-value.",
-    "Side effects hidden in helpers."
+  "commonMistakes": [
+    "Thinking Python ints mutate in-place via x += 1 in a callee",
+    "Accidental shared-list mutation",
+    "Copying large structures by value"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Functions (Pass by Reference and Value)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Functions (Pass by Reference and Value)\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "followUps": [
+    "Is Java pass-by-reference?",
+    "How to prevent accidental mutation?",
+    "Cost of passing 1e6 vector by value in C++?"
+  ],
+  "interviewInsight": "Rebind vs mutate confusion is a classic Python interview trap.",
+  "related": [
+    {
+      "id": "dttyps",
+      "title": "Data Types"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Functions (Pass by Reference and Value)\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Functions (Pass by Reference and Value)\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Functions (Pass by Reference and Value)\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Functions (Pass by Reference and Value)\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Functions (Pass by Reference and Value)\nfunc solve(a []int) int {\n    // TODO: core idea for \"Functions (Pass by Reference and Value)\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "ndrstndrcrsinbyprintsmthingntims",
+      "title": "Understand recursion by print something N times"
     }
-  }
+  ]
 }

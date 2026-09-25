@@ -1,40 +1,78 @@
 {
+  "version": 2,
   "id": "psclstringl",
   "title": "Pascal's Triangle",
+  "topicNumber": 67,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/program-to-generate-pascals-triangle/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “program to generate pascals triangle”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "combinatorics"
+  ],
+  "pattern": "binomial coefficients",
+  "problemStatement": "Three variants: the value at (r, c), the whole r-th row, or the first n rows of Pascal's triangle.",
+  "example": "row 5 -> [1,4,6,4,1]",
+  "intuition": "Entry (r, c) is C(r-1, c-1). Building a row from the previous one is O(n^2) overall, but a single row can be generated in O(n) by the multiplicative identity C(n,k) = C(n,k-1) * (n-k+1)/k.",
+  "approaches": [
+    {
+      "title": "Whole triangle: additive DP",
+      "idea": "Each row is built from its neighbours above.",
+      "code": "def pascal_triangle(n: int) -> list[list[int]]:\n    tri: list[list[int]] = []\n    for r in range(n):\n        row = [1] * (r + 1)\n        for c in range(1, r):\n            row[c] = tri[r - 1][c - 1] + tri[r - 1][c]\n        tri.append(row)\n    return tri",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(n^2) for the output"
+    },
+    {
+      "title": "Single row in O(n): multiplicative form",
+      "idea": "Avoid factorials to keep intermediate values small.",
+      "code": "def pascal_row(r: int) -> list[int]:\n    row = [1]\n    val = 1\n    for c in range(1, r):\n        val = val * (r - c) // c\n        row.append(val)\n    return row",
+      "language": "python",
+      "time": "O(r)",
+      "space": "O(r)",
+      "dryRun": "r=5\nval 1 -> 4 -> 6 -> 4 -> 1 giving [1,4,6,4,1]",
+      "whyWorks": "C(n,k) = C(n,k-1) * (n-k+1)/k, and the division is always exact at each step."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n^2) for the triangle, O(n) for a single row",
+    "space": "O(n^2) / O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "1-indexed vs 0-indexed rows",
+    "n = 1",
+    "Large r overflows fixed-width ints (not Python)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Pascal's Triangle\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Pascal's Triangle\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Computing factorials separately and overflowing",
+    "Dividing with / instead of // and drifting into floats"
+  ],
+  "patternRecognition": [
+    "Ask which of the three variants is wanted — the complexities differ"
+  ],
+  "followUps": [
+    "Value at (r,c) in O(c)",
+    "Row modulo a prime",
+    "Connection to combinations in DP counting problems"
+  ],
+  "interviewInsight": "Clarify the variant first. Jumping straight to the full triangle when they wanted one row wastes the interview.",
+  "related": [
+    {
+      "id": "mjritylmntn3tims",
+      "title": "Majority Element (n/3 times)"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Pascal's Triangle\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Pascal's Triangle\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "3smprblm",
+      "title": "3-Sum Problem"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Pascal's Triangle\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Pascal's Triangle\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Pascal's Triangle\nfunc solve(a []int) int {\n    // TODO: core idea for \"Pascal's Triangle\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "4smprblm",
+      "title": "4-Sum Problem"
     }
-  }
+  ]
 }

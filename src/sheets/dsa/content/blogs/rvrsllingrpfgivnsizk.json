@@ -1,37 +1,72 @@
 {
+  "version": 2,
   "id": "rvrsllingrpfgivnsizk",
   "title": "Reverse LL in group of given size K",
+  "topicNumber": 153,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Hard Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Hard Problems of LL",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/reverse-linked-list-in-groups-of-size-k/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “reverse linked list in groups of size k”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "hard"
+  ],
+  "pattern": "reverse in k-blocks",
+  "problemStatement": "Reverse the nodes of a linked list k at a time; leave a trailing group shorter than k untouched.",
+  "example": "1->2->3->4->5, k=2 -> 2->1->4->3->5",
+  "intuition": "Reverse each full block with the standard three-pointer loop, then stitch the blocks back together. The bookkeeping — not the reversal — is the hard part, so use a dummy head and track the node before each group.",
+  "approaches": [
+    {
+      "title": "Optimal: check length, reverse block, reconnect",
+      "idea": "group_prev holds the node before the current block.",
+      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef reverse_k_group(head, k: int):\n    dummy = Node(0, head)\n    group_prev = dummy\n    while True:\n        kth = group_prev\n        for _ in range(k):\n            kth = kth.next\n            if kth is None:\n                return dummy.next\n        group_next = kth.next\n\n        prev, curr = group_next, group_prev.next\n        while curr is not group_next:\n            nxt = curr.next\n            curr.next = prev\n            prev = curr\n            curr = nxt\n\n        tmp = group_prev.next\n        group_prev.next = kth\n        group_prev = tmp",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "1->2->3->4->5 k=2\nblock [1,2] reversed -> 2->1, connected to 3\nblock [3,4] reversed -> 4->3, connected to 5\n[5] is short -> untouched",
+      "whyWorks": "Reversing into group_next automatically links the block tail to the remaining list."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "k = 1 -> unchanged",
+    "k > length -> unchanged",
+    "Length exactly divisible by k",
+    "Empty list"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Reverse LL in group of given size K”."
+  "commonMistakes": [
+    "Reversing a trailing partial group",
+    "Losing the connection between consecutive blocks",
+    "Not verifying that k nodes remain before reversing"
+  ],
+  "patternRecognition": [
+    "Block-wise pointer surgery — always verify the block exists before mutating"
+  ],
+  "followUps": [
+    "Reverse the trailing partial group too",
+    "Do it recursively",
+    "Rotate the list by k (#154)"
+  ],
+  "interviewInsight": "Reversing into group_next instead of None is the trick that removes most of the reconnection code.",
+  "related": [
+    {
+      "id": "rttll",
+      "title": "Rotate a LL"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "flttningfll",
+      "title": "Flattening of LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "clnlinkdlistwithrndmndnxtpintr",
+      "title": "Clone a Linked List with random and next pointer"
     }
-  }
+  ]
 }

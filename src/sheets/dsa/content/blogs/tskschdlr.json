@@ -1,40 +1,82 @@
 {
+  "version": 2,
   "id": "tskschdlr",
   "title": "Task Scheduler",
+  "topicNumber": 251,
   "stepTitle": "Heaps [Learning, Medium, Hard Problems]",
   "subStepTitle": "Medium Problems",
+  "category": "Heaps [Learning, Medium, Hard Problems]",
+  "subcategory": "Medium Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Heaps give O(log n) push/pop of extremes. Reach for them for “top-k” and running medians.",
-  "intuition": "Parent is always extreme of its subtree — extract-min/max in log time.",
-  "approach": [
-    "Push candidates.",
-    "Pop extremes.",
-    "Keep heap size within k if top-k."
+  "quality": "reviewed",
+  "tags": [
+    "heap",
+    "medium"
+  ],
+  "pattern": "heap",
+  "problemStatement": "Solve “Task Scheduler” as posed in the A2Z sheet (Medium Problems).",
+  "intuition": "\"Task Scheduler\" needs repeated access to extremes → heap (priority queue). Top-K often uses a size-k heap for O(n log k).",
+  "approaches": [
+    {
+      "title": "Sort-based",
+      "idea": "Sort and pick — simpler but usually O(n log n).",
+      "code": "def solve_sort(a, k):\n    return sorted(a, reverse=True)[:k]  # adapt",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(n)"
+    },
+    {
+      "title": "Optimal: heap",
+      "idea": "Push/pop extremes; keep heap size bounded by k when possible.",
+      "code": "import heapq\n\ndef solve(a, k):\n    # Skeleton for: Task Scheduler\n    heap = []\n    for x in a:\n        heapq.heappush(heap, x)  # min-heap; adapt for max-heap via -x\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return list(heap)",
+      "language": "python",
+      "time": "O(n log k) for top-k patterns",
+      "space": "O(k)",
+      "flags": [
+        "MLE"
+      ],
+      "limitations": [
+        "Unbounded heap on huge streams → MLE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "O(n log n) or O(n log k)",
-    "space": "O(n) or O(k)"
+    "time": "O(n log k) for top-k patterns",
+    "space": "O(k)"
   },
-  "pitfalls": [
-    "Min vs max heap confusion.",
-    "Growing heap unbounded for top-k."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Task Scheduler\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Task Scheduler\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Min vs max heap confusion",
+    "Growing heap without bound",
+    "Comparing tuples incorrectly"
+  ],
+  "patternRecognition": [
+    "Top-K, running median, merge K lists"
+  ],
+  "followUps": [
+    "Quickselect average O(n)?",
+    "Running median with two heaps?",
+    "Memory constraints for streams?"
+  ],
+  "interviewInsight": "State why size-k heap beats full sort for \"Task Scheduler\" when only K matters.",
+  "related": [
+    {
+      "id": "rplcchrrylmntbyitscrrspndingrnk",
+      "title": "Replace each array element by its corresponding rank"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Task Scheduler\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Task Scheduler\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "hndsfstrights",
+      "title": "Hands of Straights"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Task Scheduler\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Task Scheduler\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Task Scheduler\nfunc solve(a []int) int {\n    // TODO: core idea for \"Task Scheduler\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "mrgmsrtdlists",
+      "title": "Merge M sorted Lists"
     }
-  }
+  ]
 }

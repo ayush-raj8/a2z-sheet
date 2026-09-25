@@ -1,38 +1,75 @@
 {
+  "version": 2,
   "id": "fctrilfnnmbrs",
   "title": "Factorial of N numbers",
+  "topicNumber": 25,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/factorial-of-a-number-iterative-and-recursive/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “factorial of a number iterative and recursive”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion",
+    "math"
+  ],
+  "pattern": "recursion",
+  "problemStatement": "Compute N! = 1·2·…·N (iterative and recursive).",
+  "example": "N=5 → 120",
+  "intuition": "Recurrence: N! = N·(N−1)!, 0!=1. Values grow fast — mention overflow / big integers. Recursion depth N → RE for large N; iteration is safer.",
+  "approaches": [
+    {
+      "title": "Recursive",
+      "idea": "Base 0/1 → 1; else n * fact(n-1).",
+      "code": "def factorial_rec(n: int) -> int:\n    if n < 0:\n        raise ValueError(\"n\")\n    if n <= 1:\n        return 1\n    return n * factorial_rec(n - 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) stack",
+      "flags": [
+        "RE"
+      ]
+    },
+    {
+      "title": "Optimal practical: iterative",
+      "idea": "Multiply in a loop — O(1) auxiliary.",
+      "code": "def factorial(n: int) -> int:\n    if n < 0:\n        raise ValueError(\"n\")\n    ans = 1\n    for i in range(2, n + 1):\n        ans *= i\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "n=5: 1→2→6→24→120"
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(n)",
+    "space": "O(1) iterative; O(n) recursive stack",
+    "recursionStack": "O(n) if recursive"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "edgeCases": [
+    "n=0",
+    "n=1",
+    "large n (big integers / overflow in C++)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Factorial of N numbers”."
+  "commonMistakes": [
+    "Undefined negative factorial",
+    "Silent overflow in fixed-width ints",
+    "Deep recursion for large n"
+  ],
+  "followUps": [
+    "n! mod p (p prime) — Wilson / factorial prefix?",
+    "Count trailing zeros of n!?",
+    "Stirling approximation?"
+  ],
+  "interviewInsight": "Trailing zeros of n! is the classic follow-up — tests division by 5s, not multiplication loops.",
+  "related": [
+    {
+      "id": "smffirstnnmbrs",
+      "title": "Sum of first N numbers"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "fibnccinmbr",
+      "title": "Fibonacci Number"
     }
-  }
+  ]
 }

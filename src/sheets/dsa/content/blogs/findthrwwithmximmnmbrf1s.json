@@ -1,37 +1,85 @@
 {
+  "version": 2,
   "id": "findthrwwithmximmnmbrf1s",
   "title": "Find the row with maximum number of 1's",
+  "topicNumber": 106,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 2D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 2D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/find-the-row-with-maximum-number-of-1s/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “find the row with maximum number of 1s”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "matrix"
+  ],
+  "pattern": "row-wise lower bound",
+  "problemStatement": "In a binary matrix where each row is sorted (0s then 1s), find the row with the most 1s.",
+  "example": "[[0,0,1],[0,1,1],[0,0,0]] -> row 1",
+  "intuition": "Per row, the count of 1s is m - index_of_first_1, and that index is a lower bound query.",
+  "approaches": [
+    {
+      "title": "Brute: count every cell",
+      "idea": "Simple double loop.",
+      "code": "def max_ones_row_brute(m: list[list[int]]) -> int:\n    best_row, best = -1, -1\n    for i, row in enumerate(m):\n        c = sum(row)\n        if c > best:\n            best, best_row = c, i\n    return best_row",
+      "language": "python",
+      "time": "O(n*m)",
+      "space": "O(1)"
+    },
+    {
+      "title": "Optimal: binary search per row",
+      "idea": "Lower bound of 1 in each sorted row.",
+      "code": "def max_ones_row(mat: list[list[int]]) -> int:\n    def first_one(row: list[int]) -> int:\n        lo, hi, ans = 0, len(row) - 1, len(row)\n        while lo <= hi:\n            mid = lo + (hi - lo) // 2\n            if row[mid] >= 1:\n                ans = mid\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        return ans\n\n    best_row, best = -1, 0\n    for i, row in enumerate(mat):\n        cnt = len(row) - first_one(row)\n        if cnt > best:\n            best, best_row = cnt, i\n    return best_row",
+      "language": "python",
+      "time": "O(n log m)",
+      "space": "O(1) auxiliary",
+      "dryRun": "rows -> first 1 at index 2, 1, none\ncounts 1, 2, 0 -> row 1"
+    },
+    {
+      "title": "Staircase alternative",
+      "idea": "Start top-right and walk left on 1s, down on 0s — O(n + m) total.",
+      "code": "def max_ones_row_staircase(mat: list[list[int]]) -> int:\n    n, m = len(mat), len(mat[0])\n    j = m - 1\n    best_row = -1\n    for i in range(n):\n        while j >= 0 and mat[i][j] == 1:\n            j -= 1\n            best_row = i\n    return best_row",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(1) auxiliary"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log m)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "All-zero matrix -> -1",
+    "Ties (return the first row)",
+    "Single column"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find the row with maximum number of 1's” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Assuming rows are sorted when they are not",
+    "Returning the count instead of the row index"
+  ],
+  "patternRecognition": [
+    "Sorted rows -> per-row binary search, or a single staircase walk"
+  ],
+  "followUps": [
+    "Row with most 1s when rows are unsorted",
+    "Search in a row/column sorted matrix (#108)",
+    "Column with most 1s"
+  ],
+  "interviewInsight": "Offering the O(n + m) staircase walk as a bonus usually lands better than the binary search itself.",
+  "related": [
+    {
+      "id": "srchin2dmtrix",
+      "title": "Search in a 2 D matrix"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "SearchRowColumnWiseSortedMatrix",
+      "title": "Search in a row and column wise sorted matrix"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "findpklmnt-i",
+      "title": "Find Peak Element (2D Matrix)"
     }
-  }
+  ]
 }

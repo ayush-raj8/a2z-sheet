@@ -8,7 +8,11 @@
     "build": "tsc --noEmit && vite build && node scripts/spa-fallback.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "generate:dsa-blogs": "node scripts/generate-dsa-blogs.mjs"
+    "generate:dsa-blogs": "node scripts/generate-dsa-blogs.mjs",
+    "blogs:batch1": "node scripts/write-blog-batch1.mjs",
+    "blogs:batch2": "node scripts/write-blog-batch2.mjs",
+    "blogs:remaining": "node scripts/write-reviewed-remaining.mjs",
+    "blogs:inventory": "node scripts/build-topic-inventory.mjs"
   },
   "dependencies": {
     "mermaid": "^11.12.0",

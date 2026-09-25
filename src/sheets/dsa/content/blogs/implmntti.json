@@ -1,40 +1,73 @@
 {
+  "version": 2,
   "id": "implmntti",
   "title": "Implement Atoi",
+  "topicNumber": 121,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Medium String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Medium String Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Strings are arrays of characters with encoding traps. Prefer two pointers / hashing / KMP-style ideas over blind nested loops.",
-  "intuition": "Immutable scans with indices beat repeated concatenation.",
-  "approach": [
-    "Clarify case/space rules.",
-    "Use two pointers or frequency maps.",
-    "Avoid quadratic concatenations."
+  "quality": "reviewed",
+  "tags": [
+    "strings",
+    "parsing"
+  ],
+  "pattern": "careful state machine",
+  "problemStatement": "Implement atoi: parse a leading integer from a string with whitespace, an optional sign, and clamping to 32-bit range.",
+  "example": "\"   -42abc\" -> -42; \"91283472332\" -> 2147483647",
+  "intuition": "There is no algorithmic trick here — the whole problem is specification discipline: skip whitespace, read at most one sign, consume digits, stop at the first non-digit, and clamp.",
+  "approaches": [
+    {
+      "title": "Iterative parse with clamping",
+      "idea": "Clamp during accumulation so intermediate values stay in range.",
+      "code": "INT_MIN, INT_MAX = -2**31, 2**31 - 1\n\n\ndef my_atoi(s: str) -> int:\n    i, n = 0, len(s)\n    while i < n and s[i] == \" \":\n        i += 1\n    sign = 1\n    if i < n and s[i] in \"+-\":\n        sign = -1 if s[i] == \"-\" else 1\n        i += 1\n    total = 0\n    while i < n and s[i].isdigit():\n        total = total * 10 + int(s[i])\n        if sign == 1 and total > INT_MAX:\n            return INT_MAX\n        if sign == -1 and -total < INT_MIN:\n            return INT_MIN\n        i += 1\n    return sign * total",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "\"   -42abc\"\nskip 3 spaces; sign = -1; digits 4,2 -> 42; \"a\" stops -> -42",
+      "whyWorks": "Checking the bound after each digit prevents overflow in fixed-width languages."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) or O(n log n)",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Immutability copies in Java.",
-    "UTF-16 vs bytes surprises."
+  "edgeCases": [
+    "Only whitespace or an empty string -> 0",
+    "Sign with no digits -> 0",
+    "Multiple signs \"+-12\" -> 0",
+    "Leading zeros",
+    "Overflow in both directions"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Implement Atoi\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Implement Atoi\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Checking overflow only at the end",
+    "Allowing more than one sign character",
+    "Using int(s) and ignoring the spec"
+  ],
+  "patternRecognition": [
+    "Spec-heavy parsing -> enumerate the rules before writing code"
+  ],
+  "followUps": [
+    "Recursive implementation (#157)",
+    "Parse floats too",
+    "Validate a number string (state machine)"
+  ],
+  "interviewInsight": "Restate all five rules back to the interviewer first; this problem is graded on cases, not cleverness.",
+  "related": [
+    {
+      "id": "rmnnmbrtintgrndvicvrs",
+      "title": "Roman Number to Integer and vice versa"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Implement Atoi\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Implement Atoi\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "cntnmbrfsbstrings",
+      "title": "Count Number of Substrings"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Implement Atoi\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Implement Atoi\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Implement Atoi\nfunc solve(a []int) int {\n    // TODO: core idea for \"Implement Atoi\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "mximmnstingdpthfprnthsis",
+      "title": "Maximum Nesting Depth of Paranthesis"
     }
-  }
+  ]
 }

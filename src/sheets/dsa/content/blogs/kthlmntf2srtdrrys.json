@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "kthlmntf2srtdrrys",
   "title": "Kth element of 2 sorted arrays",
+  "topicNumber": 105,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “k th element of two sorted arrays”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "partition"
+  ],
+  "pattern": "partition search generalised",
+  "problemStatement": "Find the k-th smallest element across two sorted arrays.",
+  "example": "a=[2,3,6,7,9], b=[1,4,8,10], k=5 -> 6",
+  "intuition": "Same partition search as the median, with the left-half size fixed at k instead of half the total.",
+  "approaches": [
+    {
+      "title": "Optimal: partition search",
+      "idea": "Cut the smaller array; the rest comes from the other.",
+      "code": "def kth_element(a: list[int], b: list[int], k: int) -> int:\n    if len(a) > len(b):\n        a, b = b, a\n    n, m = len(a), len(b)\n    lo, hi = max(0, k - m), min(k, n)\n    while lo <= hi:\n        cut_a = (lo + hi) // 2\n        cut_b = k - cut_a\n        left_a = a[cut_a - 1] if cut_a > 0 else float(\"-inf\")\n        right_a = a[cut_a] if cut_a < n else float(\"inf\")\n        left_b = b[cut_b - 1] if cut_b > 0 else float(\"-inf\")\n        right_b = b[cut_b] if cut_b < m else float(\"inf\")\n        if left_a <= right_b and left_b <= right_a:\n            return int(max(left_a, left_b))\n        if left_a > right_b:\n            hi = cut_a - 1\n        else:\n            lo = cut_a + 1\n    raise ValueError(\"invalid input\")",
+      "language": "python",
+      "time": "O(log(min(n, m)))",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,3,6,7,9] b=[1,4,8,10] k=5\nvalid cut: cut_a=3 cut_b=2 -> left max(6,4)=6",
+      "whyWorks": "The k-th smallest is the largest element on the left of a valid partition of size k."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log(min(n, m)))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k = 1 or k = n+m",
+    "One array empty",
+    "k larger than one array entirely"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Kth element of 2 sorted arrays” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Forgetting the lo = max(0, k - m) clamp",
+    "1-indexed vs 0-indexed k confusion"
+  ],
+  "patternRecognition": [
+    "Order statistics across sorted arrays -> partition search"
+  ],
+  "followUps": [
+    "Median (#104)",
+    "k-th smallest in a sorted matrix",
+    "k-th smallest in a BST (#321)"
+  ],
+  "interviewInsight": "The clamped search range is the detail that breaks naive implementations on skewed inputs.",
+  "related": [
+    {
+      "id": "mdinf2srtdrrys",
+      "title": "Median of 2 sorted arrays"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "minimizmxdistnctgssttin",
+      "title": "Minimize Max Distance to Gas Station"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "painterspartition",
+      "title": "Painter's partition"
     }
-  }
+  ]
 }

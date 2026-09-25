@@ -1,38 +1,86 @@
 {
+  "version": 2,
   "id": "rvrsnrry",
   "title": "Reverse an array",
+  "topicNumber": 26,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/reverse-a-given-array/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “reverse a given array”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion",
+    "two-pointers",
+    "arrays"
   ],
-  "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
-  },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Reverse an array”."
+  "pattern": "two-pointers",
+  "problemStatement": "Reverse an array in-place (iterative two pointers and recursive).",
+  "example": "[1,2,3,4] → [4,3,2,1]",
+  "intuition": "Swap ends and move inward. Recursive version: swap a[l],a[r] then recurse l+1,r−1. Same O(n) swaps; iterative uses O(1) aux, recursive uses O(n) stack.",
+  "approaches": [
+    {
+      "title": "Optimal: two pointers (iterative)",
+      "idea": "l=0, r=n-1; swap while l<r.",
+      "code": "def reverse_array(a: list[int]) -> None:\n    l, r = 0, len(a) - 1\n    while l < r:\n        a[l], a[r] = a[r], a[l]\n        l += 1\n        r -= 1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "[1,2,3,4]\\nl=0,r=3 swap → [4,2,3,1]\\nl=1,r=2 swap → [4,3,2,1]\\nl=2,r=1 stop"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "title": "Recursive two pointers",
+      "idea": "Same invariant, expressed recursively.",
+      "code": "def reverse_array_rec(a: list[int], l: int = 0, r: int | None = None) -> None:\n    if r is None:\n        r = len(a) - 1\n    if l >= r:\n        return\n    a[l], a[r] = a[r], a[l]\n    reverse_array_rec(a, l + 1, r - 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) recursion stack",
+      "flags": [
+        "RE"
+      ],
+      "limitations": [
+        "Prefer iterative in production / large n"
+      ]
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "In-place O(1) extra space",
+    "body": "Two-pointer swap modifies the input array without allocating another array. Distinguish auxiliary space O(1) from input space O(n)."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) aux iterative; O(n) stack recursive"
+  },
+  "edgeCases": [
+    "Empty",
+    "Single element",
+    "Even/odd length"
+  ],
+  "commonMistakes": [
+    "l <= r causing double-swap center",
+    "Building a new reversed list when in-place was required",
+    "Calling recursive stack O(1)"
+  ],
+  "patternRecognition": [
+    "In-place rearrange by symmetric indices",
+    "Same pattern as palindrome check on arrays"
+  ],
+  "followUps": [
+    "Reverse a subarray [L,R]?",
+    "Rotate array via reversals?",
+    "Reverse linked list connection?"
+  ],
+  "interviewInsight": "State “O(1) auxiliary, in-place” explicitly — interviewers listen for that phrase.",
+  "related": [
+    {
+      "id": "chckifstringisplindrmrnt",
+      "title": "Check if a string is palindrome or not"
+    },
+    {
+      "id": "lftrttnrrybydplcs",
+      "title": "Left rotate an array by D places"
+    }
+  ]
 }

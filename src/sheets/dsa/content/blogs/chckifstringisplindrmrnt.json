@@ -1,38 +1,76 @@
 {
+  "version": 2,
   "id": "chckifstringisplindrmrnt",
   "title": "Check if a string is palindrome or not",
+  "topicNumber": 27,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/check-if-the-given-string-is-palindrome-or-not/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “check if the given string is palindrome or not”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion",
+    "two-pointers",
+    "strings"
+  ],
+  "pattern": "two-pointers",
+  "problemStatement": "Check if a string reads the same forwards and backwards.",
+  "example": "\"aba\" → true\\n\"ab\" → false",
+  "intuition": "Compare characters from both ends. Recursive: equal ends and middle is palindrome. Iterative two pointers is O(1) aux; recursion is O(n) stack.",
+  "approaches": [
+    {
+      "title": "Two pointers (optimal practical)",
+      "idea": "l/r inward until mismatch.",
+      "code": "def is_palindrome(s: str) -> bool:\n    l, r = 0, len(s) - 1\n    while l < r:\n        if s[l] != s[r]:\n            return False\n        l += 1\n        r -= 1\n    return True",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary"
+    },
+    {
+      "title": "Recursive",
+      "idea": "Base l>=r; else s[l]==s[r] and rec(l+1,r-1).",
+      "code": "def is_palindrome_rec(s: str, l: int = 0, r: int | None = None) -> bool:\n    if r is None:\n        r = len(s) - 1\n    if l >= r:\n        return True\n    if s[l] != s[r]:\n        return False\n    return is_palindrome_rec(s, l + 1, r - 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) stack",
+      "flags": [
+        "RE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(n)",
+    "space": "O(1) aux iterative"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "edgeCases": [
+    "Empty string",
+    "Single char",
+    "Case sensitivity / non-alphanumerics if problem filters them"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Check if a string is palindrome or not”."
+  "commonMistakes": [
+    "Not clarifying case/space rules",
+    "s == s[::-1] without discussing O(n) extra copy"
+  ],
+  "followUps": [
+    "Ignore non-alphanumeric (LC125)?",
+    "Longest palindromic substring?",
+    "Can you do it with recursion only as practice?"
+  ],
+  "interviewInsight": "Ask about case and allowed characters before coding — constraint clarification skill.",
+  "related": [
+    {
+      "id": "rvrsnrry",
+      "title": "Reverse an array"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "chckplindrm",
+      "title": "Check Palindrome"
     }
-  }
+  ],
+  "patternRecognition": [
+    "Symmetric comparison from ends → two pointers"
+  ]
 }

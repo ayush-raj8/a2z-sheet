@@ -1,37 +1,80 @@
 {
+  "version": 2,
   "id": "kthmissingpsitivnmbr",
   "title": "Kth Missing Positive Number",
+  "topicNumber": 98,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/kth-missing-positive-number/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "count of missing values as a monotone function",
+  "problemStatement": "Given a strictly increasing array of positives, find the k-th missing positive integer.",
+  "example": "a=[2,3,4,7,11], k=5 -> 9",
+  "intuition": "At index i, the number of missing values before a[i] is a[i] - (i+1) — monotone non-decreasing. Binary search for the first index where this count reaches k.",
+  "approaches": [
+    {
+      "title": "Brute: walk the naturals",
+      "idea": "Scan the array, decrementing k on each gap.",
+      "code": "def kth_missing_brute(a: list[int], k: int) -> int:\n    for v in a:\n        if v <= k:\n            k += 1\n        else:\n            break\n    return k",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "limitations": [
+        "Fine for small n, but the interviewer usually asks for O(log n)"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the missing count",
+      "idea": "missing(i) = a[i] - (i+1); find the boundary and offset.",
+      "code": "def kth_missing(a: list[int], k: int) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        missing = a[mid] - (mid + 1)\n        if missing < k:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return lo + k",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,3,4,7,11] k=5\nmissing: 1,1,1,3,6\nfirst index with missing >= 5 is 4, so lo=4 -> answer 4+5=9",
+      "whyWorks": "After the loop, lo is the count of array elements below the answer, so answer = lo + k."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k smaller than the first gap -> answer is k",
+    "k beyond the last element",
+    "Empty array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Kth Missing Positive Number” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Returning a[lo] instead of lo + k",
+    "Using 1-indexed math inconsistently"
+  ],
+  "patternRecognition": [
+    "Derive a monotone counting function, then binary search it"
+  ],
+  "followUps": [
+    "k-th missing in an unsorted array",
+    "k-th missing between two bounds",
+    "Same trick on a BST"
+  ],
+  "interviewInsight": "The final `lo + k` step is unintuitive; derive it from the invariant rather than memorising it.",
+  "related": [
+    {
+      "id": "cpcitytshippckgswithinddys",
+      "title": "Capacity to Ship Packages within D Days"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "ggrssivcws",
+      "title": "Aggressive Cows"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "findthsmllstdivisr",
+      "title": "Find the smallest Divisor"
     }
-  }
+  ]
 }

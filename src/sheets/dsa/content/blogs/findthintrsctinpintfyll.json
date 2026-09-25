@@ -1,37 +1,79 @@
 {
+  "version": 2,
   "id": "findthintrsctinpintfyll",
   "title": "Find the intersection point of Y LL",
+  "topicNumber": 147,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Medium Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Medium Problems of LL",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/find-intersection-of-two-linked-lists/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “find intersection of two linked lists”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "pattern": "length difference / pointer swap",
+  "problemStatement": "Find the node where two singly linked lists merge, or None.",
+  "example": "a: 1->2->8->9, b: 3->8->9 -> node 8",
+  "intuition": "Two pointers that each traverse \"list A then list B\" cover the same total distance, so they arrive at the intersection simultaneously — no length computation needed.",
+  "approaches": [
+    {
+      "title": "Better: align by length difference",
+      "idea": "Compute both lengths and advance the longer list first.",
+      "code": "def intersection_by_length(a, b):\n    def length(node):\n        n = 0\n        while node:\n            n += 1\n            node = node.next\n        return n\n\n    la, lb = length(a), length(b)\n    while la > lb:\n        a = a.next\n        la -= 1\n    while lb > la:\n        b = b.next\n        lb -= 1\n    while a is not b:\n        a, b = a.next, b.next\n    return a",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(1)"
+    },
+    {
+      "title": "Optimal: two-pointer switch",
+      "idea": "When a pointer hits the end, redirect it to the other head.",
+      "code": "def get_intersection_node(headA, headB):\n    a, b = headA, headB\n    while a is not b:\n        a = a.next if a else headB\n        b = b.next if b else headA\n    return a",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(1) auxiliary",
+      "dryRun": "Each pointer walks lenA + lenB nodes total, so they align at the intersection (or both reach None together)",
+      "whyWorks": "Equal total path lengths force synchronisation; if there is no intersection both become None at the same time."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n + m)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "No intersection -> None",
+    "Intersection at the head",
+    "One list empty",
+    "Lists of very different lengths"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Find the intersection point of Y LL”."
+  "commonMistakes": [
+    "Comparing node values instead of identity",
+    "Infinite loop when there is no intersection (the switch handles it via None)"
+  ],
+  "patternRecognition": [
+    "Path-length equalisation"
+  ],
+  "followUps": [
+    "Detect intersection when cycles are present",
+    "Return the intersection length",
+    "Hash-set solution and its memory cost"
+  ],
+  "interviewInsight": "The switching trick looks magical; explain the \"both walk n+m\" argument so it does not read as memorised.",
+  "related": [
+    {
+      "id": "srtllf0s1snd2sbychnginglinks",
+      "title": "Sort a LL of 0's 1's and 2's by changing links"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "dd1tnmbrrprsntdbyll",
+      "title": "Add 1 to a number represented by LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "srtll",
+      "title": "Sort LL"
     }
-  }
+  ]
 }

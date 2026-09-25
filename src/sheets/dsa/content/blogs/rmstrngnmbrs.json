@@ -1,40 +1,53 @@
 {
+  "version": 2,
   "id": "rmstrngnmbrs",
   "title": "Armstrong Numbers",
+  "topicNumber": 17,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/maths/check-if-a-number-is-armstrong-number-or-not/",
-  "intro": "Armstrong checks compare a number to the sum of its digits each raised to the digit-count power. Classic framing from the roadmap note “check if a number is armstrong number or not”.",
-  "intuition": "Extract digits, power-sum, compare to original.",
-  "approach": [
-    "Count digits.",
-    "Sum powered digits.",
-    "Compare to n."
+  "quality": "reviewed",
+  "tags": [
+    "math"
+  ],
+  "problemStatement": "Check if n is an Armstrong number: sum of each digit raised to the number-of-digits power equals n.",
+  "example": "153 → 1³+5³+3³ = 153 → true",
+  "intuition": "First count digits (order), then peel digits and accumulate dig^order.",
+  "approaches": [
+    {
+      "title": "Count digits then power-sum",
+      "idea": "Two passes over digits (or one count + one sum).",
+      "code": "def is_armstrong(n: int) -> bool:\n    if n < 0:\n        return False\n    original = n\n    order = len(str(n)) if n > 0 else 1\n    total = 0\n    x = n\n    while x:\n        dig = x % 10\n        total += dig ** order\n        x //= 10\n    return total == original",
+      "language": "python",
+      "time": "O(d) where d=number of digits",
+      "space": "O(1)"
+    }
   ],
   "complexity": {
     "time": "O(log n)",
     "space": "O(1)"
   },
-  "pitfalls": [
-    "Wrong power (digit count vs always 3).",
-    "Integer overflow on pow."
+  "edgeCases": [
+    "0 and 1 (true)",
+    "negatives usually false/out of scope"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Armstrong Numbers\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Armstrong Numbers\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Armstrong Numbers\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Armstrong Numbers\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Armstrong Numbers\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Armstrong Numbers\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Armstrong Numbers\nfunc solve(a []int) int {\n    // TODO: core idea for \"Armstrong Numbers\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+  "commonMistakes": [
+    "Always using power 3 (only for 3-digit examples)",
+    "Integer overflow on pow in C++"
+  ],
+  "followUps": [
+    "Generate all Armstrong numbers with d digits?",
+    "Narcissistic number variants?"
+  ],
+  "interviewInsight": "Tiny problem — they watch whether you generalize beyond the 3-digit example.",
+  "related": [
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
     }
-  }
+  ]
 }

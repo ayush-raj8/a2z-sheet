@@ -1,36 +1,53 @@
 {
+  "version": 2,
   "id": "iflssttmnts",
   "title": "If Else statements",
+  "topicNumber": 3,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/if-else/if-else-statements/",
-  "intro": "Branching is decision-making. Write conditions that mirror the problem statement, keep them mutually exclusive when needed, and avoid deep nesting you cannot test.",
-  "intuition": "Translate English rules into boolean expressions. Test boundaries (equal, just below, just above).",
-  "approach": [
-    "Write the decision table on paper.",
-    "Implement branches from most specific to general.",
-    "Add else for the residual case."
+  "quality": "reviewed",
+  "tags": [
+    "branching"
+  ],
+  "problemStatement": "Encode decision rules with conditionals without overlapping bugs.",
+  "intuition": "Translate English into coherent predicates. Order matters when ranges overlap — test equal / just-below / just-above.",
+  "approaches": [
+    {
+      "title": "Decision table → if/elif/else",
+      "idea": "Most specific cases first; residual in else. Prefer early returns over deep nesting.",
+      "code": "def classify(n: int) -> str:\n    if n > 0:\n        return \"positive\"\n    if n < 0:\n        return \"negative\"\n    return \"zero\"\n\ndef withdraw(balance: int, amount: int) -> int:\n    if amount <= 0:\n        raise ValueError(\"amount\")\n    if amount > balance:\n        raise ValueError(\"insufficient\")\n    return balance - amount",
+      "language": "python",
+      "time": "O(1)",
+      "space": "O(1)"
+    }
   ],
   "complexity": {
     "time": "O(1)",
     "space": "O(1)"
   },
-  "pitfalls": [
-    "Using = instead of == (C++/Java/Go).",
-    "Overlapping conditions in wrong order."
+  "commonMistakes": [
+    "= instead of == in C++/Java/Go",
+    "Wrong order of overlapping ranges",
+    "Deep nesting"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    if (n > 0) cout << \"positive\\n\";\n    else if (n < 0) cout << \"negative\\n\";\n    else cout << \"zero\\n\";\n}"
+  "followUps": [
+    "Rewrite nested ifs with early returns?",
+    "When is a lookup table clearer?"
+  ],
+  "interviewInsight": "Shallow, readable branching is a live-coding readability signal.",
+  "related": [
+    {
+      "id": "switchsttmnt",
+      "title": "Switch Statement"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int n = new Scanner(System.in).nextInt();\n        if (n > 0) System.out.println(\"positive\");\n        else if (n < 0) System.out.println(\"negative\");\n        else System.out.println(\"zero\");\n    }\n}"
-    },
-    "python": {
-      "code": "n = int(input())\nif n > 0: print(\"positive\")\nelif n < 0: print(\"negative\")\nelse: print(\"zero\")"
-    },
-    "go": {
-      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var n int\n    fmt.Scan(&n)\n    if n > 0 { fmt.Println(\"positive\")\n    } else if n < 0 { fmt.Println(\"negative\")\n    } else { fmt.Println(\"zero\") }\n}"
+    {
+      "id": "frlps",
+      "title": "For loops"
     }
-  }
+  ]
 }

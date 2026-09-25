@@ -1,40 +1,95 @@
 {
+  "version": 2,
   "id": "3smprblm",
   "title": "3-Sum Problem",
+  "topicNumber": 69,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/3-sum-find-triplets-that-add-up-to-a-zero/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “3 sum find triplets that add up to a zero”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers",
+    "sorting"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: 3-Sum Problem\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"3-Sum Problem\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "sort + fix one + two pointers",
+  "problemStatement": "Return all unique triplets summing to zero.",
+  "example": "[-1,0,1,2,-1,-4] -> [[-1,-1,2],[-1,0,1]]",
+  "intuition": "Sorting does two jobs: it enables the converging two-pointer scan for the inner 2-Sum, and it makes duplicates adjacent so they can be skipped deterministically.",
+  "approaches": [
+    {
+      "title": "Brute: three loops + set",
+      "idea": "Deduplicate by storing sorted tuples.",
+      "code": "def three_sum_brute(a: list[int]) -> list[list[int]]:\n    n = len(a)\n    found = set()\n    for i in range(n):\n        for j in range(i + 1, n):\n            for k in range(j + 1, n):\n                if a[i] + a[j] + a[k] == 0:\n                    found.add(tuple(sorted((a[i], a[j], a[k]))))\n    return [list(t) for t in sorted(found)]",
+      "language": "python",
+      "time": "O(n^3)",
+      "space": "O(number of triplets)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: 3-Sum Problem\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"3-Sum Problem\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "title": "Better: fix two, hash the third",
+      "idea": "Hash set of seen values inside the second loop.",
+      "code": "def three_sum_hash(a: list[int]) -> list[list[int]]:\n    n = len(a)\n    found = set()\n    for i in range(n):\n        seen = set()\n        for j in range(i + 1, n):\n            need = -(a[i] + a[j])\n            if need in seen:\n                found.add(tuple(sorted((a[i], a[j], need))))\n            seen.add(a[j])\n    return [list(t) for t in sorted(found)]",
+      "language": "python",
+      "time": "O(n^2) average",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: 3-Sum Problem\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"3-Sum Problem\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: 3-Sum Problem\nfunc solve(a []int) int {\n    // TODO: core idea for \"3-Sum Problem\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: sort + two pointers",
+      "idea": "Skip duplicates at every level to emit each triplet once.",
+      "code": "def three_sum(a: list[int]) -> list[list[int]]:\n    a.sort()\n    n = len(a)\n    out: list[list[int]] = []\n    for i in range(n - 2):\n        if a[i] > 0:\n            break\n        if i > 0 and a[i] == a[i - 1]:\n            continue\n        lo, hi = i + 1, n - 1\n        while lo < hi:\n            s = a[i] + a[lo] + a[hi]\n            if s < 0:\n                lo += 1\n            elif s > 0:\n                hi -= 1\n            else:\n                out.append([a[i], a[lo], a[hi]])\n                lo += 1\n                hi -= 1\n                while lo < hi and a[lo] == a[lo - 1]:\n                    lo += 1\n                while lo < hi and a[hi] == a[hi + 1]:\n                    hi -= 1\n    return out",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1) auxiliary beyond sorting",
+      "dryRun": "sorted: [-4,-1,-1,0,1,2]\ni=0 (-4): no pair sums to 4\ni=1 (-1): lo=2 hi=5 -> -1+-1+2=0 emit; then -1+0+1=0 emit\ni=2 duplicate -1 skipped",
+      "whyWorks": "Sorting makes both the pointer movement monotone and the duplicate skipping local."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "k-Sum reduction",
+    "body": "k-Sum = fix one index and solve (k-1)-Sum on the suffix. The recursion bottoms out at sorted 2-Sum with two pointers, giving O(n^(k-1))."
+  },
+  "complexity": {
+    "time": "O(n^2)",
+    "space": "O(1) auxiliary beyond sorting"
+  },
+  "edgeCases": [
+    "Many duplicates",
+    "All zeros -> single triplet [0,0,0]",
+    "n < 3",
+    "No triplet exists"
+  ],
+  "commonMistakes": [
+    "Skipping duplicates before emitting the triplet rather than after",
+    "Using a set of tuples as a crutch instead of understanding the skips"
+  ],
+  "patternRecognition": [
+    "Sorted array + fixed target -> converging pointers"
+  ],
+  "followUps": [
+    "4-Sum (#70)",
+    "3-Sum closest",
+    "Count triplets with sum < target",
+    "Generalise to k-Sum recursively"
+  ],
+  "interviewInsight": "Duplicate handling, not the pointer loop, is what most candidates get wrong. Narrate the skip rules.",
+  "related": [
+    {
+      "id": "2smprblm",
+      "title": "2Sum Problem"
+    },
+    {
+      "id": "4smprblm",
+      "title": "4-Sum Problem"
+    }
+  ]
 }

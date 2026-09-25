@@ -1,37 +1,89 @@
 {
+  "version": 2,
   "id": "nxtprmttin",
   "title": "Next Permutation",
+  "topicNumber": 60,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/next_permutation-find-next-lexicographically-greater-permutation/",
-  "intro": "Graphs = adjacency + traversal. BFS for shortest unweighted paths; DFS for components/cycles; add weights carefully. Classic framing from the roadmap note “next permutation find next lexicographically greater permutation”.",
-  "intuition": "Visit each node/edge a bounded number of times with a visited set.",
-  "approach": [
-    "Build adjacency list.",
-    "BFS/DFS/Topo/Dijkstra as needed.",
-    "Track visited/distance."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "permutations"
   ],
-  "complexity": {
-    "time": "O(n + m) BFS/DFS",
-    "space": "O(n + m)"
-  },
-  "pitfalls": [
-    "1-index vs 0-index nodes.",
-    "Forgetting visited → infinite DFS."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "vector<int> bfs(int n, vector<vector<int>>& g, int src) {\n    vector<int> dist(n, -1);\n    queue<int> q;\n    dist[src] = 0; q.push(src);\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        for (int v : g[u]) if (dist[v] < 0) {\n            dist[v] = dist[u] + 1; q.push(v);\n        }\n    }\n    return dist;\n}",
-      "notes": "Specialize traversal for “Next Permutation” (DFS, topo, Dijkstra, etc.)."
+  "pattern": "next lexicographic permutation",
+  "problemStatement": "Rearrange numbers into the next lexicographically greater permutation, in-place; wrap to the smallest if none exists.",
+  "example": "[1,3,2] -> [2,1,3]; [3,2,1] -> [1,2,3]",
+  "intuition": "The suffix that is already descending is maximal — nothing inside it can grow. So find the last index that can be increased (the \"pivot\"), swap it with the smallest larger value to its right, and reset the suffix to ascending for the minimal jump.",
+  "approaches": [
+    {
+      "title": "Brute: generate and search",
+      "idea": "Generate all permutations in order, find the current one, return the next.",
+      "code": "from itertools import permutations\n\n\ndef next_permutation_brute(a: list[int]) -> list[int]:\n    perms = sorted(set(permutations(a)))\n    i = perms.index(tuple(a))\n    return list(perms[(i + 1) % len(perms)])",
+      "language": "python",
+      "time": "O(n! * n)",
+      "space": "O(n! * n)",
+      "flags": [
+        "TLE",
+        "MLE"
+      ],
+      "limitations": [
+        "Only usable for n <= 8 or so"
+      ]
     },
-    "java": {
-      "code": "static int[] bfs(List<List<Integer>> g, int src) {\n        int n = g.size();\n        int[] dist = new int[n];\n        Arrays.fill(dist, -1);\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        dist[src] = 0; q.add(src);\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            for (int v : g.get(u)) if (dist[v] < 0) {\n                dist[v] = dist[u] + 1; q.add(v);\n            }\n        }\n        return dist;\n}"
-    },
-    "python": {
-      "code": "from collections import deque\ndef bfs(g, src):\n    n = len(g)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist"
-    },
-    "go": {
-      "code": "func bfs(g [][]int, src int) []int {\n    n := len(g)\n    dist := make([]int, n)\n    for i := range dist { dist[i] = -1 }\n    q := []int{src}\n    dist[src] = 0\n    for len(q) > 0 {\n        u := q[0]; q = q[1:]\n        for _, v := range g[u] {\n            if dist[v] < 0 {\n                dist[v] = dist[u] + 1\n                q = append(q, v)\n            }\n        }\n    }\n    return dist\n}"
+    {
+      "title": "Optimal: pivot, swap, reverse",
+      "idea": "Three linear scans, no extra memory.",
+      "code": "def next_permutation(a: list[int]) -> list[int]:\n    n = len(a)\n    i = n - 2\n    while i >= 0 and a[i] >= a[i + 1]:\n        i -= 1\n    if i >= 0:\n        j = n - 1\n        while a[j] <= a[i]:\n            j -= 1\n        a[i], a[j] = a[j], a[i]\n    a[i + 1:] = reversed(a[i + 1:])\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,1,5,4,3,0]\npivot: a[1]=1 (since 1 < 5)\nsmallest value > 1 to the right = 3 at index 4\nswap -> [2,3,5,4,1,0]\nreverse suffix -> [2,3,0,1,4,5]",
+      "whyWorks": "Increasing the pivot by the least possible amount and then minimising the suffix yields the immediate successor."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Pivot / successor / reverse",
+    "body": "The same three steps give previous permutation with the comparisons flipped. Python users should still know it by hand — `itertools` is not an answer here."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "Fully descending -> reverse to ascending",
+    "n = 1",
+    "Duplicates (use >= and <= carefully)"
+  ],
+  "commonMistakes": [
+    "Using strict > when scanning for the pivot, breaking on duplicates",
+    "Sorting the suffix instead of reversing it (correct but O(n log n))"
+  ],
+  "patternRecognition": [
+    "Lexicographic ordering problems -> find the rightmost improvable position"
+  ],
+  "followUps": [
+    "Previous permutation",
+    "k-th permutation sequence",
+    "Why is reversing enough instead of sorting?"
+  ],
+  "interviewInsight": "They want the three-step derivation explained, not memorised. Justify each step from the suffix property.",
+  "related": [
+    {
+      "id": "rrrngthrryinltrntingpsitivndngtivitms",
+      "title": "Rearrange the array in alternating positive and negative items"
+    },
+    {
+      "id": "ldrsinnrryprblm",
+      "title": "Leaders in an Array problem"
+    },
+    {
+      "id": "stckbyndsll",
+      "title": "Stock Buy and Sell"
+    }
+  ]
 }

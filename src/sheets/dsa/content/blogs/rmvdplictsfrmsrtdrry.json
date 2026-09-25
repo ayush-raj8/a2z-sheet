@@ -1,40 +1,84 @@
 {
+  "version": 2,
   "id": "rmvdplictsfrmsrtdrry",
   "title": "Remove duplicates from Sorted array",
+  "topicNumber": 42,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/remove-duplicates-in-place-from-sorted-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “remove duplicates in place from sorted array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "pattern": "slow-fast write pointer",
+  "problemStatement": "Remove duplicates in-place from a sorted array; return the new length.",
+  "example": "[1,1,2,2,3] -> 3, array becomes [1,2,3,...]",
+  "intuition": "Because the array is sorted, duplicates are adjacent. A write pointer marks the boundary of the unique prefix while a read pointer scans ahead.",
+  "approaches": [
+    {
+      "title": "Brute: set then rewrite",
+      "idea": "Insert into a set, sort it back into the array.",
+      "code": "def remove_dups_set(a: list[int]) -> int:\n    uniq = sorted(set(a))\n    a[: len(uniq)] = uniq\n    return len(uniq)",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ],
+      "limitations": [
+        "Ignores the sorted precondition; extra O(n) memory"
+      ]
+    },
+    {
+      "title": "Optimal: two pointers, in-place",
+      "idea": "i marks the last unique slot; j scans; copy only when a[j] != a[i].",
+      "code": "def remove_duplicates(a: list[int]) -> int:\n    if not a:\n        return 0\n    i = 0\n    for j in range(1, len(a)):\n        if a[j] != a[i]:\n            i += 1\n            a[i] = a[j]\n    return i + 1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,1,2,2,3]\nj=1 equal -> skip\nj=2 a=[1,2,2,2,3] i=1\nj=3 equal -> skip\nj=4 a=[1,2,3,2,3] i=2\nlength 3",
+      "whyWorks": "Invariant: a[0..i] is the deduplicated version of a[0..j]."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Empty array",
+    "All identical -> length 1",
+    "Already unique"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Remove duplicates from Sorted array\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Remove duplicates from Sorted array\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Returning i instead of i+1",
+    "Assuming the tail of the array is cleared"
+  ],
+  "patternRecognition": [
+    "In-place compaction -> slow write pointer + fast read pointer"
+  ],
+  "followUps": [
+    "Allow each value at most twice",
+    "Remove all occurrences of a given value in-place",
+    "What if the array were unsorted?"
+  ],
+  "interviewInsight": "Say \"sorted means duplicates are adjacent\" out loud — that sentence is the solution.",
+  "related": [
+    {
+      "id": "chckifthrryissrtd",
+      "title": "Check if the array is sorted"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Remove duplicates from Sorted array\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Remove duplicates from Sorted array\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "lftrttnrrybynplc",
+      "title": "Left Rotate an array by one place"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Remove duplicates from Sorted array\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Remove duplicates from Sorted array\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Remove duplicates from Sorted array\nfunc solve(a []int) int {\n    // TODO: core idea for \"Remove duplicates from Sorted array\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "scndlrgstlmntinnrrywithtsrting",
+      "title": "Second Largest Element in an Array without sorting"
     }
-  }
+  ]
 }

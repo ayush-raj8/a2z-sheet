@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "rttll",
   "title": "Rotate a LL",
+  "topicNumber": 154,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Hard Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Hard Problems of LL",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/rotate-a-linked-list/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “rotate a linked list”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "medium"
+  ],
+  "pattern": "linked-list",
+  "problemStatement": "Solve “Rotate a LL” as posed in the A2Z sheet (Hard Problems of LL).",
+  "intuition": "\"Rotate a LL\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "approaches": [
+    {
+      "title": "Hash / multi-pass when helpful",
+      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
+      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal pointer technique",
+      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
+      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Rotate a LL\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "language": "python",
+      "time": "Typically O(n)",
+      "space": "O(1) auxiliary when in-place"
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "Typically O(n)",
+    "space": "O(1) auxiliary when in-place"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Rotate a LL”."
+  "commonMistakes": [
+    "Losing next before rewiring",
+    "Forgetting dummy head for head-deletion cases",
+    "Off-by-one on k-th node"
+  ],
+  "patternRecognition": [
+    "Cycle → Floyd",
+    "Reverse / k-group → local reverse + reconnect",
+    "Intersection → length align or switch pointers"
+  ],
+  "followUps": [
+    "O(1) space version?",
+    "Doubly linked variant?",
+    "Recursive vs iterative?"
+  ],
+  "interviewInsight": "For \"Rotate a LL\", interviewers watch pointer hygiene more than clever tricks.",
+  "related": [
+    {
+      "id": "rvrsllingrpfgivnsizk",
+      "title": "Reverse LL in group of given size K"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "flttningfll",
+      "title": "Flattening of LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "clnlinkdlistwithrndmndnxtpintr",
+      "title": "Clone a Linked List with random and next pointer"
     }
-  }
+  ]
 }

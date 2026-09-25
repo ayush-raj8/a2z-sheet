@@ -1,38 +1,73 @@
 {
+  "version": 2,
   "id": "itrtivinrdrtrvrslfbinrytr",
   "title": "Iterative Inorder Traversal of Binary Tree",
+  "topicNumber": 284,
   "stepTitle": "Binary Trees [Traversals, Medium and Hard Problems]",
   "subStepTitle": "Traversals",
+  "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+  "subcategory": "Traversals",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/inorder-traversal-of-binary-tree/",
-  "intro": "Trees are recursive structures. Prefer clear traversals (pre/in/post/level) and define null-base cases first. Classic framing from the roadmap note “inorder traversal of binary tree”.",
-  "intuition": "Left/right subtrees are the same problem smaller — recurse with clear return meaning.",
-  "approach": [
-    "Choose traversal.",
-    "Recurse on children.",
-    "Combine child answers into parent answer."
+  "quality": "reviewed",
+  "tags": [
+    "tree",
+    "easy"
+  ],
+  "pattern": "trees",
+  "problemStatement": "Solve “Iterative Inorder Traversal of Binary Tree” as posed in the A2Z sheet (Traversals).",
+  "intuition": "\"Iterative Inorder Traversal of Binary Tree\" is tree recursion: null base case, recurse on children, combine. Prefer clear traversal order; iterative/Morris when O(1) aux is required.",
+  "approaches": [
+    {
+      "title": "Recursive DFS template",
+      "idea": "Define what each call returns; handle None.",
+      "code": "class Node:\n    def __init__(self, val=0, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef solve(root):\n    # Skeleton for: Iterative Inorder Traversal of Binary Tree\n    def dfs(node):\n        if not node:\n            return 0  # adapt base\n        left = dfs(node.left)\n        right = dfs(node.right)\n        return 1 + max(left, right)  # adapt combine\n    return dfs(root)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(h) recursion stack",
+      "flags": [
+        "RE"
+      ],
+      "spaceNote": "Skewed tree → O(n) stack"
+    }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion"
+    "space": "O(h) recursion stack"
   },
-  "pitfalls": [
-    "Null dereference.",
-    "Passing parent incorrectly in DFS."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node *left, *right; };\nvoid inorder(Node* r) {\n    if (!r) return;\n    inorder(r->left);\n    cout << r->val << \" \";\n    inorder(r->right);\n}",
-      "notes": "Change traversal / return aggregate for “Iterative Inorder Traversal of Binary Tree”."
+  "commonMistakes": [
+    "Null dereference",
+    "Wrong combine of child answers",
+    "Calling stack O(1) on skewed trees"
+  ],
+  "patternRecognition": [
+    "Node-wise decisions → tree DP",
+    "Order matters → traversal choice"
+  ],
+  "followUps": [
+    "Iterative version?",
+    "Morris O(1) aux?",
+    "BST-specific acceleration?"
+  ],
+  "interviewInsight": "Specify the return meaning of dfs() before coding \"Iterative Inorder Traversal of Binary Tree\".",
+  "related": [
+    {
+      "id": "itrtivprrdrtrvrslfbinrytr",
+      "title": "Iterative Preorder Traversal of Binary Tree"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node left, right;\n    Node(int v) { val = v; }\n}\nstatic void inorder(Node r) {\n    if (r == null) return;\n    inorder(r.left);\n    System.out.print(r.val + \" \");\n    inorder(r.right);\n}"
+    {
+      "id": "pstrdrtrvrslfbinrytrsing2stck",
+      "title": "Post-order Traversal of Binary Tree using 2 stack"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorder(r):\n    if not r: return\n    inorder(r.left)\n    print(r.val, end=\" \")\n    inorder(r.right)"
-    },
-    "go": {
-      "code": "type Node struct {\n    Val int\n    Left, Right *Node\n}\nfunc inorder(r *Node) {\n    if r == nil { return }\n    inorder(r.Left)\n    fmt.Print(r.Val, \" \")\n    inorder(r.Right)\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "lvlrdrtrvrsllvlrdrtrvrslinspirlfrm",
+      "title": "Level order Traversal / Level order traversal in spiral form"
     }
-  }
+  ]
 }

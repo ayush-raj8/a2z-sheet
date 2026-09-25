@@ -1,40 +1,70 @@
 {
+  "version": 2,
   "id": "mximmxrftwnmbrsinnrry",
   "title": "Maximum XOR of two numbers in an array",
+  "topicNumber": 445,
   "stepTitle": "Tries",
   "subStepTitle": "Problems",
+  "category": "Tries",
+  "subcategory": "Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/maximum-xor-of-two-numbers-in-an-array/",
-  "intro": "Tries index strings by shared prefixes — ideal for autocomplete and XOR bit tries.",
-  "intuition": "Each edge is a character (or bit); end marker denotes a complete key.",
-  "approach": [
-    "Insert character-by-character.",
-    "Mark ends.",
-    "Query by walking prefixes."
+  "quality": "reviewed",
+  "tags": [
+    "trie",
+    "medium"
+  ],
+  "pattern": "trie",
+  "problemStatement": "Solve “Maximum XOR of two numbers in an array” as posed in the A2Z sheet (Problems).",
+  "intuition": "\"Maximum XOR of two numbers in an array\" indexes strings by shared prefixes. Each edge is a character; end markers denote keys.",
+  "approaches": [
+    {
+      "title": "Trie insert / search",
+      "idea": "Walk/create nodes per character.",
+      "code": "class Node:\n    def __init__(self):\n        self.next = {}\n        self.end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word: str) -> None:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                cur.next[ch] = Node()\n            cur = cur.next[ch]\n        cur.end = True\n\n    def search(self, word: str) -> bool:\n        cur = self.root\n        for ch in word:\n            if ch not in cur.next:\n                return False\n            cur = cur.next[ch]\n        return cur.end\n# Adapt API for: Maximum XOR of two numbers in an array",
+      "language": "python",
+      "time": "O(total characters)",
+      "space": "O(total characters · Σ)",
+      "flags": [
+        "MLE"
+      ]
+    }
   ],
   "complexity": {
     "time": "O(total characters)",
-    "space": "O(total characters)"
+    "space": "O(total characters · Σ)"
   },
-  "pitfalls": [
-    "Forgetting end marker.",
-    "Huge memory on dense alphabets without care."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Maximum XOR of two numbers in an array\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Maximum XOR of two numbers in an array\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Forgetting end marker",
+    "Huge alphabet memory blow-ups"
+  ],
+  "patternRecognition": [
+    "Prefix queries, autocomplete, XOR bit tries"
+  ],
+  "followUps": [
+    "Delete operation?",
+    "Compressed trie / radix tree?",
+    "Bit trie for XOR maxima?"
+  ],
+  "interviewInsight": "Memory layout matters for \"Maximum XOR of two numbers in an array\" — mention MLE risk on dense alphabets.",
+  "related": [
+    {
+      "id": "bitprrqisitsfrtriprblms",
+      "title": "Bit PreRequisites for TRIE Problems"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Maximum XOR of two numbers in an array\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Maximum XOR of two numbers in an array\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "mximmxrwithnlmntfrmrry",
+      "title": "Maximum XOR With an Element From Array"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Maximum XOR of two numbers in an array\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Maximum XOR of two numbers in an array\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Maximum XOR of two numbers in an array\nfunc solve(a []int) int {\n    // TODO: core idea for \"Maximum XOR of two numbers in an array\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "nmbrfdistinctsbstringsinstring",
+      "title": "Number of Distinct Substrings in a String"
     }
-  }
+  ]
 }

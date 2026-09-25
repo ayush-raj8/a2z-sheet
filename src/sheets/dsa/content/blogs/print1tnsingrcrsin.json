@@ -1,38 +1,64 @@
 {
+  "version": 2,
   "id": "print1tnsingrcrsin",
   "title": "Print 1 to N using recursion",
+  "topicNumber": 22,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/recursion/print-1-to-n-using-recursion/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion"
+  ],
+  "pattern": "recursion",
+  "problemStatement": "Print numbers from 1 to N using recursion.",
+  "example": "N=4 → 1 2 3 4",
+  "intuition": "Two equivalent ideas: (1) recurse to N−1 first, then print N (ascending after returning), or (2) print i then recurse i+1 with a helper. The call stack order determines print order.",
+  "approaches": [
+    {
+      "title": "Print on the way back (classic)",
+      "idea": "Solve 1..N−1, then print N.",
+      "code": "def print_1_to_n(n: int) -> None:\n    if n < 1:\n        return\n    print_1_to_n(n - 1)\n    print(n, end=\" \")",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) stack",
+      "dryRun": "n=3\\ncall 2 → call 1 → call 0 return\\nprint 1; print 2; print 3"
+    },
+    {
+      "title": "Print on the way down (helper)",
+      "idea": "Carry current i; print then go to i+1.",
+      "code": "def print_1_to_n_down(n: int, i: int = 1) -> None:\n    if i > n:\n        return\n    print(i, end=\" \")\n    print_1_to_n_down(n, i + 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) stack"
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(n)",
+    "space": "O(n) recursion stack",
+    "recursionStack": "O(n)"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "commonMistakes": [
+    "Printing before recurse when you wanted ascending (gets N..1)",
+    "Off-by-one on base case"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Print 1 to N using recursion”."
+  "followUps": [
+    "How does print-before vs print-after change order?",
+    "Convert to iteration with a for-loop"
+  ],
+  "interviewInsight": "Understanding when work happens (descending vs ascending the stack) is the real lesson.",
+  "related": [
+    {
+      "id": "printnt1singrcrsin",
+      "title": "Print N to 1 using recursion"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "printnmntimssingrcrsin",
+      "title": "Print name N times using recursion"
     }
-  }
+  ]
 }

@@ -1,37 +1,69 @@
 {
+  "version": 2,
   "id": "findthwmnytimshsnrrybnrttd",
   "title": "Find out how many times has an array been rotated",
+  "topicNumber": 89,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/find-out-how-many-times-the-array-has-been-rotated/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “find out how many times the array has been rotated”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "rotated-array"
+  ],
+  "pattern": "index of the minimum",
+  "problemStatement": "Determine how many times a sorted array has been rotated.",
+  "example": "[4,5,6,7,0,1,2] -> 4",
+  "intuition": "The rotation count equals the index of the minimum element, so this is problem #88 returning an index.",
+  "approaches": [
+    {
+      "title": "Optimal: pivot index search",
+      "idea": "Same converge-on-pivot loop, return the index.",
+      "code": "def rotation_count(a: list[int]) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] > a[hi]:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[4,5,6,7,0,1,2] -> pivot index 4 -> rotated 4 times"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "No rotation -> 0",
+    "Duplicates make it O(n)",
+    "Single element"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find out how many times has an array been rotated” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Returning the value instead of the index",
+    "Assuming left rotation when the problem means right"
+  ],
+  "patternRecognition": [
+    "Restating a problem as a known one is often the entire solution"
+  ],
+  "followUps": [
+    "Rotate the array back in O(1) space",
+    "Search in the rotated array using the pivot",
+    "Duplicates variant"
+  ],
+  "interviewInsight": "Clarify the rotation direction before coding; the off-by-one differs.",
+  "related": [
+    {
+      "id": "findminimminrttdsrtdrry",
+      "title": "Find minimum in Rotated Sorted Array"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "singllmntinsrtdrry",
+      "title": "Single element in a Sorted Array"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "srchinrttdsrtdrryii",
+      "title": "Search in Rotated Sorted Array II"
     }
-  }
+  ]
 }

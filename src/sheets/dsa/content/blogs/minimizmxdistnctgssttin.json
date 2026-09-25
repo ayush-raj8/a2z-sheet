@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "minimizmxdistnctgssttin",
   "title": "Minimize Max Distance to Gas Station",
+  "topicNumber": 103,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/minimise-maximum-distance-between-gas-stations/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “minimise maximum distance between gas stations”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "heaps"
+  ],
+  "pattern": "BS on a real-valued answer",
+  "problemStatement": "Add k gas stations on a line to minimise the maximum distance between adjacent stations.",
+  "example": "stations=[1,2,3,4,5], k=4 -> 0.5",
+  "intuition": "For a candidate distance d, the number of stations needed in a gap of length g is floor(g/d). That count is monotone in d, so binary search over real numbers with a precision bound.",
+  "approaches": [
+    {
+      "title": "Better: max-heap of gaps",
+      "idea": "Repeatedly split the currently largest section.",
+      "code": "import heapq\n\n\ndef min_max_gap_heap(stations: list[int], k: int) -> float:\n    heap = [(-(stations[i + 1] - stations[i]), i, 1) for i in range(len(stations) - 1)]\n    heapq.heapify(heap)\n    for _ in range(k):\n        neg, i, parts = heapq.heappop(heap)\n        parts += 1\n        seg = stations[i + 1] - stations[i]\n        heapq.heappush(heap, (-(seg / parts), i, parts))\n    return -heap[0][0]",
+      "language": "python",
+      "time": "O((n + k) log n)",
+      "space": "O(n)",
+      "limitations": [
+        "k can be 10^9, making the loop infeasible"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the real answer",
+      "idea": "Count required stations for a candidate d; iterate to a fixed precision.",
+      "code": "def min_max_gas_dist(stations: list[int], k: int) -> float:\n    def needed(d: float) -> int:\n        return sum(int((stations[i + 1] - stations[i]) / d) for i in range(len(stations) - 1))\n\n    lo, hi = 0.0, float(max(stations[i + 1] - stations[i] for i in range(len(stations) - 1)))\n    for _ in range(100):\n        mid = (lo + hi) / 2\n        if needed(mid) > k:\n            lo = mid\n        else:\n            hi = mid\n    return round(hi, 6)",
+      "language": "python",
+      "time": "O(n * iterations)",
+      "space": "O(1) auxiliary",
+      "dryRun": "stations=[1,2,3,4,5] k=4\nfour gaps of 1; splitting each once gives 0.5\nbinary search converges to 0.5",
+      "whyWorks": "needed(d) is non-increasing in d, so the feasible set is an interval."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log(range/eps))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k = 0 -> current maximum gap",
+    "Equal gaps",
+    "Floating-point precision requirements"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Minimize Max Distance to Gas Station” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Looping while hi - lo > eps without a hard iteration cap",
+    "Integer division when the answer is fractional"
+  ],
+  "patternRecognition": [
+    "Real-valued answers -> fixed iteration count instead of an integer boundary"
+  ],
+  "followUps": [
+    "Why does the heap solution fail for large k?",
+    "Return the actual station positions",
+    "Integer-only variant"
+  ],
+  "interviewInsight": "Using a fixed 100 iterations instead of an epsilon loop is a neat robustness trick worth stating.",
+  "related": [
+    {
+      "id": "painterspartition",
+      "title": "Painter's partition"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "mdinf2srtdrrys",
+      "title": "Median of 2 sorted arrays"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "splitrrylrgstsm",
+      "title": "Split array - Largest Sum"
     }
-  }
+  ]
 }

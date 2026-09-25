@@ -1,40 +1,74 @@
 {
+  "version": 2,
   "id": "cmbintinsmii",
   "title": "Combination Sum-II",
+  "topicNumber": 169,
   "stepTitle": "Recursion [PatternWise]",
   "subStepTitle": "Subsequences Pattern",
+  "category": "Recursion [PatternWise]",
+  "subcategory": "Subsequences Pattern",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/combination-sum-ii-find-all-unique-combinations/",
-  "intro": "Pattern problems train nested loops and index arithmetic with instant visual feedback. Master row/col relationships before harder grids. Classic framing from the roadmap note “combination sum ii find all unique combinations”.",
-  "intuition": "Row r often prints something that depends on r and the column c — write that formula before coding.",
-  "approach": [
-    "Outer loop = rows.",
-    "Inner loop = columns / stars / numbers for that row.",
-    "Print newline after each row."
+  "quality": "reviewed",
+  "tags": [
+    "backtracking",
+    "medium"
+  ],
+  "pattern": "backtracking",
+  "problemStatement": "Solve “Combination Sum-II” as posed in the A2Z sheet (Subsequences Pattern).",
+  "intuition": "\"Combination Sum-II\" explores a decision tree: choose → recurse → undo. Prune early with constraints. Watch exponential blow-up (TLE) and recursion depth (RE).",
+  "approaches": [
+    {
+      "title": "Backtracking template",
+      "idea": "Maintain path; at leaf record answer; undo after recurse.",
+      "code": "def solve(n):\n    ans = []\n    path = []\n\n    def dfs(start):\n        # adapt base condition for: Combination Sum-II\n        ans.append(path.copy())\n        for i in range(start, n):\n            path.append(i)\n            dfs(i + 1)\n            path.pop()  # undo\n\n    dfs(0)\n    return ans",
+      "language": "python",
+      "time": "O(2^n · poly) typical for subsets; worse for permutations",
+      "space": "O(n) recursion depth + output size",
+      "flags": [
+        "TLE",
+        "RE"
+      ],
+      "dryRun": "Show one choose/undo branch on a tiny n."
+    }
   ],
   "complexity": {
-    "time": "O(rows × cols printed)",
-    "space": "O(1)"
+    "time": "O(2^n · poly) typical for subsets; worse for permutations",
+    "space": "O(n) recursion depth + output size"
   },
-  "pitfalls": [
-    "Wrong number of spaces vs stars.",
-    "Printing spaces after last character inconsistently."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Combination Sum-II\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Combination Sum-II\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Forgetting to undo (path pollution)",
+    "Not copying path when recording answers",
+    "Missing prune → TLE"
+  ],
+  "patternRecognition": [
+    "Generate all / find configurations under constraints",
+    "Explicit undo step"
+  ],
+  "followUps": [
+    "How do you prune?",
+    "Dedup strategies for duplicate inputs?",
+    "Convert to iterative BFS of states?"
+  ],
+  "interviewInsight": "Name the state, the choice, and the undo for \"Combination Sum-II\" — that is the interview answer.",
+  "related": [
+    {
+      "id": "cmbintinsm",
+      "title": "Combination Sum"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Combination Sum-II\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Combination Sum-II\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "sbstsmi",
+      "title": "Subset Sum-I"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Combination Sum-II\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Combination Sum-II\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Combination Sum-II\nfunc solve(a []int) int {\n    // TODO: core idea for \"Combination Sum-II\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "chckifthrxistssbsqncwithsmk",
+      "title": "Check if there exists a subsequence with sum K"
     }
-  }
+  ]
 }

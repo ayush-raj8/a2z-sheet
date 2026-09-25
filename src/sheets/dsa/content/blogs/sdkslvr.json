@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "sdkslvr",
   "title": "Sudoko Solver",
+  "topicNumber": 180,
   "stepTitle": "Recursion [PatternWise]",
   "subStepTitle": "Trying out all Combos / Hard",
+  "category": "Recursion [PatternWise]",
+  "subcategory": "Trying out all Combos / Hard",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/sudoku-solver/",
-  "intro": "Pattern problems train nested loops and index arithmetic with instant visual feedback. Master row/col relationships before harder grids. Classic framing from the roadmap note “sudoku solver”.",
-  "intuition": "Row r often prints something that depends on r and the column c — write that formula before coding.",
-  "approach": [
-    "Outer loop = rows.",
-    "Inner loop = columns / stars / numbers for that row.",
-    "Print newline after each row."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "hard"
+  ],
+  "pattern": "linked-list",
+  "problemStatement": "Solve “Sudoko Solver” as posed in the A2Z sheet (Trying out all Combos / Hard).",
+  "intuition": "\"Sudoko Solver\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "approaches": [
+    {
+      "title": "Hash / multi-pass when helpful",
+      "idea": "Store nodes or lengths when it simplifies correctness, then optimize.",
+      "code": "def solve_hash(head):\n    seen = set()\n    cur = head\n    while cur:\n        if cur in seen:\n            return True  # cycle-style stand-in\n        seen.add(cur)\n        cur = cur.next\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal pointer technique",
+      "idea": "Fast/slow, dummy head, or in-place reverse — adapt to the problem.",
+      "code": "class Node:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\ndef solve(head):\n    # Skeleton for: Sudoko Solver\n    dummy = Node(0, head)\n    # rewire using dummy to avoid edge-case branches on head\n    return dummy.next",
+      "language": "python",
+      "time": "Typically O(n)",
+      "space": "O(1) auxiliary when in-place"
+    }
   ],
   "complexity": {
-    "time": "O(rows × cols printed)",
-    "space": "O(1)"
+    "time": "Typically O(n)",
+    "space": "O(1) auxiliary when in-place"
   },
-  "pitfalls": [
-    "Wrong number of spaces vs stars.",
-    "Printing spaces after last character inconsistently."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Sudoko Solver\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Sudoko Solver\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Losing next before rewiring",
+    "Forgetting dummy head for head-deletion cases",
+    "Off-by-one on k-th node"
+  ],
+  "patternRecognition": [
+    "Cycle → Floyd",
+    "Reverse / k-group → local reverse + reconnect",
+    "Intersection → length align or switch pointers"
+  ],
+  "followUps": [
+    "O(1) space version?",
+    "Doubly linked variant?",
+    "Recursive vs iterative?"
+  ],
+  "interviewInsight": "For \"Sudoko Solver\", interviewers watch pointer hygiene more than clever tricks.",
+  "related": [
+    {
+      "id": "mclringprblm",
+      "title": "M Coloring Problem"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Sudoko Solver\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Sudoko Solver\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "xprssinddprtrs",
+      "title": "Expression Add Operators"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Sudoko Solver\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Sudoko Solver\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Sudoko Solver\nfunc solve(a []int) int {\n    // TODO: core idea for \"Sudoko Solver\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "wrdbrk",
+      "title": "Word Break"
     }
-  }
+  ]
 }

@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "findpklmnt-i",
   "title": "Find Peak Element (2D Matrix)",
+  "topicNumber": 109,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 2D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 2D Arrays",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "matrix"
+  ],
+  "pattern": "binary search on columns",
+  "problemStatement": "Find any cell strictly greater than its four neighbours in a 2-D grid.",
+  "example": "[[1,4],[3,2]] -> (0,1)",
+  "intuition": "Binary search over columns: take the middle column, find its maximum row, and compare with the horizontal neighbours. The greater side is guaranteed to contain a peak.",
+  "approaches": [
+    {
+      "title": "Optimal: column binary search with a row max",
+      "idea": "O(log m) columns, each scanned in O(n).",
+      "code": "def find_peak_grid(mat: list[list[int]]) -> tuple[int, int]:\n    n, m = len(mat), len(mat[0])\n    lo, hi = 0, m - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        best_row = max(range(n), key=lambda r: mat[r][mid])\n        left = mat[best_row][mid - 1] if mid > 0 else -1\n        right = mat[best_row][mid + 1] if mid < m - 1 else -1\n        if mat[best_row][mid] > left and mat[best_row][mid] > right:\n            return best_row, mid\n        if left > mat[best_row][mid]:\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return -1, -1",
+      "language": "python",
+      "time": "O(n log m)",
+      "space": "O(1) auxiliary",
+      "dryRun": "mat=[[1,4],[3,2]] columns 0..1\nmid=0: best row 1 (value 3), right neighbour 2 < 3 and no left -> peak (1,0)",
+      "whyWorks": "The column maximum only needs to beat its horizontal neighbours — vertically it already wins."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log m)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Single row or column (reduces to 1-D)",
+    "Boundaries treated as -1/-inf",
+    "Multiple peaks"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find Peak Element (2D Matrix)” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Comparing only against neighbours in the same column",
+    "Searching over rows and columns simultaneously"
+  ],
+  "patternRecognition": [
+    "Reduce 2-D to 1-D by taking a column extremum"
+  ],
+  "followUps": [
+    "1-D peak (#91)",
+    "Prove a peak always exists",
+    "O(n + m) algorithms for special grids"
+  ],
+  "interviewInsight": "The correctness argument (why the column max is the right probe) matters far more than the code.",
+  "related": [
+    {
+      "id": "SearchRowColumnWiseSortedMatrix",
+      "title": "Search in a row and column wise sorted matrix"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "mtrixmdin",
+      "title": "Matrix Median"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "srchin2dmtrix",
+      "title": "Search in a 2 D matrix"
     }
-  }
+  ]
 }

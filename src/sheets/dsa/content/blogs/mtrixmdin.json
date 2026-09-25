@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "mtrixmdin",
   "title": "Matrix Median",
+  "topicNumber": 110,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 2D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 2D Arrays",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/median-of-row-wise-sorted-matrix/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “median of row wise sorted matrix”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "matrix"
+  ],
+  "pattern": "binary search on the value + counting",
+  "problemStatement": "Find the median of a row-wise sorted matrix with an odd number of cells.",
+  "example": "[[1,3,5],[2,6,9],[3,6,9]] -> 5",
+  "intuition": "Binary search over the *value* range, not positions. For a candidate x, count how many cells are <= x using per-row upper bounds; the median is the smallest x whose count exceeds half.",
+  "approaches": [
+    {
+      "title": "Brute: flatten and sort",
+      "idea": "Simple, but O(n*m log(n*m)) time and O(n*m) memory.",
+      "code": "def matrix_median_brute(mat: list[list[int]]) -> int:\n    flat = sorted(v for row in mat for v in row)\n    return flat[len(flat) // 2]",
+      "language": "python",
+      "time": "O(n*m log(n*m))",
+      "space": "O(n*m)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the value",
+      "idea": "Counting uses upper_bound per row in O(log m).",
+      "code": "import bisect\n\n\ndef matrix_median(mat: list[list[int]]) -> int:\n    n, m = len(mat), len(mat[0])\n    need = (n * m) // 2\n    lo = min(row[0] for row in mat)\n    hi = max(row[-1] for row in mat)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        count = sum(bisect.bisect_right(row, mid) for row in mat)\n        if count <= need:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "language": "python",
+      "time": "O(n log m log(max - min))",
+      "space": "O(1) auxiliary",
+      "dryRun": "range [1,9], need = 4\nmid=5 -> counts 3+1+2 = 6 > 4 -> hi=5\nmid=3 -> counts 2+1+1=4 <= 4 -> lo=4\nmid=4 -> count 4 <= 4 -> lo=5 -> median 5",
+      "whyWorks": "count(x) is non-decreasing in x, and the median is the first value whose count exceeds half."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log m log(max - min))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Duplicates across rows",
+    "Even cell count (define which median)",
+    "Single row"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Matrix Median” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Binary searching over indices instead of values",
+    "Using bisect_left, which mishandles duplicates"
+  ],
+  "patternRecognition": [
+    "Order statistic without materialising the data -> binary search on value + counting"
+  ],
+  "followUps": [
+    "k-th smallest in a sorted matrix",
+    "Median of two sorted arrays (#104)",
+    "Median from a data stream (#257)"
+  ],
+  "interviewInsight": "The \"binary search the value, count with another binary search\" nesting is the reusable idea here.",
+  "related": [
+    {
+      "id": "findpklmnt-i",
+      "title": "Find Peak Element (2D Matrix)"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "SearchRowColumnWiseSortedMatrix",
+      "title": "Search in a row and column wise sorted matrix"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "srchin2dmtrix",
+      "title": "Search in a 2 D matrix"
     }
-  }
+  ]
 }

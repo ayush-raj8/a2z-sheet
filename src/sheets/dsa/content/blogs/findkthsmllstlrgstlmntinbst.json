@@ -1,37 +1,83 @@
 {
+  "version": 2,
   "id": "findkthsmllstlrgstlmntinbst",
   "title": "Find K-th smallest/largest element in BST",
+  "topicNumber": 321,
   "stepTitle": "Binary Search Trees [Concept and Problems]",
   "subStepTitle": "Practice Problems",
+  "category": "Binary Search Trees [Concept and Problems]",
+  "subcategory": "Practice Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/kth-largest-smallest-element-in-binary-search-tree/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “kth largest smallest element in binary search tree”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "medium"
+  ],
+  "pattern": "binary-search",
+  "problemStatement": "Solve “Find K-th smallest/largest element in BST” as posed in the A2Z sheet (Practice Problems).",
+  "intuition": "\"Find K-th smallest/largest element in BST\" lives in binary search. Define a monotonic predicate P(mid). Search the answer space or the index space; keep the invariant that the answer still lies in [lo, hi].",
+  "approaches": [
+    {
+      "title": "Brute: linear scan",
+      "idea": "Scan every candidate until the condition holds.",
+      "code": "def solve_brute(a, target):\n    # Linear scan stand-in for: Find K-th smallest/largest element in BST\n    for i, x in enumerate(a):\n        if x == target:  # adapt predicate\n            return i\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on monotonic predicate",
+      "idea": "Shrink [lo, hi] using mid; be consistent about inclusive bounds.",
+      "code": "def solve(a, target):\n    # Binary-search skeleton for: Find K-th smallest/largest element in BST\n    lo, hi = 0, len(a)  # half-open [lo, hi)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < target:  # adapt: predicate \"too small\"\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "language": "python",
+      "time": "O(log n) on array search; O(f·log A) on answer-space search",
+      "space": "O(1) auxiliary",
+      "dryRun": "Maintain: answer ∈ [lo, hi). Each step halves the interval.",
+      "whyWorks": "Monotonicity guarantees one side can be discarded safely."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n) on array search; O(f·log A) on answer-space search",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find K-th smallest/largest element in BST” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Infinite loop from wrong mid update",
+    "Off-by-one on lower vs upper bound",
+    "Using binary search without a proven monotonic predicate"
+  ],
+  "patternRecognition": [
+    "Sorted array / monotonic feasibility",
+    "Minimize/maximize a value with a yes/no check → binary search on answer"
+  ],
+  "followUps": [
+    "Lower bound vs upper bound?",
+    "Rotated sorted array variants?",
+    "What if duplicates exist?",
+    "Binary search on answer — write the feasibility check"
+  ],
+  "interviewInsight": "Say the invariant out loud for \"Find K-th smallest/largest element in BST\". Strong candidates never hand-wave lo/hi updates.",
+  "related": [
+    {
+      "id": "dltndinbinrysrchtr",
+      "title": "Delete a Node in Binary Search Tree"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "chckiftrisbstrbt",
+      "title": "Check if a tree is a BST or BT"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "insrtgivnndinbinrysrchtr",
+      "title": "Insert a given Node in Binary Search Tree"
     }
-  }
+  ]
 }

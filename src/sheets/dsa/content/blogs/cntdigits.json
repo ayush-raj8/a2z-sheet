@@ -1,36 +1,83 @@
 {
+  "version": 2,
   "id": "cntdigits",
   "title": "Count Digits",
+  "topicNumber": 13,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/count-digits-in-a-number/",
-  "intro": "Counting digits is O(log₁₀ n) work. Prefer math over string conversion in interviews unless leading zeros appear. Classic framing from the roadmap note “count digits in a number”.",
-  "intuition": "Repeatedly divide by 10 (or use logs carefully for positives).",
-  "approach": [
-    "Handle n=0 as 1 digit.",
-    "Loop divide-by-10.",
-    "Alternatively convert to string length for non-negatives."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "digits"
+  ],
+  "problemStatement": "Given an integer n, return how many digits it has.",
+  "example": "n = 120 → 3\nn = 0 → 1",
+  "intuition": "Each division by 10 peels one digit. Work is proportional to digit count = O(log10 n), not O(n).",
+  "approaches": [
+    {
+      "title": "Brute: convert to string",
+      "idea": "len(str(abs(n))) — clear, but less “mathy” in interviews.",
+      "code": "def count_digits_str(n: int) -> int:\n    return len(str(abs(n)))",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(log n) for the string",
+      "flags": [
+        "MLE"
+      ],
+      "limitations": [
+        "Fine here; avoid building huge strings in hotter loops"
+      ]
+    },
+    {
+      "title": "Optimal: divide by 10",
+      "idea": "Count peel operations. Handle 0 explicitly.",
+      "algorithm": [
+        "If n==0 return 1",
+        "n = abs(n)",
+        "While n>0: count++, n//=10"
+      ],
+      "code": "def count_digits(n: int) -> int:\n    if n == 0:\n        return 1\n    n = abs(n)\n    c = 0\n    while n > 0:\n        c += 1\n        n //= 10\n    return c",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "n=120\n120→12 c=1\n12→1 c=2\n1→0 c=3 → answer 3"
+    }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1)"
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "n=0 handled wrong.",
-    "Negatives if constraints allow."
+  "edgeCases": [
+    "n=0",
+    "negatives",
+    "n=10^k"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int countDigits(long long n) {\n    if (n == 0) return 1;\n    if (n < 0) n = -n;\n    int c = 0;\n    while (n) { c++; n /= 10; }\n    return c;\n}"
+  "commonMistakes": [
+    "Returning 0 for n=0",
+    "Forgetting abs on negatives"
+  ],
+  "patternRecognition": [
+    "Digit DP / digit peeling problems start here"
+  ],
+  "followUps": [
+    "Count digits in O(1) with logs? (careful with floats)",
+    "Sum of digits?",
+    "Digital root?"
+  ],
+  "interviewInsight": "They want O(1) aux and correct n=0 — tiny problems still expose carelessness.",
+  "related": [
+    {
+      "id": "rvrsnmbr",
+      "title": "Reverse a Number"
     },
-    "java": {
-      "code": "static int countDigits(long n) {\n    if (n == 0) return 1;\n    n = Math.abs(n);\n    int c = 0;\n    while (n > 0) { c++; n /= 10; }\n    return c;\n}"
-    },
-    "python": {
-      "code": "def count_digits(n: int) -> int:\n    n = abs(n)\n    if n == 0: return 1\n    c = 0\n    while n:\n        c += 1\n        n //= 10\n    return c"
-    },
-    "go": {
-      "code": "func countDigits(n int64) int {\n    if n == 0 { return 1 }\n    if n < 0 { n = -n }\n    c := 0\n    for n > 0 { c++; n /= 10 }\n    return c\n}"
+    {
+      "id": "chckplindrm",
+      "title": "Check Palindrome"
     }
-  }
+  ]
 }

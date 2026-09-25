@@ -1,0 +1,2762 @@
+{
+  "total": 455,
+  "reviewed": 455,
+  "pending": 0,
+  "needsReview": 0,
+  "byId": {
+    "srinpttpt": {
+      "topicNumber": 1,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "dttyps": {
+      "topicNumber": 2,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "iflssttmnts": {
+      "topicNumber": 3,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "switchsttmnt": {
+      "topicNumber": 4,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "whtrrrysstrings": {
+      "topicNumber": 5,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "frlps": {
+      "topicNumber": 6,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "whillps": {
+      "topicNumber": 7,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "fnctinspssbyrfrncndvl": {
+      "topicNumber": 8,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "timcmplxitylrnbsicsndthnnlysinnxtstps": {
+      "topicNumber": 9,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "pttrns": {
+      "topicNumber": 10,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "cstl": {
+      "topicNumber": 11,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "jvcllctins": {
+      "topicNumber": 12,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "cntdigits": {
+      "topicNumber": 13,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "rvrsnmbr": {
+      "topicNumber": 14,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "chckplindrm": {
+      "topicNumber": 15,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "gcdrhcf": {
+      "topicNumber": 16,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "rmstrngnmbrs": {
+      "topicNumber": 17,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "printlldivisrs": {
+      "topicNumber": 18,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "chckfrprim": {
+      "topicNumber": 19,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "ndrstndrcrsinbyprintsmthingntims": {
+      "topicNumber": 20,
+      "status": "reviewed",
+      "batch": 1,
+      "quality": "reviewed"
+    },
+    "printnmntimssingrcrsin": {
+      "topicNumber": 21,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "print1tnsingrcrsin": {
+      "topicNumber": 22,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "printnt1singrcrsin": {
+      "topicNumber": 23,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "smffirstnnmbrs": {
+      "topicNumber": 24,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "fctrilfnnmbrs": {
+      "topicNumber": 25,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "rvrsnrry": {
+      "topicNumber": 26,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "chckifstringisplindrmrnt": {
+      "topicNumber": 27,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "fibnccinmbr": {
+      "topicNumber": 28,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "hshingthry": {
+      "topicNumber": 29,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "cntingfrqncisfrrylmnts": {
+      "topicNumber": 30,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "findthhighstlwstfrqncylmnt": {
+      "topicNumber": 31,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "slctinsrt": {
+      "topicNumber": 32,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "bbblsrt": {
+      "topicNumber": 33,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "insrtinsrt": {
+      "topicNumber": 34,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "mrgsrt": {
+      "topicNumber": 35,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "rcrsivbbblsrt": {
+      "topicNumber": 36,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "rcrsivinsrtinsrt": {
+      "topicNumber": 37,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "qicksrt": {
+      "topicNumber": 38,
+      "status": "reviewed",
+      "batch": 2,
+      "quality": "reviewed"
+    },
+    "lrgstlmntinnrry": {
+      "topicNumber": 39,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "scndlrgstlmntinnrrywithtsrting": {
+      "topicNumber": 40,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifthrryissrtd": {
+      "topicNumber": 41,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmvdplictsfrmsrtdrry": {
+      "topicNumber": 42,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lftrttnrrybynplc": {
+      "topicNumber": 43,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lftrttnrrybydplcs": {
+      "topicNumber": 44,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mvzrstnd": {
+      "topicNumber": 45,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "linrsrch": {
+      "topicNumber": 46,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthnin": {
+      "topicNumber": 47,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findmissingnmbrinnrry": {
+      "topicNumber": 48,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmcnsctivns": {
+      "topicNumber": 49,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthnmbrthtpprsncndthrnmbrstwic": {
+      "topicNumber": 50,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "longestsubarraywithsumpositives": {
+      "topicNumber": 51,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "longestsubarraywithsumkposneg": {
+      "topicNumber": 52,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "2smprblm": {
+      "topicNumber": 53,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtnrryf0s1snd2s": {
+      "topicNumber": 54,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mjritylmntn2tims": {
+      "topicNumber": 55,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kdnslgrithmmximmsbrrysm": {
+      "topicNumber": 56,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printsbrrywithmximmsbrrysmxtnddvrsinfbvprblm": {
+      "topicNumber": 57,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "stckbyndsll": {
+      "topicNumber": 58,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rrrngthrryinltrntingpsitivndngtivitms": {
+      "topicNumber": 59,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nxtprmttin": {
+      "topicNumber": 60,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ldrsinnrryprblm": {
+      "topicNumber": 61,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstcnsctivsqncinnrry": {
+      "topicNumber": 62,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "stmtrixzrs": {
+      "topicNumber": 63,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rttmtrixby90dgrs": {
+      "topicNumber": 64,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printthmtrixinspirlmnnr": {
+      "topicNumber": 65,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sbrrywithgivnsm": {
+      "topicNumber": 66,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "psclstringl": {
+      "topicNumber": 67,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mjritylmntn3tims": {
+      "topicNumber": 68,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "3smprblm": {
+      "topicNumber": 69,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "4smprblm": {
+      "topicNumber": 70,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrgstsbrrywith0sm": {
+      "topicNumber": 71,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntnmbrfsbrryswithgivnxrk": {
+      "topicNumber": 72,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrgvrlppingsbintrvls": {
+      "topicNumber": 73,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrgtwsrtdrryswithtxtrspc": {
+      "topicNumber": 74,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthrptingndmissingnmbr-i": {
+      "topicNumber": 75,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntinvrsins": {
+      "topicNumber": 76,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrspirs": {
+      "topicNumber": 77,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmprdctsbrry": {
+      "topicNumber": 78,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "binrysrchtfindxinsrtdrry": {
+      "topicNumber": 79,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntlwrbnd": {
+      "topicNumber": 80,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntpprbnd": {
+      "topicNumber": 81,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchinsrtpsitin": {
+      "topicNumber": 82,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifinptrryissrtd": {
+      "topicNumber": 83,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthfirstrlstccrrncfgivnnmbrinsrtdrry": {
+      "topicNumber": 84,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntccrrncsfnmbrinsrtdrrywithdplicts": {
+      "topicNumber": 85,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchinrttdsrtdrryi": {
+      "topicNumber": 86,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchinrttdsrtdrryii": {
+      "topicNumber": 87,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findminimminrttdsrtdrry": {
+      "topicNumber": 88,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthwmnytimshsnrrybnrttd": {
+      "topicNumber": 89,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "singllmntinsrtdrry": {
+      "topicNumber": 90,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findpklmnt": {
+      "topicNumber": 91,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findsqrrtfnmbrinlgn": {
+      "topicNumber": 92,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthnthrtfnmbrsingbinrysrch": {
+      "topicNumber": 93,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kktingbnns": {
+      "topicNumber": 94,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmdystmkmbqts": {
+      "topicNumber": 95,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthsmllstdivisr": {
+      "topicNumber": 96,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cpcitytshippckgswithinddys": {
+      "topicNumber": 97,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kthmissingpsitivnmbr": {
+      "topicNumber": 98,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ggrssivcws": {
+      "topicNumber": 99,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bkllctinprblm": {
+      "topicNumber": 100,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "splitrrylrgstsm": {
+      "topicNumber": 101,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "painterspartition": {
+      "topicNumber": 102,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimizmxdistnctgssttin": {
+      "topicNumber": 103,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mdinf2srtdrrys": {
+      "topicNumber": 104,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kthlmntf2srtdrrys": {
+      "topicNumber": 105,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthrwwithmximmnmbrf1s": {
+      "topicNumber": 106,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchin2dmtrix": {
+      "topicNumber": 107,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "SearchRowColumnWiseSortedMatrix": {
+      "topicNumber": 108,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findpklmnt-i": {
+      "topicNumber": 109,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mtrixmdin": {
+      "topicNumber": 110,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmvtrmstprnthsis": {
+      "topicNumber": 111,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrswrdsingivnstringplindrmchck": {
+      "topicNumber": 112,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrgstddnmbrinstring": {
+      "topicNumber": 113,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstcmmnprfix": {
+      "topicNumber": 114,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ismrphicstring": {
+      "topicNumber": 115,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckwhthrnstringisrttinfnthr": {
+      "topicNumber": 116,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckiftwstringsrngrmfchthr": {
+      "topicNumber": 117,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtchrctrsbyfrqncy": {
+      "topicNumber": 118,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmnstingdpthfprnthsis": {
+      "topicNumber": 119,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmnnmbrtintgrndvicvrs": {
+      "topicNumber": 120,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntti": {
+      "topicNumber": 121,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntnmbrfsbstrings": {
+      "topicNumber": 122,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstplindrmicsbstringditwithtdp": {
+      "topicNumber": 123,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "smfbtyfllsbstring": {
+      "topicNumber": 124,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrsvrywrdinstring": {
+      "topicNumber": 125,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctintlinkdlistlrnbtstrctndhwisndrprsntd": {
+      "topicNumber": 126,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "insrtingndinlinkdlist": {
+      "topicNumber": 127,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dltingndinlinkdlist": {
+      "topicNumber": 128,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthlngthfthlinkdlistlrntrvrsl": {
+      "topicNumber": 129,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchnlmntinthll": {
+      "topicNumber": 130,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctintdlllrnbtstrctndhwisndrprsntd": {
+      "topicNumber": 131,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "insrtndindll": {
+      "topicNumber": 132,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dltndindll": {
+      "topicNumber": 133,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrsdll": {
+      "topicNumber": 134,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "middlflinkdlisttrtishrmthd": {
+      "topicNumber": 135,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrslinkdlistitrtiv": {
+      "topicNumber": 136,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrsllrcrsiv": {
+      "topicNumber": 137,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dtctlpinll": {
+      "topicNumber": 138,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthstrtingpintinll": {
+      "topicNumber": 139,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngthflpinll": {
+      "topicNumber": 140,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifllisplindrmrnt": {
+      "topicNumber": 141,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sgrrgtddndvnndsinll": {
+      "topicNumber": 142,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmvnthndfrmthbckfthll": {
+      "topicNumber": 143,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dltthmiddlndfll": {
+      "topicNumber": 144,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtll": {
+      "topicNumber": 145,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtllf0s1snd2sbychnginglinks": {
+      "topicNumber": 146,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthintrsctinpintfyll": {
+      "topicNumber": 147,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dd1tnmbrrprsntdbyll": {
+      "topicNumber": 148,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dd2nmbrsinll": {
+      "topicNumber": 149,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dltllccrrncsfkyindll": {
+      "topicNumber": 150,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findpirswithgivnsmindll": {
+      "topicNumber": 151,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmvdplictsfrmsrtddll": {
+      "topicNumber": 152,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrsllingrpfgivnsizk": {
+      "topicNumber": 153,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rttll": {
+      "topicNumber": 154,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "flttningfll": {
+      "topicNumber": 155,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "clnlinkdlistwithrndmndnxtpintr": {
+      "topicNumber": 156,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rcrsivimplmnttinfti": {
+      "topicNumber": 157,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pwxn": {
+      "topicNumber": 158,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntgdnmbrs": {
+      "topicNumber": 159,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtstcksingrcrsin": {
+      "topicNumber": 160,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rvrsstcksingrcrsin": {
+      "topicNumber": 161,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "gnrtllbinrystrings": {
+      "topicNumber": 162,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "gnrtprnthsis": {
+      "topicNumber": 163,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printllsbsqncspwrst": {
+      "topicNumber": 164,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrnllpttrnsfsbsqncsthry": {
+      "topicNumber": 165,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntllsbsqncswithsmk": {
+      "topicNumber": 166,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifthrxistssbsqncwithsmk": {
+      "topicNumber": 167,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cmbintinsm": {
+      "topicNumber": 168,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cmbintinsmii": {
+      "topicNumber": 169,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sbstsmi": {
+      "topicNumber": 170,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sbstsmii": {
+      "topicNumber": 171,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cmbintinsmiii": {
+      "topicNumber": 172,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lttrcmbintinsfphnnmbr": {
+      "topicNumber": 173,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "plindrmprtitining": {
+      "topicNumber": 174,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "wrdsrch": {
+      "topicNumber": 175,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nqn": {
+      "topicNumber": 176,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rtinmz": {
+      "topicNumber": 177,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "wrdbrk": {
+      "topicNumber": 178,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mclringprblm": {
+      "topicNumber": 179,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sdkslvr": {
+      "topicNumber": 180,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "xprssinddprtrs": {
+      "topicNumber": 181,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctintbitmnipltinthry": {
+      "topicNumber": 182,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifthithbitisstrnt": {
+      "topicNumber": 183,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifnmbrisddrnt": {
+      "topicNumber": 184,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifnmbrispwrf2rnt": {
+      "topicNumber": 185,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntthnmbrfstbits": {
+      "topicNumber": 186,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "stnstthrightmstnstbit": {
+      "topicNumber": 187,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "swptwnmbrs": {
+      "topicNumber": 188,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dividtwintgrswithtsingmltiplictindivisinndmdprtr": {
+      "topicNumber": 189,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntnmbrfbitstbflippdtcnvrttb": {
+      "topicNumber": 190,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthnmbrthtpprsddnmbrftims": {
+      "topicNumber": 191,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pwrst": {
+      "topicNumber": 192,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "fndxrfnmbrsfrmltr": {
+      "topicNumber": 193,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthtwnmbrsppringddnmbrftims": {
+      "topicNumber": 194,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printprimfctrsfnmbr": {
+      "topicNumber": 195,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lldivisrsfnmbr": {
+      "topicNumber": 196,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sivfrtsthns": {
+      "topicNumber": 197,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findprimfctristinfnmbrsingsiv": {
+      "topicNumber": 198,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pwrnx": {
+      "topicNumber": 199,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntstcksingrrys": {
+      "topicNumber": 200,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntqsingrrys": {
+      "topicNumber": 201,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntstcksingq": {
+      "topicNumber": 202,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntqsingstck": {
+      "topicNumber": 203,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntstcksinglinkdlist": {
+      "topicNumber": 204,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntqsinglinkdlist": {
+      "topicNumber": 205,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckfrblncdprnthsis": {
+      "topicNumber": 206,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmntminstck": {
+      "topicNumber": 207,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "infixtpstfixcnvrsinsingstck": {
+      "topicNumber": 208,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prfixtinfixcnvrsin": {
+      "topicNumber": 209,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prfixtpstfixcnvrsin": {
+      "topicNumber": 210,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pstfixtprfixcnvrsin": {
+      "topicNumber": 211,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pstfixtinfix": {
+      "topicNumber": 212,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnvrtinfixtprfixnttin": {
+      "topicNumber": 213,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nxtgrtrlmnt": {
+      "topicNumber": 214,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nxtgrtrlmnt2": {
+      "topicNumber": 215,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nxtsmllrlmnt": {
+      "topicNumber": 216,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfngstthright": {
+      "topicNumber": 217,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "trppingrinwtr": {
+      "topicNumber": 218,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "smfsbrryminimm": {
+      "topicNumber": 219,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "stridcllisin": {
+      "topicNumber": 220,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "smfsbrryrngs": {
+      "topicNumber": 221,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rmvkdigits": {
+      "topicNumber": 222,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrgstrctnglinhistgrm": {
+      "topicNumber": 223,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximlrctngls": {
+      "topicNumber": 224,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "slidingwindwmximm": {
+      "topicNumber": 225,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "stckspnprblm": {
+      "topicNumber": 226,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "thclbrityprblm": {
+      "topicNumber": 227,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrcchimprtnt": {
+      "topicNumber": 228,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lfcch": {
+      "topicNumber": 229,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstsbstringwithtrptingchrctrs": {
+      "topicNumber": 230,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mxcnsctivnsiii": {
+      "topicNumber": 231,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "fritintbskts": {
+      "topicNumber": 232,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstrptingchrctrrplcmnt": {
+      "topicNumber": 233,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "binrysbrrywithsm": {
+      "topicNumber": 234,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntnmbrfnicsbrrys": {
+      "topicNumber": 235,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfsbstringcntiningllthrchrctrs": {
+      "topicNumber": 236,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmpintycnbtinfrmcrds": {
+      "topicNumber": 237,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstsbstringwithtmstkdistinctchrctrs": {
+      "topicNumber": 238,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sbrrywithkdiffrntintgrs": {
+      "topicNumber": 239,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmwindwsbstring": {
+      "topicNumber": 240,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmwindwsbsqnc": {
+      "topicNumber": 241,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctintprirityqssingbinryhps": {
+      "topicNumber": 242,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minhpndmxhpimplmnttin": {
+      "topicNumber": 243,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifnrryrprsntsminhprnt": {
+      "topicNumber": 244,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnvrtminhptmxhp": {
+      "topicNumber": 245,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kthlrgstlmntinnrrysprirityq": {
+      "topicNumber": 246,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kthsmllstlmntinnrrysprirityq": {
+      "topicNumber": 247,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srtksrtdrry": {
+      "topicNumber": 248,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrgmsrtdlists": {
+      "topicNumber": 249,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rplcchrrylmntbyitscrrspndingrnk": {
+      "topicNumber": 250,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "tskschdlr": {
+      "topicNumber": 251,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "hndsfstrights": {
+      "topicNumber": 252,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dsigntwittr": {
+      "topicNumber": 253,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnnctnrpswithminimlcst": {
+      "topicNumber": 254,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kthlrgstlmntinstrmfrnningintgrs": {
+      "topicNumber": 255,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmsmcmbintin": {
+      "topicNumber": 256,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findmdinfrmdtstrm": {
+      "topicNumber": 257,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kmstfrqntlmnts": {
+      "topicNumber": 258,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ssignckis": {
+      "topicNumber": 259,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "frctinlknpsckprblm": {
+      "topicNumber": 260,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "grdylgrithmtfindminimmnmbrfcins": {
+      "topicNumber": 261,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lmndchng": {
+      "topicNumber": 262,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "vlidprnthsischckr": {
+      "topicNumber": 263,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmtingsinnrm": {
+      "topicNumber": 264,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "jmpgm": {
+      "topicNumber": 265,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "jmpgm2": {
+      "topicNumber": 266,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmnmbrfpltfrmsrqirdfrrilwy": {
+      "topicNumber": 267,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "jbsqncingprblm": {
+      "topicNumber": 268,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cndy": {
+      "topicNumber": 269,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prgrmfrshrtstjbfirstrsjfcpschdling": {
+      "topicNumber": 270,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prgrmfrlstrcntlysdlrpgrplcmntlgrithm": {
+      "topicNumber": 271,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "insrtintrvl": {
+      "topicNumber": 272,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrgintrvls": {
+      "topicNumber": 273,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nnvrlppingintrvls": {
+      "topicNumber": 274,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctinttrs": {
+      "topicNumber": 275,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "binrytrrprsnttininc": {
+      "topicNumber": 276,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "binrytrrprsnttininjv": {
+      "topicNumber": 277,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "binrytrtrvrslsinbinrytr": {
+      "topicNumber": 278,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prrdrtrvrslfbinrytr": {
+      "topicNumber": 279,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "inrdrtrvrslfbinrytr": {
+      "topicNumber": 280,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pstrdrtrvrslfbinrytr": {
+      "topicNumber": 281,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lvlrdrtrvrsllvlrdrtrvrslinspirlfrm": {
+      "topicNumber": 282,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "itrtivprrdrtrvrslfbinrytr": {
+      "topicNumber": 283,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "itrtivinrdrtrvrslfbinrytr": {
+      "topicNumber": 284,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pstrdrtrvrslfbinrytrsing2stck": {
+      "topicNumber": 285,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pstrdrtrvrslfbinrytrsing1stck": {
+      "topicNumber": 286,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prrdrinrdrndpstrdrtrvrslinntrvrsl": {
+      "topicNumber": 287,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "hightfbinrytr": {
+      "topicNumber": 288,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckifthbinrytrishightblncdrnt": {
+      "topicNumber": 289,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dimtrfbinrytr": {
+      "topicNumber": 290,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmpthsm": {
+      "topicNumber": 291,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckiftwtrsridnticlrnt": {
+      "topicNumber": 292,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "zigzgtrvrslfbinrytr": {
+      "topicNumber": 293,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bndrytrvrslfbinrytr": {
+      "topicNumber": 294,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "vrticlrdrtrvrslfbinrytr": {
+      "topicNumber": 295,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "tpviwfbinrytr": {
+      "topicNumber": 296,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bttmviwfbinrytr": {
+      "topicNumber": 297,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rightlftviwfbinrytr": {
+      "topicNumber": 298,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "symmtricbinrytr": {
+      "topicNumber": 299,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rttndpthinbinrytr": {
+      "topicNumber": 300,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lcinbinrytr": {
+      "topicNumber": 301,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmwidthfbinrytr": {
+      "topicNumber": 302,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckfrchildrnsmprprty": {
+      "topicNumber": 303,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printllthndstdistncfkinbinrytr": {
+      "topicNumber": 304,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmtimtkntbrnthbinrytrfrmnd": {
+      "topicNumber": 305,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntttlndsincmpltbinrytr": {
+      "topicNumber": 306,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rqirmntsnddtcnstrctniqbinrytrthry": {
+      "topicNumber": 307,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnstrctbinrytrfrminrdrndprrdr": {
+      "topicNumber": 308,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnstrctthbinrytrfrmpstrdrndinrdrtrvrsl": {
+      "topicNumber": 309,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sriliznddsrilizbinrytr": {
+      "topicNumber": 310,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrrisprrdrtrvrslfbinrytr": {
+      "topicNumber": 311,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrrisinrdrtrvrslfbinrytr": {
+      "topicNumber": 312,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "flttnbinrytrtlinkdlist": {
+      "topicNumber": 313,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "intrdctintbinrysrchtr": {
+      "topicNumber": 314,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srchinbinrysrchtr": {
+      "topicNumber": 315,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findminmxinbst": {
+      "topicNumber": 316,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cilinbinrysrchtr": {
+      "topicNumber": 317,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "flrinbinrysrchtr": {
+      "topicNumber": 318,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "insrtgivnndinbinrysrchtr": {
+      "topicNumber": 319,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dltndinbinrysrchtr": {
+      "topicNumber": 320,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findkthsmllstlrgstlmntinbst": {
+      "topicNumber": 321,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chckiftrisbstrbt": {
+      "topicNumber": 322,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lcinbinrysrchtr": {
+      "topicNumber": 323,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnstrctbstfrmprrdrtrvrsl": {
+      "topicNumber": 324,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "inrdrsccssrprdcssrinbst": {
+      "topicNumber": 325,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mrg2bsts": {
+      "topicNumber": 326,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "twsminbstchckifthrxistspirwithsmk": {
+      "topicNumber": 327,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rcvrbstcrrctbstwithtwndsswppd": {
+      "topicNumber": 328,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrgstbstinbinrytr": {
+      "topicNumber": 329,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "grphndtyps": {
+      "topicNumber": 330,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "grphrprsnttinc": {
+      "topicNumber": 331,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "grphrprsnttinjv": {
+      "topicNumber": 332,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnnctdcmpnntslgicxplntin": {
+      "topicNumber": 333,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bfs": {
+      "topicNumber": 334,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dfs": {
+      "topicNumber": 335,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfprvincsltcd": {
+      "topicNumber": 336,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cnnctdcmpnntsprblminmtrix": {
+      "topicNumber": 337,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rttnrngs": {
+      "topicNumber": 338,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "fldfill": {
+      "topicNumber": 339,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cycldtctininnirctdgrphbfs": {
+      "topicNumber": 340,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cycldtctininndirctdgrphdfs": {
+      "topicNumber": 341,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "01mtrixbfsprblm": {
+      "topicNumber": 342,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "srrnddrginsdfs": {
+      "topicNumber": 343,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfnclvsfldfillimplmnttinmltisrc": {
+      "topicNumber": 344,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "wrdlddr1": {
+      "topicNumber": 345,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "wrdlddr2": {
+      "topicNumber": 346,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfdistinctislndsdfsmltisrc": {
+      "topicNumber": 347,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "biprtitgrphdfs": {
+      "topicNumber": 348,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cycldtctinindirctdgrphdfs": {
+      "topicNumber": 349,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "tpsrt": {
+      "topicNumber": 350,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "khnslgrithm": {
+      "topicNumber": 351,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cycldtctinindirctdgrphbfs": {
+      "topicNumber": 352,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "crsschdli": {
+      "topicNumber": 353,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "crsschdlii": {
+      "topicNumber": 354,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findvntlsfstts": {
+      "topicNumber": 355,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lindictinry": {
+      "topicNumber": 356,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "shrtstpthingwithnitwights": {
+      "topicNumber": 357,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "shrtstpthindg": {
+      "topicNumber": 358,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "djisktrslgrithm": {
+      "topicNumber": 359,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "whyprirityqissdindjisktrslgrithm": {
+      "topicNumber": 360,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "shrtstpthinbinrymz": {
+      "topicNumber": 361,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "pthwithminimmffrt": {
+      "topicNumber": 362,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "chpstflightswithinkstps": {
+      "topicNumber": 363,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ntwrkdlytim": {
+      "topicNumber": 364,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfwystrrivtdstintin": {
+      "topicNumber": 365,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmstpstrchndfrmstrtbyprfrmingmltiplictinndmdprtinswithrrylmnts": {
+      "topicNumber": 366,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bllmnfrdlgrithm": {
+      "topicNumber": 367,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "flydwrshllgrithm": {
+      "topicNumber": 368,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "findthcitywiththsmllstnmbrfnighbrsinthrshlddistnc": {
+      "topicNumber": 369,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmspnningtr": {
+      "topicNumber": 370,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "primslgrithm": {
+      "topicNumber": 371,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "disjintstninbyrnk": {
+      "topicNumber": 372,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "disjintstninbysiz": {
+      "topicNumber": 373,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "krsklslgrithm": {
+      "topicNumber": 374,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfprtinstmkntwrkcnnctd": {
+      "topicNumber": 375,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mststnsrmvdwithsmrwsrclmns": {
+      "topicNumber": 376,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ccntsmrg": {
+      "topicNumber": 377,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfislndii": {
+      "topicNumber": 378,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mkinglrgislnd": {
+      "topicNumber": 379,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "swiminrisingwtr": {
+      "topicNumber": 380,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bridgsingrph": {
+      "topicNumber": 381,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rticltinpint": {
+      "topicNumber": 382,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ksrjslgrithm": {
+      "topicNumber": 383,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "dynmicprgrmmingintrdctin": {
+      "topicNumber": 384,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "climbingstrs": {
+      "topicNumber": 385,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "frgjmpdp3": {
+      "topicNumber": 386,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "frgjmpwithkdistncsdp4": {
+      "topicNumber": 387,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmsmfnndjcntlmntsdp5": {
+      "topicNumber": 388,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "hsrbbrdp6": {
+      "topicNumber": 389,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ninjstriningdp7": {
+      "topicNumber": 390,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "gridniqpthsdpngridsdp8": {
+      "topicNumber": 391,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "gridniqpths2dp9": {
+      "topicNumber": 392,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmpthsmingriddp10": {
+      "topicNumber": 393,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmpthsmintringlrgriddp11": {
+      "topicNumber": 394,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmmximmfllingpthsmdp12": {
+      "topicNumber": 395,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "3ddpninjndhisfrindsdp13": {
+      "topicNumber": 396,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "sbstsmqlttrgtdp14": {
+      "topicNumber": 397,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prtitinqlsbstsmdp15": {
+      "topicNumber": 398,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prtitinstint2sbstswithminbsltsmdiffdp16": {
+      "topicNumber": 399,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntsbstswithsmkdp17": {
+      "topicNumber": 400,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntprtitinswithgivndiffrncdp18": {
+      "topicNumber": 401,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "01knpsckdp19": {
+      "topicNumber": 402,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmcinsdp20": {
+      "topicNumber": 403,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "trgtsmdp21": {
+      "topicNumber": 404,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cinchng2dp22": {
+      "topicNumber": 405,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nbnddknpsckdp23": {
+      "topicNumber": 406,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rdcttingprblmdp24": {
+      "topicNumber": 407,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstcmmnsbsqncdp25": {
+      "topicNumber": 408,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printlngstcmmnsbsqncdp26": {
+      "topicNumber": 409,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstcmmnsbstringdp27": {
+      "topicNumber": 410,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstplindrmicsbsqncdp28": {
+      "topicNumber": 411,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimminsrtinstmkstringplindrmdp29": {
+      "topicNumber": 412,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimminsrtinsdltinstcnvrtstringdp30": {
+      "topicNumber": 413,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "shrtstcmmnsprsqncdp31": {
+      "topicNumber": 414,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "distinctsbsqncsdp32": {
+      "topicNumber": 415,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "ditdistncdp33": {
+      "topicNumber": 416,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "wildcrdmtchingdp34": {
+      "topicNumber": 417,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bsttimtbyndsllstckdp35": {
+      "topicNumber": 418,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "byndsllstckiidp36": {
+      "topicNumber": 419,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "byndsllstcksiiidp37": {
+      "topicNumber": 420,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "byndstcksllivdp38": {
+      "topicNumber": 421,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "byndsllstckswithcldwndp39": {
+      "topicNumber": 422,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "byndsllstckswithtrnsctinfdp40": {
+      "topicNumber": 423,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstincrsingsbsqncdp41": {
+      "topicNumber": 424,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "printinglngstincrsingsbsqncdp42": {
+      "topicNumber": 425,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstincrsingsbsqncdp43": {
+      "topicNumber": 426,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lrgstdivisiblsbstdp44": {
+      "topicNumber": 427,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngststringchindp45": {
+      "topicNumber": 428,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngstbitnicsbsqncdp46": {
+      "topicNumber": 429,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrflngstincrsingsbsqncsdp47": {
+      "topicNumber": 430,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mtrixchinmltiplictindp48": {
+      "topicNumber": 431,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mtrixchinmltiplictinbttmpdp49": {
+      "topicNumber": 432,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmcsttctthstickdp50": {
+      "topicNumber": 433,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "brstbllnsdp51": {
+      "topicNumber": 434,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "vltblnxprssinttrdp52": {
+      "topicNumber": 435,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "plindrmprtitiningiidp53": {
+      "topicNumber": 436,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "prtitinrryfrmximmsmdp54": {
+      "topicNumber": 437,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmrctnglrwithll1sdp55": {
+      "topicNumber": 438,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntsqrsbmtricswithllnsdp56": {
+      "topicNumber": 439,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmnttriinsrtsrchstrtswith": {
+      "topicNumber": 440,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "implmnttri2prfixtr": {
+      "topicNumber": 441,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngststringwithllprfixs": {
+      "topicNumber": 442,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "nmbrfdistinctsbstringsinstring": {
+      "topicNumber": 443,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "bitprrqisitsfrtriprblms": {
+      "topicNumber": 444,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmxrftwnmbrsinnrry": {
+      "topicNumber": 445,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "mximmxrwithnlmntfrmrry": {
+      "topicNumber": 446,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "minimmnmbrfbrcktrvrslsnddtmknxprssinblncd": {
+      "topicNumber": 447,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntndsy": {
+      "topicNumber": 448,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "hshinginstringsthry": {
+      "topicNumber": 449,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "rbinkrp": {
+      "topicNumber": 450,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "zfnctin": {
+      "topicNumber": 451,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "kmplglpspirry": {
+      "topicNumber": 452,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "shrtstplindrm": {
+      "topicNumber": 453,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "lngsthppyprfix": {
+      "topicNumber": 454,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    },
+    "cntplindrmicsbsqncingivnstring": {
+      "topicNumber": 455,
+      "status": "reviewed",
+      "batch": 3,
+      "quality": "reviewed"
+    }
+  },
+  "lastBatch": {
+    "id": 2,
+    "count": 18,
+    "topicNumbers": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ]
+  }
+}

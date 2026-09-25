@@ -1,36 +1,78 @@
 {
+  "version": 2,
   "id": "chckfrprim",
   "title": "Check for Prime",
+  "topicNumber": 19,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/check-if-a-number-is-prime-or-not/",
-  "intro": "Primality: trial division to √n is the baseline; sieve appears when you need many queries. Classic framing from the roadmap note “check if a number is prime or not”.",
-  "intuition": "No divisor in 2..√n (handle n<2).",
-  "approach": [
-    "Exclude n<2.",
-    "Trial divide to √n.",
-    "Optional sieve for many queries."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "prime"
   ],
-  "complexity": {
-    "time": "O(√n) trial / O(n log log n) sieve build",
-    "space": "O(1) / O(n)"
-  },
-  "pitfalls": [
-    "Calling 1 prime.",
-    "Checking up to n instead of √n."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "bool isPrime(long long n) {\n    if (n < 2) return false;\n    for (long long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
+  "pattern": "primality",
+  "problemStatement": "Check whether n is prime.",
+  "example": "n=17 → true\nn=1 → false\nn=9 → false",
+  "intuition": "A prime has no divisor in 2..√n. Checking to n−1 wastes time (TLE on large n). For many queries, precompute a sieve.",
+  "approaches": [
+    {
+      "title": "Brute: trial to n-1",
+      "idea": "Test every candidate divisor.",
+      "code": "def is_prime_brute(n: int) -> bool:\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "static boolean isPrime(long n) {\n    if (n < 2) return false;\n    for (long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
-    },
-    "python": {
-      "code": "def is_prime(n: int) -> bool:\n    if n < 2: return False\n    i = 2\n    while i * i <= n:\n        if n % i == 0: return False\n        i += 1\n    return True"
-    },
-    "go": {
-      "code": "func isPrime(n int64) bool {\n    if n < 2 { return false }\n    for i := int64(2); i*i <= n; i++ {\n        if n%i == 0 { return false }\n    }\n    return true\n}"
+    {
+      "title": "Optimal single-query: trial to √n",
+      "idea": "Only need divisors ≤ √n; optionally skip evens after 2.",
+      "code": "def is_prime(n: int) -> bool:\n    if n < 2:\n        return False\n    if n % 2 == 0:\n        return n == 2\n    i = 3\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 2\n    return True",
+      "language": "python",
+      "time": "O(√n)",
+      "space": "O(1)",
+      "dryRun": "n=17\ni=3,5 (25>17 stop) → prime"
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Many queries? Sieve of Eratosthenes",
+    "body": "If you must answer primality for all values ≤ N, sieve in O(N log log N) time and O(N) memory — watch MLE if N is huge (e.g. 1e8 booleans)."
+  },
+  "complexity": {
+    "time": "O(√n) single query; sieve O(N log log N) preprocess",
+    "space": "O(1) / O(N) for sieve"
+  },
+  "edgeCases": [
+    "n<2",
+    "n=2",
+    "large primes near 1e12 for single check"
+  ],
+  "commonMistakes": [
+    "Calling 1 prime",
+    "Looping to n → TLE",
+    "Sieve of size 1e9 → MLE"
+  ],
+  "patternRecognition": [
+    "Factorization, segment sieve, SPF sieve",
+    "Constraints with Q queries up to N → sieve"
+  ],
+  "followUps": [
+    "Sieve memory layout (bitset) to reduce MLE?",
+    "Primality for n~1e18 (Miller-Rabin)?",
+    "Count primes in [L,R]?"
+  ],
+  "interviewInsight": "Connecting single-check √n vs sieve for many queries is the SDE-2 jump.",
+  "related": [
+    {
+      "id": "printlldivisrs",
+      "title": "Print all Divisors"
+    }
+  ]
 }

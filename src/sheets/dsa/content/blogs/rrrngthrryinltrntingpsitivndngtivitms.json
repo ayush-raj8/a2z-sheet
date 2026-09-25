@@ -1,40 +1,89 @@
 {
+  "version": 2,
   "id": "rrrngthrryinltrntingpsitivndngtivitms",
   "title": "Rearrange the array in alternating positive and negative items",
+  "topicNumber": 59,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/rearrange-array-elements-by-sign/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “rearrange array elements by sign”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "pattern": "index placement",
+  "problemStatement": "Rearrange so signs alternate, starting with a positive number.",
+  "example": "[3,1,-2,-5,2,-4] -> [3,-2,1,-5,2,-4]",
+  "intuition": "When positives and negatives are equal in count, their target slots are known up front: evens for positives, odds for negatives. No sorting or shifting is needed.",
+  "approaches": [
+    {
+      "title": "Brute: split into two lists then interleave",
+      "idea": "Simple and clear, but O(n) extra memory.",
+      "code": "def rearrange_brute(a: list[int]) -> list[int]:\n    pos = [x for x in a if x >= 0]\n    neg = [x for x in a if x < 0]\n    out = []\n    for p, n in zip(pos, neg):\n        out += [p, n]\n    return out",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal (equal counts): direct index placement",
+      "idea": "Positives at 0,2,4...; negatives at 1,3,5...",
+      "code": "def rearrange(a: list[int]) -> list[int]:\n    out = [0] * len(a)\n    p, n = 0, 1\n    for x in a:\n        if x >= 0:\n            out[p] = x\n            p += 2\n        else:\n            out[n] = x\n            n += 2\n    return out",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) for the output",
+      "dryRun": "a=[3,1,-2,-5,2,-4]\n3->0, 1->2, -2->1, -5->3, 2->4, -4->5 -> [3,-2,1,-5,2,-4]",
+      "whyWorks": "Equal counts make the slot assignment a bijection."
+    },
+    {
+      "title": "Variant: unequal counts, keep relative order",
+      "idea": "Interleave up to min(len) then append the leftovers.",
+      "code": "def rearrange_unequal(a: list[int]) -> list[int]:\n    pos = [x for x in a if x >= 0]\n    neg = [x for x in a if x < 0]\n    out = []\n    for i in range(min(len(pos), len(neg))):\n        out += [pos[i], neg[i]]\n    out += pos[min(len(pos), len(neg)):]\n    out += neg[min(len(pos), len(neg)):]\n    return out",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)"
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Unequal counts of positives and negatives",
+    "Zeros — decide which side they belong to",
+    "Empty array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Rearrange the array in alternating positive and negative items\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Rearrange the array in alternating positive and negative items\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Assuming equal counts when the statement does not guarantee it",
+    "Breaking relative order when it is required"
+  ],
+  "patternRecognition": [
+    "Known target index formula -> direct placement beats any shifting loop"
+  ],
+  "followUps": [
+    "Do it in O(1) extra space",
+    "Start with a negative instead",
+    "Preserve relative order strictly"
+  ],
+  "interviewInsight": "Ask whether counts are equal and whether relative order matters — the two variants differ a lot.",
+  "related": [
+    {
+      "id": "stckbyndsll",
+      "title": "Stock Buy and Sell"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Rearrange the array in alternating positive and negative items\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Rearrange the array in alternating positive and negative items\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "nxtprmttin",
+      "title": "Next Permutation"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Rearrange the array in alternating positive and negative items\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Rearrange the array in alternating positive and negative items\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Rearrange the array in alternating positive and negative items\nfunc solve(a []int) int {\n    // TODO: core idea for \"Rearrange the array in alternating positive and negative items\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "printsbrrywithmximmsbrrysmxtnddvrsinfbvprblm",
+      "title": "Print subarray with maximum subarray sum (extended version of above problem)"
     }
-  }
+  ]
 }

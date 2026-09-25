@@ -1,40 +1,68 @@
 {
+  "version": 2,
   "id": "bbblsrt",
   "title": "Bubble Sort",
+  "topicNumber": 33,
   "stepTitle": "Learn Important Sorting Techniques",
   "subStepTitle": "Sorting-I",
+  "category": "Learn Important Sorting Techniques",
+  "subcategory": "Sorting-I",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/bubble-sort-algorithm/",
-  "intro": "Sorting is a primitive used inside harder solutions. Know stable vs unstable and the N log N comparison bound. Classic framing from the roadmap note “bubble sort algorithm”.",
-  "intuition": "Unordered → ordered so later scans/binary search become possible.",
-  "approach": [
-    "Choose algorithm by constraints.",
-    "Implement or call library sort.",
-    "Use sorted order in the next step of the solution."
+  "quality": "reviewed",
+  "tags": [
+    "sorting"
+  ],
+  "pattern": "sorting",
+  "problemStatement": "Sort an array using Bubble Sort (with optimized early exit).",
+  "example": "[4,1,3,2] → [1,2,3,4]",
+  "intuition": "Repeatedly swap adjacent out-of-order pairs; each pass bubbles the next maximum to the end. If a pass does zero swaps, the array is sorted — early exit.",
+  "approaches": [
+    {
+      "title": "Bubble sort (optimized)",
+      "idea": "n-1 passes; shrink unsorted suffix; break if no swaps.",
+      "code": "def bubble_sort(a: list[int]) -> None:\n    n = len(a)\n    for pass_i in range(n - 1):\n        swapped = False\n        for j in range(0, n - 1 - pass_i):\n            if a[j] > a[j + 1]:\n                a[j], a[j + 1] = a[j + 1], a[j]\n                swapped = True\n        if not swapped:\n            break",
+      "language": "python",
+      "time": "O(n²) worst / avg; O(n) best when already sorted",
+      "space": "O(1) auxiliary",
+      "flags": [
+        "TLE"
+      ],
+      "dryRun": "[4,1,3,2]\\npass: (1,4,3,2)→(1,3,4,2)→(1,3,2,4)\\nthen … → [1,2,3,4]",
+      "whyWorks": "After k passes, the k largest elements are in the last k positions."
+    }
   ],
   "complexity": {
-    "time": "O(n log n) typical",
-    "space": "O(1)–O(n)"
+    "time": "O(n²) worst; O(n) best with flag",
+    "space": "O(1) aux"
   },
-  "pitfalls": [
-    "Unstable sort breaking equal-key order.",
-    "Comparing ints with overflow (use long/comparator)."
+  "edgeCases": [
+    "Already sorted (should O(n) with flag)",
+    "Single element"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Bubble Sort\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Bubble Sort\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Forgetting early-exit flag",
+    "Wrong j range causing index errors"
+  ],
+  "followUps": [
+    "Is bubble stable? (yes)",
+    "Cocktail shaker sort?",
+    "Why never use in production?"
+  ],
+  "interviewInsight": "Mention best-case O(n) with swap flag — shows you know adaptive behavior.",
+  "related": [
+    {
+      "id": "slctinsrt",
+      "title": "Selection Sort"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Bubble Sort\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Bubble Sort\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "insrtinsrt",
+      "title": "Insertion Sort"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Bubble Sort\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Bubble Sort\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Bubble Sort\nfunc solve(a []int) int {\n    // TODO: core idea for \"Bubble Sort\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "rcrsivbbblsrt",
+      "title": "Recursive Bubble Sort"
     }
-  }
+  ]
 }

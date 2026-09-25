@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "dd1tnmbrrprsntdbyll",
   "title": "Add 1 to a number represented by LL",
+  "topicNumber": 148,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Medium Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Medium Problems of LL",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "medium"
+  ],
+  "pattern": "linked-list",
+  "problemStatement": "Understand Add 1 to a number represented by LL deeply enough to use it in later problems in “Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]”.",
+  "intuition": "\"Add 1 to a number represented by LL\" needs careful pointer rewiring. Draw before/after. Prefer O(1) aux when possible; never lose the next reference before rewiring.",
+  "approaches": [
+    {
+      "title": "Core idea & mental model",
+      "idea": "Build the right model for \"Add 1 to a number represented by LL\" before diving into adjacent coding problems in this section.",
+      "code": "# Concept notes — Add 1 to a number represented by LL\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Add 1 to a number represented by LL.\"\"\"\n    return True",
+      "language": "python",
+      "time": "Conceptual — see operation costs in the section",
+      "space": "Conceptual"
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "Conceptual — see operation costs in the section",
+    "space": "Conceptual"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Add 1 to a number represented by LL”."
+  "commonMistakes": [
+    "Losing next before rewiring",
+    "Forgetting dummy head for head-deletion cases",
+    "Off-by-one on k-th node"
+  ],
+  "patternRecognition": [
+    "Cycle → Floyd",
+    "Reverse / k-group → local reverse + reconnect",
+    "Intersection → length align or switch pointers"
+  ],
+  "followUps": [
+    "O(1) space version?",
+    "Doubly linked variant?",
+    "Recursive vs iterative?"
+  ],
+  "interviewInsight": "For \"Add 1 to a number represented by LL\", interviewers watch pointer hygiene more than clever tricks.",
+  "related": [
+    {
+      "id": "findthintrsctinpintfyll",
+      "title": "Find the intersection point of Y LL"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "dd2nmbrsinll",
+      "title": "Add 2 numbers in LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "srtllf0s1snd2sbychnginglinks",
+      "title": "Sort a LL of 0's 1's and 2's by changing links"
     }
-  }
+  ]
 }

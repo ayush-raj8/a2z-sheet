@@ -1,37 +1,80 @@
 {
+  "version": 2,
   "id": "fritintbskts",
   "title": "Fruit Into Baskets",
+  "topicNumber": 232,
   "stepTitle": "Sliding Window & Two Pointer Combined Problems",
   "subStepTitle": "Medium Problems",
+  "category": "Sliding Window & Two Pointer Combined Problems",
+  "subcategory": "Medium Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Two pointers / sliding window turn nested O(n²) scans into O(n) when the window/predicate is monotonic.",
-  "intuition": "Move the pointer that improves the invariant (sum too big → shrink, etc.).",
-  "approach": [
-    "Sort if the pattern requires.",
-    "Move left/right based on condition.",
-    "Record answers when window is valid."
+  "quality": "reviewed",
+  "tags": [
+    "two-pointer",
+    "medium"
+  ],
+  "pattern": "sliding-window",
+  "problemStatement": "Solve “Fruit Into Baskets” as posed in the A2Z sheet (Medium Problems).",
+  "intuition": "\"Fruit Into Baskets\" fits two pointers / sliding window when the window condition is monotonic: expand right, shrink left.",
+  "approaches": [
+    {
+      "title": "Brute subarrays",
+      "idea": "Check all O(n²) windows.",
+      "code": "def solve_brute(a, k):\n    n = len(a)\n    best = 0\n    for i in range(n):\n        for j in range(i, n):\n            if sum(a[i : j + 1]) <= k:  # adapt\n                best = max(best, j - i + 1)\n    return best",
+      "language": "python",
+      "time": "O(n²) or O(n³)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal sliding window",
+      "idea": "Maintain a running state while moving L/R.",
+      "code": "def solve(a, k):\n    left = 0\n    total = 0\n    best = 0\n    for right, x in enumerate(a):\n        total += x\n        while left <= right and total > k:  # adapt invariant\n            total -= a[left]\n            left += 1\n        best = max(best, right - left + 1)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)–O(Σ)",
+      "whyWorks": "Each index moves at most once as left and once as right."
+    }
   ],
   "complexity": {
-    "time": "O(n) or O(n log n) if sort first",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1)–O(Σ)"
   },
-  "pitfalls": [
-    "Moving the wrong pointer.",
-    "Not handling duplicates when required."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "bool twoSumSorted(vector<int>& a, int target) {\n    int i = 0, j = (int)a.size() - 1;\n    while (i < j) {\n        int s = a[i] + a[j];\n        if (s == target) return true;\n        if (s < target) i++; else j--;\n    }\n    return false;\n}",
-      "notes": "Reuse this window idea for “Fruit Into Baskets” with the right invariant."
+  "commonMistakes": [
+    "Moving the wrong pointer",
+    "Not handling empty window",
+    "Using window when the condition is not monotonic"
+  ],
+  "patternRecognition": [
+    "Longest/shortest contiguous segment under a constraint"
+  ],
+  "followUps": [
+    "At most K vs exactly K?",
+    "Negative numbers break the classic window — what then?",
+    "Template for “number of subarrays with …”"
+  ],
+  "interviewInsight": "Prove monotonicity before claiming O(n) for \"Fruit Into Baskets\".",
+  "related": [
+    {
+      "id": "mxcnsctivnsiii",
+      "title": "Max Consecutive Ones III"
     },
-    "java": {
-      "code": "static boolean twoSumSorted(int[] a, int target) {\n    int i = 0, j = a.length - 1;\n    while (i < j) {\n        int s = a[i] + a[j];\n        if (s == target) return true;\n        if (s < target) i++; else j--;\n    }\n    return false;\n}"
+    {
+      "id": "lngstrptingchrctrrplcmnt",
+      "title": "longest repeating character replacement"
     },
-    "python": {
-      "code": "def two_sum_sorted(a, target):\n    i, j = 0, len(a) - 1\n    while i < j:\n        s = a[i] + a[j]\n        if s == target: return True\n        if s < target: i += 1\n        else: j -= 1\n    return False"
-    },
-    "go": {
-      "code": "func twoSumSorted(a []int, target int) bool {\n    i, j := 0, len(a)-1\n    for i < j {\n        s := a[i] + a[j]\n        if s == target { return true }\n        if s < target { i++ } else { j-- }\n    }\n    return false\n}"
+    {
+      "id": "lngstsbstringwithtrptingchrctrs",
+      "title": "Longest Substring Without Repeating Characters"
     }
-  }
+  ]
 }

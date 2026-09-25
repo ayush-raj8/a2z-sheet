@@ -1,36 +1,49 @@
 {
+  "version": 2,
   "id": "switchsttmnt",
   "title": "Switch Statement",
+  "topicNumber": 4,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/switch-case/switch-case-statements/",
-  "intro": "Switch/case shines for discrete labels. Know fall-through rules in C++/Java/Go versus Python’s if-elif style, and always cover the default path. Classic framing from the roadmap note “switch case statements”.",
-  "intuition": "Map each discrete case to a branch; default handles “anything else.”",
-  "approach": [
-    "Enumerate discrete labels.",
-    "Implement each case; set default.",
-    "Avoid unintentional fall-through unless intentional."
+  "quality": "reviewed",
+  "tags": [
+    "branching"
+  ],
+  "problemStatement": "Dispatch on a discrete set of labels. Python 3.10+ has match/case; older style uses if/elif.",
+  "intuition": "Exact finite labels → switch/match. Always define the default path.",
+  "approaches": [
+    {
+      "title": "match/case",
+      "idea": "Exact match with default.",
+      "code": "def day_name(d: int) -> str:\n    match d:\n        case 1:\n            return \"mon\"\n        case 2:\n            return \"tue\"\n        case 3:\n            return \"wed\"\n        case _:\n            return \"other\"",
+      "language": "python",
+      "time": "O(1)",
+      "space": "O(1)"
+    }
   ],
   "complexity": {
     "time": "O(1)",
     "space": "O(1)"
   },
-  "pitfalls": [
-    "Missing break/fallthrough bugs.",
-    "Forgetting default."
+  "commonMistakes": [
+    "Fall-through without break in C++/Java",
+    "Missing default",
+    "Using switch for ranges"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int d; cin >> d;\n    switch (d) {\n        case 1: cout << \"mon\\n\"; break;\n        case 2: cout << \"tue\\n\"; break;\n        default: cout << \"other\\n\";\n    }\n}"
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int d = new Scanner(System.in).nextInt();\n        switch (d) {\n            case 1 -> System.out.println(\"mon\");\n            case 2 -> System.out.println(\"tue\");\n            default -> System.out.println(\"other\");\n        }\n    }\n}"
-    },
-    "python": {
-      "code": "d = int(input())\n# Python has no switch historically; use dict or match (3.10+)\nmatch d:\n    case 1: print(\"mon\")\n    case 2: print(\"tue\")\n    case _: print(\"other\")"
-    },
-    "go": {
-      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var d int\n    fmt.Scan(&d)\n    switch d {\n    case 1: fmt.Println(\"mon\")\n    case 2: fmt.Println(\"tue\")\n    default: fmt.Println(\"other\")\n    }\n}"
+  "followUps": [
+    "Fall-through in C++?",
+    "When prefer polymorphism over type-code switches?"
+  ],
+  "interviewInsight": "Large type-code switches often want Strategy/polymorphism in design rounds.",
+  "related": [
+    {
+      "id": "iflssttmnts",
+      "title": "If Else statements"
     }
-  }
+  ]
 }

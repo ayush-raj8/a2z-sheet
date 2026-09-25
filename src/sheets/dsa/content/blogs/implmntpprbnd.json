@@ -1,37 +1,67 @@
 {
+  "version": 2,
   "id": "implmntpprbnd",
   "title": "Implement Upper Bound",
+  "topicNumber": 81,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/implement-upper-bound/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "first index strictly greater",
+  "problemStatement": "Return the first index i with a[i] > x (n if none).",
+  "example": "[1,2,2,3], x=2 -> 3",
+  "intuition": "Identical to lower bound with the comparison changed from >= to >.",
+  "approaches": [
+    {
+      "title": "Optimal: boundary binary search",
+      "idea": "Same template, strict comparison.",
+      "code": "def upper_bound(a: list[int], x: int) -> int:\n    lo, hi = 0, len(a) - 1\n    ans = len(a)\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] > x:\n            ans = mid\n            hi = mid - 1\n        else:\n            lo = mid + 1\n    return ans",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,2,3] x=2\nmid=1 (2>2 false) lo=2\nmid=2 (2>2 false) lo=3\nmid=3 (3>2) ans=3"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "x >= max -> n",
+    "x < min -> 0",
+    "Empty array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Implement Upper Bound” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Using >= and silently implementing lower bound"
+  ],
+  "patternRecognition": [
+    "upper_bound(x) - lower_bound(x) = frequency of x"
+  ],
+  "followUps": [
+    "Count occurrences in O(log n)",
+    "Floor and ceil",
+    "Fractional/real-valued upper bound"
+  ],
+  "interviewInsight": "Knowing that the pair gives frequency in O(log n) answers several downstream questions for free.",
+  "related": [
+    {
+      "id": "implmntlwrbnd",
+      "title": "Implement Lower Bound"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "srchinsrtpsitin",
+      "title": "Search Insert Position"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "binrysrchtfindxinsrtdrry",
+      "title": "Binary Search to find X in sorted array"
     }
-  }
+  ]
 }

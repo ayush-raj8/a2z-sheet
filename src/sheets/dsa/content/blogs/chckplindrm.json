@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "chckplindrm",
   "title": "Check Palindrome",
+  "topicNumber": 15,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/",
-  "intro": "A number is a palindrome when it equals its reverse (careful with negatives and trailing zeros). Classic framing from the roadmap note “check if a number is palindrome or not”.",
-  "intuition": "Compare to reverse, or compare left/right digit halves.",
-  "approach": [
-    "Reject negatives if stated.",
-    "Reverse or two-pointer on digits.",
-    "Compare."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "palindrome"
+  ],
+  "problemStatement": "Check whether an integer is a palindrome (same forwards and backwards).",
+  "example": "121 → true\n-121 → false (usual convention)\n10 → false",
+  "intuition": "A number equals its reverse iff it is a palindrome (for non-negatives). Negatives are usually false. Avoid overflow by comparing half-digits when required.",
+  "approaches": [
+    {
+      "title": "Reverse and compare",
+      "idea": "Reuse reverse; compare to original.",
+      "code": "def is_palindrome(n: int) -> bool:\n    if n < 0:\n        return False\n    original = n\n    rev = 0\n    while n:\n        rev = rev * 10 + n % 10\n        n //= 10\n    return rev == original",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)"
+    },
+    {
+      "title": "Interview optimization: reverse half",
+      "idea": "Stop at half digits to reduce overflow risk in fixed-width ints.",
+      "code": "def is_palindrome_half(n: int) -> bool:\n    if n < 0 or (n % 10 == 0 and n != 0):\n        return False\n    rev = 0\n    while n > rev:\n        rev = rev * 10 + n % 10\n        n //= 10\n    return n == rev or n == rev // 10",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "whyWorks": "When lengths differ by 1 (odd digits), middle digit sits in rev; drop it with //10."
+    }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1)"
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Negative numbers.",
-    "Overflow while reversing."
+  "edgeCases": [
+    "n<0",
+    "n=10",
+    "single digit",
+    "n=0"
   ],
-  "languages": {
-    "cpp": {
-      "code": "long long reverseNum(long long n) {\n    long long ans = 0;\n    while (n) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nbool isPalindrome(long long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}",
-      "notes": "Negatives are not palindromes in the usual LC convention."
+  "commonMistakes": [
+    "Accepting negatives",
+    "Trailing-zero cases like 10"
+  ],
+  "followUps": [
+    "Do it without converting to string?",
+    "String palindrome with non-alphanumerics?",
+    "Longest palindromic substring link?"
+  ],
+  "interviewInsight": "Half-reverse shows you think about overflow and edge zeros.",
+  "related": [
+    {
+      "id": "rvrsnmbr",
+      "title": "Reverse a Number"
     },
-    "java": {
-      "code": "static long reverseNum(long n) {\n    long ans = 0;\n    while (n != 0) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nstatic boolean isPalindrome(long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}"
-    },
-    "python": {
-      "code": "def reverse_num(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    ans = 0\n    while n:\n        ans = ans * 10 + n % 10\n        n //= 10\n    return sign * ans\n\ndef is_palindrome(n: int) -> bool:\n    return n >= 0 and n == reverse_num(n)"
-    },
-    "go": {
-      "code": "func reverseNum(n int64) int64 {\n    ans := int64(0)\n    for n != 0 { ans = ans*10 + n%10; n /= 10 }\n    return ans\n}\nfunc isPalindrome(n int64) bool {\n    if n < 0 { return false }\n    return n == reverseNum(n)\n}"
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
     }
-  }
+  ]
 }

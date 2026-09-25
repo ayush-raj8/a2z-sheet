@@ -1,37 +1,65 @@
 {
+  "version": 2,
   "id": "rvrsnmbr",
   "title": "Reverse a Number",
+  "topicNumber": 14,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/maths/reverse-digits-of-a-number",
-  "intro": "Reversing digits is modular arithmetic practice. Watch overflow when building the reversed value on 32-bit ints. Classic framing from the roadmap note “reverse digits of a number”.",
-  "intuition": "Pop digits with %10 and push into ans = ans*10 + digit.",
-  "approach": [
-    "Sign handling if required.",
-    "Build reverse digit-by-digit.",
-    "Check 32-bit overflow if constrained."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "overflow"
+  ],
+  "problemStatement": "Reverse the digits of an integer. Discuss overflow if the reversed value must fit 32-bit.",
+  "example": "123 → 321\n-120 → -21 (sign kept, trailing zeros dropped)",
+  "intuition": "Pop digits with %10 and push into ans = ans*10 + digit. In fixed-width languages, check overflow before multiplying.",
+  "approaches": [
+    {
+      "title": "Digit peel (Python — unbounded ints)",
+      "idea": "Python ints do not overflow; still show the overflow check interviewers expect in Java/C++.",
+      "code": "def reverse_number(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    ans = 0\n    while n:\n        ans = ans * 10 + n % 10\n        n //= 10\n    return sign * ans\n\n# Java/C++ interview variant must guard 32-bit overflow before ans*10",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "dryRun": "n=123\nans=0\n3 → ans=3\n2 → ans=32\n1 → ans=321"
+    }
   ],
   "complexity": {
     "time": "O(log n)",
-    "space": "O(1)"
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Overflow of reversed value.",
-    "Keeping trailing zeros incorrectly."
+  "edgeCases": [
+    "Trailing zeros",
+    "Negative inputs",
+    "Reversed value overflowing int32"
   ],
-  "languages": {
-    "cpp": {
-      "code": "long long reverseNum(long long n) {\n    long long ans = 0;\n    while (n) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nbool isPalindrome(long long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}",
-      "notes": "Watch overflow if ans must fit 32-bit."
+  "commonMistakes": [
+    "Ignoring overflow in Java",
+    "Losing the sign",
+    "Using strings without discussing tradeoffs"
+  ],
+  "followUps": [
+    "Return 0 on overflow (LC7 style)?",
+    "Reverse only a portion of digits?",
+    "Palindrome check without full reverse?"
+  ],
+  "interviewInsight": "Overflow handling on reverse is a favorite Java follow-up.",
+  "related": [
+    {
+      "id": "chckplindrm",
+      "title": "Check Palindrome"
     },
-    "java": {
-      "code": "static long reverseNum(long n) {\n    long ans = 0;\n    while (n != 0) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nstatic boolean isPalindrome(long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}"
-    },
-    "python": {
-      "code": "def reverse_num(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    ans = 0\n    while n:\n        ans = ans * 10 + n % 10\n        n //= 10\n    return sign * ans\n\ndef is_palindrome(n: int) -> bool:\n    return n >= 0 and n == reverse_num(n)"
-    },
-    "go": {
-      "code": "func reverseNum(n int64) int64 {\n    ans := int64(0)\n    for n != 0 { ans = ans*10 + n%10; n /= 10 }\n    return ans\n}\nfunc isPalindrome(n int64) bool {\n    if n < 0 { return false }\n    return n == reverseNum(n)\n}"
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
     }
-  }
+  ],
+  "patternRecognition": [
+    "Digit manipulation problems"
+  ]
 }

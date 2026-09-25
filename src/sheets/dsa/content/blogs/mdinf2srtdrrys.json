@@ -1,37 +1,86 @@
 {
+  "version": 2,
   "id": "mdinf2srtdrrys",
   "title": "Median of 2 sorted arrays",
+  "topicNumber": 104,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/median-of-two-sorted-arrays-of-different-sizes/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “median of two sorted arrays of different sizes”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "partition"
   ],
-  "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
-  },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Median of 2 sorted arrays” — binary search the answer space when needed."
+  "pattern": "binary search on the partition point",
+  "problemStatement": "Find the median of two sorted arrays in O(log(min(n, m))).",
+  "example": "a=[1,3], b=[2] -> 2.0",
+  "intuition": "The median is defined by a partition that puts exactly half of all elements on the left. Binary search how many elements the smaller array contributes to that left half; the other array supplies the rest.",
+  "approaches": [
+    {
+      "title": "Brute: merge fully",
+      "idea": "Merge both arrays and index the middle.",
+      "code": "def median_merge(a: list[int], b: list[int]) -> float:\n    m = sorted(a + b)\n    n = len(m)\n    return m[n // 2] if n % 2 else (m[n // 2 - 1] + m[n // 2]) / 2",
+      "language": "python",
+      "time": "O((n+m) log(n+m))",
+      "space": "O(n+m)",
+      "flags": [
+        "MLE"
+      ]
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
-    },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "title": "Optimal: partition binary search",
+      "idea": "Search on the smaller array; validate with the four boundary values.",
+      "code": "def find_median_sorted_arrays(a: list[int], b: list[int]) -> float:\n    if len(a) > len(b):\n        a, b = b, a\n    n, m = len(a), len(b)\n    total = n + m\n    half = (total + 1) // 2\n    lo, hi = 0, n\n    while lo <= hi:\n        cut_a = (lo + hi) // 2\n        cut_b = half - cut_a\n        left_a = a[cut_a - 1] if cut_a > 0 else float(\"-inf\")\n        right_a = a[cut_a] if cut_a < n else float(\"inf\")\n        left_b = b[cut_b - 1] if cut_b > 0 else float(\"-inf\")\n        right_b = b[cut_b] if cut_b < m else float(\"inf\")\n        if left_a <= right_b and left_b <= right_a:\n            if total % 2:\n                return float(max(left_a, left_b))\n            return (max(left_a, left_b) + min(right_a, right_b)) / 2\n        if left_a > right_b:\n            hi = cut_a - 1\n        else:\n            lo = cut_a + 1\n    raise ValueError(\"inputs are not sorted\")",
+      "language": "python",
+      "time": "O(log(min(n, m)))",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,3] b=[2] total=3 half=2\ncut_a=1 cut_b=1: left_a=1 right_a=3 left_b=2 right_b=inf\n1<=inf and 2<=3 -> odd total -> max(1,2)=2.0",
+      "whyWorks": "A valid partition has every left element <= every right element, which uniquely identifies the median."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Partition search with sentinels",
+    "body": "Using -inf / +inf for out-of-range cuts removes every boundary special case. Always binary search on the shorter array so cut_b stays in range."
+  },
+  "complexity": {
+    "time": "O(log(min(n, m)))",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "One array empty",
+    "Odd vs even total length",
+    "All of one array smaller than the other",
+    "Duplicates across arrays"
+  ],
+  "commonMistakes": [
+    "Searching on the longer array and getting a negative cut_b",
+    "Using (total)//2 instead of (total+1)//2 for the left-half size"
+  ],
+  "patternRecognition": [
+    "Median / k-th order statistic across sorted inputs -> partition search"
+  ],
+  "followUps": [
+    "k-th element of two sorted arrays (#105)",
+    "Median of k sorted arrays",
+    "Median of a data stream (#257)"
+  ],
+  "interviewInsight": "This is the hardest binary search in the sheet. Draw the partition diagram first; coding from the picture is safe, from memory is not.",
+  "related": [
+    {
+      "id": "minimizmxdistnctgssttin",
+      "title": "Minimize Max Distance to Gas Station"
+    },
+    {
+      "id": "kthlmntf2srtdrrys",
+      "title": "Kth element of 2 sorted arrays"
+    },
+    {
+      "id": "painterspartition",
+      "title": "Painter's partition"
+    }
+  ]
 }

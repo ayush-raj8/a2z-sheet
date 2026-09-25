@@ -1,37 +1,80 @@
 {
+  "version": 2,
   "id": "singllmntinsrtdrry",
   "title": "Single element in a Sorted Array",
+  "topicNumber": 90,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/search-single-element-in-a-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “search single element in a sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "parity of indices",
+  "problemStatement": "Every element appears twice except one; the array is sorted. Find the single element in O(log n).",
+  "example": "[1,1,2,3,3,4,4,8,8] -> 2",
+  "intuition": "Before the single element, pairs start at even indices. After it, they start at odd indices. That parity flip is a monotone predicate you can binary search on.",
+  "approaches": [
+    {
+      "title": "Brute: XOR everything",
+      "idea": "Correct but linear — it throws away the sortedness.",
+      "code": "def single_xor(a: list[int]) -> int:\n    x = 0\n    for v in a:\n        x ^= v\n    return x",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "limitations": [
+        "Rejected when the interviewer asks for O(log n)"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on pair parity",
+      "idea": "Normalise mid to be even, then compare with its partner.",
+      "code": "def single_non_duplicate(a: list[int]) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if mid % 2 == 1:\n            mid -= 1\n        if a[mid] == a[mid + 1]:\n            lo = mid + 2\n        else:\n            hi = mid\n    return a[lo]",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,1,2,3,3,4,4,8,8]\nmid=4 -> even; a[4]=3 != a[5]=4 -> hi=4\nmid=2; a[2]=2 != a[3]=3 -> hi=2\nmid=0; a[0]==a[1] -> lo=2 -> answer a[2]=2",
+      "whyWorks": "Pairs are aligned to even indices exactly up to the single element."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Single element at index 0 or n-1",
+    "Array of length 1",
+    "Only one pair plus the loner"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Single element in a Sorted Array” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Not normalising mid to an even index",
+    "Using lo <= hi with hi = mid, causing an infinite loop"
+  ],
+  "patternRecognition": [
+    "Index parity / structural invariants can be binary-searched just like values"
+  ],
+  "followUps": [
+    "Unsorted version (XOR)",
+    "Every element appears three times except one",
+    "Prove the parity invariant"
+  ],
+  "interviewInsight": "If you propose XOR first, immediately add \"but sortedness lets us do O(log n)\" — otherwise it reads as missing the point.",
+  "related": [
+    {
+      "id": "findthwmnytimshsnrrybnrttd",
+      "title": "Find out how many times has an array been rotated"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findpklmnt",
+      "title": "Find peak element"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "findminimminrttdsrtdrry",
+      "title": "Find minimum in Rotated Sorted Array"
     }
-  }
+  ]
 }

@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "findminimminrttdsrtdrry",
   "title": "Find minimum in Rotated Sorted Array",
+  "topicNumber": 88,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/minimum-in-rotated-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “minimum in rotated sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "rotated-array"
+  ],
+  "pattern": "compare mid against the right end",
+  "problemStatement": "Find the minimum element of a rotated sorted array of distinct values.",
+  "example": "[4,5,6,7,0,1,2] -> 0",
+  "intuition": "The minimum is the single point where order breaks. Comparing a[mid] with a[hi] tells you which side the break is on — comparing with a[lo] is ambiguous when there is no rotation.",
+  "approaches": [
+    {
+      "title": "Optimal: converge on the pivot",
+      "idea": "If a[mid] > a[hi] the minimum is strictly to the right.",
+      "code": "def find_min(a: list[int]) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] > a[hi]:\n            lo = mid + 1\n        else:\n            hi = mid\n    return a[lo]",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[4,5,6,7,0,1,2]\nmid=3 (7>2) lo=4\nmid=5 (1<=2) hi=5\nmid=4 (0<=1) hi=4 -> lo==hi=4 -> 0",
+      "whyWorks": "a[hi] is always in the lower run (or the array is unrotated), so the comparison is never ambiguous."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "No rotation -> a[0]",
+    "Two elements",
+    "Rotation by n (identity)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find minimum in Rotated Sorted Array” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Comparing against a[lo], which misclassifies the unrotated case",
+    "Using hi = mid - 1 and skipping over the minimum"
+  ],
+  "patternRecognition": [
+    "Find the discontinuity in an otherwise monotone sequence"
+  ],
+  "followUps": [
+    "Rotation count = index of the minimum (#89)",
+    "With duplicates -> O(n) worst case",
+    "Find the maximum instead"
+  ],
+  "interviewInsight": "Explain why a[hi] is the correct anchor — that single choice is the problem.",
+  "related": [
+    {
+      "id": "srchinrttdsrtdrryii",
+      "title": "Search in Rotated Sorted Array II"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findthwmnytimshsnrrybnrttd",
+      "title": "Find out how many times has an array been rotated"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "srchinrttdsrtdrryi",
+      "title": "Search in Rotated Sorted Array I"
     }
-  }
+  ]
 }

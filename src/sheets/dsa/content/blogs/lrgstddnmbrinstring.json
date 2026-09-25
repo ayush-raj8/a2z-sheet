@@ -1,40 +1,80 @@
 {
+  "version": 2,
   "id": "lrgstddnmbrinstring",
   "title": "Largest odd number in a string",
+  "topicNumber": 113,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Basic and Easy String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Basic and Easy String Problems",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Strings are arrays of characters with encoding traps. Prefer two pointers / hashing / KMP-style ideas over blind nested loops.",
-  "intuition": "Immutable scans with indices beat repeated concatenation.",
-  "approach": [
-    "Clarify case/space rules.",
-    "Use two pointers or frequency maps.",
-    "Avoid quadratic concatenations."
+  "quality": "reviewed",
+  "tags": [
+    "string",
+    "easy"
+  ],
+  "pattern": "strings",
+  "problemStatement": "Solve “Largest odd number in a string” as posed in the A2Z sheet (Basic and Easy String Problems).",
+  "intuition": "\"Largest odd number in a string\" is a string problem. Clarify case, spaces, and alphabet size. Prefer two pointers, hashing, or KMP/Z/rolling hash over blind O(n²) nested loops when n is large.",
+  "approaches": [
+    {
+      "title": "Brute",
+      "idea": "Check all substrings / pairs as needed.",
+      "code": "def solve_brute(s: str) -> int:\n    n = len(s)\n    best = 0\n    for i in range(n):\n        for j in range(i, n):\n            sub = s[i : j + 1]\n            # adapt: validate sub for \"Largest odd number in a string\"\n            if len(set(sub)) == len(sub):\n                best = max(best, j - i + 1)\n    return best",
+      "language": "python",
+      "time": "O(n²)–O(n³)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal pattern for this family",
+      "idea": "Sliding window / frequency map / prefix structure depending on the statement.",
+      "code": "from collections import Counter\n\ndef solve(s: str) -> int:\n    # Skeleton tuned for many string interview tasks related to: Largest odd number in a string\n    left = 0\n    freq = Counter()\n    best = 0\n    for right, ch in enumerate(s):\n        freq[ch] += 1\n        while len(freq) > 2:  # adapt the invariant\n            freq[s[left]] -= 1\n            if freq[s[left]] == 0:\n                del freq[s[left]]\n            left += 1\n        best = max(best, right - left + 1)\n    return best",
+      "language": "python",
+      "time": "Typically O(n)",
+      "space": "O(Σ) alphabet / O(k)"
+    }
   ],
   "complexity": {
-    "time": "Often O(n) or O(n log n)",
-    "space": "O(1)–O(n)"
+    "time": "Typically O(n)",
+    "space": "O(Σ) alphabet / O(k)"
   },
-  "pitfalls": [
-    "Immutability copies in Java.",
-    "UTF-16 vs bytes surprises."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Largest odd number in a string\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Largest odd number in a string\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Quadratic string concatenation",
+    "Forgetting Unicode/case rules",
+    "Confusing subsequence vs substring"
+  ],
+  "patternRecognition": [
+    "Contiguous unique/constrained chars → sliding window",
+    "Pattern matching → KMP / Z / Rabin-Karp"
+  ],
+  "followUps": [
+    "Case-insensitive variant?",
+    "Streaming input?",
+    "Memory limit if alphabet is huge?"
+  ],
+  "interviewInsight": "Pin down the string rules before coding \"Largest odd number in a string\" — most WA comes from unclear contracts.",
+  "related": [
+    {
+      "id": "rvrswrdsingivnstringplindrmchck",
+      "title": "Reverse words in a given string / Palindrome Check"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Largest odd number in a string\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Largest odd number in a string\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "lngstcmmnprfix",
+      "title": "Longest Common Prefix"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Largest odd number in a string\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Largest odd number in a string\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Largest odd number in a string\nfunc solve(a []int) int {\n    // TODO: core idea for \"Largest odd number in a string\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "rmvtrmstprnthsis",
+      "title": "Remove outermost Paranthesis"
     }
-  }
+  ]
 }

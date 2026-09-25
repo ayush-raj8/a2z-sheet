@@ -1,37 +1,82 @@
 {
+  "version": 2,
   "id": "dtctlpinll",
   "title": "Detect a loop in LL",
+  "topicNumber": 138,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Medium Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Medium Problems of LL",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/detect-a-cycle-in-a-linked-list/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “detect a cycle in a linked list”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "pattern": "Floyd's cycle detection",
+  "problemStatement": "Detect whether a linked list contains a cycle.",
+  "example": "1->2->3->4->2(cycle) -> True",
+  "intuition": "In a cycle the fast pointer gains one position per step on the slow pointer, so it must eventually land on it. Without a cycle, fast simply falls off the end.",
+  "approaches": [
+    {
+      "title": "Brute: hash set of visited nodes",
+      "idea": "Store node identities, not values.",
+      "code": "def has_cycle_hash(head) -> bool:\n    seen = set()\n    cur = head\n    while cur:\n        if id(cur) in seen:\n            return True\n        seen.add(id(cur))\n        cur = cur.next\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: Floyd's tortoise and hare",
+      "idea": "Slow by one, fast by two; meeting means a cycle.",
+      "code": "def has_cycle(head) -> bool:\n    slow = fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow is fast:\n            return True\n    return False",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "1->2->3->4->2\nslow 1,2,3 / fast 1,3,2 ... they meet inside the loop -> True",
+      "whyWorks": "The gap closes by exactly one each step, so it reaches zero within the cycle length."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Empty list",
+    "Single node pointing to itself",
+    "Cycle at the head",
+    "No cycle"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Detect a loop in LL”."
+  "commonMistakes": [
+    "Comparing node values instead of identities",
+    "Missing the fast.next guard"
+  ],
+  "patternRecognition": [
+    "Floyd's algorithm also finds duplicates in arrays treated as functional graphs"
+  ],
+  "followUps": [
+    "Find the cycle start (#139)",
+    "Find the cycle length (#140)",
+    "Find the duplicate number in an array with the same technique"
+  ],
+  "interviewInsight": "Be ready to prove why they must meet — \"the gap shrinks by one per step\" is the one-line argument.",
+  "related": [
+    {
+      "id": "rvrsllrcrsiv",
+      "title": "Reverse a LL [Recursive]"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "findthstrtingpintinll",
+      "title": "Find the starting point in LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "rvrslinkdlistitrtiv",
+      "title": "Reverse a LinkedList [Iterative]"
     }
-  }
+  ]
 }

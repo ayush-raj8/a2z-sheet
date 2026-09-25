@@ -1,40 +1,74 @@
 {
+  "version": 2,
   "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
   "title": "Time Complexity [Learn Basics, and then analyse in next Steps]",
+  "topicNumber": 9,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/time-complexity/time-and-space-complexity-strivers-a2z-dsa-course/",
-  "intro": "Time/space complexity is how you predict scale. Count dominant operations, drop constants, and state assumptions (sorted? hash O(1)?). Classic framing from the roadmap note “time and space complexity strivers a2z dsa course”.",
-  "intuition": "Ask: if n doubles, does work double, square, or jump exponentially?",
-  "approach": [
-    "Count loops and recursion branching.",
-    "Express in n, m, k from constraints.",
-    "Cross-check against time limits (~1e8 ops/sec rule of thumb)."
+  "quality": "reviewed",
+  "tags": [
+    "complexity",
+    "tle",
+    "mle"
   ],
-  "complexity": {
-    "time": "Analysis skill — not a runtime",
-    "space": "—"
-  },
-  "pitfalls": [
-    "Ignoring nested loops.",
-    "Claiming hash ops are always O(1) worst-case."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Time Complexity [Learn Basics, and then analyse in next Steps]\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Time Complexity [Learn Basics, and then analyse in next Steps]\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Time Complexity [Learn Basics, and then analyse in next Steps]\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Time Complexity [Learn Basics, and then analyse in next Steps]\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Time Complexity [Learn Basics, and then analyse in next Steps]\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Time Complexity [Learn Basics, and then analyse in next Steps]\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Time Complexity [Learn Basics, and then analyse in next Steps]\nfunc solve(a []int) int {\n    // TODO: core idea for \"Time Complexity [Learn Basics, and then analyse in next Steps]\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+  "pattern": "complexity-analysis",
+  "problemStatement": "Estimate runtime and memory scaling to predict TLE / MLE before you code.",
+  "intuition": "Drop constants and lower-order terms. ~1e8 ops/sec rule of thumb. O(n²) with n=1e5 → TLE. O(n²) int tables with n=1e4 → MLE risk. Recursion stack is not O(1).",
+  "approaches": [
+    {
+      "title": "Constraints → algorithm family",
+      "idea": "Read limits first; pick a complexity budget; reject impossible families.",
+      "algorithm": [
+        "Identify n, m, k from constraints.",
+        "Count nested loops / branching / heavy ops.",
+        "Compare to time/memory limits → TLE/MLE flags."
+      ],
+      "code": "# Feasibility sketch (typical single-test):\n# n <= 20      → O(2^n * poly)\n# n <= 400     → O(n^3) borderline\n# n <= 5000    → O(n^2) usually OK\n# n <= 1e5     → O(n log n) / O(n)\n# n <= 1e12    → O(log n) / math\n\ndef looks_quadratic(a: list[int]) -> int:\n    n = len(a)\n    best = 0\n    for i in range(n):          # O(n^2) — TLE if n ~ 1e5\n        for j in range(i, n):\n            best = max(best, a[j])\n    return best",
+      "language": "python",
+      "time": "Analysis — not a runtime",
+      "space": "—",
+      "flags": [
+        "TLE",
+        "MLE"
+      ]
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "TLE / MLE / RE / WA",
+    "body": "TLE — too slow (or constant too large).\nMLE — too much memory.\nRE — crash (OOB, div0, recursion depth).\nWA — wrong answer.\n\nAlways separate:\n• Time\n• Auxiliary space\n• Input space\n• Recursion stack depth"
+  },
+  "complexity": {
+    "time": "Depends on algorithm",
+    "space": "Depends on algorithm"
+  },
+  "commonMistakes": [
+    "Calling recursion stack O(1)",
+    "Assuming hashmap worst-case O(1)",
+    "O(n²) DP for large n → MLE+TLE"
+  ],
+  "patternRecognition": [
+    "Read constraints before choosing the family.",
+    "n=1e5 ⇒ discard O(n²) unless asked for brute force first."
+  ],
+  "followUps": [
+    "Auxiliary vs total space?",
+    "Why Python O(n log n) may TLE where C++ passes?",
+    "Amortized append complexity?"
+  ],
+  "interviewInsight": "Narrating complexity and TLE/MLE risk before coding is a strong SDE-2/3 signal.",
+  "related": [
+    {
+      "id": "frlps",
+      "title": "For loops"
+    },
+    {
+      "id": "cntdigits",
+      "title": "Count Digits"
+    }
+  ]
 }

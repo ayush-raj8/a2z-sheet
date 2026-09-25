@@ -1,40 +1,91 @@
 {
+  "version": 2,
   "id": "mximmprdctsbrry",
   "title": "Maximum Product Subarray",
+  "topicNumber": 78,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/maximum-product-subarray-in-an-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “maximum product subarray in an array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "dynamic-programming"
+  ],
+  "pattern": "track min and max (sign flipping)",
+  "problemStatement": "Find the maximum product of a contiguous subarray.",
+  "example": "[2,3,-2,4] -> 6; [-2,0,-1] -> 0",
+  "intuition": "Unlike sums, a negative number can turn the smallest product into the largest. So carry both the running maximum and the running minimum, and swap them whenever you hit a negative.",
+  "approaches": [
+    {
+      "title": "Brute: all subarrays",
+      "idea": "Running product from each start.",
+      "code": "def max_product_brute(a: list[int]) -> int:\n    best = float(\"-inf\")\n    for i in range(len(a)):\n        p = 1\n        for j in range(i, len(a)):\n            p *= a[j]\n            best = max(best, p)\n    return int(best)",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: dual max/min DP",
+      "idea": "On a negative element, swap cur_max and cur_min before extending.",
+      "code": "def max_product(a: list[int]) -> int:\n    best = cur_max = cur_min = a[0]\n    for x in a[1:]:\n        if x < 0:\n            cur_max, cur_min = cur_min, cur_max\n        cur_max = max(x, cur_max * x)\n        cur_min = min(x, cur_min * x)\n        best = max(best, cur_max)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,3,-2,4]\nx=3: max 6 min 3\nx=-2: swap -> max 3 min 6; then max=max(-2,-6)=-2, min=min(-2,-12)=-12\nx=4: max=max(4,-8)=4; best stays 6",
+      "whyWorks": "The optimal product ending at i is either x alone, max*x, or min*x — three candidates, O(1) state."
+    },
+    {
+      "title": "Alternative: prefix and suffix products",
+      "idea": "Scan both directions resetting on zero; take the best value seen.",
+      "code": "def max_product_prefix_suffix(a: list[int]) -> int:\n    n = len(a)\n    best = float(\"-inf\")\n    pre = suf = 1\n    for i in range(n):\n        if pre == 0:\n            pre = 1\n        if suf == 0:\n            suf = 1\n        pre *= a[i]\n        suf *= a[n - 1 - i]\n        best = max(best, pre, suf)\n    return int(best)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "whyWorks": "An optimal subarray with an even number of negatives is a prefix or suffix of a zero-free block."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Zeros splitting the array",
+    "Odd count of negatives",
+    "Single element",
+    "All negatives"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Maximum Product Subarray\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Maximum Product Subarray\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Reusing Kadane unchanged and losing the negative-times-negative case",
+    "Resetting to 0 on a zero rather than to the element itself"
+  ],
+  "patternRecognition": [
+    "Non-monotone operations -> carry both extremes in the DP state"
+  ],
+  "followUps": [
+    "Maximum product of a subsequence",
+    "Subarray product less than K (sliding window)",
+    "Why does Kadane fail here?"
+  ],
+  "interviewInsight": "Articulating \"negatives flip the ordering, so min is a candidate for max\" is the whole solution.",
+  "related": [
+    {
+      "id": "rvrspirs",
+      "title": "Reverse Pairs"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Maximum Product Subarray\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Maximum Product Subarray\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "cntinvrsins",
+      "title": "Count Inversions"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Maximum Product Subarray\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Maximum Product Subarray\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Maximum Product Subarray\nfunc solve(a []int) int {\n    // TODO: core idea for \"Maximum Product Subarray\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "findthrptingndmissingnmbr-i",
+      "title": "Find the repeating and missing number"
     }
-  }
+  ]
 }

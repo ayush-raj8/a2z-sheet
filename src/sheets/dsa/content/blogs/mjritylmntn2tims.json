@@ -1,40 +1,92 @@
 {
+  "version": 2,
   "id": "mjritylmntn2tims",
   "title": "Majority Element (>n/2 times)",
+  "topicNumber": 55,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “find the majority element that occurs more than n 2 times”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "voting"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Majority Element (>n/2 times)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Majority Element (>n/2 times)\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "Boyer-Moore majority vote",
+  "problemStatement": "Find the element that appears more than n/2 times (guaranteed to exist).",
+  "example": "[2,2,1,1,1,2,2] -> 2",
+  "intuition": "Pair off two different elements and discard both. A strict majority cannot be fully cancelled, so whatever survives is the candidate. That is Boyer-Moore voting in one sentence.",
+  "approaches": [
+    {
+      "title": "Brute: count each element",
+      "idea": "Nested loops counting occurrences.",
+      "code": "def majority_brute(a: list[int]) -> int:\n    n = len(a)\n    for x in a:\n        if sum(1 for y in a if y == x) > n // 2:\n            return x\n    return -1",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Majority Element (>n/2 times)\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Majority Element (>n/2 times)\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "title": "Better: hash map counts",
+      "idea": "One pass to count, one to pick.",
+      "code": "from collections import Counter\n\n\ndef majority_hash(a: list[int]) -> int:\n    n = len(a)\n    for k, v in Counter(a).items():\n        if v > n // 2:\n            return k\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Majority Element (>n/2 times)\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Majority Element (>n/2 times)\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Majority Element (>n/2 times)\nfunc solve(a []int) int {\n    // TODO: core idea for \"Majority Element (>n/2 times)\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: Boyer-Moore voting",
+      "idea": "One candidate + one counter; verify at the end if existence is not guaranteed.",
+      "code": "def majority_element(a: list[int]) -> int:\n    count = 0\n    candidate = None\n    for x in a:\n        if count == 0:\n            candidate = x\n        count += 1 if x == candidate else -1\n    # Verification pass — required when a majority is not guaranteed.\n    return candidate if a.count(candidate) > len(a) // 2 else -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,2,1,1,1,2,2]\n2 cand=2 c=1\n2 c=2\n1 c=1\n1 c=0\n1 cand=1 c=1\n2 c=0\n2 cand=2 c=1 -> 2 (verify: 4 > 3)",
+      "whyWorks": "Every decrement destroys one majority and one non-majority occurrence. With > n/2 copies the majority cannot be exhausted first."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Boyer-Moore majority vote",
+    "body": "Cancel unequal pairs. Generalises to > n/k by keeping k-1 candidates (see Majority Element n/3)."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "No majority exists -> verification pass matters",
+    "Single element",
+    "All elements identical"
+  ],
+  "commonMistakes": [
+    "Skipping the verification pass when existence is not guaranteed",
+    "Resetting count without also resetting the candidate"
+  ],
+  "patternRecognition": [
+    "\"More than n/k times\" -> keep k-1 candidates and verify"
+  ],
+  "followUps": [
+    "Majority element > n/3 times (#68)",
+    "Prove the algorithm formally",
+    "What if you need all elements above a frequency threshold?"
+  ],
+  "interviewInsight": "Interviewers usually drop the existence guarantee to see whether you still verify.",
+  "related": [
+    {
+      "id": "mjritylmntn3tims",
+      "title": "Majority Element (n/3 times)"
+    },
+    {
+      "id": "kdnslgrithmmximmsbrrysm",
+      "title": "Kadane's Algorithm, maximum subarray sum"
+    }
+  ]
 }

@@ -1,37 +1,86 @@
 {
+  "version": 2,
   "id": "srchinrttdsrtdrryi",
   "title": "Search in Rotated Sorted Array I",
+  "topicNumber": 86,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/search-element-in-a-rotated-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “search element in a rotated sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "rotated-array"
   ],
-  "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
-  },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Search in Rotated Sorted Array I” — binary search the answer space when needed."
+  "pattern": "identify the sorted half",
+  "problemStatement": "Search for a target in a rotated sorted array of distinct values.",
+  "example": "[4,5,6,7,0,1,2], target 0 -> 4",
+  "intuition": "A rotation splits the array into two sorted runs. At any mid, at least one side is fully sorted — check whether the target lies inside that sorted side, and discard accordingly.",
+  "approaches": [
+    {
+      "title": "Brute: linear scan",
+      "idea": "Ignores the structure.",
+      "code": "def search_linear(a: list[int], t: int) -> int:\n    for i, v in enumerate(a):\n        if v == t:\n            return i\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
-    },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "title": "Optimal: modified binary search",
+      "idea": "Compare a[lo] <= a[mid] to find the sorted half.",
+      "code": "def search_rotated(a: list[int], t: int) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] == t:\n            return mid\n        if a[lo] <= a[mid]:              # left half sorted\n            if a[lo] <= t < a[mid]:\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        else:                            # right half sorted\n            if a[mid] < t <= a[hi]:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n    return -1",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[4,5,6,7,0,1,2] t=0\nmid=3 (7) left sorted [4..7], 0 not inside -> lo=4\nmid=5 (1) left [0,1] sorted, 0 in [0,1) -> hi=4\nmid=4 -> found at 4",
+      "whyWorks": "At most one rotation point exists, so it can live in only one of the two halves."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Sorted-half test",
+    "body": "a[lo] <= a[mid] identifies the sorted side. Use <= (not <) so that a two-element window is classified correctly."
+  },
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "Zero rotation (plain sorted array)",
+    "Target absent",
+    "Two-element arrays",
+    "Target at the pivot"
+  ],
+  "commonMistakes": [
+    "Using strict < in the sorted-half test",
+    "Getting the inclusive/exclusive ends wrong in the range checks"
+  ],
+  "patternRecognition": [
+    "Rotated sorted arrays -> \"which half is clean?\" decision"
+  ],
+  "followUps": [
+    "With duplicates (#87) — worst case degrades to O(n)",
+    "Find the minimum / rotation count (#88, #89)",
+    "Find the pivot first, then do two plain binary searches"
+  ],
+  "interviewInsight": "Drawing the two-run picture before coding prevents the range-check mistakes almost entirely.",
+  "related": [
+    {
+      "id": "srchinrttdsrtdrryii",
+      "title": "Search in Rotated Sorted Array II"
+    },
+    {
+      "id": "findminimminrttdsrtdrry",
+      "title": "Find minimum in Rotated Sorted Array"
+    },
+    {
+      "id": "findthwmnytimshsnrrybnrttd",
+      "title": "Find out how many times has an array been rotated"
+    }
+  ]
 }

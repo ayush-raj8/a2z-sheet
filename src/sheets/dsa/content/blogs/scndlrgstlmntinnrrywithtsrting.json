@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "scndlrgstlmntinnrrywithtsrting",
   "title": "Second Largest Element in an Array without sorting",
+  "topicNumber": 40,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/find-second-smallest-and-second-largest-element-in-an-array/",
-  "intro": "Sorting is a primitive used inside harder solutions. Know stable vs unstable and the N log N comparison bound. Classic framing from the roadmap note “find second smallest and second largest element in an array”.",
-  "intuition": "Unordered → ordered so later scans/binary search become possible.",
-  "approach": [
-    "Choose algorithm by constraints.",
-    "Implement or call library sort.",
-    "Use sorted order in the next step of the solution."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "single-pass"
+  ],
+  "pattern": "single-pass",
+  "problemStatement": "Find the second largest distinct element without sorting.",
+  "example": "[1, 2, 4, 7, 7, 5] -> 5",
+  "intuition": "Track the two best distinct values at once. The subtlety is duplicates: a value equal to the largest must not become the second largest.",
+  "approaches": [
+    {
+      "title": "Brute: sort and scan back",
+      "idea": "Sort, then walk from the end until a value differs from the last.",
+      "code": "def second_largest_sorted(a: list[int]) -> int:\n    s = sorted(a)\n    for i in range(len(s) - 2, -1, -1):\n        if s[i] != s[-1]:\n            return s[i]\n    return -1",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: two trackers in one pass",
+      "idea": "largest and second; update second only when x < largest.",
+      "code": "def second_largest(a: list[int]) -> int:\n    largest = second = float(\"-inf\")\n    for x in a:\n        if x > largest:\n            second, largest = largest, x\n        elif x < largest and x > second:\n            second = x\n    return -1 if second == float(\"-inf\") else int(second)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,4,7,7,5]\nx=1 largest=1\nx=2 largest=2 second=1\nx=4 largest=4 second=2\nx=7 largest=7 second=4\nx=7 equal -> skipped\nx=5 -> second=5\nanswer 5",
+      "whyWorks": "The strict `x < largest` guard is exactly what makes duplicates of the max harmless."
+    }
   ],
   "complexity": {
-    "time": "O(n log n) typical",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Unstable sort breaking equal-key order.",
-    "Comparing ints with overflow (use long/comparator)."
+  "edgeCases": [
+    "n < 2",
+    "All elements equal -> no second largest",
+    "Negatives only"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Second Largest Element in an Array without sorting\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Second Largest Element in an Array without sorting\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Using `x <= largest`, which lets a duplicate max become the second largest",
+    "Initialising trackers to 0 rather than -inf"
+  ],
+  "patternRecognition": [
+    "\"Top-k for tiny k\" -> k trackers in one pass beats sorting"
+  ],
+  "followUps": [
+    "Extend to the k-th largest without sorting",
+    "Second smallest in the same pass",
+    "What if the array can contain None/NaN?"
+  ],
+  "interviewInsight": "The duplicate-max case is the whole test. State it before you code.",
+  "related": [
+    {
+      "id": "lrgstlmntinnrry",
+      "title": "Largest Element in an Array"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Second Largest Element in an Array without sorting\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Second Largest Element in an Array without sorting\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "chckifthrryissrtd",
+      "title": "Check if the array is sorted"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Second Largest Element in an Array without sorting\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Second Largest Element in an Array without sorting\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Second Largest Element in an Array without sorting\nfunc solve(a []int) int {\n    // TODO: core idea for \"Second Largest Element in an Array without sorting\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "rmvdplictsfrmsrtdrry",
+      "title": "Remove duplicates from Sorted array"
     }
-  }
+  ]
 }

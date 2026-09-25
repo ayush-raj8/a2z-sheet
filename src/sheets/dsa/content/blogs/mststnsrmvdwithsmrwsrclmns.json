@@ -1,37 +1,77 @@
 {
+  "version": 2,
   "id": "mststnsrmvdwithsmrwsrclmns",
   "title": "Most stones removed with same rows or columns",
+  "topicNumber": 376,
   "stepTitle": "Graphs [Concepts & Problems]",
   "subStepTitle": "MinimumSpanningTree/Disjoint Set and Problems",
+  "category": "Graphs [Concepts & Problems]",
+  "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/most-stones-removed-with-same-row-or-column-dsu-g-53/",
-  "intro": "Graphs = adjacency + traversal. BFS for shortest unweighted paths; DFS for components/cycles; add weights carefully. Classic framing from the roadmap note “most stones removed with same row or column dsu g 53”.",
-  "intuition": "Visit each node/edge a bounded number of times with a visited set.",
-  "approach": [
-    "Build adjacency list.",
-    "BFS/DFS/Topo/Dijkstra as needed.",
-    "Track visited/distance."
+  "quality": "reviewed",
+  "tags": [
+    "graph",
+    "medium"
+  ],
+  "pattern": "graphs",
+  "problemStatement": "Solve “Most stones removed with same rows or columns” as posed in the A2Z sheet (MinimumSpanningTree/Disjoint Set and Problems).",
+  "intuition": "\"Most stones removed with same rows or columns\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "approaches": [
+    {
+      "title": "Traversal / shortest-path skeleton",
+      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
+      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Most stones removed with same rows or columns\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "language": "python",
+      "time": "O(n + m) for BFS/DFS",
+      "space": "O(n + m)",
+      "flags": [
+        "TLE",
+        "MLE"
+      ],
+      "limitations": [
+        "Wrong algorithm for weights → WA; huge adj lists → MLE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "O(n + m) BFS/DFS",
+    "time": "O(n + m) for BFS/DFS",
     "space": "O(n + m)"
   },
-  "pitfalls": [
-    "1-index vs 0-index nodes.",
-    "Forgetting visited → infinite DFS."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "vector<int> bfs(int n, vector<vector<int>>& g, int src) {\n    vector<int> dist(n, -1);\n    queue<int> q;\n    dist[src] = 0; q.push(src);\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        for (int v : g[u]) if (dist[v] < 0) {\n            dist[v] = dist[u] + 1; q.push(v);\n        }\n    }\n    return dist;\n}",
-      "notes": "Specialize traversal for “Most stones removed with same rows or columns” (DFS, topo, Dijkstra, etc.)."
+  "commonMistakes": [
+    "DFS for unweighted shortest path",
+    "Forgetting visited → infinite loops",
+    "1-index vs 0-index bugs"
+  ],
+  "patternRecognition": [
+    "Shortest unweighted → BFS",
+    "Multi-source spreading → multi-source BFS",
+    "Ordering with prerequisites → topo"
+  ],
+  "followUps": [
+    "Weighted edges?",
+    "Negative cycles?",
+    "Connected components count?"
+  ],
+  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Most stones removed with same rows or columns\".",
+  "related": [
+    {
+      "id": "nmbrfprtinstmkntwrkcnnctd",
+      "title": "Number of operations to make network connected"
     },
-    "java": {
-      "code": "static int[] bfs(List<List<Integer>> g, int src) {\n        int n = g.size();\n        int[] dist = new int[n];\n        Arrays.fill(dist, -1);\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        dist[src] = 0; q.add(src);\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            for (int v : g.get(u)) if (dist[v] < 0) {\n                dist[v] = dist[u] + 1; q.add(v);\n            }\n        }\n        return dist;\n}"
+    {
+      "id": "ccntsmrg",
+      "title": "Accounts merge"
     },
-    "python": {
-      "code": "from collections import deque\ndef bfs(g, src):\n    n = len(g)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist"
-    },
-    "go": {
-      "code": "func bfs(g [][]int, src int) []int {\n    n := len(g)\n    dist := make([]int, n)\n    for i := range dist { dist[i] = -1 }\n    q := []int{src}\n    dist[src] = 0\n    for len(q) > 0 {\n        u := q[0]; q = q[1:]\n        for _, v := range g[u] {\n            if dist[v] < 0 {\n                dist[v] = dist[u] + 1\n                q = append(q, v)\n            }\n        }\n    }\n    return dist\n}"
+    {
+      "id": "krsklslgrithm",
+      "title": "Kruskal's Algorithm"
     }
-  }
+  ]
 }

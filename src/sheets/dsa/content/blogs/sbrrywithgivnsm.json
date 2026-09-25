@@ -1,40 +1,82 @@
 {
+  "version": 2,
   "id": "sbrrywithgivnsm",
   "title": "Count subarrays with given sum",
+  "topicNumber": 66,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/count-subarray-sum-equals-k/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “count subarray sum equals k”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "prefix-sum",
+    "hashing"
+  ],
+  "pattern": "prefix sum frequency map",
+  "problemStatement": "Count the number of subarrays whose sum equals K (negatives allowed).",
+  "example": "[3,1,2,4], K=6 -> 2 ([3,1,2] and [2,4])",
+  "intuition": "sum(i..j) = pre[j] - pre[i-1] = K means pre[i-1] = pre[j] - K. So at each j add the *count* of earlier prefixes equal to pre[j] - K. Counting, not longest, so store frequencies.",
+  "approaches": [
+    {
+      "title": "Brute: all subarrays",
+      "idea": "Accumulate from each start.",
+      "code": "def count_brute(a: list[int], k: int) -> int:\n    c = 0\n    for i in range(len(a)):\n        s = 0\n        for j in range(i, len(a)):\n            s += a[j]\n            if s == k:\n                c += 1\n    return c",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: prefix-sum counts",
+      "idea": "Seed the map with {0: 1} so prefixes that equal K on their own are counted.",
+      "code": "from collections import defaultdict\n\n\ndef count_subarrays_sum_k(a: list[int], k: int) -> int:\n    freq = defaultdict(int)\n    freq[0] = 1\n    pre = 0\n    count = 0\n    for x in a:\n        pre += x\n        count += freq[pre - k]\n        freq[pre] += 1\n    return count",
+      "language": "python",
+      "time": "O(n) average",
+      "space": "O(n)",
+      "dryRun": "a=[3,1,2,4] k=6\npre 3: need -3 -> 0\npre 4: need -2 -> 0\npre 6: need 0 -> +1\npre 10: need 4 -> +1\ntotal 2",
+      "whyWorks": "Every subarray corresponds to exactly one (start prefix, end prefix) pair."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n) average",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "K = 0 with zeros in the array",
+    "All negatives",
+    "Empty array -> 0"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Count subarrays with given sum\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Count subarrays with given sum\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Forgetting freq[0] = 1 and losing every prefix-length answer",
+    "Incrementing freq before querying it (counts the empty subarray)"
+  ],
+  "patternRecognition": [
+    "Count vs longest: frequency map vs first-occurrence map on the same prefix idea"
+  ],
+  "followUps": [
+    "Count subarrays with XOR K (#72)",
+    "Longest subarray with sum K (#52)",
+    "Count subarrays with at most K odd numbers (#235)"
+  ],
+  "interviewInsight": "Say explicitly why the counting variant stores frequencies while the longest variant stores first indices.",
+  "related": [
+    {
+      "id": "longestsubarraywithsumkposneg",
+      "title": "Longest subarray with sum K (Positives + Negatives)"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Count subarrays with given sum\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Count subarrays with given sum\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "cntnmbrfsbrryswithgivnxrk",
+      "title": "Count number of subarrays with given xor K"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Count subarrays with given sum\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Count subarrays with given sum\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Count subarrays with given sum\nfunc solve(a []int) int {\n    // TODO: core idea for \"Count subarrays with given sum\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "lrgstsbrrywith0sm",
+      "title": "Largest Subarray with 0 Sum"
     }
-  }
+  ]
 }

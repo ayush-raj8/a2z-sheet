@@ -1,40 +1,100 @@
 {
+  "version": 2,
   "id": "srtnrryf0s1snd2s",
   "title": "Sort an array of 0's 1's and 2's",
+  "topicNumber": 54,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/sort-an-array-of-0s-1s-and-2s/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “sort an array of 0s 1s and 2s”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "dutch-national-flag",
+    "three-pointers"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Sort an array of 0's 1's and 2's\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Sort an array of 0's 1's and 2's\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "Dutch National Flag",
+  "problemStatement": "Sort an array containing only 0s, 1s and 2s in one pass, in-place.",
+  "example": "[2,0,2,1,1,0] -> [0,0,1,1,2,2]",
+  "intuition": "Only three distinct values exist, so you can maintain three regions — settled 0s, settled 1s, unknown, settled 2s — and shrink the unknown region to nothing. This is Dijkstra's Dutch National Flag partition.",
+  "approaches": [
+    {
+      "title": "Brute: sort",
+      "idea": "Ignores the fact that the value domain has size 3.",
+      "code": "def sort012_sort(a: list[int]) -> list[int]:\n    a.sort()\n    return a",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(log n) sort stack",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "Comparison sort is strictly more than the problem needs"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Sort an array of 0's 1's and 2's\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Sort an array of 0's 1's and 2's\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "title": "Better: counting sort (two passes)",
+      "idea": "Count 0s/1s/2s, then overwrite.",
+      "code": "def sort012_count(a: list[int]) -> list[int]:\n    c = [0, 0, 0]\n    for x in a:\n        c[x] += 1\n    i = 0\n    for v in range(3):\n        for _ in range(c[v]):\n            a[i] = v\n            i += 1\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "limitations": [
+        "Two passes; not allowed if the interviewer demands a single pass"
+      ]
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Sort an array of 0's 1's and 2's\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Sort an array of 0's 1's and 2's\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Sort an array of 0's 1's and 2's\nfunc solve(a []int) int {\n    // TODO: core idea for \"Sort an array of 0's 1's and 2's\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: Dutch National Flag, one pass",
+      "idea": "low/mid/high invariants: [0,low) = 0s, [low,mid) = 1s, (high,n) = 2s.",
+      "code": "def sort012(a: list[int]) -> list[int]:\n    low = mid = 0\n    high = len(a) - 1\n    while mid <= high:\n        if a[mid] == 0:\n            a[low], a[mid] = a[mid], a[low]\n            low += 1\n            mid += 1\n        elif a[mid] == 1:\n            mid += 1\n        else:\n            a[mid], a[high] = a[high], a[mid]\n            high -= 1\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,0,2,1,1,0] low=0 mid=0 high=5\na[0]=2 -> swap with high: [0,0,2,1,1,2] high=4\na[0]=0 -> swap low/mid: low=1 mid=1\na[1]=0 -> low=2 mid=2\na[2]=2 -> swap with a[4]: [0,0,1,1,2,2] high=3\na[2]=1 mid=3; a[3]=1 mid=4 > high -> stop",
+      "whyWorks": "When you swap a 2 to the back you bring in an unexamined element, so mid must NOT advance. When you swap a 0 forward you bring in an already-examined 1, so mid may advance."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Dutch National Flag",
+    "body": "Three-way partition around a pivot value. Same machinery powers 3-way quicksort on arrays with many duplicates."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "All same value",
+    "Empty array",
+    "Only two of the three values present"
+  ],
+  "commonMistakes": [
+    "Incrementing mid after swapping with high — the incoming element is unchecked",
+    "Looping while mid < high instead of mid <= high, leaving the last element unsorted"
+  ],
+  "patternRecognition": [
+    "Tiny value domain + in-place + single pass -> three-way partition"
+  ],
+  "followUps": [
+    "Generalise to k distinct values",
+    "Partition around an arbitrary pivot (quicksort core)",
+    "Why does counting sort fail the \"one pass\" constraint?"
+  ],
+  "interviewInsight": "Say the loop invariant before you write the loop. The mid/high asymmetry is exactly what they are probing.",
+  "related": [
+    {
+      "id": "2smprblm",
+      "title": "2Sum Problem"
+    },
+    {
+      "id": "mjritylmntn2tims",
+      "title": "Majority Element (>n/2 times)"
+    },
+    {
+      "id": "kdnslgrithmmximmsbrrysm",
+      "title": "Kadane's Algorithm, maximum subarray sum"
+    }
+  ]
 }

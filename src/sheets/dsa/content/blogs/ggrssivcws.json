@@ -1,37 +1,82 @@
 {
+  "version": 2,
   "id": "ggrssivcws",
   "title": "Aggressive Cows",
+  "topicNumber": 99,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/aggressive-cows-detailed-solution/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “aggressive cows detailed solution”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "binary-search-on-answer",
+    "greedy"
+  ],
+  "pattern": "maximise the minimum distance",
+  "problemStatement": "Place k cows in stalls so that the minimum distance between any two is as large as possible.",
+  "example": "stalls=[1,2,4,8,9], k=3 -> 3",
+  "intuition": "If a spacing d is achievable then any smaller spacing is too — feasibility is monotone *decreasing* in d. Binary search the largest feasible d, checking greedily.",
+  "approaches": [
+    {
+      "title": "Brute: try every distance",
+      "idea": "Check d = 1, 2, ... until it fails.",
+      "code": "def aggressive_cows_brute(stalls: list[int], k: int) -> int:\n    stalls.sort()\n    best = 0\n    for d in range(1, stalls[-1] - stalls[0] + 1):\n        count, last = 1, stalls[0]\n        for s in stalls[1:]:\n            if s - last >= d:\n                count += 1\n                last = s\n        if count >= k:\n            best = d\n    return best",
+      "language": "python",
+      "time": "O(n * max distance)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the distance",
+      "idea": "Greedy placement: always take the first stall that is far enough.",
+      "code": "def aggressive_cows(stalls: list[int], k: int) -> int:\n    stalls.sort()\n\n    def can_place(d: int) -> bool:\n        count, last = 1, stalls[0]\n        for s in stalls[1:]:\n            if s - last >= d:\n                count += 1\n                last = s\n                if count >= k:\n                    return True\n        return count >= k\n\n    lo, hi, ans = 1, stalls[-1] - stalls[0], 0\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if can_place(mid):\n            ans = mid\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return ans",
+      "language": "python",
+      "time": "O(n log n + n log(max distance))",
+      "space": "O(1) auxiliary",
+      "dryRun": "stalls=[1,2,4,8,9] k=3, range [1,8]\nd=4: place 1,8 -> 2 cows, fail\nd=2: 1,4,8 -> 3 cows ok\nd=3: 1,4,8 -> 3 cows ok, ans=3\nd=4 already failed -> 3",
+      "whyWorks": "Placing each cow as early as possible leaves the most room for the rest — an exchange argument."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log n + n log D)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k = 2 -> answer is max - min",
+    "k = n -> the minimum adjacent gap",
+    "Duplicate stall positions"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Aggressive Cows” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Forgetting to sort the stalls first",
+    "Flipping the feasibility direction (this one maximises, so move lo up on success)"
+  ],
+  "patternRecognition": [
+    "\"Maximise the minimum\" / \"minimise the maximum\" -> BS on answer + greedy check"
+  ],
+  "followUps": [
+    "Magnetic force between balls (identical problem)",
+    "Minimise the maximum distance to gas stations (#103)",
+    "Prove the greedy check is exact"
+  ],
+  "interviewInsight": "Note the direction flip versus Koko: here success moves lo up. Mixing the two templates is the usual bug.",
+  "related": [
+    {
+      "id": "kthmissingpsitivnmbr",
+      "title": "Kth Missing Positive Number"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "bkllctinprblm",
+      "title": "Book Allocation Problem"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "cpcitytshippckgswithinddys",
+      "title": "Capacity to Ship Packages within D Days"
     }
-  }
+  ]
 }

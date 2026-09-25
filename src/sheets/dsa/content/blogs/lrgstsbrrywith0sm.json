@@ -1,40 +1,71 @@
 {
+  "version": 2,
   "id": "lrgstsbrrywith0sm",
   "title": "Largest Subarray with 0 Sum",
+  "topicNumber": 71,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/length-of-the-longest-subarray-with-zero-sum/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “length of the longest subarray with zero sum”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "prefix-sum",
+    "hashing"
+  ],
+  "pattern": "prefix sum repeat",
+  "problemStatement": "Length of the longest subarray whose elements sum to zero.",
+  "example": "[9,-3,3,-1,6,-5] -> 5",
+  "intuition": "If the same prefix sum appears at indices i and j, the elements between them cancel to zero. Longest means you keep the earliest index for each prefix value.",
+  "approaches": [
+    {
+      "title": "Optimal: first-occurrence prefix map",
+      "idea": "Seed {0: -1} so a zero-sum prefix is handled uniformly.",
+      "code": "def longest_zero_sum(a: list[int]) -> int:\n    first = {0: -1}\n    pre = 0\n    best = 0\n    for i, x in enumerate(a):\n        pre += x\n        if pre in first:\n            best = max(best, i - first[pre])\n        else:\n            first[pre] = i\n    return best",
+      "language": "python",
+      "time": "O(n) average",
+      "space": "O(n)",
+      "dryRun": "a=[9,-3,3,-1,6,-5]\npre: 9,6,9,8,14,9\npre=9 first at 0, seen again at 2 -> len 2, and at 5 -> len 5",
+      "whyWorks": "Equal prefixes bracket a zero-sum block; earliest occurrence maximises the span."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n) average",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "No zero-sum subarray -> 0",
+    "Single 0 element -> 1",
+    "All zeros -> n"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Largest Subarray with 0 Sum\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Largest Subarray with 0 Sum\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Omitting the {0: -1} seed",
+    "Overwriting an existing prefix key"
+  ],
+  "patternRecognition": [
+    "Sum-K family with K = 0"
+  ],
+  "followUps": [
+    "Longest subarray with equal 0s and 1s (map 0 -> -1)",
+    "Count zero-sum subarrays",
+    "Same idea on XOR (#72)"
+  ],
+  "interviewInsight": "The 0/1-equal-count variant is the common disguise; mention the 0 -> -1 remap.",
+  "related": [
+    {
+      "id": "4smprblm",
+      "title": "4-Sum Problem"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Largest Subarray with 0 Sum\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Largest Subarray with 0 Sum\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "cntnmbrfsbrryswithgivnxrk",
+      "title": "Count number of subarrays with given xor K"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Largest Subarray with 0 Sum\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Largest Subarray with 0 Sum\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Largest Subarray with 0 Sum\nfunc solve(a []int) int {\n    // TODO: core idea for \"Largest Subarray with 0 Sum\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "3smprblm",
+      "title": "3-Sum Problem"
     }
-  }
+  ]
 }

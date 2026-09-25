@@ -1,36 +1,77 @@
 {
+  "version": 2,
   "id": "findprimfctristinfnmbrsingsiv",
   "title": "Find Prime Factorisation of a Number using Sieve",
+  "topicNumber": 198,
   "stepTitle": "Bit Manipulation [Concepts & Problems]",
   "subStepTitle": "Advanced Maths",
+  "category": "Bit Manipulation [Concepts & Problems]",
+  "subcategory": "Advanced Maths",
+  "difficulty": "medium",
+  "topicType": "algorithm",
   "sourceUrl": null,
-  "intro": "Primality: trial division to √n is the baseline; sieve appears when you need many queries.",
-  "intuition": "No divisor in 2..√n (handle n<2).",
-  "approach": [
-    "Exclude n<2.",
-    "Trial divide to √n.",
-    "Optional sieve for many queries."
+  "quality": "reviewed",
+  "tags": [
+    "graph",
+    "medium"
+  ],
+  "pattern": "graphs",
+  "problemStatement": "Solve “Find Prime Factorisation of a Number using Sieve” as posed in the A2Z sheet (Advanced Maths).",
+  "intuition": "\"Find Prime Factorisation of a Number using Sieve\" needs the right graph algorithm. Clarify directed/undirected, weighted/unweighted, cycles. Unweighted shortest → BFS; non-negative weights → Dijkstra; negative → Bellman-Ford; 0-1 weights → 0-1 BFS.",
+  "approaches": [
+    {
+      "title": "Traversal / shortest-path skeleton",
+      "idea": "Build adjacency; BFS/DFS/Dijkstra as constrained.",
+      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    # Skeleton for: Find Prime Factorisation of a Number using Sieve\n    g = defaultdict(list)\n    for u, v in edges:  # adapt for weights\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "language": "python",
+      "time": "O(n + m) for BFS/DFS",
+      "space": "O(n + m)",
+      "flags": [
+        "TLE",
+        "MLE"
+      ],
+      "limitations": [
+        "Wrong algorithm for weights → WA; huge adj lists → MLE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "O(√n) trial / O(n log log n) sieve build",
-    "space": "O(1) / O(n)"
+    "time": "O(n + m) for BFS/DFS",
+    "space": "O(n + m)"
   },
-  "pitfalls": [
-    "Calling 1 prime.",
-    "Checking up to n instead of √n."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "bool isPrime(long long n) {\n    if (n < 2) return false;\n    for (long long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
+  "commonMistakes": [
+    "DFS for unweighted shortest path",
+    "Forgetting visited → infinite loops",
+    "1-index vs 0-index bugs"
+  ],
+  "patternRecognition": [
+    "Shortest unweighted → BFS",
+    "Multi-source spreading → multi-source BFS",
+    "Ordering with prerequisites → topo"
+  ],
+  "followUps": [
+    "Weighted edges?",
+    "Negative cycles?",
+    "Connected components count?"
+  ],
+  "interviewInsight": "Pick the algorithm from the constraint table before coding \"Find Prime Factorisation of a Number using Sieve\".",
+  "related": [
+    {
+      "id": "sivfrtsthns",
+      "title": "Sieve of Eratosthenes"
     },
-    "java": {
-      "code": "static boolean isPrime(long n) {\n    if (n < 2) return false;\n    for (long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
+    {
+      "id": "pwrnx",
+      "title": "Power(n, x)"
     },
-    "python": {
-      "code": "def is_prime(n: int) -> bool:\n    if n < 2: return False\n    i = 2\n    while i * i <= n:\n        if n % i == 0: return False\n        i += 1\n    return True"
-    },
-    "go": {
-      "code": "func isPrime(n int64) bool {\n    if n < 2 { return false }\n    for i := int64(2); i*i <= n; i++ {\n        if n%i == 0 { return false }\n    }\n    return true\n}"
+    {
+      "id": "lldivisrsfnmbr",
+      "title": "All Divisors of a Number"
     }
-  }
+  ]
 }

@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "stmtrixzrs",
   "title": "Set Matrix Zeros",
+  "topicNumber": 63,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/set-matrix-zero/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “set matrix zero”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "matrix",
+    "in-place"
+  ],
+  "pattern": "use the matrix itself as marker storage",
+  "problemStatement": "If an element is 0, set its entire row and column to 0, in-place.",
+  "example": "[[1,1,1],[1,0,1],[1,1,1]] -> [[1,0,1],[0,0,0],[1,0,1]]",
+  "intuition": "You cannot zero rows as you discover them — new zeros would cascade. So separate marking from writing, and store the markers in row 0 / column 0 to reach O(1) space.",
+  "approaches": [
+    {
+      "title": "Better: two marker arrays",
+      "idea": "Record which rows and columns must be cleared, then apply.",
+      "code": "def set_zeros_markers(m: list[list[int]]) -> list[list[int]]:\n    rows, cols = set(), set()\n    for i, row in enumerate(m):\n        for j, v in enumerate(row):\n            if v == 0:\n                rows.add(i)\n                cols.add(j)\n    for i in range(len(m)):\n        for j in range(len(m[0])):\n            if i in rows or j in cols:\n                m[i][j] = 0\n    return m",
+      "language": "python",
+      "time": "O(n*m)",
+      "space": "O(n + m)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: first row/column as markers",
+      "idea": "One extra flag disambiguates column 0, whose marker cell is shared.",
+      "code": "def set_zeros(m: list[list[int]]) -> list[list[int]]:\n    n, mm = len(m), len(m[0])\n    first_col_zero = any(m[i][0] == 0 for i in range(n))\n    for i in range(n):\n        for j in range(1, mm):\n            if m[i][j] == 0:\n                m[i][0] = 0\n                m[0][j] = 0\n    for i in range(n - 1, -1, -1):\n        for j in range(mm - 1, 0, -1):\n            if m[i][0] == 0 or m[0][j] == 0:\n                m[i][j] = 0\n        if first_col_zero:\n            m[i][0] = 0\n    return m",
+      "language": "python",
+      "time": "O(n*m)",
+      "space": "O(1) auxiliary",
+      "dryRun": "m=[[1,1,1],[1,0,1],[1,1,1]]\nmark: m[1][0]=0, m[0][1]=0\nwrite backwards -> [[1,0,1],[0,0,0],[1,0,1]]",
+      "whyWorks": "Writing bottom-up right-to-left consumes each marker only after it has been read."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n*m)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Zeros already in row 0 or column 0",
+    "Single row or single column",
+    "All zeros"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Set Matrix Zeros\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Set Matrix Zeros\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Zeroing in the same pass as detecting, causing a cascade",
+    "Forgetting the separate flag for column 0"
+  ],
+  "patternRecognition": [
+    "O(1) space on a matrix -> store metadata in a border row/column"
+  ],
+  "followUps": [
+    "Use a single flag instead of two",
+    "What if 0 is a legal data value you must preserve elsewhere?",
+    "Rotate matrix in-place (#64)"
+  ],
+  "interviewInsight": "The cascade bug is the point of this problem; name it before writing code.",
+  "related": [
+    {
+      "id": "lngstcnsctivsqncinnrry",
+      "title": "Longest Consecutive Sequence in an Array"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Set Matrix Zeros\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Set Matrix Zeros\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "rttmtrixby90dgrs",
+      "title": "Rotate Matrix by 90 degrees"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Set Matrix Zeros\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Set Matrix Zeros\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Set Matrix Zeros\nfunc solve(a []int) int {\n    // TODO: core idea for \"Set Matrix Zeros\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "ldrsinnrryprblm",
+      "title": "Leaders in an Array problem"
     }
-  }
+  ]
 }

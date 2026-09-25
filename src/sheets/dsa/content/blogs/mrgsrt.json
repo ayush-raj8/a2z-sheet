@@ -1,40 +1,80 @@
 {
+  "version": 2,
   "id": "mrgsrt",
   "title": "Merge Sort",
+  "topicNumber": 35,
   "stepTitle": "Learn Important Sorting Techniques",
   "subStepTitle": "Sorting-II",
+  "category": "Learn Important Sorting Techniques",
+  "subcategory": "Sorting-II",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/merge-sort-algorithm/",
-  "intro": "Sorting is a primitive used inside harder solutions. Know stable vs unstable and the N log N comparison bound. Classic framing from the roadmap note “merge sort algorithm”.",
-  "intuition": "Unordered → ordered so later scans/binary search become possible.",
-  "approach": [
-    "Choose algorithm by constraints.",
-    "Implement or call library sort.",
-    "Use sorted order in the next step of the solution."
+  "quality": "reviewed",
+  "tags": [
+    "sorting",
+    "divide-conquer"
   ],
-  "complexity": {
-    "time": "O(n log n) typical",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Unstable sort breaking equal-key order.",
-    "Comparing ints with overflow (use long/comparator)."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Merge Sort\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Merge Sort\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Merge Sort\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Merge Sort\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Merge Sort\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Merge Sort\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Merge Sort\nfunc solve(a []int) int {\n    // TODO: core idea for \"Merge Sort\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+  "pattern": "divide-and-conquer",
+  "problemStatement": "Sort an array using Merge Sort.",
+  "example": "[4,1,3,2] → [1,2,3,4]",
+  "intuition": "Divide into halves, sort each, merge two sorted runs. Merge needs O(n) temporary space. Guarantees O(n log n) — no TLE from quadratic worst case.",
+  "approaches": [
+    {
+      "title": "Merge sort",
+      "idea": "Recurse left/right; merge with two pointers into temp, copy back.",
+      "code": "def merge_sort(a: list[int]) -> None:\n    def merge(lo: int, mid: int, hi: int) -> None:\n        left = a[lo : mid + 1]\n        right = a[mid + 1 : hi + 1]\n        i = j = 0\n        k = lo\n        while i < len(left) and j < len(right):\n            if left[i] <= right[j]:\n                a[k] = left[i]\n                i += 1\n            else:\n                a[k] = right[j]\n                j += 1\n            k += 1\n        while i < len(left):\n            a[k] = left[i]\n            i += 1\n            k += 1\n        while j < len(right):\n            a[k] = right[j]\n            j += 1\n            k += 1\n\n    def sort(lo: int, hi: int) -> None:\n        if lo >= hi:\n            return\n        mid = (lo + hi) // 2\n        sort(lo, mid)\n        sort(mid + 1, hi)\n        merge(lo, mid, hi)\n\n    if a:\n        sort(0, len(a) - 1)",
+      "language": "python",
+      "time": "O(n log n) always",
+      "space": "O(n) auxiliary + O(log n) stack",
+      "spaceNote": "Aux arrays O(n); recursion depth O(log n)",
+      "flags": [
+        "MLE"
+      ],
+      "limitations": [
+        "Extra O(n) memory — MLE risk if memory tight vs in-place quicksort"
+      ],
+      "whyWorks": "Merge of two sorted lists is sorted; induction on divide-and-conquer tree.",
+      "dryRun": "[4,1,3,2] → sort [4,1] & [3,2] → [1,4],[2,3] → merge [1,2,3,4]"
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Stable O(n log n) guarantee",
+    "body": "Use <= in merge to keep stability. Prefer merge sort when you need stable sort or hard O(n log n) worst case (vs quicksort’s average)."
+  },
+  "complexity": {
+    "time": "O(n log n)",
+    "space": "O(n) aux + O(log n) stack",
+    "recursionStack": "O(log n)"
+  },
+  "edgeCases": [
+    "n≤1",
+    "Duplicates (stability)",
+    "Already sorted"
+  ],
+  "commonMistakes": [
+    "Using < instead of <= (breaks stability)",
+    "Wrong mid / indices",
+    "Forgetting to copy leftovers"
+  ],
+  "patternRecognition": [
+    "Divide & conquer sorting",
+    "Count inversions — same merge framework"
+  ],
+  "followUps": [
+    "Count inversions during merge?",
+    "Bottom-up merge sort?",
+    "Why not always quicksort?"
+  ],
+  "interviewInsight": "Contrast with quicksort: merge = stable + worst O(n log n) + O(n) memory.",
+  "related": [
+    {
+      "id": "qicksrt",
+      "title": "Quick Sort"
+    },
+    {
+      "id": "insrtinsrt",
+      "title": "Insertion Sort"
+    }
+  ]
 }

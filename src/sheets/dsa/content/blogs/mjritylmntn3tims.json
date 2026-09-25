@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "mjritylmntn3tims",
   "title": "Majority Element (n/3 times)",
+  "topicNumber": 68,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/majority-elementsn-3-times-find-the-elements-that-appears-more-than-n-3-times-in-the-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “majority elementsn 3 times find the elements that appears more than n 3 times in the array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "voting"
+  ],
+  "pattern": "extended Boyer-Moore (k = 3)",
+  "problemStatement": "Find all elements appearing more than n/3 times (at most two can exist).",
+  "example": "[1,1,1,3,3,2,2,2] -> [1,2]",
+  "intuition": "At most k-1 = 2 elements can exceed n/3, so keep two candidates and two counters. Cancelling a triple of distinct values cannot eliminate a true majority.",
+  "approaches": [
+    {
+      "title": "Better: hash counts",
+      "idea": "Count then filter.",
+      "code": "from collections import Counter\n\n\ndef majority3_hash(a: list[int]) -> list[int]:\n    n = len(a)\n    return [k for k, v in Counter(a).items() if v > n // 3]",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: two candidates, two counters",
+      "idea": "Then verify both with a second pass.",
+      "code": "def majority_n3(a: list[int]) -> list[int]:\n    c1 = c2 = 0\n    n1 = n2 = None\n    for x in a:\n        if n1 == x:\n            c1 += 1\n        elif n2 == x:\n            c2 += 1\n        elif c1 == 0:\n            n1, c1 = x, 1\n        elif c2 == 0:\n            n2, c2 = x, 1\n        else:\n            c1 -= 1\n            c2 -= 1\n    return sorted(c for c in {n1, n2} if c is not None and a.count(c) > len(a) // 3)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,1,1,3,3,2,2,2]\ncandidates settle on 1 and 2\nverify: count(1)=3 > 2, count(2)=3 > 2 -> [1,2]",
+      "whyWorks": "Each decrement removes three distinct occurrences, so an element with > n/3 copies survives."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "No element qualifies -> empty list",
+    "Exactly n/3 (not strictly greater) must be rejected",
+    "n < 3"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Majority Element (n/3 times)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Majority Element (n/3 times)\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Checking candidate equality after the count == 0 branches, which mis-assigns duplicates",
+    "Skipping verification"
+  ],
+  "patternRecognition": [
+    "> n/k -> k-1 candidates + verification"
+  ],
+  "followUps": [
+    "Generalise to > n/k",
+    "Why can at most k-1 such elements exist?",
+    "Streaming heavy hitters (Misra-Gries)"
+  ],
+  "interviewInsight": "The branch ordering is the bug factory here — write the equality checks first, deliberately.",
+  "related": [
+    {
+      "id": "psclstringl",
+      "title": "Pascal's Triangle"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Majority Element (n/3 times)\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Majority Element (n/3 times)\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "3smprblm",
+      "title": "3-Sum Problem"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Majority Element (n/3 times)\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Majority Element (n/3 times)\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Majority Element (n/3 times)\nfunc solve(a []int) int {\n    // TODO: core idea for \"Majority Element (n/3 times)\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "4smprblm",
+      "title": "4-Sum Problem"
     }
-  }
+  ]
 }

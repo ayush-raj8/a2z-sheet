@@ -1,40 +1,90 @@
 {
+  "version": 2,
   "id": "lftrttnrrybydplcs",
   "title": "Left rotate an array by D places",
+  "topicNumber": 44,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/rotate-array-by-k-elements/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “rotate array by k elements”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "rotation",
+    "reversal-algorithm"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Left rotate an array by D places\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Left rotate an array by D places\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "reversal algorithm",
+  "problemStatement": "Left rotate an array by d places, in-place.",
+  "example": "[1,2,3,4,5,6,7], d=3 -> [4,5,6,7,1,2,3]",
+  "intuition": "Rotation is a swap of two blocks. Reversing each block and then reversing the whole array performs that swap with no extra memory — the classic \"reversal algorithm\".",
+  "approaches": [
+    {
+      "title": "Brute: temp buffer of size d",
+      "idea": "Copy the first d into a buffer, shift, append back.",
+      "code": "def rotate_left_temp(a: list[int], d: int) -> list[int]:\n    n = len(a)\n    d %= n\n    buf = a[:d]\n    for i in range(d, n):\n        a[i - d] = a[i]\n    a[n - d:] = buf\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(d)",
+      "flags": [
+        "MLE"
+      ],
+      "limitations": [
+        "Extra O(d) memory when d is close to n"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Left rotate an array by D places\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Left rotate an array by D places\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Left rotate an array by D places\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Left rotate an array by D places\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Left rotate an array by D places\nfunc solve(a []int) int {\n    // TODO: core idea for \"Left rotate an array by D places\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: three reversals",
+      "idea": "reverse(0, d-1), reverse(d, n-1), then reverse(0, n-1).",
+      "code": "def rotate_left(a: list[int], d: int) -> list[int]:\n    n = len(a)\n    if n == 0:\n        return a\n    d %= n\n\n    def reverse(lo: int, hi: int) -> None:\n        while lo < hi:\n            a[lo], a[hi] = a[hi], a[lo]\n            lo += 1\n            hi -= 1\n\n    reverse(0, d - 1)\n    reverse(d, n - 1)\n    reverse(0, n - 1)\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,3,4,5,6,7] d=3\nreverse first 3 -> [3,2,1,4,5,6,7]\nreverse rest -> [3,2,1,7,6,5,4]\nreverse all -> [4,5,6,7,1,2,3]",
+      "whyWorks": "reverse(reverse(A) + reverse(B)) = B + A — block swap without a buffer."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Reversal algorithm",
+    "body": "Any \"swap two adjacent blocks in place\" task (rotate array, rotate string, rotate matrix rows) reduces to three reversals. Always take d %= n first so d >= n is handled."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "d = 0",
+    "d > n (take d % n)",
+    "d = n -> unchanged",
+    "Empty array"
+  ],
+  "commonMistakes": [
+    "Forgetting d %= n",
+    "Reversing the wrong segment boundaries for right rotation"
+  ],
+  "patternRecognition": [
+    "\"Rotate in O(1) space\" -> reversal algorithm or cyclic replacements (gcd juggling)"
+  ],
+  "followUps": [
+    "Right rotate by d using the same trick",
+    "Do it with the juggling/gcd-cycles algorithm instead",
+    "Rotate a matrix by 90 degrees using reversals"
+  ],
+  "interviewInsight": "The expected answer is O(1) space. Mention the juggling algorithm as an alternative to show depth.",
+  "related": [
+    {
+      "id": "lftrttnrrybynplc",
+      "title": "Left Rotate an array by one place"
+    },
+    {
+      "id": "mvzrstnd",
+      "title": "Move Zeros to end"
+    },
+    {
+      "id": "rmvdplictsfrmsrtdrry",
+      "title": "Remove duplicates from Sorted array"
+    }
+  ]
 }

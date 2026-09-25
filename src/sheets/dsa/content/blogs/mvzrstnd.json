@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "mvzrstnd",
   "title": "Move Zeros to end",
+  "topicNumber": 45,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/move-all-zeros-to-the-end-of-the-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “move all zeros to the end of the array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "pattern": "stable partition",
+  "problemStatement": "Move all zeros to the end while preserving the order of non-zero elements.",
+  "example": "[0,1,0,3,12] -> [1,3,12,0,0]",
+  "intuition": "This is a stable partition. A write pointer collects non-zeros in order; whatever is left over is filled with zeros — or swap as you go to do it in one pass.",
+  "approaches": [
+    {
+      "title": "Brute: build a new list",
+      "idea": "Copy non-zeros, then pad with zeros.",
+      "code": "def move_zeros_extra(a: list[int]) -> list[int]:\n    out = [x for x in a if x != 0]\n    out += [0] * (len(a) - len(out))\n    a[:] = out\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: swap with the first zero",
+      "idea": "j points at the leftmost zero; every non-zero found after it swaps in.",
+      "code": "def move_zeros(a: list[int]) -> list[int]:\n    j = 0\n    for i in range(len(a)):\n        if a[i] != 0:\n            a[i], a[j] = a[j], a[i]\n            j += 1\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[0,1,0,3,12]\ni=1 swap -> [1,0,0,3,12] j=1\ni=3 swap -> [1,3,0,0,12] j=2\ni=4 swap -> [1,3,12,0,0] j=3",
+      "whyWorks": "a[0..j) holds non-zeros in original order; a[j..i) is all zeros."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "No zeros",
+    "All zeros",
+    "Empty array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Move Zeros to end\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Move Zeros to end\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Breaking stability by swapping with the array end",
+    "Advancing j on zero elements"
+  ],
+  "patternRecognition": [
+    "Stable in-place partition -> write pointer (same skeleton as Dutch-flag one-sided)"
+  ],
+  "followUps": [
+    "Move zeros to the front instead",
+    "Partition around an arbitrary pivot, stably",
+    "Minimise the number of writes"
+  ],
+  "interviewInsight": "They watch for stability. Two-pointer swapping keeps it; sorting-by-key does not, for free.",
+  "related": [
+    {
+      "id": "lftrttnrrybydplcs",
+      "title": "Left rotate an array by D places"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Move Zeros to end\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Move Zeros to end\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "linrsrch",
+      "title": "Linear Search"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Move Zeros to end\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Move Zeros to end\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Move Zeros to end\nfunc solve(a []int) int {\n    // TODO: core idea for \"Move Zeros to end\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "lftrttnrrybynplc",
+      "title": "Left Rotate an array by one place"
     }
-  }
+  ]
 }

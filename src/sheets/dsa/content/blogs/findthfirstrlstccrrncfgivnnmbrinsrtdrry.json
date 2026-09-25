@@ -1,37 +1,69 @@
 {
+  "version": 2,
   "id": "findthfirstrlstccrrncfgivnnmbrinsrtdrry",
   "title": "Find the first or last occurrence of a given number in a sorted array",
+  "topicNumber": 84,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/last-occurrence-in-a-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “last occurrence in a sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "two boundary searches",
+  "problemStatement": "Find the first and last index of a target in a sorted array with duplicates.",
+  "example": "[5,7,7,8,8,10], target 8 -> (3,4)",
+  "intuition": "Do not stop at the first match — keep searching the side that could contain an earlier (or later) occurrence.",
+  "approaches": [
+    {
+      "title": "Optimal: two boundary binary searches",
+      "idea": "first = lower_bound; last = upper_bound - 1.",
+      "code": "def first_last(a: list[int], target: int) -> tuple[int, int]:\n    def bound(pred) -> int:\n        lo, hi, ans = 0, len(a) - 1, len(a)\n        while lo <= hi:\n            mid = lo + (hi - lo) // 2\n            if pred(a[mid]):\n                ans = mid\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        return ans\n\n    first = bound(lambda v: v >= target)\n    if first == len(a) or a[first] != target:\n        return (-1, -1)\n    last = bound(lambda v: v > target) - 1\n    return (first, last)",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[5,7,7,8,8,10] target=8\nlower_bound -> 3\nupper_bound -> 5, so last = 4 -> (3,4)",
+      "whyWorks": "Equal values occupy a contiguous block in a sorted array."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "Target absent -> (-1,-1)",
+    "Single occurrence",
+    "All elements equal to the target"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find the first or last occurrence of a given number in a sorted array” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Returning on the first match instead of continuing the search",
+    "Forgetting to validate that a[first] actually equals the target"
+  ],
+  "patternRecognition": [
+    "Frequency / range queries on sorted data -> two boundary searches"
+  ],
+  "followUps": [
+    "Count occurrences (#85)",
+    "Do it in one pass",
+    "Extend to counting in a range [lo, hi]"
+  ],
+  "interviewInsight": "Deriving last = upper_bound - 1 rather than writing a second bespoke loop is the clean answer.",
+  "related": [
+    {
+      "id": "chckifinptrryissrtd",
+      "title": "Floor/Ceil in Sorted Array"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "cntccrrncsfnmbrinsrtdrrywithdplicts",
+      "title": "Count occurrences of a number in a sorted array with duplicates"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "srchinsrtpsitin",
+      "title": "Search Insert Position"
     }
-  }
+  ]
 }

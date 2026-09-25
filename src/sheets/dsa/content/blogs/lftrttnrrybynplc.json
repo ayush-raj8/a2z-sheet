@@ -1,40 +1,68 @@
 {
+  "version": 2,
   "id": "lftrttnrrybynplc",
   "title": "Left Rotate an array by one place",
+  "topicNumber": 43,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/left-rotate-the-array-by-one/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “left rotate the array by one”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "rotation"
+  ],
+  "pattern": "shift",
+  "problemStatement": "Left rotate an array by one position.",
+  "example": "[1,2,3,4] -> [2,3,4,1]",
+  "intuition": "Save the head, shift everything left by one, drop the saved head at the tail.",
+  "approaches": [
+    {
+      "title": "Optimal: save-and-shift",
+      "idea": "One temporary plus a single forward sweep.",
+      "code": "def rotate_left_by_one(a: list[int]) -> list[int]:\n    if len(a) <= 1:\n        return a\n    first = a[0]\n    for i in range(len(a) - 1):\n        a[i] = a[i + 1]\n    a[-1] = first\n    return a",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,3,4] first=1\nshift -> [2,3,4,4]\na[-1]=1 -> [2,3,4,1]"
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "n <= 1 is a no-op",
+    "Shifting right instead of left"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Left Rotate an array by one place\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Left Rotate an array by one place\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Overwriting a[0] before saving it",
+    "Looping to n and reading a[n]"
+  ],
+  "patternRecognition": [
+    "Rotation by 1 is the base case of rotation by d"
+  ],
+  "followUps": [
+    "Generalise to d places in O(1) space",
+    "Right rotate by one",
+    "Rotate a linked list by k"
+  ],
+  "interviewInsight": "Only useful as the lead-in to rotate-by-d; move there quickly.",
+  "related": [
+    {
+      "id": "rmvdplictsfrmsrtdrry",
+      "title": "Remove duplicates from Sorted array"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Left Rotate an array by one place\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Left Rotate an array by one place\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "lftrttnrrybydplcs",
+      "title": "Left rotate an array by D places"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Left Rotate an array by one place\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Left Rotate an array by one place\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Left Rotate an array by one place\nfunc solve(a []int) int {\n    // TODO: core idea for \"Left Rotate an array by one place\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "chckifthrryissrtd",
+      "title": "Check if the array is sorted"
     }
-  }
+  ]
 }

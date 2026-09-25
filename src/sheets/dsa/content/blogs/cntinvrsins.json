@@ -1,40 +1,85 @@
 {
+  "version": 2,
   "id": "cntinvrsins",
   "title": "Count Inversions",
+  "topicNumber": 76,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/count-inversions-in-an-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “count inversions in an array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "divide-and-conquer",
+    "merge-sort"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Count Inversions\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Count Inversions\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "merge sort with counting",
+  "problemStatement": "Count pairs (i, j) with i < j and a[i] > a[j].",
+  "example": "[5,4,3,2,1] -> 10",
+  "intuition": "Merge sort already compares exactly the cross-half pairs you need. When a right element is taken before a left one, every remaining element in the left half forms an inversion with it — count them in bulk.",
+  "approaches": [
+    {
+      "title": "Brute: all pairs",
+      "idea": "Two loops.",
+      "code": "def inversions_brute(a: list[int]) -> int:\n    c = 0\n    for i in range(len(a)):\n        for j in range(i + 1, len(a)):\n            if a[i] > a[j]:\n                c += 1\n    return c",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "n = 10^5 means 5*10^9 pairs"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Count Inversions\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Count Inversions\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Count Inversions\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Count Inversions\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Count Inversions\nfunc solve(a []int) int {\n    // TODO: core idea for \"Count Inversions\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: merge sort, count during merge",
+      "idea": "Add (mid - i + 1) whenever the right element wins.",
+      "code": "def count_inversions(a: list[int]) -> int:\n    def sort_count(lo: int, hi: int) -> int:\n        if hi - lo <= 1:\n            return 0\n        mid = (lo + hi) // 2\n        cnt = sort_count(lo, mid) + sort_count(mid, hi)\n        merged = []\n        i, j = lo, mid\n        while i < mid and j < hi:\n            if a[i] <= a[j]:\n                merged.append(a[i]); i += 1\n            else:\n                cnt += mid - i\n                merged.append(a[j]); j += 1\n        merged.extend(a[i:mid])\n        merged.extend(a[j:hi])\n        a[lo:hi] = merged\n        return cnt\n\n    return sort_count(0, len(a))",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(n) for the merge buffer",
+      "dryRun": "a=[2,1]\nmerge halves [2] and [1]: 1 < 2 so count += 1 (one left element remains)\ntotal 1",
+      "whyWorks": "Left-half elements are sorted, so if a[i] > a[j] then so is every element after i."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Counting during merge",
+    "body": "Using `a[i] <= a[j]` (not <) keeps the sort stable and avoids counting equal pairs as inversions. The same scaffold solves reverse pairs and \"count smaller after self\"."
+  },
+  "complexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "edgeCases": [
+    "Already sorted -> 0",
+    "Reverse sorted -> n(n-1)/2",
+    "Duplicates must not count"
+  ],
+  "commonMistakes": [
+    "Using < instead of <= and counting equal pairs",
+    "Adding 1 instead of (mid - i) per right-element take"
+  ],
+  "patternRecognition": [
+    "Counting cross-pairs with an order predicate -> merge sort / BIT / merge-sort tree"
+  ],
+  "followUps": [
+    "Reverse pairs where a[i] > 2*a[j] (#77)",
+    "Solve with a Fenwick tree instead",
+    "Count smaller elements to the right"
+  ],
+  "interviewInsight": "Deriving the bulk count (mid - i) from the sortedness of the left half is the whole interview.",
+  "related": [
+    {
+      "id": "rvrspirs",
+      "title": "Reverse Pairs"
+    },
+    {
+      "id": "mrgsrt",
+      "title": "Merge Sort"
+    }
+  ]
 }

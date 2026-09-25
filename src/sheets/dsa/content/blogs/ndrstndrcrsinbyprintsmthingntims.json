@@ -1,38 +1,76 @@
 {
+  "version": 2,
   "id": "ndrstndrcrsinbyprintsmthingntims",
   "title": "Understand recursion by print something N times",
+  "topicNumber": 20,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/recursion/introduction-to-recursion-understand-recursion-by-printing-something-n-times/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “introduction to recursion understand recursion by printing something n times”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion"
+  ],
+  "pattern": "recursion",
+  "problemStatement": "Understand recursion by printing a message N times using recursive calls (no loop).",
+  "example": "N=3 → print a line three times",
+  "intuition": "Recursion = base case + smaller self-call. Printing N times: print once, then solve N−1. Stack depth is N — for huge N this is RE (recursion limit) / MLE on stack, even if time looks fine.",
+  "approaches": [
+    {
+      "title": "Recursive print",
+      "idea": "Base: n==0 stop. Else print and recurse n-1.",
+      "code": "import sys\nsys.setrecursionlimit(10**5)  # demo only — prefer loops for huge N\n\ndef print_n_times(n: int, msg: str = \"hello\") -> None:\n    if n == 0:\n        return\n    print(msg)\n    print_n_times(n - 1, msg)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) recursion stack",
+      "spaceNote": "Stack is not O(1) — n=1e6 likely RE/MLE",
+      "flags": [
+        "RE",
+        "MLE"
+      ],
+      "dryRun": "n=3\nprint; call 2\nprint; call 1\nprint; call 0 return",
+      "whyWorks": "Each call handles one print; induction covers all n≥0."
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(n)",
+    "space": "O(n) recursion stack",
+    "recursionStack": "O(n)"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "edgeCases": [
+    "n=0",
+    "large n → recursion limit"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Understand recursion by print something N times”."
+  "commonMistakes": [
+    "Missing base case → infinite recursion → RE",
+    "Calling stack space O(1)",
+    "Using recursion where a loop is clearer/safer"
+  ],
+  "patternRecognition": [
+    "Problem defined in terms of a smaller subproblem",
+    "Tree/graph DFS naturally recursive"
+  ],
+  "followUps": [
+    "Convert to iterative?",
+    "What is Python’s default recursion limit?",
+    "Tail recursion elimination in Python? (not guaranteed)"
+  ],
+  "interviewInsight": "They check base case + stack-cost awareness. Saying “O(n) stack, may RE for large n” is the mature answer.",
+  "related": [
+    {
+      "id": "printnmntimssingrcrsin",
+      "title": "Print name N times using recursion"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
+    {
+      "id": "print1tnsingrcrsin",
+      "title": "Print 1 to N using recursion"
     },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "smffirstnnmbrs",
+      "title": "Sum of first N numbers"
     }
-  }
+  ]
 }

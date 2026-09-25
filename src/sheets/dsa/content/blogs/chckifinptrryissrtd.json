@@ -1,37 +1,69 @@
 {
+  "version": 2,
   "id": "chckifinptrryissrtd",
   "title": "Floor/Ceil in Sorted Array",
+  "topicNumber": 83,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/floor-and-ceil-in-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “floor and ceil in sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "floor / ceil via bounds",
+  "problemStatement": "Find the floor (largest value <= x) and ceil (smallest value >= x) in a sorted array.",
+  "example": "[3,4,4,7,8,10], x=5 -> floor 4, ceil 7",
+  "intuition": "Ceil is lower_bound. Floor is the element just before it. One binary search answers both.",
+  "approaches": [
+    {
+      "title": "Optimal: one binary search tracking both",
+      "idea": "Update floor on the left branch, ceil on the right.",
+      "code": "def floor_ceil(a: list[int], x: int) -> tuple[int | None, int | None]:\n    lo, hi = 0, len(a) - 1\n    floor = ceil = None\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] == x:\n            return a[mid], a[mid]\n        if a[mid] < x:\n            floor = a[mid]\n            lo = mid + 1\n        else:\n            ceil = a[mid]\n            hi = mid - 1\n    return floor, ceil",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[3,4,4,7,8,10] x=5\nmid=2 (4<5) floor=4 lo=3\nmid=4 (8>=5) ceil=8 hi=3\nmid=3 (7>=5) ceil=7 hi=2 -> (4,7)",
+      "whyWorks": "Every discarded half is provably on the wrong side of x."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "x below the minimum -> floor None",
+    "x above the maximum -> ceil None",
+    "x present -> both equal x"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Floor/Ceil in Sorted Array” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Returning indices where values were asked (or vice versa)",
+    "Updating the wrong tracker on each branch"
+  ],
+  "patternRecognition": [
+    "Floor/ceil are the lower/upper bound pair in disguise"
+  ],
+  "followUps": [
+    "Floor/ceil in a BST (#317, #318)",
+    "Nearest element to x",
+    "Ceil when duplicates exist"
+  ],
+  "interviewInsight": "Tie it back to lower/upper bound explicitly; interviewers like the unification.",
+  "related": [
+    {
+      "id": "srchinsrtpsitin",
+      "title": "Search Insert Position"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "findthfirstrlstccrrncfgivnnmbrinsrtdrry",
+      "title": "Find the first or last occurrence of a given number in a sorted array"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "implmntpprbnd",
+      "title": "Implement Upper Bound"
     }
-  }
+  ]
 }

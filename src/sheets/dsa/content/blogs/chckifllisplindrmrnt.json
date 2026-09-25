@@ -1,37 +1,81 @@
 {
+  "version": 2,
   "id": "chckifllisplindrmrnt",
   "title": "Check if LL is palindrome or not",
+  "topicNumber": 141,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Medium Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Medium Problems of LL",
+  "difficulty": "medium",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/check-if-given-linked-list-is-plaindrome/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “check if given linked list is plaindrome”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "pattern": "find middle + reverse half",
+  "problemStatement": "Check whether a linked list is a palindrome in O(1) extra space.",
+  "example": "1->2->2->1 -> True",
+  "intuition": "You cannot walk backwards, so reverse the second half in place and compare it against the first half. Restoring the list afterwards is good manners and sometimes required.",
+  "approaches": [
+    {
+      "title": "Brute: copy to an array",
+      "idea": "Compare with two pointers on the array.",
+      "code": "def is_palindrome_array(head) -> bool:\n    vals = []\n    cur = head\n    while cur:\n        vals.append(cur.val)\n        cur = cur.next\n    return vals == vals[::-1]",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: reverse the second half",
+      "idea": "Middle via slow/fast, reverse, compare, then restore.",
+      "code": "def is_palindrome(head) -> bool:\n    if head is None or head.next is None:\n        return True\n    slow = fast = head\n    while fast.next and fast.next.next:\n        slow = slow.next\n        fast = fast.next.next\n\n    # reverse the second half\n    prev = None\n    curr = slow.next\n    while curr:\n        nxt = curr.next\n        curr.next = prev\n        prev = curr\n        curr = nxt\n    slow.next = prev\n\n    first, second = head, slow.next\n    ok = True\n    while second:\n        if first.val != second.val:\n            ok = False\n            break\n        first = first.next\n        second = second.next\n\n    # restore\n    curr = slow.next\n    prev = None\n    while curr:\n        nxt = curr.next\n        curr.next = prev\n        prev = curr\n        curr = nxt\n    slow.next = prev\n    return ok",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "1->2->2->1\nmiddle at first 2; reverse tail -> 1->2 | 1->2\ncompare 1==1, 2==2 -> True",
+      "whyWorks": "Reversing makes the second half traversable in the order needed for comparison."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Odd length — the middle element is skipped",
+    "Empty or single node -> True",
+    "Two nodes"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Check if LL is palindrome or not”."
+  "commonMistakes": [
+    "Not restoring the list when the caller still needs it",
+    "Off-by-one when locating the middle for odd lengths"
+  ],
+  "patternRecognition": [
+    "Combine middle-finding and reversal — two primitives, one problem"
+  ],
+  "followUps": [
+    "Do it without modifying the list (needs O(n) space or recursion)",
+    "Palindrome check on a doubly linked list",
+    "Reorder list using the same split-and-reverse"
+  ],
+  "interviewInsight": "Ask whether mutating the input is acceptable; the answer changes which solution is \"optimal\".",
+  "related": [
+    {
+      "id": "lngthflpinll",
+      "title": "Length of Loop in LL"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "sgrrgtddndvnndsinll",
+      "title": "Segrregate odd and even nodes in LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "findthstrtingpintinll",
+      "title": "Find the starting point in LL"
     }
-  }
+  ]
 }

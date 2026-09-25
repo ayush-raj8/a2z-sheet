@@ -1,36 +1,86 @@
 {
+  "version": 2,
   "id": "gcdrhcf",
   "title": "GCD Or HCF",
+  "topicNumber": 16,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/find-gcd-of-two-numbers/",
-  "intro": "GCD via Euclidean algorithm is foundational number theory for contests — also the basis of LCM. Classic framing from the roadmap note “find gcd of two numbers”.",
-  "intuition": "gcd(a,b)=gcd(b,a%b) until b=0.",
-  "approach": [
-    "Apply Euclidean algorithm.",
-    "LCM = a/gcd*b carefully.",
-    "Watch zero inputs."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "gcd",
+    "euclidean"
   ],
+  "pattern": "euclidean-algorithm",
+  "problemStatement": "Compute GCD/HCF of two integers. Often used to compute LCM = a / gcd * b carefully.",
+  "example": "gcd(12, 18) = 6",
+  "intuition": "Euclid: gcd(a,b)=gcd(b, a%b). Remainders shrink quickly → O(log min(a,b)). This is the interview algorithm — not trial from min down to 1.",
+  "approaches": [
+    {
+      "title": "Brute: trial from min(a,b)",
+      "idea": "Check downward for first common divisor.",
+      "code": "def gcd_brute(a: int, b: int) -> int:\n    a, b = abs(a), abs(b)\n    for x in range(min(a, b), 0, -1):\n        if a % x == 0 and b % x == 0:\n            return x\n    return a or b",
+      "language": "python",
+      "time": "O(min(a,b))",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "TLE for large a,b near 1e12"
+      ]
+    },
+    {
+      "title": "Optimal: Euclidean algorithm",
+      "idea": "Replace (a,b) with (b, a%b) until b=0.",
+      "code": "def gcd(a: int, b: int) -> int:\n    a, b = abs(a), abs(b)\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm(a: int, b: int) -> int:\n    return abs(a // gcd(a, b) * b)  # divide before multiply",
+      "language": "python",
+      "time": "O(log min(a,b))",
+      "space": "O(1)",
+      "dryRun": "gcd(12,18)\n12,18 → 18,12 → 12,6 → 6,0 → 6",
+      "whyWorks": "Any common divisor of a and b also divides a%b; the sets of common divisors stay aligned."
+    }
+  ],
+  "specialTechnique": {
+    "title": "Special technique: Euclidean algorithm",
+    "body": "Remainders strictly decrease for b>0, so termination is guaranteed. This underpins fraction simplification, modular inverses (extended Euclid), and LCM calculations."
+  },
   "complexity": {
     "time": "O(log min(a,b))",
-    "space": "O(1)"
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "gcd(0,0) definition.",
-    "LCM overflow."
+  "edgeCases": [
+    "gcd(0,0) undefined/controversial — define a convention",
+    "negatives",
+    "one zero"
   ],
-  "languages": {
-    "cpp": {
-      "code": "long long gcd(long long a, long long b) {\n    while (b) { auto t = a % b; a = b; b = t; }\n    return a;\n}"
+  "commonMistakes": [
+    "LCM overflow by multiplying first",
+    "Brute trial for huge values → TLE"
+  ],
+  "patternRecognition": [
+    "Problems asking “largest number dividing both”",
+    "Fraction reduction, lattice points, frog jumps with steps"
+  ],
+  "followUps": [
+    "Extended Euclid for modular inverse?",
+    "GCD of an array?",
+    "Why LCM(a,b)*GCD(a,b)=|a*b|?"
+  ],
+  "interviewInsight": "Brute vs Euclid is a clean complexity conversation — take it.",
+  "related": [
+    {
+      "id": "printlldivisrs",
+      "title": "Print all Divisors"
     },
-    "java": {
-      "code": "static long gcd(long a, long b) {\n    while (b != 0) { long t = a % b; a = b; b = t; }\n    return a;\n}"
-    },
-    "python": {
-      "code": "def gcd(a: int, b: int) -> int:\n    while b:\n        a, b = b, a % b\n    return abs(a)"
-    },
-    "go": {
-      "code": "func gcd(a, b int64) int64 {\n    for b != 0 { a, b = b, a%b }\n    if a < 0 { return -a }\n    return a\n}"
+    {
+      "id": "chckfrprim",
+      "title": "Check for Prime"
     }
-  }
+  ]
 }

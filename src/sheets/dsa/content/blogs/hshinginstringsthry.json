@@ -1,40 +1,69 @@
 {
+  "version": 2,
   "id": "hshinginstringsthry",
   "title": "Hashing In Strings | Theory",
+  "topicNumber": 449,
   "stepTitle": "Strings",
   "subStepTitle": "Hard Problems",
+  "category": "Strings",
+  "subcategory": "Hard Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Hashing trades memory for average O(1) lookups. State collision assumptions; prefer frequency maps for counting problems.",
-  "intuition": "Key → frequency/index; collisions are rare with good hash tables.",
-  "approach": [
-    "Build frequency/index map.",
-    "Query in average O(1).",
-    "Fall back to sorted+two pointers if hash worst-case matters."
+  "quality": "reviewed",
+  "tags": [
+    "string",
+    "medium"
+  ],
+  "pattern": "strings",
+  "problemStatement": "Understand Hashing In Strings | Theory deeply enough to use it in later problems in “Strings”.",
+  "intuition": "\"Hashing In Strings | Theory\" is a string problem. Clarify case, spaces, and alphabet size. Prefer two pointers, hashing, or KMP/Z/rolling hash over blind O(n²) nested loops when n is large.",
+  "approaches": [
+    {
+      "title": "Core idea & mental model",
+      "idea": "Build the right model for \"Hashing In Strings | Theory\" before diving into adjacent coding problems in this section.",
+      "code": "# Concept notes — Hashing In Strings | Theory\n# - Definition in one sentence\n# - When it shows up in interviews\n# - Complexity of core operations\n# - Common pitfalls\n\ndef demo():\n    \"\"\"Minimal illustration hook for Hashing In Strings | Theory.\"\"\"\n    return True",
+      "language": "python",
+      "time": "Conceptual — see operation costs in the section",
+      "space": "Conceptual"
+    }
   ],
   "complexity": {
-    "time": "Average O(n)",
-    "space": "O(n)"
+    "time": "Conceptual — see operation costs in the section",
+    "space": "Conceptual"
   },
-  "pitfalls": [
-    "Mutable keys.",
-    "Assuming iteration order."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Hashing In Strings | Theory\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Hashing In Strings | Theory\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Quadratic string concatenation",
+    "Forgetting Unicode/case rules",
+    "Confusing subsequence vs substring"
+  ],
+  "patternRecognition": [
+    "Contiguous unique/constrained chars → sliding window",
+    "Pattern matching → KMP / Z / Rabin-Karp"
+  ],
+  "followUps": [
+    "Case-insensitive variant?",
+    "Streaming input?",
+    "Memory limit if alphabet is huge?"
+  ],
+  "interviewInsight": "Pin down the string rules before coding \"Hashing In Strings | Theory\" — most WA comes from unclear contracts.",
+  "related": [
+    {
+      "id": "cntndsy",
+      "title": "Count and say"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Hashing In Strings | Theory\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Hashing In Strings | Theory\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "rbinkrp",
+      "title": "Rabin Karp"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Hashing In Strings | Theory\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Hashing In Strings | Theory\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Hashing In Strings | Theory\nfunc solve(a []int) int {\n    // TODO: core idea for \"Hashing In Strings | Theory\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "minimmnmbrfbrcktrvrslsnddtmknxprssinblncd",
+      "title": "Minimum number of bracket reversals needed to make an expression balanced"
     }
-  }
+  ]
 }

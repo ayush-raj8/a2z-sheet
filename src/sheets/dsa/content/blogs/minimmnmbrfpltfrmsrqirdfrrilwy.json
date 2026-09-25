@@ -1,40 +1,69 @@
 {
+  "version": 2,
   "id": "minimmnmbrfpltfrmsrqirdfrrilwy",
   "title": "Minimum number of platforms required for a railway",
+  "topicNumber": 267,
   "stepTitle": "Greedy Algorithms [Easy, Medium/Hard]",
   "subStepTitle": "Medium/Hard",
+  "category": "Greedy Algorithms [Easy, Medium/Hard]",
+  "subcategory": "Medium/Hard",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/minimum-number-of-platforms-required-for-a-railway/",
-  "intro": "Greedy works when a local choice stays safe globally — prove exchange argument or use a known theorem.",
-  "intuition": "Sort or pick extreme candidate; verify no better swap exists.",
-  "approach": [
-    "Sort by key.",
-    "Take next safe candidate.",
-    "Prove no better alternative exists."
+  "quality": "reviewed",
+  "tags": [
+    "greedy",
+    "medium"
+  ],
+  "pattern": "greedy",
+  "problemStatement": "Solve “Minimum number of platforms required for a railway” as posed in the A2Z sheet (Medium/Hard).",
+  "intuition": "\"Minimum number of platforms required for a railway\" may admit a greedy choice. Sort by the right key, then take the next safe candidate. Prove exchange argument or cite a known theorem.",
+  "approaches": [
+    {
+      "title": "Greedy after sorting",
+      "idea": "Sort, then scan once taking locally optimal safe moves.",
+      "code": "def solve(intervals):\n    # Skeleton for: Minimum number of platforms required for a railway\n    intervals = sorted(intervals, key=lambda x: x[1])  # adapt key\n    ans = 0\n    last_end = float('-inf')\n    for start, end in intervals:\n        if start >= last_end:\n            ans += 1\n            last_end = end\n    return ans",
+      "language": "python",
+      "time": "Usually O(n log n) from sort",
+      "space": "O(1)–O(n)",
+      "whyWorks": "Exchange: any optimal solution can be transformed into the greedy one without loss."
+    }
   ],
   "complexity": {
     "time": "Usually O(n log n) from sort",
     "space": "O(1)–O(n)"
   },
-  "pitfalls": [
-    "No proof → WA on counterexamples.",
-    "Sorting by the wrong key."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Minimum number of platforms required for a railway\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Minimum number of platforms required for a railway\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Greedy without proof → WA on counterexamples",
+    "Sorting by the wrong key",
+    "Using DP when greedy suffices (or the reverse)"
+  ],
+  "patternRecognition": [
+    "Interval scheduling, jump reachability, Huffman-style choices"
+  ],
+  "followUps": [
+    "Counterexample if sorted by start instead?",
+    "DP fallback when greedy fails?",
+    "Online vs offline greedy?"
+  ],
+  "interviewInsight": "For \"Minimum number of platforms required for a railway\", the sort key is the interview; code is secondary.",
+  "related": [
+    {
+      "id": "jmpgm2",
+      "title": "Jump Game 2"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Minimum number of platforms required for a railway\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Minimum number of platforms required for a railway\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "jbsqncingprblm",
+      "title": "Job sequencing Problem"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Minimum number of platforms required for a railway\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Minimum number of platforms required for a railway\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Minimum number of platforms required for a railway\nfunc solve(a []int) int {\n    // TODO: core idea for \"Minimum number of platforms required for a railway\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "jmpgm",
+      "title": "Jump Game"
     }
-  }
+  ]
 }

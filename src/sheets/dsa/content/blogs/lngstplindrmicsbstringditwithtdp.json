@@ -1,38 +1,82 @@
 {
+  "version": 2,
   "id": "lngstplindrmicsbstringditwithtdp",
   "title": "Longest Palindromic Substring[Do it without DP]",
+  "topicNumber": 123,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Medium String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Medium String Problems",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Trees are recursive structures. Prefer clear traversals (pre/in/post/level) and define null-base cases first.",
-  "intuition": "Left/right subtrees are the same problem smaller — recurse with clear return meaning.",
-  "approach": [
-    "Choose traversal.",
-    "Recurse on children.",
-    "Combine child answers into parent answer."
+  "quality": "reviewed",
+  "tags": [
+    "strings",
+    "two-pointers"
+  ],
+  "pattern": "expand around centre",
+  "problemStatement": "Find the longest palindromic substring without using DP.",
+  "example": "\"babad\" -> \"bab\" or \"aba\"",
+  "intuition": "Every palindrome has a centre — a character (odd length) or a gap between two characters (even length). There are 2n-1 centres, and expanding each is linear.",
+  "approaches": [
+    {
+      "title": "Brute: check every substring",
+      "idea": "O(n^2) substrings, each checked in O(n).",
+      "code": "def longest_pal_brute(s: str) -> str:\n    best = \"\"\n    for i in range(len(s)):\n        for j in range(i, len(s)):\n            sub = s[i:j + 1]\n            if sub == sub[::-1] and len(sub) > len(best):\n                best = sub\n    return best",
+      "language": "python",
+      "time": "O(n^3)",
+      "space": "O(n)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal (non-DP): expand around centre",
+      "idea": "Try all 2n-1 centres, expanding while the characters match.",
+      "code": "def longest_palindrome(s: str) -> str:\n    if not s:\n        return \"\"\n    start, length = 0, 1\n\n    def expand(lo: int, hi: int) -> None:\n        nonlocal start, length\n        while lo >= 0 and hi < len(s) and s[lo] == s[hi]:\n            lo -= 1\n            hi += 1\n        if hi - lo - 1 > length:\n            start, length = lo + 1, hi - lo - 1\n\n    for i in range(len(s)):\n        expand(i, i)\n        expand(i, i + 1)\n    return s[start:start + length]",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1) auxiliary",
+      "dryRun": "s=\"babad\"\ncentre 1 (a) expands to \"bab\" length 3\ncentre 2 (b) expands to \"aba\" length 3 (not longer, kept first)",
+      "whyWorks": "Every palindromic substring is discovered by expanding from its own centre."
+    }
   ],
   "complexity": {
-    "time": "O(n)",
-    "space": "O(h) recursion"
+    "time": "O(n^2)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Null dereference.",
-    "Passing parent incorrectly in DFS."
+  "edgeCases": [
+    "Even-length palindromes",
+    "All identical characters",
+    "No palindrome longer than 1",
+    "Empty string"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node *left, *right; };\nvoid inorder(Node* r) {\n    if (!r) return;\n    inorder(r->left);\n    cout << r->val << \" \";\n    inorder(r->right);\n}",
-      "notes": "Change traversal / return aggregate for “Longest Palindromic Substring[Do it without DP]”."
+  "commonMistakes": [
+    "Only handling odd centres",
+    "Off-by-one when computing the length after the expansion loop"
+  ],
+  "patternRecognition": [
+    "Centre expansion beats DP on space; Manacher beats both on time"
+  ],
+  "followUps": [
+    "Manacher's algorithm in O(n)",
+    "Count palindromic substrings",
+    "Longest palindromic subsequence (#411) — different problem"
+  ],
+  "interviewInsight": "Mention Manacher as the O(n) solution even if you do not code it; knowing it exists is the expected depth.",
+  "related": [
+    {
+      "id": "cntnmbrfsbstrings",
+      "title": "Count Number of Substrings"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node left, right;\n    Node(int v) { val = v; }\n}\nstatic void inorder(Node r) {\n    if (r == null) return;\n    inorder(r.left);\n    System.out.print(r.val + \" \");\n    inorder(r.right);\n}"
+    {
+      "id": "smfbtyfllsbstring",
+      "title": "Sum of Beauty of all substring"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorder(r):\n    if not r: return\n    inorder(r.left)\n    print(r.val, end=\" \")\n    inorder(r.right)"
-    },
-    "go": {
-      "code": "type Node struct {\n    Val int\n    Left, Right *Node\n}\nfunc inorder(r *Node) {\n    if r == nil { return }\n    inorder(r.Left)\n    fmt.Print(r.Val, \" \")\n    inorder(r.Right)\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "implmntti",
+      "title": "Implement Atoi"
     }
-  }
+  ]
 }

@@ -1,40 +1,50 @@
 {
+  "version": 2,
   "id": "jvcllctins",
   "title": "Java Collections",
+  "topicNumber": 12,
   "stepTitle": "Learn the basics",
-  "subStepTitle": "Learn STL/Java-Collections or similar thing in your\n            language",
+  "subStepTitle": "Learn STL/Java-Collections or similar thing in your language",
+  "category": "Learn the basics",
+  "subcategory": "Learn STL/Java-Collections or similar thing in your language",
+  "difficulty": "easy",
+  "topicType": "data-structure",
   "sourceUrl": null,
-  "intro": "C++ STL is leverage: vector, set, map, unordered_map, priority_queue, algorithms. Prefer clear containers over hand-rolled structures unless the problem needs it.",
-  "intuition": "Choose the container by access pattern: vector for sequences, unordered_map for average lookups, set for ordered uniques.",
-  "approach": [
-    "Pick container from operations.",
-    "Use algorithms (sort, lower_bound) instead of hand loops when clear.",
-    "Mind iterator invalidation rules."
+  "quality": "reviewed",
+  "tags": [
+    "collections",
+    "java"
+  ],
+  "problemStatement": "Java Collections counterparts for common DSA needs — mirrored here in Python for this sheet’s default language.",
+  "intuition": "ArrayList≈list, HashMap≈dict, HashSet≈set, ArrayDeque≈deque, PriorityQueue≈heapq. Know average costs and when TreeMap-order matters.",
+  "approaches": [
+    {
+      "title": "Common structures in Python",
+      "idea": "Same selection criteria as Java Collections.",
+      "code": "from collections import deque, Counter\nimport heapq\n\nfreqs = Counter([1, 1, 2])\ndq = deque()\ndq.append(1)\ndq.appendleft(0)\ndq.pop()\nheap = []\nheapq.heappush(heap, 5)\nheapq.heappush(heap, 1)\nprint(heapq.heappop(heap))  # 1",
+      "language": "python",
+      "time": "dict/Counter avg O(1); heap push/pop O(log n)",
+      "space": "O(n)"
+    }
   ],
   "complexity": {
-    "time": "Container-specific",
-    "space": "Container-specific"
+    "time": "Per-operation",
+    "space": "O(n) typical"
   },
-  "pitfalls": [
-    "Using map when unordered_map suffices (log factor).",
-    "Iterator invalidation after insert/erase."
+  "commonMistakes": [
+    "Modifying a dict while iterating keys",
+    "Using list as a queue (O(n) pop(0)) → TLE"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Java Collections\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Java Collections\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Java Collections\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Java Collections\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Java Collections\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Java Collections\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Java Collections\nfunc solve(a []int) int {\n    // TODO: core idea for \"Java Collections\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+  "followUps": [
+    "Why ArrayDeque over Stack in Java?",
+    "LinkedHashMap use cases?",
+    "Heap as min vs max?"
+  ],
+  "interviewInsight": "Using list.pop(0) as queue is a Python TLE classic — prefer deque.",
+  "related": [
+    {
+      "id": "cstl",
+      "title": "C++ STL"
     }
-  }
+  ]
 }

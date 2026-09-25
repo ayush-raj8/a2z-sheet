@@ -1,40 +1,93 @@
 {
+  "version": 2,
   "id": "findmissingnmbrinnrry",
   "title": "Find missing number in an array",
+  "topicNumber": 48,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/find-the-missing-number-in-an-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “find the missing number in an array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "math",
+    "bit-manipulation"
+  ],
+  "pattern": "sum / XOR trick",
+  "problemStatement": "An array holds n distinct numbers from 1..n+1 with exactly one missing. Find it.",
+  "example": "[1,2,4,5], n+1 = 5 -> 3",
+  "intuition": "Compare the array against what it should have been. Sum difference or XOR cancellation both isolate the missing value in one pass with O(1) memory.",
+  "approaches": [
+    {
+      "title": "Brute: search for each candidate",
+      "idea": "For every value 1..N, scan the array.",
+      "code": "def missing_brute(a: list[int], n: int) -> int:\n    for v in range(1, n + 1):\n        if v not in a:\n            return v\n    return -1",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Better: hash set",
+      "idea": "Membership in O(1), at the cost of O(n) memory.",
+      "code": "def missing_hash(a: list[int], n: int) -> int:\n    seen = set(a)\n    for v in range(1, n + 1):\n        if v not in seen:\n            return v\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: sum difference (or XOR)",
+      "idea": "expected - actual. XOR avoids any overflow concern in fixed-width languages.",
+      "code": "def missing_number(a: list[int], n: int) -> int:\n    expected = n * (n + 1) // 2\n    return expected - sum(a)\n\n\ndef missing_number_xor(a: list[int], n: int) -> int:\n    x = 0\n    for i in range(1, n + 1):\n        x ^= i\n    for v in a:\n        x ^= v\n    return x",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,2,4,5] n=5\nexpected=15 actual=12 -> 3",
+      "whyWorks": "XOR is its own inverse, so every present value cancels and only the missing one survives."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Missing value is 1 or n",
+    "n = 1",
+    "Overflow in C++/Java for large n (prefer XOR)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Find missing number in an array\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Find missing number in an array\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Using n instead of n+1 in the formula",
+    "Assuming the array is sorted"
+  ],
+  "patternRecognition": [
+    "\"Exactly one element differs from a known multiset\" -> sum or XOR cancellation"
+  ],
+  "followUps": [
+    "Two numbers missing",
+    "One missing and one repeating (see #75)",
+    "Which is safer in Java: sum or XOR, and why?"
+  ],
+  "interviewInsight": "Offer both formulas and name the overflow trade-off — that is the differentiator here.",
+  "related": [
+    {
+      "id": "findthnin",
+      "title": "Find the Union"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Find missing number in an array\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Find missing number in an array\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "mximmcnsctivns",
+      "title": "Maximum Consecutive Ones"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Find missing number in an array\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Find missing number in an array\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Find missing number in an array\nfunc solve(a []int) int {\n    // TODO: core idea for \"Find missing number in an array\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "linrsrch",
+      "title": "Linear Search"
     }
-  }
+  ]
 }

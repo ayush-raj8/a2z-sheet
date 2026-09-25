@@ -1,40 +1,71 @@
 {
+  "version": 2,
   "id": "4smprblm",
   "title": "4-Sum Problem",
+  "topicNumber": 70,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/4-sum-find-quads-that-add-up-to-a-target-value/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “4 sum find quads that add up to a target value”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "two-pointers",
+    "sorting"
+  ],
+  "pattern": "sort + fix two + two pointers",
+  "problemStatement": "Return all unique quadruplets summing to a target.",
+  "example": "[1,0,-1,0,-2,2], target 0 -> [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]",
+  "intuition": "Exactly 3-Sum with one more fixed index. The skip-duplicates discipline is applied at all four levels.",
+  "approaches": [
+    {
+      "title": "Optimal: two nested loops + two pointers",
+      "idea": "Sort once; skip duplicates at i, j, lo and hi.",
+      "code": "def four_sum(a: list[int], target: int) -> list[list[int]]:\n    a.sort()\n    n = len(a)\n    out: list[list[int]] = []\n    for i in range(n - 3):\n        if i > 0 and a[i] == a[i - 1]:\n            continue\n        for j in range(i + 1, n - 2):\n            if j > i + 1 and a[j] == a[j - 1]:\n                continue\n            lo, hi = j + 1, n - 1\n            while lo < hi:\n                s = a[i] + a[j] + a[lo] + a[hi]\n                if s < target:\n                    lo += 1\n                elif s > target:\n                    hi -= 1\n                else:\n                    out.append([a[i], a[j], a[lo], a[hi]])\n                    lo += 1\n                    hi -= 1\n                    while lo < hi and a[lo] == a[lo - 1]:\n                        lo += 1\n                    while lo < hi and a[hi] == a[hi + 1]:\n                        hi -= 1\n    return out",
+      "language": "python",
+      "time": "O(n^3)",
+      "space": "O(1) auxiliary beyond sorting",
+      "dryRun": "sorted: [-2,-1,0,0,1,2] target 0\ni=-2, j=-1 -> lo/hi find (1,2)\ni=-2, j=0 -> (0,2)\ni=-1, j=0 -> (0,1)",
+      "whyWorks": "Fixing two indices reduces to sorted 2-Sum, which is linear."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n^3)",
+    "space": "O(1) auxiliary beyond sorting"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Integer overflow in C++/Java (use 64-bit)",
+    "Heavy duplicates",
+    "n < 4"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: 4-Sum Problem\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"4-Sum Problem\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Skipping j duplicates with `j > 0` instead of `j > i + 1`",
+    "Forgetting that the sum can overflow 32-bit ints in other languages"
+  ],
+  "patternRecognition": [
+    "k-Sum -> fix k-2 indices and run two pointers"
+  ],
+  "followUps": [
+    "Generic k-Sum via recursion",
+    "Count quadruplets instead of listing them",
+    "Can you beat O(n^3)? (meet in the middle, O(n^2 log n))"
+  ],
+  "interviewInsight": "The meet-in-the-middle O(n^2) pair-hash answer is a strong bonus if you have time to mention it.",
+  "related": [
+    {
+      "id": "3smprblm",
+      "title": "3-Sum Problem"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: 4-Sum Problem\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"4-Sum Problem\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "lrgstsbrrywith0sm",
+      "title": "Largest Subarray with 0 Sum"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: 4-Sum Problem\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"4-Sum Problem\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: 4-Sum Problem\nfunc solve(a []int) int {\n    // TODO: core idea for \"4-Sum Problem\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "mjritylmntn3tims",
+      "title": "Majority Element (n/3 times)"
     }
-  }
+  ]
 }

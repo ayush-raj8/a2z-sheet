@@ -1,40 +1,79 @@
 {
+  "version": 2,
   "id": "lngstcmmnprfix",
   "title": "Longest Common Prefix",
+  "topicNumber": 114,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Basic and Easy String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Basic and Easy String Problems",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Strings are arrays of characters with encoding traps. Prefer two pointers / hashing / KMP-style ideas over blind nested loops.",
-  "intuition": "Immutable scans with indices beat repeated concatenation.",
-  "approach": [
-    "Clarify case/space rules.",
-    "Use two pointers or frequency maps.",
-    "Avoid quadratic concatenations."
+  "quality": "reviewed",
+  "tags": [
+    "strings"
+  ],
+  "pattern": "vertical scan",
+  "problemStatement": "Find the longest common prefix of an array of strings.",
+  "example": "[\"flower\",\"flow\",\"flight\"] -> \"fl\"",
+  "intuition": "The answer can never be longer than the shortest string, and the first mismatching column ends it. Scanning column by column lets you stop at the earliest possible moment.",
+  "approaches": [
+    {
+      "title": "Vertical scan",
+      "idea": "Compare character i across all strings; stop at the first disagreement.",
+      "code": "def longest_common_prefix(strs: list[str]) -> str:\n    if not strs:\n        return \"\"\n    for i in range(len(strs[0])):\n        c = strs[0][i]\n        for s in strs[1:]:\n            if i >= len(s) or s[i] != c:\n                return strs[0][:i]\n    return strs[0]",
+      "language": "python",
+      "time": "O(total characters) worst case",
+      "space": "O(1) auxiliary",
+      "dryRun": "[\"flower\",\"flow\",\"flight\"]\ni=0 all f; i=1 all l; i=2 o vs o vs i -> stop -> \"fl\"",
+      "whyWorks": "A common prefix of length k requires agreement in every column below k."
+    },
+    {
+      "title": "Sort-based trick",
+      "idea": "After sorting, only the first and last strings need comparing.",
+      "code": "def lcp_sorted(strs: list[str]) -> str:\n    if not strs:\n        return \"\"\n    strs = sorted(strs)\n    first, last = strs[0], strs[-1]\n    i = 0\n    while i < min(len(first), len(last)) and first[i] == last[i]:\n        i += 1\n    return first[:i]",
+      "language": "python",
+      "time": "O(n log n * L)",
+      "space": "O(1) auxiliary",
+      "whyWorks": "Lexicographic extremes bound the common prefix of everything in between."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) or O(n log n)",
-    "space": "O(1)–O(n)"
+    "time": "O(total characters)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Immutability copies in Java.",
-    "UTF-16 vs bytes surprises."
+  "edgeCases": [
+    "Empty array",
+    "An empty string in the list -> \"\"",
+    "All strings identical",
+    "Single string"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Longest Common Prefix\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Longest Common Prefix\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Indexing past the end of a shorter string",
+    "Returning the whole first string when it is itself the prefix but shorter matches exist"
+  ],
+  "patternRecognition": [
+    "Prefix problems -> vertical scan or a trie for repeated queries"
+  ],
+  "followUps": [
+    "Use a trie when queries repeat (#440)",
+    "Longest common suffix",
+    "Longest common prefix of two strings only"
+  ],
+  "interviewInsight": "The sorted trick is a nice flourish, but explain why it works — otherwise it looks like a memorised hack.",
+  "related": [
+    {
+      "id": "lrgstddnmbrinstring",
+      "title": "Largest odd number in a string"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Longest Common Prefix\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Longest Common Prefix\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "ismrphicstring",
+      "title": "Isomorphic String"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Longest Common Prefix\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Longest Common Prefix\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Longest Common Prefix\nfunc solve(a []int) int {\n    // TODO: core idea for \"Longest Common Prefix\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "rvrswrdsingivnstringplindrmchck",
+      "title": "Reverse words in a given string / Palindrome Check"
     }
-  }
+  ]
 }

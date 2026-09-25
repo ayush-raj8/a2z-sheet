@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "prfixtinfixcnvrsin",
   "title": "Prefix to Infix Conversion",
+  "topicNumber": 209,
   "stepTitle": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
   "subStepTitle": "Prefix, Infix, PostFix Conversion Problems",
+  "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+  "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Stack = LIFO, Queue = FIFO. Use them when the next useful element is the most recent or the earliest pending.",
-  "intuition": "Push when you defer work; pop when the deferred item becomes due.",
-  "approach": [
-    "Map problem events to push/pop.",
-    "Maintain invariants on the structure.",
-    "Drain remaining items if needed."
+  "quality": "reviewed",
+  "tags": [
+    "stack-queue",
+    "medium"
+  ],
+  "pattern": "stack-queue",
+  "problemStatement": "Solve “Prefix to Infix Conversion” as posed in the A2Z sheet (Prefix, Infix, PostFix Conversion Problems).",
+  "intuition": "\"Prefix to Infix Conversion\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "approaches": [
+    {
+      "title": "Stack / monotonic stack skeleton",
+      "idea": "Maintain candidates in order; pop while invariant breaks.",
+      "code": "def solve(a):\n    # Skeleton for: Prefix to Infix Conversion\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+    }
   ],
   "complexity": {
     "time": "O(n)",
     "space": "O(n)"
   },
-  "pitfalls": [
-    "Pop on empty.",
-    "Using stack where queue semantics needed."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nvector<int> nextGreater(vector<int>& a) {\n    int n = a.size();\n    vector<int> ans(n, -1);\n    stack<int> st;\n    for (int i = 0; i < n; i++) {\n        while (!st.empty() && a[st.top()] < a[i]) {\n            ans[st.top()] = a[i]; st.pop();\n        }\n        st.push(i);\n    }\n    return ans;\n}",
-      "notes": "Monotonic stack/queue patterns adapt cleanly to “Prefix to Infix Conversion”."
+  "commonMistakes": [
+    "Pop on empty",
+    "Storing values when indices are needed",
+    "Wrong inequality on monotonic stack"
+  ],
+  "patternRecognition": [
+    "Next greater/smaller → monotonic stack",
+    "Matching / parsing → classic stack"
+  ],
+  "followUps": [
+    "Circular array variant?",
+    "Sum of subarray minimums connection?",
+    "Queue via two stacks?"
+  ],
+  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Prefix to Infix Conversion\".",
+  "related": [
+    {
+      "id": "infixtpstfixcnvrsinsingstck",
+      "title": "Infix to Postfix Conversion using Stack"
     },
-    "java": {
-      "code": "static int[] nextGreater(int[] a) {\n    int n = a.length;\n    int[] ans = new int[n];\n    Arrays.fill(ans, -1);\n    Deque<Integer> st = new ArrayDeque<>();\n    for (int i = 0; i < n; i++) {\n        while (!st.isEmpty() && a[st.peek()] < a[i]) ans[st.pop()] = a[i];\n        st.push(i);\n    }\n    return ans;\n}"
+    {
+      "id": "prfixtpstfixcnvrsin",
+      "title": "Prefix to Postfix Conversion"
     },
-    "python": {
-      "code": "def next_greater(a):\n    n = len(a)\n    ans = [-1] * n\n    st = []\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:\n            ans[st.pop()] = x\n        st.append(i)\n    return ans"
-    },
-    "go": {
-      "code": "func nextGreater(a []int) []int {\n    n := len(a)\n    ans := make([]int, n)\n    for i := range ans { ans[i] = -1 }\n    st := []int{}\n    for i, x := range a {\n        for len(st) > 0 && a[st[len(st)-1]] < x {\n            ans[st[len(st)-1]] = x\n            st = st[:len(st)-1]\n        }\n        st = append(st, i)\n    }\n    return ans\n}"
+    {
+      "id": "pstfixtprfixcnvrsin",
+      "title": "Postfix to Prefix Conversion"
     }
-  }
+  ]
 }

@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "chckiftwstringsrngrmfchthr",
   "title": "Check if two strings are anagram of each other",
+  "topicNumber": 117,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Basic and Easy String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Basic and Easy String Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/check-if-two-strings-are-anagrams-of-each-other/",
-  "intro": "Strings are arrays of characters with encoding traps. Prefer two pointers / hashing / KMP-style ideas over blind nested loops. Classic framing from the roadmap note “check if two strings are anagrams of each other”.",
-  "intuition": "Immutable scans with indices beat repeated concatenation.",
-  "approach": [
-    "Clarify case/space rules.",
-    "Use two pointers or frequency maps.",
-    "Avoid quadratic concatenations."
+  "quality": "reviewed",
+  "tags": [
+    "strings",
+    "hashing"
+  ],
+  "pattern": "frequency comparison",
+  "problemStatement": "Check whether two strings are anagrams of each other.",
+  "example": "\"listen\", \"silent\" -> True",
+  "intuition": "Anagrams are equal multisets of characters. Counting is O(n); sorting is O(n log n) and only worth it when memory is tight.",
+  "approaches": [
+    {
+      "title": "Brute: sort both",
+      "idea": "Equal sorted strings means equal multisets.",
+      "code": "def is_anagram_sort(a: str, b: str) -> bool:\n    return sorted(a) == sorted(b)",
+      "language": "python",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "limitations": [
+        "Slower than counting; acceptable if the alphabet is huge"
+      ]
+    },
+    {
+      "title": "Optimal: single counter array",
+      "idea": "Increment for a, decrement for b, then check all zeros.",
+      "code": "def is_anagram(a: str, b: str) -> bool:\n    if len(a) != len(b):\n        return False\n    count = [0] * 26\n    for ca, cb in zip(a, b):\n        count[ord(ca) - 97] += 1\n        count[ord(cb) - 97] -= 1\n    return all(c == 0 for c in count)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) — fixed 26-slot array",
+      "dryRun": "\"listen\" vs \"silent\"\nevery letter increments once and decrements once -> all zeros -> True",
+      "whyWorks": "Equal multisets produce a net zero count for every character."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) or O(n log n)",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) for a fixed alphabet"
   },
-  "pitfalls": [
-    "Immutability copies in Java.",
-    "UTF-16 vs bytes surprises."
+  "edgeCases": [
+    "Different lengths -> early False",
+    "Unicode / mixed case (clarify the alphabet)",
+    "Empty strings"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Check if two strings are anagram of each other\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Check if two strings are anagram of each other\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Skipping the length check",
+    "Assuming lowercase ASCII without asking"
+  ],
+  "patternRecognition": [
+    "Multiset equality -> counting array or Counter"
+  ],
+  "followUps": [
+    "Group anagrams together",
+    "Anagrams with Unicode input",
+    "Find all anagram substrings of a pattern (sliding window)"
+  ],
+  "interviewInsight": "Ask about the character set up front — it changes the space claim from O(1) to O(k).",
+  "related": [
+    {
+      "id": "chckwhthrnstringisrttinfnthr",
+      "title": "check whether one string is a rotation of another"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Check if two strings are anagram of each other\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Check if two strings are anagram of each other\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "ismrphicstring",
+      "title": "Isomorphic String"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Check if two strings are anagram of each other\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Check if two strings are anagram of each other\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Check if two strings are anagram of each other\nfunc solve(a []int) int {\n    // TODO: core idea for \"Check if two strings are anagram of each other\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "lngstcmmnprfix",
+      "title": "Longest Common Prefix"
     }
-  }
+  ]
 }

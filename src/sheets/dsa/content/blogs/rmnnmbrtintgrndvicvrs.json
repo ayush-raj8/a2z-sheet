@@ -1,40 +1,79 @@
 {
+  "version": 2,
   "id": "rmnnmbrtintgrndvicvrs",
   "title": "Roman Number to Integer and vice versa",
+  "topicNumber": 120,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Medium String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Medium String Problems",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Strings are arrays of characters with encoding traps. Prefer two pointers / hashing / KMP-style ideas over blind nested loops.",
-  "intuition": "Immutable scans with indices beat repeated concatenation.",
-  "approach": [
-    "Clarify case/space rules.",
-    "Use two pointers or frequency maps.",
-    "Avoid quadratic concatenations."
+  "quality": "reviewed",
+  "tags": [
+    "strings",
+    "greedy",
+    "simulation"
+  ],
+  "pattern": "value table + subtractive rule",
+  "problemStatement": "Convert a Roman numeral to an integer and an integer to a Roman numeral.",
+  "example": "\"MCMXCIV\" -> 1994; 1994 -> \"MCMXCIV\"",
+  "intuition": "Roman to integer: a smaller symbol immediately before a larger one is subtracted. Integer to Roman: greedily take the largest value that fits, using a table that already includes the subtractive pairs.",
+  "approaches": [
+    {
+      "title": "Roman -> integer",
+      "idea": "Compare each symbol with the next; subtract when smaller.",
+      "code": "def roman_to_int(s: str) -> int:\n    vals = {\"I\": 1, \"V\": 5, \"X\": 10, \"L\": 50, \"C\": 100, \"D\": 500, \"M\": 1000}\n    total = 0\n    for i, c in enumerate(s):\n        if i + 1 < len(s) and vals[c] < vals[s[i + 1]]:\n            total -= vals[c]\n        else:\n            total += vals[c]\n    return total",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "dryRun": "\"MCMXCIV\": M=1000, C<M -> -100, M +1000, X<C -> -10, C +100, I<V -> -1, V +5 = 1994"
+    },
+    {
+      "title": "Integer -> Roman",
+      "idea": "Greedy over a descending table that includes CM, CD, XC, XL, IX, IV.",
+      "code": "def int_to_roman(num: int) -> str:\n    table = [\n        (1000, \"M\"), (900, \"CM\"), (500, \"D\"), (400, \"CD\"),\n        (100, \"C\"), (90, \"XC\"), (50, \"L\"), (40, \"XL\"),\n        (10, \"X\"), (9, \"IX\"), (5, \"V\"), (4, \"IV\"), (1, \"I\"),\n    ]\n    out = []\n    for value, sym in table:\n        while num >= value:\n            out.append(sym)\n            num -= value\n    return \"\".join(out)",
+      "language": "python",
+      "time": "O(1) — bounded by the value 3999",
+      "space": "O(1)",
+      "whyWorks": "Including the subtractive pairs in the table makes plain greedy correct."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) or O(n log n)",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1)"
   },
-  "pitfalls": [
-    "Immutability copies in Java.",
-    "UTF-16 vs bytes surprises."
+  "edgeCases": [
+    "Subtractive pairs at the string end",
+    "Values above 3999 are undefined in classic Roman",
+    "Empty string"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Roman Number to Integer and vice versa\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Roman Number to Integer and vice versa\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Hard-coding subtraction rules instead of comparing with the next symbol",
+    "Omitting the subtractive entries from the greedy table"
+  ],
+  "patternRecognition": [
+    "Greedy works when the \"coin system\" is canonical — Roman values are"
+  ],
+  "followUps": [
+    "Validate a Roman numeral",
+    "Why is greedy correct here but not for arbitrary coin sets?",
+    "Extend beyond 3999 with overline notation"
+  ],
+  "interviewInsight": "The connection to the coin-change greedy correctness question is a great thing to raise.",
+  "related": [
+    {
+      "id": "mximmnstingdpthfprnthsis",
+      "title": "Maximum Nesting Depth of Paranthesis"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Roman Number to Integer and vice versa\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Roman Number to Integer and vice versa\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "implmntti",
+      "title": "Implement Atoi"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Roman Number to Integer and vice versa\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Roman Number to Integer and vice versa\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Roman Number to Integer and vice versa\nfunc solve(a []int) int {\n    // TODO: core idea for \"Roman Number to Integer and vice versa\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "srtchrctrsbyfrqncy",
+      "title": "Sort Characters by frequency"
     }
-  }
+  ]
 }

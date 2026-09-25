@@ -1,37 +1,83 @@
 {
+  "version": 2,
   "id": "splitrrylrgstsm",
   "title": "Split array - Largest Sum",
+  "topicNumber": 101,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/split-array-largest-sum/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “split array largest sum”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "binary-search-on-answer"
+  ],
+  "pattern": "minimise the maximum subarray sum",
+  "problemStatement": "Split an array into k contiguous subarrays minimising the largest subarray sum.",
+  "example": "[7,2,5,10,8], k=2 -> 18",
+  "intuition": "Identical to book allocation: binary search the candidate maximum and greedily count the pieces needed.",
+  "approaches": [
+    {
+      "title": "Optimal: binary search on the largest sum",
+      "idea": "Greedy chunking gives the minimum number of pieces for a cap.",
+      "code": "def split_array(a: list[int], k: int) -> int:\n    def pieces(cap: int) -> int:\n        cnt, cur = 1, 0\n        for x in a:\n            if cur + x > cap:\n                cnt += 1\n                cur = 0\n            cur += x\n        return cnt\n\n    lo, hi = max(a), sum(a)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if pieces(mid) <= k:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "language": "python",
+      "time": "O(n log(sum))",
+      "space": "O(1) auxiliary",
+      "dryRun": "[7,2,5,10,8] k=2 range [10,32]\ncap=21 -> 2 pieces feasible\ncap=15 -> 3 pieces infeasible\ncap=18 -> 2 feasible -> 18"
+    },
+    {
+      "title": "Alternative: interval DP",
+      "idea": "dp[i][j] = min over split points; useful when k is small and values are tiny.",
+      "code": "def split_array_dp(a: list[int], k: int) -> int:\n    n = len(a)\n    pre = [0] * (n + 1)\n    for i, x in enumerate(a):\n        pre[i + 1] = pre[i] + x\n    INF = float(\"inf\")\n    dp = [[INF] * (k + 1) for _ in range(n + 1)]\n    dp[0][0] = 0\n    for i in range(1, n + 1):\n        for j in range(1, k + 1):\n            for t in range(i):\n                dp[i][j] = min(dp[i][j], max(dp[t][j - 1], pre[i] - pre[t]))\n    return int(dp[n][k])",
+      "language": "python",
+      "time": "O(n^2 k)",
+      "space": "O(n k)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "Only for small n; binary search dominates in practice"
+      ]
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log(sum))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k = 1 -> sum",
+    "k = n -> max",
+    "k > n is invalid"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Split array - Largest Sum” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Reaching for DP first and timing out",
+    "Wrong bounds on the search range"
+  ],
+  "patternRecognition": [
+    "Minimise-the-maximum -> binary search on answer"
+  ],
+  "followUps": [
+    "Book allocation (#100)",
+    "Reconstruct the split points",
+    "Compare DP vs BS complexity"
+  ],
+  "interviewInsight": "Mentioning the DP alternative and why you reject it shows you chose rather than guessed.",
+  "related": [
+    {
+      "id": "bkllctinprblm",
+      "title": "Book Allocation Problem"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "painterspartition",
+      "title": "Painter's partition"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "ggrssivcws",
+      "title": "Aggressive Cows"
     }
-  }
+  ]
 }

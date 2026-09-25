@@ -1,40 +1,82 @@
 {
+  "version": 2,
   "id": "cntnmbrfsbrryswithgivnxrk",
   "title": "Count number of subarrays with given xor K",
+  "topicNumber": 72,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Hard",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Hard",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/count-the-number-of-subarrays-with-given-xor-k/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “count the number of subarrays with given xor k”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "prefix-xor",
+    "hashing"
+  ],
+  "pattern": "prefix XOR frequency map",
+  "problemStatement": "Count subarrays whose XOR equals K.",
+  "example": "[4,2,2,6,4], K=6 -> 4",
+  "intuition": "XOR behaves like addition with its own inverse: xor(i..j) = pre[j] ^ pre[i-1]. Setting that equal to K gives pre[i-1] = pre[j] ^ K — the exact same map lookup as the sum version.",
+  "approaches": [
+    {
+      "title": "Brute: all subarrays",
+      "idea": "Running XOR from each start.",
+      "code": "def count_xor_brute(a: list[int], k: int) -> int:\n    c = 0\n    for i in range(len(a)):\n        x = 0\n        for j in range(i, len(a)):\n            x ^= a[j]\n            if x == k:\n                c += 1\n    return c",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: prefix XOR counts",
+      "idea": "Seed {0: 1}; add freq[pre ^ k] at each step.",
+      "code": "from collections import defaultdict\n\n\ndef count_subarrays_xor_k(a: list[int], k: int) -> int:\n    freq = defaultdict(int)\n    freq[0] = 1\n    pre = 0\n    count = 0\n    for x in a:\n        pre ^= x\n        count += freq[pre ^ k]\n        freq[pre] += 1\n    return count",
+      "language": "python",
+      "time": "O(n) average",
+      "space": "O(n)",
+      "dryRun": "a=[4,2,2,6,4] k=6\npre: 4,6,4,2,6\nlookups pre^6: 2,0,2,4,0 -> hits accumulate to 4",
+      "whyWorks": "pre[j] ^ K = pre[i-1] is an equivalence, because XOR is its own inverse."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n) average",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "K = 0 (counts equal-prefix pairs)",
+    "Single element equal to K",
+    "Zeros in the array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Count number of subarrays with given xor K\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Count number of subarrays with given xor K\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Using pre - k instead of pre ^ k",
+    "Forgetting the {0: 1} seed"
+  ],
+  "patternRecognition": [
+    "Any invertible associative operation supports the prefix + hash-map trick"
+  ],
+  "followUps": [
+    "Longest subarray with XOR K",
+    "Maximum XOR subarray (needs a trie, #445)",
+    "Subarray sum equals K (#66)"
+  ],
+  "interviewInsight": "Saying \"XOR is self-inverse, so the sum template transfers verbatim\" is the insight they want.",
+  "related": [
+    {
+      "id": "lrgstsbrrywith0sm",
+      "title": "Largest Subarray with 0 Sum"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Count number of subarrays with given xor K\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Count number of subarrays with given xor K\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "mrgvrlppingsbintrvls",
+      "title": "Merge Overlapping Subintervals"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Count number of subarrays with given xor K\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Count number of subarrays with given xor K\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Count number of subarrays with given xor K\nfunc solve(a []int) int {\n    // TODO: core idea for \"Count number of subarrays with given xor K\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "4smprblm",
+      "title": "4-Sum Problem"
     }
-  }
+  ]
 }

@@ -1,40 +1,54 @@
 {
+  "version": 2,
   "id": "pttrns",
   "title": "Patterns",
+  "topicNumber": 10,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Build-up Logical Thinking",
+  "category": "Learn the basics",
+  "subcategory": "Build-up Logical Thinking",
+  "difficulty": "easy",
+  "topicType": "pattern",
   "sourceUrl": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
-  "intro": "Pattern problems train nested loops and index arithmetic with instant visual feedback. Master row/col relationships before harder grids. Classic framing from the roadmap note “must do pattern problems before starting dsa”.",
-  "intuition": "Row r often prints something that depends on r and the column c — write that formula before coding.",
-  "approach": [
-    "Outer loop = rows.",
-    "Inner loop = columns / stars / numbers for that row.",
-    "Print newline after each row."
+  "quality": "reviewed",
+  "tags": [
+    "patterns",
+    "nested-loops"
+  ],
+  "pattern": "nested-loops",
+  "problemStatement": "Print grid patterns using nested loops — trains index formulas before matrices.",
+  "example": "n=3:\n*\n**\n***",
+  "intuition": "Outer loop = row r. Inner loop prints a function of r (and c). Derive the formula first.",
+  "approaches": [
+    {
+      "title": "Row formula → nested loops",
+      "idea": "For row r in 1..n print r stars.",
+      "code": "def triangle(n: int) -> None:\n    for r in range(1, n + 1):\n        print(\"*\" * r)\n\ndef pyramid(n: int) -> None:\n    for r in range(1, n + 1):\n        print(\" \" * (n - r) + \"*\" * (2 * r - 1))",
+      "language": "python",
+      "time": "O(total characters) ≈ O(n²)",
+      "space": "O(1) auxiliary"
+    }
   ],
   "complexity": {
-    "time": "O(rows × cols printed)",
-    "space": "O(1)"
+    "time": "O(n²) typical",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Wrong number of spaces vs stars.",
-    "Printing spaces after last character inconsistently."
+  "commonMistakes": [
+    "Wrong spaces/stars",
+    "Off-by-one in 2*r-1"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Patterns\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Patterns\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Patterns\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Patterns\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Patterns\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Patterns\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Patterns\nfunc solve(a []int) int {\n    // TODO: core idea for \"Patterns\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+  "patternRecognition": [
+    "Row/column dependence → nested loops with a closed-form count"
+  ],
+  "followUps": [
+    "Stars in a full pyramid of height n?",
+    "Build list of lines instead of printing?"
+  ],
+  "interviewInsight": "Warm-up: they care you can derive the formula, not memorize shapes.",
+  "related": [
+    {
+      "id": "frlps",
+      "title": "For loops"
     }
-  }
+  ]
 }

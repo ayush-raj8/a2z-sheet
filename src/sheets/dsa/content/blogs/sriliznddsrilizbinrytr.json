@@ -1,38 +1,73 @@
 {
+  "version": 2,
   "id": "sriliznddsrilizbinrytr",
   "title": "Serialize and deserialize Binary Tree",
+  "topicNumber": 310,
   "stepTitle": "Binary Trees [Traversals, Medium and Hard Problems]",
   "subStepTitle": "Hard Problems",
+  "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+  "subcategory": "Hard Problems",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/serialize-and-deserialize-a-binary-tree/",
-  "intro": "Trees are recursive structures. Prefer clear traversals (pre/in/post/level) and define null-base cases first. Classic framing from the roadmap note “serialize and deserialize a binary tree”.",
-  "intuition": "Left/right subtrees are the same problem smaller — recurse with clear return meaning.",
-  "approach": [
-    "Choose traversal.",
-    "Recurse on children.",
-    "Combine child answers into parent answer."
+  "quality": "reviewed",
+  "tags": [
+    "tree",
+    "hard"
+  ],
+  "pattern": "trees",
+  "problemStatement": "Solve “Serialize and deserialize Binary Tree” as posed in the A2Z sheet (Hard Problems).",
+  "intuition": "\"Serialize and deserialize Binary Tree\" is tree recursion: null base case, recurse on children, combine. Prefer clear traversal order; iterative/Morris when O(1) aux is required.",
+  "approaches": [
+    {
+      "title": "Recursive DFS template",
+      "idea": "Define what each call returns; handle None.",
+      "code": "class Node:\n    def __init__(self, val=0, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef solve(root):\n    # Skeleton for: Serialize and deserialize Binary Tree\n    def dfs(node):\n        if not node:\n            return 0  # adapt base\n        left = dfs(node.left)\n        right = dfs(node.right)\n        return 1 + max(left, right)  # adapt combine\n    return dfs(root)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(h) recursion stack",
+      "flags": [
+        "RE"
+      ],
+      "spaceNote": "Skewed tree → O(n) stack"
+    }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion"
+    "space": "O(h) recursion stack"
   },
-  "pitfalls": [
-    "Null dereference.",
-    "Passing parent incorrectly in DFS."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node *left, *right; };\nvoid inorder(Node* r) {\n    if (!r) return;\n    inorder(r->left);\n    cout << r->val << \" \";\n    inorder(r->right);\n}",
-      "notes": "Change traversal / return aggregate for “Serialize and deserialize Binary Tree”."
+  "commonMistakes": [
+    "Null dereference",
+    "Wrong combine of child answers",
+    "Calling stack O(1) on skewed trees"
+  ],
+  "patternRecognition": [
+    "Node-wise decisions → tree DP",
+    "Order matters → traversal choice"
+  ],
+  "followUps": [
+    "Iterative version?",
+    "Morris O(1) aux?",
+    "BST-specific acceleration?"
+  ],
+  "interviewInsight": "Specify the return meaning of dfs() before coding \"Serialize and deserialize Binary Tree\".",
+  "related": [
+    {
+      "id": "cnstrctthbinrytrfrmpstrdrndinrdrtrvrsl",
+      "title": "Construct the Binary Tree from Postorder and Inorder Traversal"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node left, right;\n    Node(int v) { val = v; }\n}\nstatic void inorder(Node r) {\n    if (r == null) return;\n    inorder(r.left);\n    System.out.print(r.val + \" \");\n    inorder(r.right);\n}"
+    {
+      "id": "mrrisprrdrtrvrslfbinrytr",
+      "title": "Morris Preorder Traversal of a Binary Tree"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorder(r):\n    if not r: return\n    inorder(r.left)\n    print(r.val, end=\" \")\n    inorder(r.right)"
-    },
-    "go": {
-      "code": "type Node struct {\n    Val int\n    Left, Right *Node\n}\nfunc inorder(r *Node) {\n    if r == nil { return }\n    inorder(r.Left)\n    fmt.Print(r.Val, \" \")\n    inorder(r.Right)\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "cnstrctbinrytrfrminrdrndprrdr",
+      "title": "Construct Binary Tree from inorder and preorder"
     }
-  }
+  ]
 }

@@ -1,37 +1,82 @@
 {
+  "version": 2,
   "id": "stckbyndsll",
   "title": "Stock Buy and Sell",
+  "topicNumber": 58,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/stock-buy-and-sell/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "greedy"
+  ],
+  "pattern": "running minimum",
+  "problemStatement": "One buy and one sell (sell after buy). Maximise profit, or 0 if none is positive.",
+  "example": "[7,1,5,3,6,4] -> 5 (buy at 1, sell at 6)",
+  "intuition": "Selling on day i is only ever optimal against the cheapest price seen before i. Carry that minimum as you sweep and every day is answered in O(1).",
+  "approaches": [
+    {
+      "title": "Brute: all buy/sell pairs",
+      "idea": "Try every i < j.",
+      "code": "def max_profit_brute(p: list[int]) -> int:\n    best = 0\n    for i in range(len(p)):\n        for j in range(i + 1, len(p)):\n            best = max(best, p[j] - p[i])\n    return best",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: track the minimum so far",
+      "idea": "profit = price - min_so_far, updated in one pass.",
+      "code": "def max_profit(prices: list[int]) -> int:\n    best = 0\n    lowest = float(\"inf\")\n    for p in prices:\n        lowest = min(lowest, p)\n        best = max(best, p - lowest)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "p=[7,1,5,3,6,4]\nlow=7 best=0\nlow=1 best=0\np=5 best=4\np=3 best=4\np=6 best=5\np=4 best=5 -> 5",
+      "whyWorks": "Maximising p[j] - min(p[0..j-1]) over j covers every valid pair exactly once."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Strictly decreasing prices -> 0",
+    "Single day -> 0",
+    "All prices equal"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Stock Buy and Sell”."
+  "commonMistakes": [
+    "Allowing a sell before the buy by taking global max - global min",
+    "Returning a negative profit instead of 0"
+  ],
+  "patternRecognition": [
+    "\"Best pair with an order constraint\" -> prefix extremum"
+  ],
+  "followUps": [
+    "Unlimited transactions (#419)",
+    "At most two transactions (#420)",
+    "With a cooldown or a transaction fee",
+    "Return the buy/sell days too"
+  ],
+  "interviewInsight": "This is the seed of the entire DP-on-stocks family; name that connection.",
+  "related": [
+    {
+      "id": "bsttimtbyndsllstckdp35",
+      "title": "Best Time to Buy and Sell Stock |(DP-35)"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "byndsllstckiidp36",
+      "title": "Buy and Sell Stock - II|(DP-36)"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "kdnslgrithmmximmsbrrysm",
+      "title": "Kadane's Algorithm, maximum subarray sum"
     }
-  }
+  ]
 }

@@ -1,40 +1,71 @@
 {
+  "version": 2,
   "id": "printthmtrixinspirlmnnr",
   "title": "Print the matrix in spiral manner",
+  "topicNumber": 65,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/spiral-traversal-of-matrix/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “spiral traversal of matrix”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "matrix",
+    "simulation"
+  ],
+  "pattern": "four shrinking boundaries",
+  "problemStatement": "Print all elements of a matrix in spiral order.",
+  "example": "[[1,2,3],[4,5,6],[7,8,9]] -> 1 2 3 6 9 8 7 4 5",
+  "intuition": "Maintain top/bottom/left/right walls. Traverse one wall, then retract it. The only subtlety is re-checking the bounds before the two return legs.",
+  "approaches": [
+    {
+      "title": "Optimal: boundary simulation",
+      "idea": "Right across the top, down the right, left across the bottom, up the left; repeat.",
+      "code": "def spiral_order(m: list[list[int]]) -> list[int]:\n    if not m or not m[0]:\n        return []\n    top, bottom = 0, len(m) - 1\n    left, right = 0, len(m[0]) - 1\n    out: list[int] = []\n    while top <= bottom and left <= right:\n        for j in range(left, right + 1):\n            out.append(m[top][j])\n        top += 1\n        for i in range(top, bottom + 1):\n            out.append(m[i][right])\n        right -= 1\n        if top <= bottom:\n            for j in range(right, left - 1, -1):\n                out.append(m[bottom][j])\n            bottom -= 1\n        if left <= right:\n            for i in range(bottom, top - 1, -1):\n                out.append(m[i][left])\n            left += 1\n    return out",
+      "language": "python",
+      "time": "O(n*m)",
+      "space": "O(1) auxiliary beyond the output",
+      "dryRun": "3x3: top row 1,2,3 (top=1)\nright col 6,9 (right=1)\nbottom row 8,7 (bottom=1)\nleft col 4 (left=1)\nremaining top row 5",
+      "whyWorks": "Each cell lies on exactly one wall at the moment it is visited."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n*m)",
+    "space": "O(1) auxiliary beyond the output"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Single row",
+    "Single column",
+    "Empty matrix",
+    "Non-square matrix"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Print the matrix in spiral manner\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Print the matrix in spiral manner\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Skipping the `if top <= bottom` / `if left <= right` guards, which double-prints the middle line",
+    "Off-by-one in the reverse ranges"
+  ],
+  "patternRecognition": [
+    "Layer-by-layer matrix traversal with shrinking boundaries"
+  ],
+  "followUps": [
+    "Generate a spiral matrix from 1..n^2",
+    "Anticlockwise spiral",
+    "Spiral traversal of a binary tree (level order zig-zag)"
+  ],
+  "interviewInsight": "Single-row and single-column matrices are the fastest way to expose a missing guard. Test them aloud.",
+  "related": [
+    {
+      "id": "rttmtrixby90dgrs",
+      "title": "Rotate Matrix by 90 degrees"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Print the matrix in spiral manner\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Print the matrix in spiral manner\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "sbrrywithgivnsm",
+      "title": "Count subarrays with given sum"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Print the matrix in spiral manner\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Print the matrix in spiral manner\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Print the matrix in spiral manner\nfunc solve(a []int) int {\n    // TODO: core idea for \"Print the matrix in spiral manner\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "stmtrixzrs",
+      "title": "Set Matrix Zeros"
     }
-  }
+  ]
 }

@@ -1,36 +1,58 @@
 {
+  "version": 2,
   "id": "dttyps",
   "title": "Data Types",
+  "topicNumber": 2,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": null,
-  "intro": "Every DSA bug that “looks algorithmic” is often a type-width mistake. Learn ranges, signedness, and when to promote to 64-bit before you chase weird WA.",
-  "intuition": "Pick the smallest type that cannot overflow the constraints. When in doubt on sums/products, use 64-bit.",
-  "approach": [
-    "List constraint ranges from the problem.",
-    "Choose types that fit peaks (sums, products).",
-    "Print with the same type you computed."
+  "quality": "reviewed",
+  "tags": [
+    "types",
+    "overflow"
+  ],
+  "problemStatement": "Understand primitive types and ranges so arithmetic does not silently overflow or truncate.",
+  "intuition": "Constraints tell you the type. If intermediates can exceed 2^31−1, use 64-bit (C++/Java) — Python ints grow automatically, but float precision and // truncation still bite.",
+  "approaches": [
+    {
+      "title": "Choose types from constraints",
+      "idea": "Map constraint maxima to types before coding.",
+      "code": "def safe_product(a: int, b: int) -> int:\n    return a * b  # Python OK\n\n# Interview note (C++/Java):\n# cast before multiply: 1LL * a * b  /  1L * a * b\n# when a*b may exceed 2^31-1",
+      "language": "python",
+      "time": "O(1)",
+      "space": "O(1)"
+    }
   ],
   "complexity": {
     "time": "O(1)",
     "space": "O(1)"
   },
-  "pitfalls": [
-    "Silent overflow on 32-bit int.",
-    "Integer division truncating unexpectedly."
+  "edgeCases": [
+    "Peak products near 1e9×1e9",
+    "Negatives with division"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int x = 1e9;\n    long long y = 1LL * x * x; // promote before multiply\n    cout << y << \"\\n\";\n}"
+  "commonMistakes": [
+    "Multiplying ints before widening in C++/Java.",
+    "Using float for exact integer problems."
+  ],
+  "followUps": [
+    "Range of 32-bit signed int?",
+    "When BigInteger vs long long?",
+    "Why float equality fails?"
+  ],
+  "interviewInsight": "Saying “I’ll use 64-bit because sum ≤ n·maxA” signals constraint awareness.",
+  "related": [
+    {
+      "id": "srinpttpt",
+      "title": "User Input / Output"
     },
-    "java": {
-      "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 1_000_000_000;\n        long y = 1L * x * x;\n        System.out.println(y);\n    }\n}"
-    },
-    "python": {
-      "code": "x = 10**9\ny = x * x  # Python ints are arbitrary precision\nprint(y)"
-    },
-    "go": {
-      "code": "package main\nimport \"fmt\"\nfunc main() {\n    x := int64(1_000_000_000)\n    fmt.Println(x * x)\n}"
+    {
+      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
+      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
     }
-  }
+  ]
 }

@@ -1,37 +1,84 @@
 {
+  "version": 2,
   "id": "findsqrrtfnmbrinlgn",
   "title": "Find square root of a number in log n",
+  "topicNumber": 92,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/binary-search/finding-sqrt-of-a-number-using-binary-search/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “finding sqrt of a number using binary search”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "math"
+  ],
+  "pattern": "binary search on the answer",
+  "problemStatement": "Compute floor(sqrt(n)) without using library sqrt.",
+  "example": "n = 28 -> 5",
+  "intuition": "The predicate \"m*m <= n\" is True for small m and False afterwards — a monotone boundary you can binary search on the range [1, n].",
+  "approaches": [
+    {
+      "title": "Brute: increment until the square exceeds n",
+      "idea": "Linear in sqrt(n).",
+      "code": "def sqrt_linear(n: int) -> int:\n    i = 1\n    while i * i <= n:\n        i += 1\n    return i - 1",
+      "language": "python",
+      "time": "O(sqrt n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "n = 10^18 makes this hopeless"
+      ]
+    },
+    {
+      "title": "Optimal: binary search on the answer",
+      "idea": "Keep the largest m whose square fits.",
+      "code": "def integer_sqrt(n: int) -> int:\n    if n < 2:\n        return n\n    lo, hi, ans = 1, n // 2, 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if mid * mid <= n:\n            ans = mid\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return ans",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "n=28 lo=1 hi=14\nmid=7 49>28 hi=6\nmid=3 9<=28 ans=3 lo=4\nmid=5 25<=28 ans=5 lo=6\nmid=6 36>28 hi=5 -> 5",
+      "whyWorks": "Squaring is monotone on positive integers, so the predicate is monotone."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "n = 0 and n = 1",
+    "Perfect squares",
+    "Overflow of mid*mid in C++/Java"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Find square root of a number in log n” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Using floating-point sqrt and losing precision for large n",
+    "Searching up to n instead of n//2 (works, just slower)"
+  ],
+  "patternRecognition": [
+    "\"Largest x such that f(x) <= target\" with monotone f -> binary search on the answer"
+  ],
+  "followUps": [
+    "Nth root (#93)",
+    "Square root to k decimal places",
+    "Newton-Raphson comparison"
+  ],
+  "interviewInsight": "This is the gateway to the whole BS-on-answers section; name the monotone predicate explicitly.",
+  "related": [
+    {
+      "id": "findthnthrtfnmbrsingbinrysrch",
+      "title": "Find the Nth root of a number using binary search"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "kktingbnns",
+      "title": "Koko Eating Bananas"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "minimmdystmkmbqts",
+      "title": "Minimum days to make M bouquets"
     }
-  }
+  ]
 }

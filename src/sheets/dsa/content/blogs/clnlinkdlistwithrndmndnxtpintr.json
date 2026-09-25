@@ -1,37 +1,82 @@
 {
+  "version": 2,
   "id": "clnlinkdlistwithrndmndnxtpintr",
   "title": "Clone a Linked List with random and next pointer",
+  "topicNumber": 156,
   "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
   "subStepTitle": "Hard Problems of LL",
+  "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subcategory": "Hard Problems of LL",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/clone-linked-list-with-random-and-next-pointer/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “clone linked list with random and next pointer”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "linked-list",
+    "hard"
+  ],
+  "pattern": "interleaved node weaving",
+  "problemStatement": "Deep-copy a linked list where each node has an extra random pointer.",
+  "example": "Each cloned node must mirror both next and random, referencing only cloned nodes.",
+  "intuition": "The hard part is mapping original nodes to their copies. A hash map does it in O(n) space; weaving each copy directly after its original encodes the same mapping inside the list itself, giving O(1) extra space.",
+  "approaches": [
+    {
+      "title": "Better: hash map from original to copy",
+      "idea": "Two passes: create, then wire.",
+      "code": "def copy_random_list_hash(head):\n    if not head:\n        return None\n    mapping = {}\n    cur = head\n    while cur:\n        mapping[cur] = type(cur)(cur.val)\n        cur = cur.next\n    cur = head\n    while cur:\n        mapping[cur].next = mapping.get(cur.next)\n        mapping[cur].random = mapping.get(cur.random)\n        cur = cur.next\n    return mapping[head]",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "flags": [
+        "MLE"
+      ]
+    },
+    {
+      "title": "Optimal: weave, assign randoms, unweave",
+      "idea": "copy sits at original.next, so copy.random = original.random.next.",
+      "code": "def copy_random_list(head):\n    if not head:\n        return None\n    cur = head\n    while cur:\n        copy = type(cur)(cur.val)\n        copy.next = cur.next\n        cur.next = copy\n        cur = copy.next\n\n    cur = head\n    while cur:\n        if cur.random:\n            cur.next.random = cur.random.next\n        cur = cur.next.next\n\n    cur = head\n    copy_head = head.next\n    while cur:\n        copy = cur.next\n        cur.next = copy.next\n        copy.next = copy.next.next if copy.next else None\n        cur = cur.next\n    return copy_head",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary (excluding the output)",
+      "dryRun": "A->B becomes A->A'->B->B'\nA'.random = A.random.next\nfinally split the two interleaved lists apart",
+      "whyWorks": "The interleaving is itself the original-to-copy mapping, replacing the hash map."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(1) auxiliary excluding output"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Null random pointers",
+    "Self-referencing random pointers",
+    "Empty list",
+    "Single node"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Clone a Linked List with random and next pointer”."
+  "commonMistakes": [
+    "Assigning random pointers before all copies exist",
+    "Failing to restore the original list during the unweave"
+  ],
+  "patternRecognition": [
+    "Encode auxiliary state inside the structure to drop the extra space"
+  ],
+  "followUps": [
+    "Clone a graph with random edges",
+    "Clone a binary tree with random pointers",
+    "Why must randoms be assigned in a separate pass?"
+  ],
+  "interviewInsight": "Present the hash map first, then the weave as the O(1)-space upgrade — the progression is the answer.",
+  "related": [
+    {
+      "id": "flttningfll",
+      "title": "Flattening of LL"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "rttll",
+      "title": "Rotate a LL"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "rvrsllingrpfgivnsizk",
+      "title": "Reverse LL in group of given size K"
     }
-  }
+  ]
 }

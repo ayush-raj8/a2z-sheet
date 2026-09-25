@@ -1,40 +1,65 @@
 {
+  "version": 2,
   "id": "findthhighstlwstfrqncylmnt",
   "title": "Find the highest/lowest frequency element",
+  "topicNumber": 31,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Hashing",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Hashing",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/find-the-highest-lowest-frequency-element/",
-  "intro": "Hashing trades memory for average O(1) lookups. State collision assumptions; prefer frequency maps for counting problems. Classic framing from the roadmap note “find the highest lowest frequency element”.",
-  "intuition": "Key → frequency/index; collisions are rare with good hash tables.",
-  "approach": [
-    "Build frequency/index map.",
-    "Query in average O(1).",
-    "Fall back to sorted+two pointers if hash worst-case matters."
+  "quality": "reviewed",
+  "tags": [
+    "hashing",
+    "arrays"
+  ],
+  "pattern": "hashing",
+  "problemStatement": "Find the element(s) with highest and lowest frequency in an array.",
+  "example": "[1,2,1,3,2,1] → highest freq element 1 (3), lowest 3 (1)",
+  "intuition": "Build frequencies first, then scan the map for max/min counts. Clarify tie-breaking (any? smallest value?).",
+  "approaches": [
+    {
+      "title": "Hash map + one scan of entries",
+      "idea": "Counter, then track best high/low.",
+      "code": "from collections import Counter\n\ndef high_low_freq(a: list[int]) -> tuple[int, int]:\n    if not a:\n        raise ValueError(\"empty\")\n    freq = Counter(a)\n    # tie-break: smaller value wins (explicit policy)\n    high = min(((-c, v) for v, c in freq.items()))[1]\n    low = min(((c, v) for v, c in freq.items()))[1]\n    return high, low",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(k)",
+      "dryRun": "freq={1:3,2:2,3:1} → high=1, low=3"
+    }
   ],
   "complexity": {
-    "time": "Average O(n)",
-    "space": "O(n)"
+    "time": "O(n)",
+    "space": "O(k)"
   },
-  "pitfalls": [
-    "Mutable keys.",
-    "Assuming iteration order."
+  "edgeCases": [
+    "Single element",
+    "All frequencies equal",
+    "Ties for max/min"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Find the highest/lowest frequency element\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Find the highest/lowest frequency element\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Unspecified tie-break",
+    "Scanning array again O(n²) after map built"
+  ],
+  "followUps": [
+    "Return all elements with max frequency?",
+    "What if we need stable order of first occurrence?",
+    "Online updates (insert/delete)?"
+  ],
+  "interviewInsight": "Ask tie-break before coding — shows product/interview maturity.",
+  "related": [
+    {
+      "id": "cntingfrqncisfrrylmnts",
+      "title": "Counting frequencies of array elements"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Find the highest/lowest frequency element\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Find the highest/lowest frequency element\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Find the highest/lowest frequency element\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Find the highest/lowest frequency element\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Find the highest/lowest frequency element\nfunc solve(a []int) int {\n    // TODO: core idea for \"Find the highest/lowest frequency element\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "hshingthry",
+      "title": "Hashing Theory"
     }
-  }
+  ],
+  "patternRecognition": [
+    "Aggregate then argmax/argmin on map values"
+  ]
 }

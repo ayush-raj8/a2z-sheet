@@ -1,40 +1,75 @@
 {
+  "version": 2,
   "id": "slctinsrt",
   "title": "Selection Sort",
+  "topicNumber": 32,
   "stepTitle": "Learn Important Sorting Techniques",
   "subStepTitle": "Sorting-I",
+  "category": "Learn Important Sorting Techniques",
+  "subcategory": "Sorting-I",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/sorting/selection-sort-algorithm/",
-  "intro": "Sorting is a primitive used inside harder solutions. Know stable vs unstable and the N log N comparison bound. Classic framing from the roadmap note “selection sort algorithm”.",
-  "intuition": "Unordered → ordered so later scans/binary search become possible.",
-  "approach": [
-    "Choose algorithm by constraints.",
-    "Implement or call library sort.",
-    "Use sorted order in the next step of the solution."
+  "quality": "reviewed",
+  "tags": [
+    "sorting"
+  ],
+  "pattern": "sorting",
+  "problemStatement": "Sort an array using Selection Sort.",
+  "example": "[4,1,3,2] → [1,2,3,4]",
+  "intuition": "For position i, select the minimum in a[i..] and swap it into place. After i steps, a[0..i-1] is the smallest i elements in order.",
+  "approaches": [
+    {
+      "title": "Selection sort",
+      "idea": "i from 0..n-2; find min index in i..n-1; swap with i.",
+      "algorithm": [
+        "For i in 0..n-2:",
+        "  min_idx = argmin(a[i..n-1])",
+        "  swap a[i], a[min_idx]"
+      ],
+      "code": "def selection_sort(a: list[int]) -> None:\n    n = len(a)\n    for i in range(n - 1):\n        min_idx = i\n        for j in range(i + 1, n):\n            if a[j] < a[min_idx]:\n                min_idx = j\n        a[i], a[min_idx] = a[min_idx], a[i]",
+      "language": "python",
+      "time": "O(n²) always",
+      "space": "O(1) auxiliary",
+      "dryRun": "[4,1,3,2]\\ni=0 min=1 → [1,4,3,2]\\ni=1 min=2 → [1,2,3,4]\\ni=2 ok",
+      "whyWorks": "Invariant: prefix a[0..i-1] holds the i smallest elements sorted."
+    }
   ],
   "complexity": {
-    "time": "O(n log n) typical",
-    "space": "O(1)–O(n)"
+    "time": "O(n²)",
+    "space": "O(1) aux"
   },
-  "pitfalls": [
-    "Unstable sort breaking equal-key order.",
-    "Comparing ints with overflow (use long/comparator)."
+  "edgeCases": [
+    "Already sorted",
+    "Reverse sorted",
+    "Duplicates"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Selection Sort\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Selection Sort\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Restarting min_idx wrong",
+    "Thinking it is adaptive / early-exit like bubble"
+  ],
+  "patternRecognition": [
+    "Teaching sort; not used for n=1e5 (TLE)"
+  ],
+  "followUps": [
+    "Number of swaps vs bubble?",
+    "Stable? (no — equal elements can swap order)",
+    "When is O(n²) with O(1) space acceptable?"
+  ],
+  "interviewInsight": "Know selection vs bubble vs insertion tradeoffs (swaps, stability, adaptive).",
+  "related": [
+    {
+      "id": "bbblsrt",
+      "title": "Bubble Sort"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Selection Sort\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Selection Sort\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "insrtinsrt",
+      "title": "Insertion Sort"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Selection Sort\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Selection Sort\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Selection Sort\nfunc solve(a []int) int {\n    // TODO: core idea for \"Selection Sort\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "mrgsrt",
+      "title": "Merge Sort"
     }
-  }
+  ],
+  "flagsNote": "O(n²) → TLE for large n; interview teaching only"
 }

@@ -1,40 +1,87 @@
 {
+  "version": 2,
   "id": "kdnslgrithmmximmsbrrysm",
   "title": "Kadane's Algorithm, maximum subarray sum",
+  "topicNumber": 56,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "easy",
+  "topicType": "algorithm",
   "sourceUrl": "https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “kadanes algorithm maximum subarray sum in an array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "dynamic-programming",
+    "kadane"
   ],
-  "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
-  },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Kadane's Algorithm, maximum subarray sum\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Kadane's Algorithm, maximum subarray sum\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "pattern": "Kadane's algorithm",
+  "problemStatement": "Find the maximum sum of a contiguous subarray.",
+  "example": "[-2,1,-3,4,-1,2,1,-5,4] -> 6 (subarray [4,-1,2,1])",
+  "intuition": "At each index ask one question: is the best subarray ending here the previous best extended by a[i], or just a[i] alone? A running prefix that has gone negative can only hurt what follows, so drop it.",
+  "approaches": [
+    {
+      "title": "Brute: every subarray",
+      "idea": "Two loops accumulating sums.",
+      "code": "def max_subarray_brute(a: list[int]) -> int:\n    best = float(\"-inf\")\n    for i in range(len(a)):\n        s = 0\n        for j in range(i, len(a)):\n            s += a[j]\n            best = max(best, s)\n    return int(best)",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Kadane's Algorithm, maximum subarray sum\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Kadane's Algorithm, maximum subarray sum\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
-    },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Kadane's Algorithm, maximum subarray sum\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Kadane's Algorithm, maximum subarray sum\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Kadane's Algorithm, maximum subarray sum\nfunc solve(a []int) int {\n    // TODO: core idea for \"Kadane's Algorithm, maximum subarray sum\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "title": "Optimal: Kadane's algorithm",
+      "idea": "cur = max(x, cur + x); best = max(best, cur).",
+      "code": "def max_subarray(a: list[int]) -> int:\n    if not a:\n        raise ValueError(\"empty array\")\n    best = cur = a[0]\n    for x in a[1:]:\n        cur = max(x, cur + x)\n        best = max(best, cur)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[-2,1,-3,4,-1,2,1,-5,4]\ncur: -2,1,-2,4,3,5,6,1,5\nbest: -2,1,1,4,4,5,6,6,6 -> 6",
+      "whyWorks": "cur is exactly \"max sum of a subarray ending at i\", a DP recurrence whose state fits in one variable."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Kadane as 1-D DP",
+    "body": "dp[i] = max(a[i], dp[i-1] + a[i]). Because dp[i] depends only on dp[i-1], the table collapses to a scalar — the standard space-optimisation move for linear DP."
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "All negatives — the answer is the largest single element, not 0",
+    "Single element",
+    "Empty array (clarify the contract)"
+  ],
+  "commonMistakes": [
+    "Initialising best = 0, which returns 0 on all-negative input",
+    "Resetting cur to 0 instead of to a[i]"
+  ],
+  "patternRecognition": [
+    "\"Best contiguous X\" -> DP on \"best ending at i\""
+  ],
+  "followUps": [
+    "Print the actual subarray (#57)",
+    "Maximum product subarray (#78)",
+    "Circular maximum subarray sum",
+    "Maximum sum with at most k elements removed"
+  ],
+  "interviewInsight": "The all-negative case is the standard trap. Mention it before coding and you have effectively passed.",
+  "related": [
+    {
+      "id": "printsbrrywithmximmsbrrysmxtnddvrsinfbvprblm",
+      "title": "Print subarray with maximum subarray sum (extended version of above problem)"
+    },
+    {
+      "id": "mximmprdctsbrry",
+      "title": "Maximum Product Subarray"
+    },
+    {
+      "id": "stckbyndsll",
+      "title": "Stock Buy and Sell"
+    }
+  ]
 }

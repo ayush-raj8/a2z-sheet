@@ -1,37 +1,68 @@
 {
+  "version": 2,
   "id": "cntccrrncsfnmbrinsrtdrrywithdplicts",
   "title": "Count occurrences of a number in a sorted array with duplicates",
+  "topicNumber": 85,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/count-occurrences-in-sorted-array/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “count occurrences in sorted array”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
+  ],
+  "pattern": "upper bound minus lower bound",
+  "problemStatement": "Count occurrences of x in a sorted array.",
+  "example": "[2,4,4,4,6], x=4 -> 3",
+  "intuition": "Occurrences form one contiguous block, so the count is the difference of two boundaries.",
+  "approaches": [
+    {
+      "title": "Optimal: bounds difference",
+      "idea": "Reuse the standard bound template twice.",
+      "code": "import bisect\n\n\ndef count_occurrences(a: list[int], x: int) -> int:\n    return bisect.bisect_right(a, x) - bisect.bisect_left(a, x)\n\n\ndef count_occurrences_manual(a: list[int], x: int) -> int:\n    def bound(strict: bool) -> int:\n        lo, hi, ans = 0, len(a) - 1, len(a)\n        while lo <= hi:\n            mid = lo + (hi - lo) // 2\n            ok = a[mid] > x if strict else a[mid] >= x\n            if ok:\n                ans = mid\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        return ans\n\n    return bound(True) - bound(False)",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[2,4,4,4,6] x=4\nlower=1 upper=4 -> 3"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "x absent -> 0",
+    "All elements equal x -> n",
+    "Empty array"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Count occurrences of a number in a sorted array with duplicates” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Writing the manual bounds and getting one of them off by one",
+    "Falling back to a linear count after finding one match"
+  ],
+  "patternRecognition": [
+    "Counting in sorted data is always a boundary difference"
+  ],
+  "followUps": [
+    "Count values in a range [l, r]",
+    "Same on a BST",
+    "Count with a Fenwick tree for dynamic data"
+  ],
+  "interviewInsight": "Know bisect_left/bisect_right by name but be able to write them; interviewers often ban the library.",
+  "related": [
+    {
+      "id": "findthfirstrlstccrrncfgivnnmbrinsrtdrry",
+      "title": "Find the first or last occurrence of a given number in a sorted array"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "srchinrttdsrtdrryi",
+      "title": "Search in Rotated Sorted Array I"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "chckifinptrryissrtd",
+      "title": "Floor/Ceil in Sorted Array"
     }
-  }
+  ]
 }

@@ -1,37 +1,71 @@
 {
+  "version": 2,
   "id": "bkllctinprblm",
   "title": "Book Allocation Problem",
+  "topicNumber": 100,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “allocate minimum number of pages”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "binary-search-on-answer",
+    "greedy"
+  ],
+  "pattern": "minimise the maximum load",
+  "problemStatement": "Allocate contiguous books to m students so that the maximum pages assigned to any student is minimised.",
+  "example": "pages=[12,34,67,90], m=2 -> 113",
+  "intuition": "The answer lies between max(pages) (one book must fit) and sum(pages) (one student takes all). Greedy chunking tests any candidate maximum in O(n).",
+  "approaches": [
+    {
+      "title": "Optimal: binary search on the maximum load",
+      "idea": "Count students needed for a given cap; shrink the cap while feasible.",
+      "code": "def book_allocation(pages: list[int], m: int) -> int:\n    if m > len(pages):\n        return -1\n\n    def students(cap: int) -> int:\n        cnt, cur = 1, 0\n        for p in pages:\n            if cur + p > cap:\n                cnt += 1\n                cur = 0\n            cur += p\n        return cnt\n\n    lo, hi = max(pages), sum(pages)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if students(mid) <= m:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "language": "python",
+      "time": "O(n log(sum of pages))",
+      "space": "O(1) auxiliary",
+      "dryRun": "pages=[12,34,67,90] m=2, range [90,203]\ncap=146 -> 2 students feasible, hi=146\ncap=118 -> 2 feasible\ncap=104 -> 3 infeasible\ncap=113 -> 2 feasible -> 113",
+      "whyWorks": "Greedy filling uses the fewest students for a fixed cap, so it is an exact feasibility test."
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log(sum))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "m > n -> impossible (-1)",
+    "m = 1 -> sum",
+    "m = n -> max"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Book Allocation Problem” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Allowing non-contiguous allocation",
+    "Setting lo = 1 instead of max(pages)"
+  ],
+  "patternRecognition": [
+    "Minimise-the-maximum over contiguous partitions"
+  ],
+  "followUps": [
+    "Split array largest sum (#101)",
+    "Painter's partition (#102)",
+    "Reconstruct the actual partition"
+  ],
+  "interviewInsight": "The contiguity constraint is what makes the greedy check valid — say so explicitly.",
+  "related": [
+    {
+      "id": "ggrssivcws",
+      "title": "Aggressive Cows"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "splitrrylrgstsm",
+      "title": "Split array - Largest Sum"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "kthmissingpsitivnmbr",
+      "title": "Kth Missing Positive Number"
     }
-  }
+  ]
 }

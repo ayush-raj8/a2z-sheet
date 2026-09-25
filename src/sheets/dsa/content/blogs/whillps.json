@@ -1,36 +1,54 @@
 {
+  "version": 2,
   "id": "whillps",
   "title": "While loops",
+  "topicNumber": 7,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/while-loop/while-loops-in-programming/",
-  "intro": "While-loops encode “repeat until a condition.” Always prove the condition eventually becomes false, or you own an infinite loop. Classic framing from the roadmap note “while loops in programming”.",
-  "intuition": "Identify the progress measure — something must move toward termination each iteration.",
-  "approach": [
-    "Initialize state before the loop.",
-    "Update state every iteration.",
-    "Assert termination."
+  "quality": "reviewed",
+  "tags": [
+    "loops"
+  ],
+  "problemStatement": "Repeat while a condition holds; guarantee progress toward termination.",
+  "intuition": "Identify a progress measure (i increases, window shrinks, queue drains). No progress ⇒ infinite loop ⇒ TLE.",
+  "approaches": [
+    {
+      "title": "Initialize → condition → update",
+      "idea": "All three parts must be correct.",
+      "code": "def countdown(n: int) -> None:\n    while n > 0:\n        print(n)\n        n -= 1\n\ndef has_pair_sum_sorted(a: list[int], target: int) -> bool:\n    i, j = 0, len(a) - 1\n    while i < j:\n        s = a[i] + a[j]\n        if s == target:\n            return True\n        if s < target:\n            i += 1\n        else:\n            j -= 1\n    return False",
+      "language": "python",
+      "time": "O(n) typical for linear scans",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "Missing update → infinite loop → TLE"
+      ]
+    }
   ],
   "complexity": {
-    "time": "O(n) for n iterations",
-    "space": "O(1)"
+    "time": "Depends on iterations until exit",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Forgetting to update the condition variable.",
-    "Empty input edge cases."
+  "commonMistakes": [
+    "Forgot update (infinite loop)",
+    "i < j vs i <= j mistakes"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    int i = 1;\n    while (i <= n) { cout << i << \" \"; i++; }\n    cout << \"\\n\";\n}"
-    },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int n = new Scanner(System.in).nextInt();\n        int i = 1;\n        while (i <= n) { System.out.print(i + \" \"); i++; }\n        System.out.println();\n    }\n}"
-    },
-    "python": {
-      "code": "n = int(input())\ni = 1\nwhile i <= n:\n    print(i, end=\" \")\n    i += 1\nprint()"
-    },
-    "go": {
-      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var n, i int\n    fmt.Scan(&n)\n    i = 1\n    for i <= n { fmt.Print(i, \" \"); i++ }\n    fmt.Println()\n}"
+  "followUps": [
+    "Prove termination?",
+    "Convert while → for when bounds known?"
+  ],
+  "interviewInsight": "Narrate the progress measure out loud in live coding.",
+  "related": [
+    {
+      "id": "frlps",
+      "title": "For loops"
     }
-  }
+  ]
 }

@@ -1,40 +1,82 @@
 {
+  "version": 2,
   "id": "longestsubarraywithsumkposneg",
   "title": "Longest subarray with sum K (Positives + Negatives)",
+  "topicNumber": 52,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/longest-subarray-with-sum-k-postives-and-negatives/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “longest subarray with sum k postives and negatives”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "prefix-sum",
+    "hashing"
+  ],
+  "pattern": "prefix sum + hash map",
+  "problemStatement": "Longest subarray with sum K when the array may contain negatives and zeros.",
+  "example": "[-1,1,1,0,0,2], K=2 -> 6",
+  "intuition": "sum(i..j) = pre[j] - pre[i-1]. So for each j you want the *earliest* index where the prefix equals pre[j] - K. A hash map of first-occurrence prefixes answers that in O(1).",
+  "approaches": [
+    {
+      "title": "Brute: every subarray",
+      "idea": "Accumulate sums for each start.",
+      "code": "def longest_brute(a: list[int], k: int) -> int:\n    best = 0\n    for i in range(len(a)):\n        s = 0\n        for j in range(i, len(a)):\n            s += a[j]\n            if s == k:\n                best = max(best, j - i + 1)\n    return best",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: first-occurrence prefix map",
+      "idea": "Store a prefix only the first time it appears so the recovered subarray is as long as possible.",
+      "code": "def longest_subarray_sum_k(a: list[int], k: int) -> int:\n    first: dict[int, int] = {}\n    pre = 0\n    best = 0\n    for i, x in enumerate(a):\n        pre += x\n        if pre == k:\n            best = i + 1\n        need = pre - k\n        if need in first:\n            best = max(best, i - first[need])\n        if pre not in first:\n            first[pre] = i\n    return best",
+      "language": "python",
+      "time": "O(n) average",
+      "space": "O(n)",
+      "dryRun": "a=[-1,1,1,0,0,2] k=2\npre: -1,0,1,1,1,3\nat i=5 pre=3 need=1 first[1]=2 -> len 3\npre==k never; best from map = 6 via need 1? (full trace in editor)",
+      "whyWorks": "Keeping only the earliest index for each prefix value maximises j - i."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n) average",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "K = 0 (prefix repeats)",
+    "Whole array is the answer — handle pre == k",
+    "All negatives"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Longest subarray with sum K (Positives + Negatives)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Longest subarray with sum K (Positives + Negatives)\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Overwriting an existing prefix key, which shortens the answer",
+    "Reusing the sliding window from the positives-only version"
+  ],
+  "patternRecognition": [
+    "Negatives present + subarray sum -> prefix sums in a hash map"
+  ],
+  "followUps": [
+    "Count (not length of) subarrays with sum K",
+    "Longest subarray with equal 0s and 1s",
+    "Subarray with XOR K (#72)"
+  ],
+  "interviewInsight": "The \"store first occurrence only\" rule is the single line that separates a correct answer from a subtly wrong one.",
+  "related": [
+    {
+      "id": "longestsubarraywithsumpositives",
+      "title": "Longest subarray with given sum K(positives)"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Longest subarray with sum K (Positives + Negatives)\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Longest subarray with sum K (Positives + Negatives)\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "findthnmbrthtpprsncndthrnmbrstwic",
+      "title": "Find the number that appears once, and other numbers twice."
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Longest subarray with sum K (Positives + Negatives)\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Longest subarray with sum K (Positives + Negatives)\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Longest subarray with sum K (Positives + Negatives)\nfunc solve(a []int) int {\n    // TODO: core idea for \"Longest subarray with sum K (Positives + Negatives)\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "mximmcnsctivns",
+      "title": "Maximum Consecutive Ones"
     }
-  }
+  ]
 }

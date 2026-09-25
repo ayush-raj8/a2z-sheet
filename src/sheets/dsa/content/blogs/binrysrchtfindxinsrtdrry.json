@@ -1,37 +1,93 @@
 {
+  "version": 2,
   "id": "binrysrchtfindxinsrtdrry",
   "title": "Binary Search to find X in sorted array",
+  "topicNumber": 79,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on 1D Arrays",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on 1D Arrays",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/binary-search-explained/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “binary search explained”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search"
   ],
-  "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
-  },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Binary Search to find X in sorted array” — binary search the answer space when needed."
+  "pattern": "classic binary search",
+  "problemStatement": "Find the index of X in a sorted array, or -1.",
+  "example": "[-1,0,3,5,9,12], x=9 -> 4",
+  "intuition": "Sortedness means one comparison against the middle eliminates half of the remaining candidates. log2(10^9) is about 30 comparisons — that is the whole appeal.",
+  "approaches": [
+    {
+      "title": "Brute: linear scan",
+      "idea": "Ignores the sorted structure.",
+      "code": "def linear(a: list[int], x: int) -> int:\n    for i, v in enumerate(a):\n        if v == x:\n            return i\n    return -1",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "title": "Optimal: iterative binary search",
+      "idea": "Half-open discipline with mid = lo + (hi - lo) // 2.",
+      "code": "def binary_search(a: list[int], x: int) -> int:\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[-1,0,3,5,9,12] x=9\nlo=0 hi=5 mid=2 (3<9) lo=3\nmid=4 -> 9 found at 4",
+      "whyWorks": "Invariant: if x exists it lies in [lo, hi]; each step preserves it while halving the range."
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "title": "Recursive form",
+      "idea": "Same logic; costs O(log n) stack.",
+      "code": "def binary_search_rec(a: list[int], x: int, lo: int = 0, hi: int | None = None) -> int:\n    if hi is None:\n        hi = len(a) - 1\n    if lo > hi:\n        return -1\n    mid = lo + (hi - lo) // 2\n    if a[mid] == x:\n        return mid\n    if a[mid] < x:\n        return binary_search_rec(a, x, mid + 1, hi)\n    return binary_search_rec(a, x, lo, mid - 1)",
+      "language": "python",
+      "time": "O(log n)",
+      "space": "O(log n) recursion stack"
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Overflow-safe mid",
+    "body": "Use lo + (hi - lo) // 2 rather than (lo + hi) // 2. Python is immune, but C++/Java are not, and interviewers check this reflex."
+  },
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1) auxiliary"
+  },
+  "edgeCases": [
+    "Empty array",
+    "Target smaller/larger than everything",
+    "Duplicates (returns an arbitrary match)",
+    "Single element"
+  ],
+  "commonMistakes": [
+    "while lo < hi with hi = len - 1, which misses the last element",
+    "Updating lo = mid instead of mid + 1, causing an infinite loop"
+  ],
+  "patternRecognition": [
+    "Sorted + \"find\" -> binary search; monotone predicate -> binary search on the answer"
+  ],
+  "followUps": [
+    "Lower bound / upper bound variants",
+    "First and last occurrence with duplicates",
+    "Binary search on an infinite/unbounded stream"
+  ],
+  "interviewInsight": "Loop-boundary discipline is what is actually being tested. Pick one template and never mix them.",
+  "related": [
+    {
+      "id": "implmntlwrbnd",
+      "title": "Implement Lower Bound"
+    },
+    {
+      "id": "implmntpprbnd",
+      "title": "Implement Upper Bound"
+    },
+    {
+      "id": "srchinrttdsrtdrryi",
+      "title": "Search in Rotated Sorted Array I"
+    }
+  ]
 }

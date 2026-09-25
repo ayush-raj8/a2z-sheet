@@ -1,36 +1,57 @@
 {
+  "version": 2,
   "id": "frlps",
   "title": "For loops",
+  "topicNumber": 6,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "category": "Learn the basics",
+  "subcategory": "Things to Know in C++/Java/Python or any language",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/for-loop/understanding-for-loop/",
-  "intro": "For-loops encode counted repetition. Be precise about inclusive/exclusive bounds — off-by-one is the #1 beginner failure mode. Classic framing from the roadmap note “understanding for loop”.",
-  "intuition": "Index meaning first (0-based vs 1-based), then write the loop header to match.",
-  "approach": [
-    "Decide start, end, and step.",
-    "Keep loop body O(1) work unless nested on purpose.",
-    "Verify with n=0/1 edge cases."
+  "quality": "reviewed",
+  "tags": [
+    "loops"
+  ],
+  "problemStatement": "Counted iteration with correct inclusive/exclusive bounds.",
+  "intuition": "Decide index meaning first, then write the header. Verify n=0 and n=1. Nested loops → state O(n²) and TLE risk when n=1e5.",
+  "approaches": [
+    {
+      "title": "range mastery",
+      "idea": "range(n) → 0..n-1; range(1,n+1) → 1..n.",
+      "code": "def print_1_to_n(n: int) -> None:\n    for i in range(1, n + 1):\n        print(i, end=\" \")\n    print()\n\ndef sum_array(a: list[int]) -> int:\n    total = 0\n    for x in a:\n        total += x\n    return total",
+      "language": "python",
+      "time": "O(n) for n iterations",
+      "space": "O(1) auxiliary"
+    }
   ],
   "complexity": {
-    "time": "O(n) for n iterations",
-    "space": "O(1)"
+    "time": "O(iterations)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Off-by-one on inclusive bounds.",
-    "Mutating the index incorrectly inside."
+  "edgeCases": [
+    "n=0",
+    "n=1",
+    "empty list"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    for (int i = 1; i <= n; i++) cout << i << \" \";\n    cout << \"\\n\";\n}"
+  "commonMistakes": [
+    "Off-by-one",
+    "Accidental O(n²) nested loops → TLE"
+  ],
+  "followUps": [
+    "When is while clearer?",
+    "enumerate for index+value?"
+  ],
+  "interviewInsight": "Narrate “nested loop is O(n²); n=1e5 TLEs” — SDE-2 habit.",
+  "related": [
+    {
+      "id": "whillps",
+      "title": "While loops"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int n = new Scanner(System.in).nextInt();\n        for (int i = 1; i <= n; i++) System.out.print(i + \" \");\n        System.out.println();\n    }\n}"
-    },
-    "python": {
-      "code": "n = int(input())\nfor i in range(1, n + 1):\n    print(i, end=\" \")\nprint()"
-    },
-    "go": {
-      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var n int\n    fmt.Scan(&n)\n    for i := 1; i <= n; i++ { fmt.Print(i, \" \") }\n    fmt.Println()\n}"
+    {
+      "id": "timcmplxitylrnbsicsndthnnlysinnxtstps",
+      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]"
     }
-  }
+  ]
 }

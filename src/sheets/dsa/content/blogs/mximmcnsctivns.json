@@ -1,40 +1,70 @@
 {
+  "version": 2,
   "id": "mximmcnsctivns",
   "title": "Maximum Consecutive Ones",
+  "topicNumber": 49,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Easy",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Easy",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/count-maximum-consecutive-ones-in-the-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “count maximum consecutive ones in the array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "counting"
+  ],
+  "pattern": "running streak",
+  "problemStatement": "Find the length of the longest run of consecutive 1s in a binary array.",
+  "example": "[1,1,0,1,1,1] -> 3",
+  "intuition": "Keep a current streak that resets on 0 and a best streak that never decreases.",
+  "approaches": [
+    {
+      "title": "Optimal: streak counter",
+      "idea": "count++ on 1, count=0 on 0, best=max(best,count).",
+      "code": "def max_consecutive_ones(a: list[int]) -> int:\n    best = count = 0\n    for x in a:\n        count = count + 1 if x == 1 else 0\n        best = max(best, count)\n    return best",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "a=[1,1,0,1,1,1]\ncount 1,2 best=2\n0 -> count=0\ncount 1,2,3 best=3",
+      "whyWorks": "Any maximal run is fully observed before the reset that ends it."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "All zeros -> 0",
+    "All ones -> n",
+    "Run ends at the last index"
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Maximum Consecutive Ones\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Maximum Consecutive Ones\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Updating best only on reset, which misses a trailing run",
+    "Forgetting to reset count"
+  ],
+  "patternRecognition": [
+    "Run-length / streak problems; the k-flip version becomes a sliding window"
+  ],
+  "followUps": [
+    "Max consecutive ones if you may flip at most k zeros (#231)",
+    "Longest run of any repeated value",
+    "Return the start index of the best run"
+  ],
+  "interviewInsight": "The natural follow-up is the sliding-window \"flip k zeros\" version — be ready to pivot.",
+  "related": [
+    {
+      "id": "findmissingnmbrinnrry",
+      "title": "Find missing number in an array"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Maximum Consecutive Ones\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Maximum Consecutive Ones\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "findthnmbrthtpprsncndthrnmbrstwic",
+      "title": "Find the number that appears once, and other numbers twice."
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Maximum Consecutive Ones\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Maximum Consecutive Ones\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Maximum Consecutive Ones\nfunc solve(a []int) int {\n    // TODO: core idea for \"Maximum Consecutive Ones\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "findthnin",
+      "title": "Find the Union"
     }
-  }
+  ]
 }

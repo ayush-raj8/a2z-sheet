@@ -1,37 +1,80 @@
 {
+  "version": 2,
   "id": "printlldivisrs",
   "title": "Print all Divisors",
+  "topicNumber": 18,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Know Basic Maths",
+  "category": "Learn the basics",
+  "subcategory": "Know Basic Maths",
+  "difficulty": "easy",
+  "topicType": "math",
   "sourceUrl": "https://takeuforward.org/data-structure/print-all-divisors-of-a-given-number/",
-  "intro": "Listing divisors naïvely is O(n); pairing factors up to √n is the interview expectation. Classic framing from the roadmap note “print all divisors of a given number”.",
-  "intuition": "For i in 1..√n, if n%i==0 take i and n/i.",
-  "approach": [
-    "Iterate to √n.",
-    "Collect pairs.",
-    "Sort if output requires order."
+  "quality": "reviewed",
+  "tags": [
+    "math",
+    "divisors"
+  ],
+  "problemStatement": "Print all positive divisors of n.",
+  "example": "n=36 → 1 2 3 4 6 9 12 18 36",
+  "intuition": "Divisors come in pairs (i, n/i). Iterate i to √n to find all pairs — O(√n), not O(n).",
+  "approaches": [
+    {
+      "title": "Brute: test every i in 1..n",
+      "idea": "If n%i==0, collect i.",
+      "code": "def divisors_brute(n: int) -> list[int]:\n    return [i for i in range(1, n + 1) if n % i == 0]",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(number of divisors)",
+      "flags": [
+        "TLE"
+      ],
+      "limitations": [
+        "TLE for n~1e12"
+      ]
+    },
+    {
+      "title": "Optimal: iterate to √n",
+      "idea": "For each i | n with i*i<=n, take i and n/i (once if equal).",
+      "code": "def divisors(n: int) -> list[int]:\n    small, large = [], []\n    i = 1\n    while i * i <= n:\n        if n % i == 0:\n            small.append(i)\n            if i * i != n:\n                large.append(n // i)\n        i += 1\n    return small + large[::-1]",
+      "language": "python",
+      "time": "O(√n)",
+      "space": "O(number of divisors)",
+      "dryRun": "n=36\ni=1 → 1,36\ni=2 → 2,18\ni=3 → 3,12\ni=4 → 4,9\ni=5 no\ni=6 → 6 (square)\nsorted merge → 1 2 3 4 6 9 12 18 36",
+      "whyWorks": "Every divisor ≥ √n is paired with one ≤ √n."
+    }
   ],
   "complexity": {
     "time": "O(√n)",
-    "space": "O(number of divisors)"
+    "space": "O(#divisors) output"
   },
-  "pitfalls": [
-    "Duplicating √n when perfect square.",
-    "Unsorted output when sorted required."
+  "edgeCases": [
+    "n=1",
+    "prime n",
+    "perfect squares (avoid duplicating √n)"
   ],
-  "languages": {
-    "cpp": {
-      "code": "vector<long long> divisors(long long n) {\n    vector<long long> d;\n    for (long long i = 1; i * i <= n; i++) if (n % i == 0) {\n        d.push_back(i);\n        if (i * i != n) d.push_back(n / i);\n    }\n    sort(d.begin(), d.end());\n    return d;\n}"
+  "commonMistakes": [
+    "Duplicating square root",
+    "Unsorted output when sorted required",
+    "O(n) loop on huge n → TLE"
+  ],
+  "patternRecognition": [
+    "Factorization, sieve precomputation, sum-of-divisors"
+  ],
+  "followUps": [
+    "Sum of divisors?",
+    "Count divisors from prime factorization?",
+    "All divisors of all numbers ≤ N (sieve)?"
+  ],
+  "interviewInsight": "Brute O(n) vs √n is a classic first filter for number-theory comfort.",
+  "related": [
+    {
+      "id": "chckfrprim",
+      "title": "Check for Prime"
     },
-    "java": {
-      "code": "static List<Long> divisors(long n) {\n    List<Long> d = new ArrayList<>();\n    for (long i = 1; i * i <= n; i++) if (n % i == 0) {\n        d.add(i);\n        if (i * i != n) d.add(n / i);\n    }\n    Collections.sort(d);\n    return d;\n}"
-    },
-    "python": {
-      "code": "def divisors(n: int):\n    d = []\n    i = 1\n    while i * i <= n:\n        if n % i == 0:\n            d.append(i)\n            if i * i != n: d.append(n // i)\n        i += 1\n    return sorted(d)"
-    },
-    "go": {
-      "code": "func divisors(n int64) []int64 {\n    var d []int64\n    for i := int64(1); i*i <= n; i++ {\n        if n%i == 0 {\n            d = append(d, i)\n            if i*i != n { d = append(d, n/i) }\n        }\n    }\n    sort.Slice(d, func(i, j int) bool { return d[i] < d[j] })\n    return d\n}",
-      "notes": "import \"sort\" for sort.Slice."
+    {
+      "id": "gcdrhcf",
+      "title": "GCD Or HCF"
     }
-  }
+  ]
 }

@@ -1,38 +1,70 @@
 {
+  "version": 2,
   "id": "printnmntimssingrcrsin",
   "title": "Print name N times using recursion",
+  "topicNumber": 21,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "concept",
   "sourceUrl": "https://takeuforward.org/recursion/print-name-n-times-using-recursion/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion"
+  ],
+  "pattern": "recursion",
+  "problemStatement": "Print a given name N times using recursion (no loop).",
+  "example": "name=\"Ada\", N=3 → Ada\\nAda\\nAda",
+  "intuition": "Same structure as “print something N times”: one unit of work + recurse on N−1. Stack depth is N — large N → RE (recursion limit), not just TLE.",
+  "approaches": [
+    {
+      "title": "Recursive print",
+      "idea": "Base n==0; else print name and recurse n-1.",
+      "code": "def print_name(n: int, name: str = \"Ada\") -> None:\n    if n == 0:\n        return\n    print(name)\n    print_name(n - 1, name)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) recursion stack",
+      "spaceNote": "Stack ≠ O(1); prefer a loop for huge n",
+      "flags": [
+        "RE",
+        "MLE"
+      ],
+      "dryRun": "n=2\\nprint Ada; call 1\\nprint Ada; call 0 return"
+    }
   ],
   "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
+    "time": "O(n)",
+    "space": "O(n) recursion stack",
+    "recursionStack": "O(n)"
   },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
+  "edgeCases": [
+    "n=0",
+    "large n → recursion limit"
   ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Print name N times using recursion”."
+  "commonMistakes": [
+    "Missing base case",
+    "Calling stack O(1)",
+    "Recursing after print vs before (order of output)"
+  ],
+  "patternRecognition": [
+    "“Do X, then solve a smaller copy of the same task”"
+  ],
+  "followUps": [
+    "Print iteratively?",
+    "What is Python’s default recursion limit?",
+    "Head recursion vs tail recursion here?"
+  ],
+  "interviewInsight": "They check base case + awareness that stack costs memory.",
+  "related": [
+    {
+      "id": "ndrstndrcrsinbyprintsmthingntims",
+      "title": "Understand recursion by print something N times"
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
-    },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "print1tnsingrcrsin",
+      "title": "Print 1 to N using recursion"
     }
-  }
+  ]
 }

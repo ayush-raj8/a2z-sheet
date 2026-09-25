@@ -1,37 +1,69 @@
 {
+  "version": 2,
   "id": "painterspartition",
   "title": "Painter's partition",
+  "topicNumber": 102,
   "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
   "subStepTitle": "BS on Answers",
+  "category": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subcategory": "BS on Answers",
+  "difficulty": "hard",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/painters-partition-problem/",
-  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “painters partition problem”.",
-  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
-  "approach": [
-    "Identify monotonic predicate.",
-    "Set lo/hi bounds.",
-    "Update mid until lo/hi converge; return answer index/value."
+  "quality": "reviewed",
+  "tags": [
+    "binary-search",
+    "binary-search-on-answer"
+  ],
+  "pattern": "minimise the maximum time",
+  "problemStatement": "k painters paint contiguous boards; minimise the time taken by the slowest painter.",
+  "example": "boards=[10,20,30,40], k=2 -> 60",
+  "intuition": "Same template as book allocation, with time replacing pages.",
+  "approaches": [
+    {
+      "title": "Optimal: binary search over the time limit",
+      "idea": "Greedy assignment counts painters needed.",
+      "code": "def painters_partition(boards: list[int], k: int) -> int:\n    def painters(cap: int) -> int:\n        cnt, cur = 1, 0\n        for b in boards:\n            if cur + b > cap:\n                cnt += 1\n                cur = 0\n            cur += b\n        return cnt\n\n    lo, hi = max(boards), sum(boards)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if painters(mid) <= k:\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo",
+      "language": "python",
+      "time": "O(n log(sum))",
+      "space": "O(1) auxiliary",
+      "dryRun": "boards=[10,20,30,40] k=2 range [40,100]\ncap=70 -> 2 feasible\ncap=55 -> 3 infeasible\ncap=60 -> 2 feasible -> 60"
+    }
   ],
   "complexity": {
-    "time": "O(log n) per search",
-    "space": "O(1)"
+    "time": "O(n log(sum))",
+    "space": "O(1) auxiliary"
   },
-  "pitfalls": [
-    "Infinite loop from bad mid update.",
-    "Wrong predicate polarity."
+  "edgeCases": [
+    "k >= n -> max board",
+    "k = 1 -> sum",
+    "Per-unit time multiplier if the problem states one"
   ],
-  "languages": {
-    "cpp": {
-      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
-      "notes": "Adapt the predicate for “Painter's partition” — binary search the answer space when needed."
+  "commonMistakes": [
+    "Forgetting a per-unit time factor when the statement includes it",
+    "Allowing non-contiguous boards"
+  ],
+  "patternRecognition": [
+    "Third member of the book-allocation family"
+  ],
+  "followUps": [
+    "Ship packages within D days (#97)",
+    "Split array largest sum (#101)",
+    "Non-contiguous variant (becomes NP-hard scheduling)"
+  ],
+  "interviewInsight": "Point out that dropping contiguity turns this into a hard scheduling problem — it shows you know why the constraint matters.",
+  "related": [
+    {
+      "id": "splitrrylrgstsm",
+      "title": "Split array - Largest Sum"
     },
-    "java": {
-      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    {
+      "id": "minimizmxdistnctgssttin",
+      "title": "Minimize Max Distance to Gas Station"
     },
-    "python": {
-      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
-    },
-    "go": {
-      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    {
+      "id": "bkllctinprblm",
+      "title": "Book Allocation Problem"
     }
-  }
+  ]
 }

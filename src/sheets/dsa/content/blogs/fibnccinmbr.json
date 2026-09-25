@@ -1,38 +1,96 @@
 {
+  "version": 2,
   "id": "fibnccinmbr",
   "title": "Fibonacci Number",
+  "topicNumber": 28,
   "stepTitle": "Learn the basics",
   "subStepTitle": "Learn Basic Recursion",
+  "category": "Learn the basics",
+  "subcategory": "Learn Basic Recursion",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/arrays/print-fibonacci-series-up-to-nth-term/",
-  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “print fibonacci series up to nth term”.",
-  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
-  "approach": [
-    "Define f(args) meaning.",
-    "Write base case.",
-    "Call on strictly smaller instance; combine results."
+  "quality": "reviewed",
+  "tags": [
+    "recursion",
+    "dp",
+    "memoization"
   ],
-  "complexity": {
-    "time": "Problem-specific",
-    "space": "O(depth) stack"
-  },
-  "pitfalls": [
-    "Missing base case → stack overflow.",
-    "Recomputing overlapping subproblems without memo."
-  ],
-  "languages": {
-    "cpp": {
-      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
-      "notes": "Replace the combine step to match “Fibonacci Number”."
+  "pattern": "dynamic-programming",
+  "problemStatement": "Compute the N-th Fibonacci number (define F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)).",
+  "example": "N=6 → 8",
+  "intuition": "Naive recursion recomputes the same subproblems exponentially → TLE. Memoization / iterative DP makes it O(n). Space can drop to O(1) with two rolling variables.",
+  "approaches": [
+    {
+      "title": "Brute: naive recursion",
+      "idea": "Direct recurrence — exponential tree.",
+      "code": "def fib_naive(n: int) -> int:\n    if n <= 1:\n        return n\n    return fib_naive(n - 1) + fib_naive(n - 2)",
+      "language": "python",
+      "time": "O(φ^n) ≈ exponential",
+      "space": "O(n) stack",
+      "flags": [
+        "TLE",
+        "RE"
+      ],
+      "limitations": [
+        "TLE even for n~40–50"
+      ]
     },
-    "java": {
-      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
+    {
+      "title": "Better: top-down memoization",
+      "idea": "Cache F(i) after computing once.",
+      "code": "def fib_memo(n: int, memo: dict[int, int] | None = None) -> int:\n    if memo is None:\n        memo = {}\n    if n <= 1:\n        return n\n    if n in memo:\n        return memo[n]\n    memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)\n    return memo[n]",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n) memo + O(n) stack"
     },
-    "python": {
-      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
-    },
-    "go": {
-      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
-      "notes": "import \"fmt\""
+    {
+      "title": "Optimal practical: iterative O(1) space",
+      "idea": "Keep only last two values.",
+      "code": "def fib(n: int) -> int:\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "dryRun": "n=5: (0,1)→(1,1)→(1,2)→(2,3)→(3,5) → 5",
+      "whyWorks": "Each step uses the recurrence; induction from base cases."
     }
-  }
+  ],
+  "specialTechnique": {
+    "title": "Space optimization (rolling variables)",
+    "body": "When dp[i] depends only on dp[i-1] and dp[i-2], store two scalars instead of an array — classic DP space trim."
+  },
+  "complexity": {
+    "time": "O(n) optimal",
+    "space": "O(1) optimal aux"
+  },
+  "edgeCases": [
+    "n=0",
+    "n=1",
+    "large n (big ints / overflow in C++)"
+  ],
+  "commonMistakes": [
+    "Shipping naive recursion for n≥40",
+    "Off-by-one on definition F0/F1",
+    "Ignoring overflow in Java int"
+  ],
+  "patternRecognition": [
+    "Overlapping subproblems + optimal substructure → DP",
+    "Exponential recursion tree with repeated nodes → memoize"
+  ],
+  "followUps": [
+    "Matrix exponentiation O(log n)?",
+    "F(n) mod M?",
+    "Climbing stairs relation?"
+  ],
+  "interviewInsight": "This is the canonical “recursion → memo → iterative → space-opt” teaching problem. Walk that ladder out loud.",
+  "related": [
+    {
+      "id": "fctrilfnnmbrs",
+      "title": "Factorial of N numbers"
+    },
+    {
+      "id": "smffirstnnmbrs",
+      "title": "Sum of first N numbers"
+    }
+  ]
 }

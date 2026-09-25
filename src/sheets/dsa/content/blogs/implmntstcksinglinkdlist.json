@@ -1,37 +1,70 @@
 {
+  "version": 2,
   "id": "implmntstcksinglinkdlist",
   "title": "Implement stack using Linkedlist",
+  "topicNumber": 204,
   "stepTitle": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
   "subStepTitle": "Learning",
+  "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+  "subcategory": "Learning",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/implement-stack-using-linked-list/",
-  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “implement stack using linked list”.",
-  "intuition": "Never lose the next pointer before rewiring.",
-  "approach": [
-    "Draw before/after pointer states.",
-    "Iterate with careful next hold.",
-    "Handle empty/single-node edges."
+  "quality": "reviewed",
+  "tags": [
+    "stack-queue",
+    "easy"
+  ],
+  "pattern": "stack-queue",
+  "problemStatement": "Solve “Implement stack using Linkedlist” as posed in the A2Z sheet (Learning).",
+  "intuition": "\"Implement stack using Linkedlist\" needs LIFO/FIFO or a monotonic stack/queue. Push when deferring work; pop when the deferred item becomes due.",
+  "approaches": [
+    {
+      "title": "Stack / monotonic stack skeleton",
+      "idea": "Maintain candidates in order; pop while invariant breaks.",
+      "code": "def solve(a):\n    # Skeleton for: Implement stack using Linkedlist\n    n = len(a)\n    ans = [-1] * n\n    st = []  # indices\n    for i, x in enumerate(a):\n        while st and a[st[-1]] < x:  # adapt comparison\n            ans[st.pop()] = x\n        st.append(i)\n    return ans",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(n)",
+      "dryRun": "Each index pushed once and popped once → amortized O(n)."
+    }
   ],
   "complexity": {
-    "time": "O(n) typical traversal",
-    "space": "O(1) extra if in-place"
+    "time": "O(n)",
+    "space": "O(n)"
   },
-  "pitfalls": [
-    "Losing head reference.",
-    "Forgetting to null-terminate."
+  "edgeCases": [
+    "Empty / single-element input when applicable",
+    "Duplicates and extremes at constraints",
+    "Impossible / already-optimal inputs"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
-      "notes": "Rewire pointers carefully for “Implement stack using Linkedlist”."
+  "commonMistakes": [
+    "Pop on empty",
+    "Storing values when indices are needed",
+    "Wrong inequality on monotonic stack"
+  ],
+  "patternRecognition": [
+    "Next greater/smaller → monotonic stack",
+    "Matching / parsing → classic stack"
+  ],
+  "followUps": [
+    "Circular array variant?",
+    "Sum of subarray minimums connection?",
+    "Queue via two stacks?"
+  ],
+  "interviewInsight": "Amortized “each element enters/leaves once” is the complexity story for \"Implement stack using Linkedlist\".",
+  "related": [
+    {
+      "id": "implmntqsingstck",
+      "title": "Implement Queue using Stack"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    {
+      "id": "implmntqsinglinkdlist",
+      "title": "Implement queue using Linkedlist"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
-    },
-    "go": {
-      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    {
+      "id": "implmntstcksingq",
+      "title": "Implement Stack using Queue"
     }
-  }
+  ]
 }

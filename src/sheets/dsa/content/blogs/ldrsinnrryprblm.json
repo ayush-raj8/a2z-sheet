@@ -1,40 +1,81 @@
 {
+  "version": 2,
   "id": "ldrsinnrryprblm",
   "title": "Leaders in an Array problem",
+  "topicNumber": 61,
   "stepTitle": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
   "subStepTitle": "Medium",
+  "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+  "subcategory": "Medium",
+  "difficulty": "easy",
+  "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/leaders-in-an-array/",
-  "intro": "Arrays are the default canvas for DSA. Clarify in-place vs extra space, and whether order must be preserved. Classic framing from the roadmap note “leaders in an array”.",
-  "intuition": "Index math + one pass often beats nested brute force after sorting or hashing.",
-  "approach": [
-    "Clarify mutation rules.",
-    "Use hashing/sorting/two pointers as fits.",
-    "Verify with duplicates and empty arrays."
+  "quality": "reviewed",
+  "tags": [
+    "arrays",
+    "suffix-scan"
+  ],
+  "pattern": "right-to-left running maximum",
+  "problemStatement": "An element is a leader if it is greater than everything to its right. Return all leaders.",
+  "example": "[10,22,12,3,0,6] -> [22,12,6]",
+  "intuition": "Leadership depends only on the suffix maximum, so scanning right to left answers every element in O(1).",
+  "approaches": [
+    {
+      "title": "Brute: compare with all right elements",
+      "idea": "Nested loops.",
+      "code": "def leaders_brute(a: list[int]) -> list[int]:\n    out = []\n    for i in range(len(a)):\n        if all(a[i] > a[j] for j in range(i + 1, len(a))):\n            out.append(a[i])\n    return out",
+      "language": "python",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "flags": [
+        "TLE"
+      ]
+    },
+    {
+      "title": "Optimal: suffix maximum sweep",
+      "idea": "Walk backwards keeping the max seen; reverse the result at the end.",
+      "code": "def leaders(a: list[int]) -> list[int]:\n    out: list[int] = []\n    mx = float(\"-inf\")\n    for x in reversed(a):\n        if x > mx:\n            out.append(x)\n            mx = x\n    out.reverse()\n    return out",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(1) auxiliary beyond the output",
+      "dryRun": "a=[10,22,12,3,0,6]\n6 > -inf leader\n0 no\n3 no\n12 leader\n22 leader\n10 no -> [22,12,6]",
+      "whyWorks": "The suffix maximum is exactly the quantity the definition compares against."
+    }
   ],
   "complexity": {
-    "time": "Often O(n) after insight",
-    "space": "O(1)–O(n)"
+    "time": "O(n)",
+    "space": "O(1) auxiliary beyond the output"
   },
-  "pitfalls": [
-    "Modifying while iterating indices carefully.",
-    "Ignoring constraints on in-place."
+  "edgeCases": [
+    "Last element is always a leader",
+    "Strictly increasing -> only the last",
+    "Duplicates: decide > vs >="
   ],
-  "languages": {
-    "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Leaders in an Array problem\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Leaders in an Array problem\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
-      "notes": "Fill the TODO with the approach above; keep IO fast."
+  "commonMistakes": [
+    "Forgetting to reverse the collected list",
+    "Using >= when the definition says strictly greater"
+  ],
+  "patternRecognition": [
+    "Suffix aggregates -> reverse iteration"
+  ],
+  "followUps": [
+    "Leaders from the left",
+    "Next greater element (#214) — the monotonic stack generalisation",
+    "Count leaders only"
+  ],
+  "interviewInsight": "Recognising this as a suffix-max problem, not a stack problem, is the efficiency point.",
+  "related": [
+    {
+      "id": "nxtprmttin",
+      "title": "Next Permutation"
     },
-    "java": {
-      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Leaders in an Array problem\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Leaders in an Array problem\"\n        System.out.println(a.length);\n    }\n}",
-      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    {
+      "id": "lngstcnsctivsqncinnrry",
+      "title": "Longest Consecutive Sequence in an Array"
     },
-    "python": {
-      "code": "# Teach-yourself scaffold for: Leaders in an Array problem\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Leaders in an Array problem\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
-      "notes": "PyPy helps some TLs; still aim for the right complexity."
-    },
-    "go": {
-      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Leaders in an Array problem\nfunc solve(a []int) int {\n    // TODO: core idea for \"Leaders in an Array problem\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
-      "notes": "Go rewards simple, explicit loops — good for interviews."
+    {
+      "id": "rrrngthrryinltrntingpsitivndngtivitms",
+      "title": "Rearrange the array in alternating positive and negative items"
     }
-  }
+  ]
 }

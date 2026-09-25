@@ -1,38 +1,70 @@
 {
+  "version": 2,
   "id": "cntnmbrfsbstrings",
   "title": "Count Number of Substrings",
+  "topicNumber": 122,
   "stepTitle": "Strings [Basic and Medium]",
   "subStepTitle": "Medium String Problems",
+  "category": "Strings [Basic and Medium]",
+  "subcategory": "Medium String Problems",
+  "difficulty": "medium",
+  "topicType": "coding-problem",
   "sourceUrl": null,
-  "intro": "Trees are recursive structures. Prefer clear traversals (pre/in/post/level) and define null-base cases first.",
-  "intuition": "Left/right subtrees are the same problem smaller — recurse with clear return meaning.",
-  "approach": [
-    "Choose traversal.",
-    "Recurse on children.",
-    "Combine child answers into parent answer."
+  "quality": "reviewed",
+  "tags": [
+    "strings",
+    "sliding-window"
+  ],
+  "pattern": "at-most-K trick",
+  "problemStatement": "Count substrings containing exactly k distinct characters.",
+  "example": "\"aba\", k=2 -> 3",
+  "intuition": "Counting \"exactly k\" directly is awkward, but \"at most k\" is a clean sliding window. exactly(k) = atMost(k) - atMost(k-1).",
+  "approaches": [
+    {
+      "title": "Optimal: two at-most-K windows",
+      "idea": "Each window is O(n); the subtraction gives the exact count.",
+      "code": "from collections import defaultdict\n\n\ndef count_exactly_k_distinct(s: str, k: int) -> int:\n    def at_most(limit: int) -> int:\n        if limit < 0:\n            return 0\n        freq = defaultdict(int)\n        left = total = 0\n        for right, c in enumerate(s):\n            freq[c] += 1\n            while len(freq) > limit:\n                freq[s[left]] -= 1\n                if freq[s[left]] == 0:\n                    del freq[s[left]]\n                left += 1\n            total += right - left + 1\n        return total\n\n    return at_most(k) - at_most(k - 1)",
+      "language": "python",
+      "time": "O(n)",
+      "space": "O(k)",
+      "dryRun": "s=\"aba\" k=2\natMost(2) = 6, atMost(1) = 3 -> exactly 3",
+      "whyWorks": "Every window ending at right contributes right - left + 1 valid substrings."
+    }
   ],
   "complexity": {
     "time": "O(n)",
-    "space": "O(h) recursion"
+    "space": "O(k)"
   },
-  "pitfalls": [
-    "Null dereference.",
-    "Passing parent incorrectly in DFS."
+  "edgeCases": [
+    "k = 0 -> 0",
+    "k larger than the alphabet",
+    "All identical characters"
   ],
-  "languages": {
-    "cpp": {
-      "code": "struct Node { int val; Node *left, *right; };\nvoid inorder(Node* r) {\n    if (!r) return;\n    inorder(r->left);\n    cout << r->val << \" \";\n    inorder(r->right);\n}",
-      "notes": "Change traversal / return aggregate for “Count Number of Substrings”."
+  "commonMistakes": [
+    "Trying to maintain \"exactly k\" in a single window",
+    "Deleting zero-count keys is required for len(freq) to be correct"
+  ],
+  "patternRecognition": [
+    "\"Exactly K\" -> atMost(K) - atMost(K-1); memorise this identity"
+  ],
+  "followUps": [
+    "Subarrays with K different integers (#239)",
+    "Count nice subarrays (#235)",
+    "Binary subarrays with sum (#234)"
+  ],
+  "interviewInsight": "The at-most identity converts a whole class of hard counting problems into easy windows.",
+  "related": [
+    {
+      "id": "implmntti",
+      "title": "Implement Atoi"
     },
-    "java": {
-      "code": "class Node {\n    int val; Node left, right;\n    Node(int v) { val = v; }\n}\nstatic void inorder(Node r) {\n    if (r == null) return;\n    inorder(r.left);\n    System.out.print(r.val + \" \");\n    inorder(r.right);\n}"
+    {
+      "id": "lngstplindrmicsbstringditwithtdp",
+      "title": "Longest Palindromic Substring[Do it without DP]"
     },
-    "python": {
-      "code": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorder(r):\n    if not r: return\n    inorder(r.left)\n    print(r.val, end=\" \")\n    inorder(r.right)"
-    },
-    "go": {
-      "code": "type Node struct {\n    Val int\n    Left, Right *Node\n}\nfunc inorder(r *Node) {\n    if r == nil { return }\n    inorder(r.Left)\n    fmt.Print(r.Val, \" \")\n    inorder(r.Right)\n}",
-      "notes": "import \"fmt\""
+    {
+      "id": "rmnnmbrtintgrndvicvrs",
+      "title": "Roman Number to Integer and vice versa"
     }
-  }
+  ]
 }
