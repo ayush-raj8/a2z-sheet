@@ -10,7 +10,7 @@ import {
   type CompanyProblem,
   type CompanyWindowId,
 } from '../lib/companyLoader';
-import { pickCanonicalTopic } from '../lib/companyTopics';
+import { compareTopicsA2zOrder, pickCanonicalTopic } from '../lib/companyTopics';
 import { initStore, persistTopic, replaceUserData } from '../lib/db';
 import { DEFAULT_PALETTE } from '../lib/palettes';
 import '../styles.css';
@@ -58,7 +58,7 @@ function clubByTopic(problems: CompanyProblem[]): TopicGroup[] {
   }
   return [...map.entries()]
     .map(([topic, list]) => ({ topic, problems: sortProblems(list) }))
-    .sort((a, b) => b.problems.length - a.problems.length || a.topic.localeCompare(b.topic));
+    .sort((a, b) => compareTopicsA2zOrder(a.topic, b.topic));
 }
 
 function ProblemTable({

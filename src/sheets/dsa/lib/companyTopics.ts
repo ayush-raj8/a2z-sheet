@@ -128,3 +128,75 @@ export const GENERIC_TOPIC_BUCKETS = new Set([
   'Simulation',
   'Counting',
 ]);
+
+/**
+ * Display order for company topic sections — mirrors A2Z roadmap steps.
+ * Unknown buckets sort after these, alphabetically.
+ */
+export const A2Z_TOPIC_ORDER: string[] = [
+  // 1 Learn the basics
+  'Math',
+  'Simulation',
+  'Hash Table',
+  // 2 Sorting
+  'Sorting',
+  // 3 Arrays
+  'Array',
+  'Prefix Sum',
+  'Matrix',
+  // 4 Binary Search
+  'Binary Search',
+  // 5 / 18 Strings
+  'String',
+  // 6 Linked List
+  'Linked List',
+  // 7 Recursion / Backtracking
+  'Recursion',
+  'Backtracking',
+  'Divide and Conquer',
+  // 8 Bit Manipulation
+  'Bit Manipulation',
+  // 9 Stack and Queues
+  'Stack',
+  'Queue',
+  // 10 Sliding Window & Two Pointer
+  'Two Pointers',
+  'Sliding Window',
+  // 11 Heaps
+  'Heap',
+  // 12 Greedy
+  'Greedy',
+  // 13 Binary Trees
+  'Tree',
+  'Segment Tree',
+  // 14 BST
+  'Binary Search Tree',
+  // 15 Graphs
+  'Graph',
+  // 16 DP
+  'Dynamic Programming',
+  // 17 Tries
+  'Trie',
+  // extras that still appear
+  'Design',
+  'Database',
+  'Ordered Set',
+  'Game Theory',
+  'Untagged',
+];
+
+const A2Z_TOPIC_INDEX = new Map(A2Z_TOPIC_ORDER.map((t, i) => [t, i]));
+
+/** Sort key: A2Z roadmap order, then alphabetical for anything else. */
+export function a2zTopicSortKey(topic: string): number {
+  const i = A2Z_TOPIC_INDEX.get(topic);
+  if (i != null) return i;
+  return A2Z_TOPIC_ORDER.length + topic.charCodeAt(0) / 1000;
+}
+
+export function compareTopicsA2zOrder(a: string, b: string): number {
+  const ka = a2zTopicSortKey(a);
+  const kb = a2zTopicSortKey(b);
+  if (ka !== kb) return ka - kb;
+  return a.localeCompare(b);
+}
