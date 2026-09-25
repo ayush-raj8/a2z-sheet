@@ -11,11 +11,24 @@ import PalettePicker from './components/PalettePicker';
 import StepSection from './components/StepSection';
 import './styles.css';
 
+const OPEN_KEYS_STORAGE = 'a2z-dsa-open-keys';
+
+function readOpenKeys() {
+  try {
+    const raw = sessionStorage.getItem(OPEN_KEYS_STORAGE);
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? new Set(parsed) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
 export default function DsaSheet() {
   const [progress, setProgress] = useState({});
   const [notes, setNotes] = useState({});
   const [palette, setPalette] = useState(DEFAULT_PALETTE);
-  const [openKeys, setOpenKeys] = useState(() => new Set());
+  const [openKeys, setOpenKeys] = useState(readOpenKeys);
   const [usingIndexedDb, setUsingIndexedDb] = useState(true);
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState('');
@@ -77,6 +90,14 @@ export default function DsaSheet() {
     const timer = window.setTimeout(() => setMessage(''), 3200);
     return () => window.clearTimeout(timer);
   }, [message]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(OPEN_KEYS_STORAGE, JSON.stringify([...openKeys]));
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [openKeys]);
 
   useEffect(() => {
     if (!companyFilter) return;

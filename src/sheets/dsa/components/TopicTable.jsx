@@ -38,7 +38,12 @@ function BlogCell({ topic }) {
 
   return (
     <td className="link-cell">
-      <Link to={`/dsa/blog/${topic.id}`} title={`Blog: ${topic.question_title}`}>
+      <Link
+        to={`/dsa/blog/${topic.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={`Blog: ${topic.question_title}`}
+      >
         <img src={platformLogos.BLOG} alt="" />
         <span className="sr-only">Blog</span>
       </Link>
