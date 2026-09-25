@@ -1,0 +1,41 @@
+{
+  "id": "srinpttpt",
+  "title": "User Input / Output",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "sourceUrl": "https://takeuforward.org/c/c-basic-input-output/",
+  "intro": "Reading input and writing output cleanly is the first skill that separates “I know syntax” from “I can ship solutions.” In User Input / Output, treat stdin/stdout as a contract: know the types, the separators, and when to flush. Classic framing from the roadmap note “c basic input output”.",
+  "intuition": "Think of the judge as a pipe: your program consumes tokens and emits a deterministic answer. Match the sample format exactly.",
+  "approach": [
+    "Identify how many values and their types from the statement.",
+    "Read with the idiomatic API (cin/scanf, Scanner, input(), fmt.Scan).",
+    "Write output exactly as samples (spaces/newlines)."
+  ],
+  "complexity": {
+    "time": "O(1) per value read/written",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Mismatched types (read int as string).",
+    "Extra spaces/newlines vs sample.",
+    "Forgetting multi-test `t` cases."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int a; string s;\n    cin >> a >> s;\n    cout << a << \" \" << s << \"\\n\";\n    return 0;\n}",
+      "notes": "Prefer \\n over endl unless you need a flush."
+    },
+    "java": {
+      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        String s = sc.next();\n        System.out.println(a + \" \" + s);\n    }\n}",
+      "notes": "Scanner is fine for learning; BufferedReader for tight TL."
+    },
+    "python": {
+      "code": "a = int(input())\ns = input().strip()\nprint(a, s)",
+      "notes": "input() is enough for most beginner tasks."
+    },
+    "go": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var a int\n    var s string\n    fmt.Scan(&a, &s)\n    fmt.Println(a, s)\n}",
+      "notes": "Pass pointers to fmt.Scan."
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "switchsttmnt",
+  "title": "Switch Statement",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "sourceUrl": "https://takeuforward.org/switch-case/switch-case-statements/",
+  "intro": "Switch/case shines for discrete labels. Know fall-through rules in C++/Java/Go versus Python’s if-elif style, and always cover the default path. Classic framing from the roadmap note “switch case statements”.",
+  "intuition": "Map each discrete case to a branch; default handles “anything else.”",
+  "approach": [
+    "Enumerate discrete labels.",
+    "Implement each case; set default.",
+    "Avoid unintentional fall-through unless intentional."
+  ],
+  "complexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Missing break/fallthrough bugs.",
+    "Forgetting default."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int d; cin >> d;\n    switch (d) {\n        case 1: cout << \"mon\\n\"; break;\n        case 2: cout << \"tue\\n\"; break;\n        default: cout << \"other\\n\";\n    }\n}"
+    },
+    "java": {
+      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int d = new Scanner(System.in).nextInt();\n        switch (d) {\n            case 1 -> System.out.println(\"mon\");\n            case 2 -> System.out.println(\"tue\");\n            default -> System.out.println(\"other\");\n        }\n    }\n}"
+    },
+    "python": {
+      "code": "d = int(input())\n# Python has no switch historically; use dict or match (3.10+)\nmatch d:\n    case 1: print(\"mon\")\n    case 2: print(\"tue\")\n    case _: print(\"other\")"
+    },
+    "go": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var d int\n    fmt.Scan(&d)\n    switch d {\n    case 1: fmt.Println(\"mon\")\n    case 2: fmt.Println(\"tue\")\n    default: fmt.Println(\"other\")\n    }\n}"
+    }
+  }
+}

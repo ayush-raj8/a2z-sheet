@@ -1,0 +1,36 @@
+{
+  "id": "frlps",
+  "title": "For loops",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "sourceUrl": "https://takeuforward.org/for-loop/understanding-for-loop/",
+  "intro": "For-loops encode counted repetition. Be precise about inclusive/exclusive bounds — off-by-one is the #1 beginner failure mode. Classic framing from the roadmap note “understanding for loop”.",
+  "intuition": "Index meaning first (0-based vs 1-based), then write the loop header to match.",
+  "approach": [
+    "Decide start, end, and step.",
+    "Keep loop body O(1) work unless nested on purpose.",
+    "Verify with n=0/1 edge cases."
+  ],
+  "complexity": {
+    "time": "O(n) for n iterations",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Off-by-one on inclusive bounds.",
+    "Mutating the index incorrectly inside."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    for (int i = 1; i <= n; i++) cout << i << \" \";\n    cout << \"\\n\";\n}"
+    },
+    "java": {
+      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int n = new Scanner(System.in).nextInt();\n        for (int i = 1; i <= n; i++) System.out.print(i + \" \");\n        System.out.println();\n    }\n}"
+    },
+    "python": {
+      "code": "n = int(input())\nfor i in range(1, n + 1):\n    print(i, end=\" \")\nprint()"
+    },
+    "go": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var n int\n    fmt.Scan(&n)\n    for i := 1; i <= n; i++ { fmt.Print(i, \" \") }\n    fmt.Println()\n}"
+    }
+  }
+}

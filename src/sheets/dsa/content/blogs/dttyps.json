@@ -1,0 +1,36 @@
+{
+  "id": "dttyps",
+  "title": "Data Types",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "sourceUrl": null,
+  "intro": "Every DSA bug that “looks algorithmic” is often a type-width mistake. Learn ranges, signedness, and when to promote to 64-bit before you chase weird WA.",
+  "intuition": "Pick the smallest type that cannot overflow the constraints. When in doubt on sums/products, use 64-bit.",
+  "approach": [
+    "List constraint ranges from the problem.",
+    "Choose types that fit peaks (sums, products).",
+    "Print with the same type you computed."
+  ],
+  "complexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Silent overflow on 32-bit int.",
+    "Integer division truncating unexpectedly."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int x = 1e9;\n    long long y = 1LL * x * x; // promote before multiply\n    cout << y << \"\\n\";\n}"
+    },
+    "java": {
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 1_000_000_000;\n        long y = 1L * x * x;\n        System.out.println(y);\n    }\n}"
+    },
+    "python": {
+      "code": "x = 10**9\ny = x * x  # Python ints are arbitrary precision\nprint(y)"
+    },
+    "go": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n    x := int64(1_000_000_000)\n    fmt.Println(x * x)\n}"
+    }
+  }
+}

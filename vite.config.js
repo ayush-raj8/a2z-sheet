@@ -27,6 +27,8 @@ export default defineConfig({
             return 'mermaid';
           }
           if (id.includes('/sheets/lld/')) return 'lld';
+          // Keep per-topic blog JSON out of the main DSA chunk (lazy import.meta.glob).
+          if (id.includes('/sheets/dsa/content/blogs/')) return undefined;
           if (id.includes('/sheets/dsa/')) return 'dsa';
         },
       },

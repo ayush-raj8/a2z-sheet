@@ -1,15 +1,15 @@
+import { Link } from 'react-router-dom';
 import blogLogo from '../../../../assets/logo/post.svg';
 import ytLogo from '../../../../assets/logo/yt.svg';
-import tufLogo from '../../../../assets/logo/tuf.svg';
 import gfgLogo from '../../../../assets/logo/gfg.svg';
 import cnLogo from '../../../../assets/logo/cn.svg';
 import lcLogo from '../../../../assets/logo/lc.svg';
+import { hasBlog } from '../content/blogLoader';
 import { getDifficultyClass, parseTags } from '../lib/topics';
 
 const platformLogos = {
   BLOG: blogLogo,
   YT: ytLogo,
-  TUF: tufLogo,
   GFG: gfgLogo,
   CN: cnLogo,
   LC: lcLogo,
@@ -30,6 +30,21 @@ function LinkCell({ url, label }) {
   );
 }
 
+function BlogCell({ topic }) {
+  if (!hasBlog(topic.id)) {
+    return <td className="na-cell">—</td>;
+  }
+
+  return (
+    <td className="link-cell">
+      <Link to={`/dsa/blog/${topic.id}`} title={`Blog: ${topic.question_title}`}>
+        <img src={platformLogos.BLOG} alt="" />
+        <span className="sr-only">Blog</span>
+      </Link>
+    </td>
+  );
+}
+
 function TopicRow({ topic, completed, note, onToggle, onEditNote }) {
   const tags = parseTags(topic.ques_topic);
   const className = [getDifficultyClass(topic.difficulty), completed ? 'completed' : '']
@@ -41,12 +56,11 @@ function TopicRow({ topic, completed, note, onToggle, onEditNote }) {
       <td className="topic-cell" title={tags}>
         <div className="topic-title">{topic.question_title}</div>
       </td>
-      <LinkCell url={topic.post_link} label="BLOG" />
+      <BlogCell topic={topic} />
       <LinkCell url={topic.yt_link} label="YT" />
       <LinkCell url={topic.lc_link} label="LC" />
       <LinkCell url={topic.gfg_link} label="GFG" />
       <LinkCell url={topic.cs_link} label="CN" />
-      <LinkCell url={topic.plus_link} label="TUF" />
       <td className="note-cell">
         <button
           type="button"
@@ -91,7 +105,6 @@ export default function TopicTable({ topics, progress, notes, onToggle, onEditNo
             <th title="LeetCode">LC</th>
             <th title="GeeksForGeeks">GFG</th>
             <th title="CodingNinjas">CN</th>
-            <th title="TakeUForward+">TUF</th>
             <th>Note</th>
             <th>Done</th>
           </tr>

@@ -1,0 +1,36 @@
+{
+  "id": "cntdigits",
+  "title": "Count Digits",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Know Basic Maths",
+  "sourceUrl": "https://takeuforward.org/data-structure/count-digits-in-a-number/",
+  "intro": "Counting digits is O(log₁₀ n) work. Prefer math over string conversion in interviews unless leading zeros appear. Classic framing from the roadmap note “count digits in a number”.",
+  "intuition": "Repeatedly divide by 10 (or use logs carefully for positives).",
+  "approach": [
+    "Handle n=0 as 1 digit.",
+    "Loop divide-by-10.",
+    "Alternatively convert to string length for non-negatives."
+  ],
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "n=0 handled wrong.",
+    "Negatives if constraints allow."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "int countDigits(long long n) {\n    if (n == 0) return 1;\n    if (n < 0) n = -n;\n    int c = 0;\n    while (n) { c++; n /= 10; }\n    return c;\n}"
+    },
+    "java": {
+      "code": "static int countDigits(long n) {\n    if (n == 0) return 1;\n    n = Math.abs(n);\n    int c = 0;\n    while (n > 0) { c++; n /= 10; }\n    return c;\n}"
+    },
+    "python": {
+      "code": "def count_digits(n: int) -> int:\n    n = abs(n)\n    if n == 0: return 1\n    c = 0\n    while n:\n        c += 1\n        n //= 10\n    return c"
+    },
+    "go": {
+      "code": "func countDigits(n int64) int {\n    if n == 0 { return 1 }\n    if n < 0 { n = -n }\n    c := 0\n    for n > 0 { c++; n /= 10 }\n    return c\n}"
+    }
+  }
+}

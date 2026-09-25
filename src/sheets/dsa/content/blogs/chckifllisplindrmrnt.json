@@ -1,0 +1,37 @@
+{
+  "id": "chckifllisplindrmrnt",
+  "title": "Check if LL is palindrome or not",
+  "stepTitle": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+  "subStepTitle": "Medium Problems of LL",
+  "sourceUrl": "https://takeuforward.org/data-structure/check-if-given-linked-list-is-plaindrome/",
+  "intro": "Linked lists trade random access for O(1) splicing. Draw pointers; most bugs are lost references or missed edge nodes. Classic framing from the roadmap note “check if given linked list is plaindrome”.",
+  "intuition": "Never lose the next pointer before rewiring.",
+  "approach": [
+    "Draw before/after pointer states.",
+    "Iterate with careful next hold.",
+    "Handle empty/single-node edges."
+  ],
+  "complexity": {
+    "time": "O(n) typical traversal",
+    "space": "O(1) extra if in-place"
+  },
+  "pitfalls": [
+    "Losing head reference.",
+    "Forgetting to null-terminate."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "struct Node { int val; Node* next; };\nNode* reverseList(Node* head) {\n    Node *prev = nullptr, *cur = head;\n    while (cur) {\n        Node* nxt = cur->next;\n        cur->next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}",
+      "notes": "Rewire pointers carefully for “Check if LL is palindrome or not”."
+    },
+    "java": {
+      "code": "class Node {\n    int val; Node next;\n    Node(int v) { val = v; }\n}\nstatic Node reverseList(Node head) {\n    Node prev = null, cur = head;\n    while (cur != null) {\n        Node nxt = cur.next;\n        cur.next = prev;\n        prev = cur; cur = nxt;\n    }\n    return prev;\n}"
+    },
+    "python": {
+      "code": "class Node:\n    def __init__(self, val, next=None):\n        self.val, self.next = val, next\n\ndef reverse_list(head):\n    prev, cur = None, head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev, cur = cur, nxt\n    return prev"
+    },
+    "go": {
+      "code": "type Node struct{ Val int; Next *Node }\nfunc reverseList(head *Node) *Node {\n    var prev *Node\n    cur := head\n    for cur != nil {\n        nxt := cur.Next\n        cur.Next = prev\n        prev, cur = cur, nxt\n    }\n    return prev\n}"
+    }
+  }
+}

@@ -536,6 +536,90 @@ tr.completed {
   gap: 0.45rem;
 }
 
+.blog-page .blog-article {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.blog-header h1 {
+  margin: 0.35rem 0 0.75rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  line-height: 1.25;
+}
+
+.blog-crumb {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.blog-intro {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.blog-section {
+  margin-top: 1.5rem;
+}
+
+.blog-section h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+}
+
+.blog-section p,
+.blog-section li {
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--text) 92%, var(--muted));
+}
+
+.blog-section ol,
+.blog-section ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.blog-lang-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+.blog-lang-tab {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.28rem 0.75rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.blog-lang-tab.active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.blog-code {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  border-radius: 0.65rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 70%, black);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.blog-code-notes {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 @media (max-width: 800px) {
   .topbar {
     flex-direction: column;

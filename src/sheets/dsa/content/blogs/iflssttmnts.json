@@ -1,0 +1,36 @@
+{
+  "id": "iflssttmnts",
+  "title": "If Else statements",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Things to Know in C++/Java/Python or any language",
+  "sourceUrl": "https://takeuforward.org/if-else/if-else-statements/",
+  "intro": "Branching is decision-making. Write conditions that mirror the problem statement, keep them mutually exclusive when needed, and avoid deep nesting you cannot test.",
+  "intuition": "Translate English rules into boolean expressions. Test boundaries (equal, just below, just above).",
+  "approach": [
+    "Write the decision table on paper.",
+    "Implement branches from most specific to general.",
+    "Add else for the residual case."
+  ],
+  "complexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Using = instead of == (C++/Java/Go).",
+    "Overlapping conditions in wrong order."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    if (n > 0) cout << \"positive\\n\";\n    else if (n < 0) cout << \"negative\\n\";\n    else cout << \"zero\\n\";\n}"
+    },
+    "java": {
+      "code": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        int n = new Scanner(System.in).nextInt();\n        if (n > 0) System.out.println(\"positive\");\n        else if (n < 0) System.out.println(\"negative\");\n        else System.out.println(\"zero\");\n    }\n}"
+    },
+    "python": {
+      "code": "n = int(input())\nif n > 0: print(\"positive\")\nelif n < 0: print(\"negative\")\nelse: print(\"zero\")"
+    },
+    "go": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n    var n int\n    fmt.Scan(&n)\n    if n > 0 { fmt.Println(\"positive\")\n    } else if n < 0 { fmt.Println(\"negative\")\n    } else { fmt.Println(\"zero\") }\n}"
+    }
+  }
+}

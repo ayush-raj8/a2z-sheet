@@ -1,0 +1,36 @@
+{
+  "id": "gcdrhcf",
+  "title": "GCD Or HCF",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Know Basic Maths",
+  "sourceUrl": "https://takeuforward.org/data-structure/find-gcd-of-two-numbers/",
+  "intro": "GCD via Euclidean algorithm is foundational number theory for contests — also the basis of LCM. Classic framing from the roadmap note “find gcd of two numbers”.",
+  "intuition": "gcd(a,b)=gcd(b,a%b) until b=0.",
+  "approach": [
+    "Apply Euclidean algorithm.",
+    "LCM = a/gcd*b carefully.",
+    "Watch zero inputs."
+  ],
+  "complexity": {
+    "time": "O(log min(a,b))",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "gcd(0,0) definition.",
+    "LCM overflow."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "long long gcd(long long a, long long b) {\n    while (b) { auto t = a % b; a = b; b = t; }\n    return a;\n}"
+    },
+    "java": {
+      "code": "static long gcd(long a, long b) {\n    while (b != 0) { long t = a % b; a = b; b = t; }\n    return a;\n}"
+    },
+    "python": {
+      "code": "def gcd(a: int, b: int) -> int:\n    while b:\n        a, b = b, a % b\n    return abs(a)"
+    },
+    "go": {
+      "code": "func gcd(a, b int64) int64 {\n    for b != 0 { a, b = b, a%b }\n    if a < 0 { return -a }\n    return a\n}"
+    }
+  }
+}

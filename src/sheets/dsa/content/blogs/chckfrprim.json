@@ -1,0 +1,36 @@
+{
+  "id": "chckfrprim",
+  "title": "Check for Prime",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Know Basic Maths",
+  "sourceUrl": "https://takeuforward.org/data-structure/check-if-a-number-is-prime-or-not/",
+  "intro": "Primality: trial division to √n is the baseline; sieve appears when you need many queries. Classic framing from the roadmap note “check if a number is prime or not”.",
+  "intuition": "No divisor in 2..√n (handle n<2).",
+  "approach": [
+    "Exclude n<2.",
+    "Trial divide to √n.",
+    "Optional sieve for many queries."
+  ],
+  "complexity": {
+    "time": "O(√n) trial / O(n log log n) sieve build",
+    "space": "O(1) / O(n)"
+  },
+  "pitfalls": [
+    "Calling 1 prime.",
+    "Checking up to n instead of √n."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "bool isPrime(long long n) {\n    if (n < 2) return false;\n    for (long long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
+    },
+    "java": {
+      "code": "static boolean isPrime(long n) {\n    if (n < 2) return false;\n    for (long i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}"
+    },
+    "python": {
+      "code": "def is_prime(n: int) -> bool:\n    if n < 2: return False\n    i = 2\n    while i * i <= n:\n        if n % i == 0: return False\n        i += 1\n    return True"
+    },
+    "go": {
+      "code": "func isPrime(n int64) bool {\n    if n < 2 { return false }\n    for i := int64(2); i*i <= n; i++ {\n        if n%i == 0 { return false }\n    }\n    return true\n}"
+    }
+  }
+}

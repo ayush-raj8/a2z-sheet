@@ -1,0 +1,38 @@
+{
+  "id": "rvrsnrry",
+  "title": "Reverse an array",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Learn Basic Recursion",
+  "sourceUrl": "https://takeuforward.org/data-structure/reverse-a-given-array/",
+  "intro": "Recursion is induction in code: base case + smaller self-call. Always argue why the call stack shrinks. Classic framing from the roadmap note “reverse a given array”.",
+  "intuition": "Solve f(n) using f(smaller); write the base case that stops the chain.",
+  "approach": [
+    "Define f(args) meaning.",
+    "Write base case.",
+    "Call on strictly smaller instance; combine results."
+  ],
+  "complexity": {
+    "time": "Problem-specific",
+    "space": "O(depth) stack"
+  },
+  "pitfalls": [
+    "Missing base case → stack overflow.",
+    "Recomputing overlapping subproblems without memo."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    cout << n << \" \";\n}",
+      "notes": "Replace the combine step to match “Reverse an array”."
+    },
+    "java": {
+      "code": "static void printN(int n) {\n    if (n == 0) return;\n    printN(n - 1);\n    System.out.print(n + \" \");\n}"
+    },
+    "python": {
+      "code": "def print_n(n: int) -> None:\n    if n == 0: return\n    print_n(n - 1)\n    print(n, end=\" \")"
+    },
+    "go": {
+      "code": "func printN(n int) {\n    if n == 0 { return }\n    printN(n - 1)\n    fmt.Print(n, \" \")\n}",
+      "notes": "import \"fmt\""
+    }
+  }
+}

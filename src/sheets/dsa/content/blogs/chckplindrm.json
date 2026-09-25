@@ -1,0 +1,37 @@
+{
+  "id": "chckplindrm",
+  "title": "Check Palindrome",
+  "stepTitle": "Learn the basics",
+  "subStepTitle": "Know Basic Maths",
+  "sourceUrl": "https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/",
+  "intro": "A number is a palindrome when it equals its reverse (careful with negatives and trailing zeros). Classic framing from the roadmap note “check if a number is palindrome or not”.",
+  "intuition": "Compare to reverse, or compare left/right digit halves.",
+  "approach": [
+    "Reject negatives if stated.",
+    "Reverse or two-pointer on digits.",
+    "Compare."
+  ],
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Negative numbers.",
+    "Overflow while reversing."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "long long reverseNum(long long n) {\n    long long ans = 0;\n    while (n) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nbool isPalindrome(long long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}",
+      "notes": "Negatives are not palindromes in the usual LC convention."
+    },
+    "java": {
+      "code": "static long reverseNum(long n) {\n    long ans = 0;\n    while (n != 0) { ans = ans * 10 + n % 10; n /= 10; }\n    return ans;\n}\nstatic boolean isPalindrome(long n) {\n    if (n < 0) return false;\n    return n == reverseNum(n);\n}"
+    },
+    "python": {
+      "code": "def reverse_num(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    ans = 0\n    while n:\n        ans = ans * 10 + n % 10\n        n //= 10\n    return sign * ans\n\ndef is_palindrome(n: int) -> bool:\n    return n >= 0 and n == reverse_num(n)"
+    },
+    "go": {
+      "code": "func reverseNum(n int64) int64 {\n    ans := int64(0)\n    for n != 0 { ans = ans*10 + n%10; n /= 10 }\n    return ans\n}\nfunc isPalindrome(n int64) bool {\n    if n < 0 { return false }\n    return n == reverseNum(n)\n}"
+    }
+  }
+}

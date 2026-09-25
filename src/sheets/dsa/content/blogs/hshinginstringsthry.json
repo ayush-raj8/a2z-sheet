@@ -1,0 +1,40 @@
+{
+  "id": "hshinginstringsthry",
+  "title": "Hashing In Strings | Theory",
+  "stepTitle": "Strings",
+  "subStepTitle": "Hard Problems",
+  "sourceUrl": null,
+  "intro": "Hashing trades memory for average O(1) lookups. State collision assumptions; prefer frequency maps for counting problems.",
+  "intuition": "Key → frequency/index; collisions are rare with good hash tables.",
+  "approach": [
+    "Build frequency/index map.",
+    "Query in average O(1).",
+    "Fall back to sorted+two pointers if hash worst-case matters."
+  ],
+  "complexity": {
+    "time": "Average O(n)",
+    "space": "O(n)"
+  },
+  "pitfalls": [
+    "Mutable keys.",
+    "Assuming iteration order."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n// Teach-yourself scaffold for: Hashing In Strings | Theory\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int n; \n    if (!(cin >> n)) return 0;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    // TODO: core idea for \"Hashing In Strings | Theory\"\n    // 1) brute force for correctness\n    // 2) replace with the pattern from this step\n    cout << a.size() << \"\\n\";\n    return 0;\n}",
+      "notes": "Fill the TODO with the approach above; keep IO fast."
+    },
+    "java": {
+      "code": "import java.util.*;\npublic class Main {\n    // Teach-yourself scaffold for: Hashing In Strings | Theory\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // TODO: implement \"Hashing In Strings | Theory\"\n        System.out.println(a.length);\n    }\n}",
+      "notes": "Replace the TODO; prefer clear names over micro-opts first."
+    },
+    "python": {
+      "code": "# Teach-yourself scaffold for: Hashing In Strings | Theory\nimport sys\n\ndef solve(a):\n    # TODO: core idea for \"Hashing In Strings | Theory\"\n    return len(a)\n\ndef main():\n    data = list(map(int, sys.stdin.buffer.read().split()))\n    if not data: return\n    n, *rest = data\n    a = rest[:n]\n    print(solve(a))\n\nif __name__ == \"__main__\":\n    main()",
+      "notes": "PyPy helps some TLs; still aim for the right complexity."
+    },
+    "go": {
+      "code": "package main\nimport (\n    \"bufio\"\n    \"fmt\"\n    \"os\"\n)\n// Teach-yourself scaffold for: Hashing In Strings | Theory\nfunc solve(a []int) int {\n    // TODO: core idea for \"Hashing In Strings | Theory\"\n    return len(a)\n}\nfunc main() {\n    in := bufio.NewReader(os.Stdin)\n    var n int\n    if _, err := fmt.Fscan(in, &n); err != nil { return }\n    a := make([]int, n)\n    for i := 0; i < n; i++ { fmt.Fscan(in, &a[i]) }\n    fmt.Println(solve(a))\n}",
+      "notes": "Go rewards simple, explicit loops — good for interviews."
+    }
+  }
+}

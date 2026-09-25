@@ -1,0 +1,38 @@
+{
+  "id": "vrticlrdrtrvrslfbinrytr",
+  "title": "Vertical Order Traversal of Binary Tree",
+  "stepTitle": "Binary Trees [Traversals, Medium and Hard Problems]",
+  "subStepTitle": "Medium Problems",
+  "sourceUrl": "https://takeuforward.org/data-structure/vertical-order-traversal-of-binary-tree/",
+  "intro": "Trees are recursive structures. Prefer clear traversals (pre/in/post/level) and define null-base cases first.",
+  "intuition": "Left/right subtrees are the same problem smaller — recurse with clear return meaning.",
+  "approach": [
+    "Choose traversal.",
+    "Recurse on children.",
+    "Combine child answers into parent answer."
+  ],
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(h) recursion"
+  },
+  "pitfalls": [
+    "Null dereference.",
+    "Passing parent incorrectly in DFS."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "struct Node { int val; Node *left, *right; };\nvoid inorder(Node* r) {\n    if (!r) return;\n    inorder(r->left);\n    cout << r->val << \" \";\n    inorder(r->right);\n}",
+      "notes": "Change traversal / return aggregate for “Vertical Order Traversal of Binary Tree”."
+    },
+    "java": {
+      "code": "class Node {\n    int val; Node left, right;\n    Node(int v) { val = v; }\n}\nstatic void inorder(Node r) {\n    if (r == null) return;\n    inorder(r.left);\n    System.out.print(r.val + \" \");\n    inorder(r.right);\n}"
+    },
+    "python": {
+      "code": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorder(r):\n    if not r: return\n    inorder(r.left)\n    print(r.val, end=\" \")\n    inorder(r.right)"
+    },
+    "go": {
+      "code": "type Node struct {\n    Val int\n    Left, Right *Node\n}\nfunc inorder(r *Node) {\n    if r == nil { return }\n    inorder(r.Left)\n    fmt.Print(r.Val, \" \")\n    inorder(r.Right)\n}",
+      "notes": "import \"fmt\""
+    }
+  }
+}

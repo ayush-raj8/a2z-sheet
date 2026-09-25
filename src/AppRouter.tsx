@@ -18,7 +18,7 @@ export default function AppRouter() {
     <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dsa" element={<DsaApp />} />
+        <Route path="/dsa/*" element={<DsaApp />} />
         <Route path="/lld/*" element={<LldApp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

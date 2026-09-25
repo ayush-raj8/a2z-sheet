@@ -1,0 +1,37 @@
+{
+  "id": "mtrixmdin",
+  "title": "Matrix Median",
+  "stepTitle": "Binary Search [1D, 2D Arrays, Search Space]",
+  "subStepTitle": "BS on 2D Arrays",
+  "sourceUrl": "https://takeuforward.org/data-structure/median-of-row-wise-sorted-matrix/",
+  "intro": "Binary search is monotonic-predicate search, not “only on arrays.” Define the predicate, then shrink the range. Classic framing from the roadmap note “median of row wise sorted matrix”.",
+  "intuition": "Keep an invariant: answer lies in [lo, hi] while the mid predicate guides the cut.",
+  "approach": [
+    "Identify monotonic predicate.",
+    "Set lo/hi bounds.",
+    "Update mid until lo/hi converge; return answer index/value."
+  ],
+  "complexity": {
+    "time": "O(log n) per search",
+    "space": "O(1)"
+  },
+  "pitfalls": [
+    "Infinite loop from bad mid update.",
+    "Wrong predicate polarity."
+  ],
+  "languages": {
+    "cpp": {
+      "code": "int lowerBoundIndex(vector<int>& a, int x) {\n    int lo = 0, hi = (int)a.size();\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}",
+      "notes": "Adapt the predicate for “Matrix Median” — binary search the answer space when needed."
+    },
+    "java": {
+      "code": "static int lowerBoundIndex(int[] a, int x) {\n    int lo = 0, hi = a.length;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] < x) lo = mid + 1;\n        else hi = mid;\n    }\n    return lo;\n}"
+    },
+    "python": {
+      "code": "def lower_bound(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x: lo = mid + 1\n        else: hi = mid\n    return lo"
+    },
+    "go": {
+      "code": "func lowerBoundIndex(a []int, x int) int {\n    lo, hi := 0, len(a)\n    for lo < hi {\n        mid := lo + (hi-lo)/2\n        if a[mid] < x { lo = mid + 1 } else { hi = mid }\n    }\n    return lo\n}"
+    }
+  }
+}
