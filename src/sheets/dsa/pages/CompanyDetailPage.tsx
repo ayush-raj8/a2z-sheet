@@ -1,13 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { buildBackup, downloadBackup, parseBackup } from '../lib/backup';
 import {
   companyIndex,
+  companyProgressId,
   difficultyClass,
   loadCompany,
   type CompanyDetail,
   type CompanyProblem,
   type CompanyWindowId,
 } from '../lib/companyLoader';
+import { initStore, persistTopic, replaceUserData } from '../lib/db';
+import { DEFAULT_PALETTE } from '../lib/palettes';
 import '../styles.css';
 
 const WINDOW_TABS: Array<{ id: CompanyWindowId | 'all'; label: string }> = [
@@ -48,7 +52,15 @@ function clubByTopic(problems: CompanyProblem[]): TopicGroup[] {
     .sort((a, b) => b.problems.length - a.problems.length || a.topic.localeCompare(b.topic));
 }
 
-function ProblemTable({ problems }: { problems: CompanyProblem[] }) {
+function ProblemTable({
+  problems,
+  progress,
+  onToggle,
+}: {
+  problems: CompanyProblem[];
+  progress: Record<string, boolean>;
+  onToggle: (id: string) => void;
+}) {
   return (
     <div className="table-container company-table">
       <table>
@@ -60,13 +72,19 @@ function ProblemTable({ problems }: { problems: CompanyProblem[] }) {
             <th>Also tagged</th>
             <th>LC</th>
             <th>A2Z</th>
+            <th>Done</th>
           </tr>
         </thead>
         <tbody>
           {problems.map((p) => {
             const extra = (p.topics || []).slice(1);
+            const id = companyProgressId(p);
+            const completed = Boolean(progress[id]);
+            const rowClass = [difficultyClass(p.difficulty), completed ? 'completed' : '']
+              .filter(Boolean)
+              .join(' ');
             return (
-              <tr key={p.lcSlug} className={difficultyClass(p.difficulty)}>
+              <tr key={p.lcSlug} className={rowClass}>
                 <td className="topic-cell">
                   <div className="topic-title">{p.title}</div>
                 </td>
@@ -89,6 +107,15 @@ function ProblemTable({ problems }: { problems: CompanyProblem[] }) {
                     <span className="na-cell">—</span>
                   )}
                 </td>
+                <td className="status-cell" onClick={() => onToggle(id)}>
+                  <input
+                    type="checkbox"
+                    className="status-checkbox"
+                    checked={completed}
+                    readOnly
+                    aria-label={`Mark ${p.title} as done`}
+                  />
+                </td>
               </tr>
             );
           })}
@@ -108,6 +135,26 @@ export default function CompanyDetailPage() {
   const [a2zOnly, setA2zOnly] = useState(false);
   const [topicFilter, setTopicFilter] = useState('');
   const [openTopics, setOpenTopics] = useState<Set<string>>(() => new Set());
+  const [progress, setProgress] = useState<Record<string, boolean>>({});
+  const [usingIndexedDb, setUsingIndexedDb] = useState(true);
+  const [message, setMessage] = useState('');
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    initStore()
+      .then((store) => {
+        if (cancelled) return;
+        setProgress(store.progress);
+        setUsingIndexedDb(store.usingIndexedDb);
+      })
+      .catch(() => {
+        /* sheet still usable without persist */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -132,6 +179,12 @@ export default function CompanyDetailPage() {
       cancelled = true;
     };
   }, [companySlug]);
+
+  useEffect(() => {
+    if (!message) return undefined;
+    const t = window.setTimeout(() => setMessage(''), 3200);
+    return () => window.clearTimeout(t);
+  }, [message]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -160,10 +213,16 @@ export default function CompanyDetailPage() {
     return groups.filter((g) => g.topic === topicFilter);
   }, [groups, topicFilter]);
 
-  // Open all topic sections when filters change (so results aren't hidden)
   useEffect(() => {
     setOpenTopics(new Set(visibleGroups.map((g) => g.topic)));
   }, [visibleGroups]);
+
+  const overallStats = useMemo(() => {
+    const ids = filtered.map(companyProgressId);
+    const unique = [...new Set(ids)];
+    const completed = unique.filter((id) => progress[id]).length;
+    return { completed, total: unique.length };
+  }, [filtered, progress]);
 
   const meta = companyIndex.companies.find((c) => c.slug === companySlug);
 
@@ -182,6 +241,57 @@ export default function CompanyDetailPage() {
 
   function collapseAllTopics() {
     setOpenTopics(new Set());
+  }
+
+  function toggleDone(id: string) {
+    const nextValue = !progress[id];
+    const nextProgress = { ...progress };
+    if (nextValue) nextProgress[id] = true;
+    else delete nextProgress[id];
+    setProgress(nextProgress);
+    persistTopic(id, nextValue, usingIndexedDb, {
+      progress: nextProgress,
+      notes: {},
+      palette: DEFAULT_PALETTE,
+    });
+  }
+
+  function exportProgress() {
+    downloadBackup(buildBackup({ progress, notes: {} }));
+    setMessage('Backup downloaded (includes A2Z + company progress).');
+  }
+
+  function importProgress() {
+    fileRef.current?.click();
+  }
+
+  async function onImportFile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    try {
+      const parsed = parseBackup(await file.text());
+      const confirmed = window.confirm(
+        'Replace all progress saved in this browser (A2Z + company)? Notes on A2Z are kept unless the backup includes notes.',
+      );
+      if (!confirmed) return;
+      // Keep existing notes from store — re-init notes from current if backup empty
+      const store = await initStore();
+      const nextProgress = parsed.progress as Record<string, boolean>;
+      const notes = (Object.keys(parsed.notes).length ? parsed.notes : store.notes) as Record<
+        string,
+        string
+      >;
+      await replaceUserData(
+        { progress: nextProgress, notes },
+        usingIndexedDb,
+        { progress: nextProgress, notes, palette: store.palette },
+      );
+      setProgress(nextProgress);
+      setMessage(`Imported ${Object.keys(nextProgress).length} completed items.`);
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : 'Could not import that file.');
+    }
   }
 
   if (status === 'loading') {
@@ -209,6 +319,8 @@ export default function CompanyDetailPage() {
 
   const allOpen =
     visibleGroups.length > 0 && visibleGroups.every((g) => openTopics.has(g.topic));
+  const pct =
+    overallStats.total > 0 ? Math.round((overallStats.completed / overallStats.total) * 100) : 0;
 
   return (
     <div className="app">
@@ -219,19 +331,49 @@ export default function CompanyDetailPage() {
           </Link>
           <h1>{data.name}</h1>
           <p className="storage-note">
-            {data.problems.length} problems · grouped by primary LC topic
-            {meta?.a2zOverlap ? ` · ${meta.a2zOverlap} on A2Z` : ''}
+            Progress saved in this browser (same store as A2Z · import/export)
+            {meta?.a2zOverlap ? ` · ${meta.a2zOverlap} overlap A2Z` : ''}
           </p>
         </div>
         <div className="topbar-actions">
-          <button type="button" className="ghost-btn" onClick={allOpen ? collapseAllTopics : expandAllTopics}>
+          <button type="button" className="ghost-btn" onClick={exportProgress}>
+            Export
+          </button>
+          <button type="button" className="ghost-btn" onClick={importProgress}>
+            Import
+          </button>
+          <button
+            type="button"
+            className="ghost-btn"
+            onClick={allOpen ? collapseAllTopics : expandAllTopics}
+          >
             {allOpen ? 'Collapse topics' : 'Expand topics'}
           </button>
           <Link to="/dsa" className="ghost-btn">
             A2Z Roadmap
           </Link>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json,.json"
+            hidden
+            onChange={onImportFile}
+          />
         </div>
       </header>
+
+      <section className="overview" aria-label="Company progress">
+        <div className="overview-top">
+          <span>Filtered progress</span>
+          <span className="overview-count">
+            {overallStats.completed}/{overallStats.total} · {pct}%
+          </span>
+        </div>
+        <div className="overview-bar" aria-hidden="true">
+          <div className="overview-bar-fill" style={{ width: `${pct}%` }} />
+        </div>
+        {message ? <p className="status-message">{message}</p> : null}
+      </section>
 
       <section className="company-toolbar company-toolbar-wrap">
         <div className="company-window-tabs" role="tablist" aria-label="Time window">
@@ -303,17 +445,27 @@ export default function CompanyDetailPage() {
         ) : (
           visibleGroups.map((g) => {
             const open = openTopics.has(g.topic);
+            const done = g.problems.filter((p) => progress[companyProgressId(p)]).length;
             return (
               <section key={g.topic} className="company-topic-section">
                 <button
                   type="button"
-                  className={`sub-collapsible company-topic-header${open ? ' active' : ''}`}
+                  className={`sub-collapsible company-topic-header${open ? ' active' : ''}${
+                    done === g.problems.length && g.problems.length > 0 ? ' completed' : ''
+                  }`}
+                  style={{
+                    '--progress-width': `${
+                      g.problems.length ? (done / g.problems.length) * 100 : 0
+                    }%`,
+                  } as CSSProperties}
                   onClick={() => toggleTopic(g.topic)}
                   aria-expanded={open}
                 >
                   <span className="collapsible-title">{g.topic}</span>
                   <span className="collapsible-meta">
-                    <span className="progress-counter">{g.problems.length}</span>
+                    <span className="progress-counter">
+                      {done}/{g.problems.length}
+                    </span>
                     <span className="collapsible-icon" aria-hidden="true">
                       {open ? '–' : '+'}
                     </span>
@@ -321,7 +473,7 @@ export default function CompanyDetailPage() {
                 </button>
                 {open ? (
                   <div className="content-inner">
-                    <ProblemTable problems={g.problems} />
+                    <ProblemTable problems={g.problems} progress={progress} onToggle={toggleDone} />
                   </div>
                 ) : null}
               </section>

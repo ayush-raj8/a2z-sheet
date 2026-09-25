@@ -120,3 +120,20 @@ export function difficultyClass(diff: string): string {
   if (d === 'MEDIUM') return 'diff-medium';
   return '';
 }
+
+/**
+ * Progress key shared with A2Z sheet IndexedDB / import-export.
+ * Prefer A2Z topic id when mapped so both pages stay in sync; otherwise `lc:<slug>`.
+ */
+export function companyProgressId(p: Pick<CompanyProblem, 'lcSlug' | 'a2zIds'>): string {
+  return p.a2zIds?.[0] || `lc:${p.lcSlug}`;
+}
+
+/**
+ * Progress key shared with A2Z IndexedDB / import-export.
+ * Prefer A2Z topic id when mapped so sheet + company stay in sync;
+ * otherwise `lc:{slug}` for company-only problems.
+ */
+export function companyProblemProgressId(p: Pick<CompanyProblem, 'lcSlug' | 'a2zIds'>): string {
+  return p.a2zIds?.[0] || `lc:${p.lcSlug}`;
+}
