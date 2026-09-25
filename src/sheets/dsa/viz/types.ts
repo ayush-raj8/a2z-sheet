@@ -34,6 +34,8 @@ export type BridgeSccMode = 'bridges' | 'articulation' | 'kosaraju';
 export type VizNode = {
   id: string;
   label: string;
+  /** Optional secondary label (e.g. distance under the node id) */
+  sub?: string;
   x: number;
   y: number;
 };

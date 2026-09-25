@@ -112,6 +112,67 @@ export function layoutGraphCircle(n: number, cx = 210, cy = 130, r = 95): VizNod
   return nodes;
 }
 
+/**
+ * Layered DAG layout: x = topological level (longest path from sources),
+ * y = slot within the level. Reads left→right like a real DAG.
+ */
+export function layoutDagLayers(
+  n: number,
+  edges: Array<[number, number] | [number, number, number]>,
+  width = 400,
+  height = 220,
+): { nodes: VizNode[]; topo: number[]; levels: number[] } {
+  const g: number[][] = Array.from({ length: n }, () => []);
+  const indeg = Array(n).fill(0);
+  for (const e of edges) {
+    const u = e[0];
+    const v = e[1];
+    g[u].push(v);
+    indeg[v]++;
+  }
+  const q: number[] = [];
+  for (let i = 0; i < n; i++) if (indeg[i] === 0) q.push(i);
+  const topo: number[] = [];
+  const indeg2 = [...indeg];
+  while (q.length) {
+    const u = q.shift()!;
+    topo.push(u);
+    for (const v of g[u]) {
+      indeg2[v]--;
+      if (indeg2[v] === 0) q.push(v);
+    }
+  }
+  // If cycle / incomplete topo, fall back to index order
+  if (topo.length !== n) {
+    for (let i = 0; i < n; i++) if (!topo.includes(i)) topo.push(i);
+  }
+
+  const levels = Array(n).fill(0);
+  for (const u of topo) {
+    for (const v of g[u]) levels[v] = Math.max(levels[v], levels[u] + 1);
+  }
+  const byLevel = new Map<number, number[]>();
+  for (let i = 0; i < n; i++) {
+    const L = levels[i];
+    if (!byLevel.has(L)) byLevel.set(L, []);
+    byLevel.get(L)!.push(i);
+  }
+  const maxL = Math.max(0, ...levels);
+  const nodes: VizNode[] = [];
+  for (let L = 0; L <= maxL; L++) {
+    const row = byLevel.get(L) || [];
+    row.forEach((id, idx) => {
+      const x = maxL === 0 ? width / 2 : 36 + (L * (width - 72)) / maxL;
+      const y =
+        row.length === 1
+          ? height / 2
+          : 36 + (idx * (height - 72)) / Math.max(1, row.length - 1);
+      nodes.push({ id: String(id), label: String(id), x, y });
+    });
+  }
+  return { nodes, topo, levels };
+}
+
 export function undirectedEdgeId(u: number | string, v: number | string) {
   const a = String(u);
   const b = String(v);

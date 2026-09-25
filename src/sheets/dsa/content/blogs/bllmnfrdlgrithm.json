@@ -17,7 +17,7 @@
   ],
   "pattern": "bellman-ford",
   "problemStatement": "Single-source shortest paths with possible negative edge weights; detect negative cycles reachable from source.",
-  "intuition": "Relax all edges |V|-1 times. A further improvement ⇒ negative cycle. Slower than Dijkstra but more general.",
+  "intuition": "Relax all edges |V|-1 times. A further improvement ⇒ negative cycle. Slower than Dijkstra on non-negative graphs, but it is the correct general SSSP algorithm when negatives exist — not a brute-force fallback.",
   "approaches": [
     {
       "title": "Only Dijkstra (trap)",
@@ -32,15 +32,14 @@
     },
     {
       "title": "Optimal: Bellman-Ford",
-      "idea": "Initialize dist[src]=0; relax edges n-1 times; one more pass for cycle detect.",
+      "idea": "Initialize dist[src]=0; relax edges n-1 times; one more pass for cycle detect. This is the standard algorithm for negatives — not a brute-force substitute for Dijkstra.",
       "code": "def bellman_ford(n, edges, src=0):\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for _ in range(n - 1):\n        updated = False\n        for u, v, w in edges:\n            if dist[u] != float('inf') and dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n                updated = True\n        if not updated:\n            break\n    # negative cycle reachable?\n    for u, v, w in edges:\n        if dist[u] != float('inf') and dist[u] + w < dist[v]:\n            return None  # or raise / flag cycle\n    return dist",
       "language": "python",
       "time": "O(n·m)",
       "space": "O(n)",
-      "flags": [
-        "TLE"
-      ],
+      "whyWorks": "A simple path has ≤ n−1 edges; n−1 full relax passes propagate the shortest path. One more improving relaxation ⇒ negative cycle.",
       "limitations": [
+        "Slower than Dijkstra when all weights are non-negative",
         "Dense graphs: prefer Floyd or Johnson carefully"
       ]
     }

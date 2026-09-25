@@ -11,68 +11,84 @@
   "topicType": "algorithm",
   "sourceUrl": "https://takeuforward.org/data-structure/topological-sort-algorithm-dfs-g-21/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "dag"
-  ],
+  "tags": ["graph", "dag", "topo"],
   "pattern": "topological-sort",
-  "problemStatement": "Order vertices of a DAG so every edge u→v has u before v. Impossible if a cycle exists.",
-  "intuition": "Prerequisites / build order. Kahn (BFS indegrees) or DFS finish-time stack.",
+  "problemStatement": "Given a Directed Acyclic Graph (DAG) with n nodes (0…n-1), return a topological ordering: for every directed edge u→v, u appears before v. If the graph has a cycle, return an empty list (no valid order).",
+  "example": "n = 6\nedges: 5→2, 5→0, 4→0, 4→1, 2→3, 3→1\n\nOne valid topo: [4, 5, 2, 0, 3, 1]\n(also [5, 4, 2, 3, 0, 1], … — order is not unique)",
+  "intuition": "Think prerequisites: you can only take a course when all its prereqs are done. Kahn peels indegree-0 nodes with a queue. DFS pushes a node after all outs are done, then reverse the stack. Same idea: finish dependencies before dependents.",
   "approaches": [
     {
       "title": "DFS finish-time topo",
-      "idea": "Push node after exploring outs; reverse stack = topo (if no cycle).",
-      "code": "from collections import defaultdict\n\ndef topo_dfs(n, edges):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n    state = [0] * n  # 0 unseen 1 active 2 done\n    out = []\n    ok = True\n\n    def dfs(u):\n        nonlocal ok\n        state[u] = 1\n        for v in g[u]:\n            if state[v] == 1:\n                ok = False\n            elif state[v] == 0:\n                dfs(v)\n        state[u] = 2\n        out.append(u)\n\n    for u in range(n):\n        if state[u] == 0:\n            dfs(u)\n    return list(reversed(out)) if ok else []",
+      "idea": "3-color DFS. Push node after exploring outs; reverse of finish order is a topo. Back-edge to an active node ⇒ cycle.",
+      "algorithm": [
+        "Build adjacency list for directed edges",
+        "state: 0=unseen, 1=active (on stack), 2=done",
+        "On back-edge to active → cycle",
+        "Append node when leaving; reverse list at end"
+      ],
+      "code": "from collections import defaultdict\n\ndef topo_dfs(n, edges):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n    state = [0] * n  # 0 unseen, 1 active, 2 done\n    out = []\n    ok = True\n\n    def dfs(u):\n        nonlocal ok\n        state[u] = 1\n        for v in g[u]:\n            if state[v] == 1:\n                ok = False\n            elif state[v] == 0:\n                dfs(v)\n        state[u] = 2\n        out.append(u)\n\n    for u in range(n):\n        if state[u] == 0:\n            dfs(u)\n    return list(reversed(out)) if ok else []",
       "language": "python",
       "time": "O(n + m)",
       "space": "O(n + m)"
     },
     {
       "title": "Optimal interview favorite: Kahn’s algorithm",
-      "idea": "Queue of indegree 0; peel layers.",
+      "idea": "Indegree array + queue of indegree-0 nodes. Peel layers. If you process fewer than n nodes → cycle.",
+      "algorithm": [
+        "indeg[v] = number of incoming edges",
+        "queue ← all i with indeg[i]==0",
+        "While queue: pop u, append to order, decrement outs; enqueue when indeg hits 0",
+        "len(order)==n ? order : []"
+      ],
       "code": "from collections import defaultdict, deque\n\ndef topo_kahn(n, edges):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v in edges:\n        g[u].append(v)\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    order = []\n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return order if len(order) == n else []  # cycle if short",
       "language": "python",
       "time": "O(n + m)",
       "space": "O(n + m)",
-      "dryRun": "Peel indegree-0 nodes; if fewer than n processed → cycle",
-      "whyWorks": "Only nodes with all prerequisites done can start."
+      "dryRun": "indeg starts [2,2,1,1,0,0] for the example\nqueue=[4,5] → take 4 → take 5 → … → order length 6",
+      "whyWorks": "A node enters the queue only after every predecessor was already ordered."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "from collections import defaultdict, deque\n\ndef topo_kahn(n, edges):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v in edges:\n        g[u].append(v)\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    order = []\n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return order if len(order) == n else []",
+      "notes": "Kahn BFS — preferred in interviews for easy cycle check."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class TopoSort {\n    public static List<Integer> topoKahn(int n, int[][] edges) {\n        List<List<Integer>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        int[] indeg = new int[n];\n        for (int[] e : edges) {\n            g.get(e[0]).add(e[1]);\n            indeg[e[1]]++;\n        }\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) if (indeg[i] == 0) q.add(i);\n        List<Integer> order = new ArrayList<>();\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            order.add(u);\n            for (int v : g.get(u)) {\n                if (--indeg[v] == 0) q.add(v);\n            }\n        }\n        return order.size() == n ? order : List.of();\n    }\n}",
+      "notes": "edges[i] = {u, v}."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> topoKahn(int n, vector<pair<int,int>> edges) {\n    vector<vector<int>> g(n);\n    vector<int> indeg(n, 0);\n    for (auto [u, v] : edges) {\n        g[u].push_back(v);\n        indeg[v]++;\n    }\n    queue<int> q;\n    for (int i = 0; i < n; i++) if (indeg[i] == 0) q.push(i);\n    vector<int> order;\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        order.push_back(u);\n        for (int v : g[u]) if (--indeg[v] == 0) q.push(v);\n    }\n    if ((int)order.size() != n) return {};\n    return order;\n}",
+      "notes": "Empty vector means cycle."
+    }
+  },
   "complexity": {
     "time": "O(n + m)",
     "space": "O(n + m)"
   },
   "edgeCases": [
-    "Cycle → empty/partial order",
+    "Cycle → empty / partial order",
     "Multiple valid topos",
-    "Disconnected DAG"
+    "Disconnected DAG (several indegree-0 starts)"
   ],
   "commonMistakes": [
-    "Assuming unique order",
-    "Not detecting cycles",
-    "Undirected edges"
+    "Assuming the order is unique",
+    "Not detecting cycles (Kahn: order.size() < n)",
+    "Treating the graph as undirected"
   ],
   "patternRecognition": [
     "Course schedule, build systems, dependency resolution"
   ],
   "followUps": [
     "Course Schedule I/II?",
-    "Lexicographically smallest topo (heap)?",
-    "Count topos?"
+    "Lexicographically smallest topo (min-heap)?",
+    "Count number of topological orders?"
   ],
-  "interviewInsight": "Implement Kahn and explain cycle detection via count < n.",
+  "interviewInsight": "Implement Kahn and say: “if we finish with fewer than n nodes, there is a cycle.”",
   "related": [
-    {
-      "id": "cycldtctinindirctdgrphdfs",
-      "title": "Cycle Detection in Directed Graph (DFS)"
-    },
-    {
-      "id": "khnslgrithm",
-      "title": "Kahn's Algorithm"
-    },
-    {
-      "id": "biprtitgrphdfs",
-      "title": "Bipartite Graph (DFS)"
-    }
+    { "id": "khnslgrithm", "title": "Kahn's Algorithm" },
+    { "id": "cycldtctinindirctdgrphbfs", "title": "Cycle Detection in Directed Graph (BFS)" },
+    { "id": "shrtstpthindg", "title": "Shortest Path in DAG" },
+    { "id": "crsschdli", "title": "Course Schedule - I" }
   ]
 }

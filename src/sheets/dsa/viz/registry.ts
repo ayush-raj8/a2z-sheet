@@ -2,12 +2,12 @@ import { buildBellmanFloyd } from './kits/bellmanFloyd';
 import { buildBstMutate } from './kits/bstMutate';
 import { buildBstWalk } from './kits/bstWalk';
 import { buildBridgeScc } from './kits/bridgeScc';
-import { buildDijkstra } from './kits/dijkstra';
+import { buildDijkstra, buildWhyPriorityQueue } from './kits/dijkstra';
 import { buildDsu } from './kits/dsu';
 import { buildGraphWalk } from './kits/graphWalk';
 import { buildGridBfs } from './kits/gridBfs';
 import { buildMst } from './kits/mst';
-import { buildTopoKahn } from './kits/topoKahn';
+import { buildTopoKahn, buildTopoSortTopic } from './kits/topoKahn';
 import { buildTreeBfs } from './kits/treeBfs';
 import { buildTreeBuild } from './kits/treeBuild';
 import { buildTreeDfs } from './kits/treeDfs';
@@ -18,7 +18,7 @@ import { buildTrieBinary } from './kits/trieBinary';
 import { buildTrieString } from './kits/trieString';
 import type { VizSpec } from './types';
 
-type Builder = () => VizSpec;
+type Builder = () => VizSpec | VizSpec[];
 
 /** Topic id → frame builder (default sample data baked into each kit). */
 const REGISTRY: Record<string, Builder> = {
@@ -53,18 +53,18 @@ const REGISTRY: Record<string, Builder> = {
   srrnddrginsdfs: () => buildGridBfs('flood'),
 
   djisktrslgrithm: () => buildDijkstra(),
-  whyprirityqissdindjisktrslgrithm: () => buildDijkstra(),
+  whyprirityqissdindjisktrslgrithm: () => buildWhyPriorityQueue(),
   ntwrkdlytim: () => buildDijkstra(),
   pthwithminimmffrt: () => buildDijkstra(),
   shrtstpthingwithnitwights: () => buildGraphWalk('bfs'),
 
-  tpsrt: () => buildTopoKahn(),
-  khnslgrithm: () => buildTopoKahn(),
-  crsschdli: () => buildTopoKahn(),
-  crsschdlii: () => buildTopoKahn(),
-  lindictinry: () => buildTopoKahn(),
-  findvntlsfstts: () => buildTopoKahn(),
-  cycldtctinindirctdgrphbfs: () => buildTopoKahn(),
+  tpsrt: () => buildTopoSortTopic(),
+  khnslgrithm: () => buildTopoKahn('kahn'),
+  crsschdli: () => buildTopoKahn('topo'),
+  crsschdlii: () => buildTopoKahn('topo'),
+  lindictinry: () => buildTopoKahn('topo'),
+  findvntlsfstts: () => buildTopoKahn('topo'),
+  cycldtctinindirctdgrphbfs: () => buildTopoKahn('cycle'),
 
   insrtgivnndinbinrysrchtr: () => buildBstMutate('insert'),
   dltndinbinrysrchtr: () => buildBstMutate('delete'),
@@ -128,9 +128,15 @@ const REGISTRY: Record<string, Builder> = {
   ksrjslgrithm: () => buildBridgeScc('kosaraju'),
 };
 
-export function getVizForTopic(topicId: string): VizSpec | null {
+export function getVizSpecsForTopic(topicId: string): VizSpec[] {
   const build = REGISTRY[topicId];
-  return build ? build() : null;
+  if (!build) return [];
+  const out = build();
+  return Array.isArray(out) ? out : [out];
+}
+
+export function getVizForTopic(topicId: string): VizSpec | null {
+  return getVizSpecsForTopic(topicId)[0] ?? null;
 }
 
 export function vizTopicIds(): string[] {

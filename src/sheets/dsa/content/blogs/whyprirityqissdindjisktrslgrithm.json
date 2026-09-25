@@ -8,88 +8,109 @@
   "category": "Graphs [Concepts & Problems]",
   "subcategory": "Shortest Path Algorithms and Problems",
   "difficulty": "medium",
-  "topicType": "coding-problem",
+  "topicType": "algorithm",
   "sourceUrl": "https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "shortest-path"
-  ],
-  "pattern": "dijkstra",
-  "problemStatement": "Single-source shortest paths on a graph with non-negative edge weights.",
-  "intuition": "Greedily settle the closest unsettled node (like BFS, but priority queue replaces FIFO). Fails with negative edges — use Bellman-Ford there.",
+  "tags": ["graph", "shortest-path", "dijkstra", "priority-queue"],
+  "pattern": "dijkstra-why-pq",
+  "problemStatement": "Dijkstra always expands the unsettled node with the smallest tentative distance. Why must that selection use a priority queue (min-heap) — why isn’t a normal FIFO queue (BFS-style) enough?",
+  "example": "n = 3, src = 0\nedges: 0→1 (1), 0→2 (100), 1→2 (1)\n\nTrue distances: dist = [0, 1, 2]\n\nFIFO queue that settles on first pop:\n  queue after leaving 0: [1@1, 2@100]\n  pop 1 → relax 2 to 2, push 2@2 → queue [2@100, 2@2]\n  pop 2@100 and settle → dist[2]=100  ✗ WRONG\n\nMin-heap always pops the smaller key first → pops 2@2 before the stale 2@100 → dist[2]=2 ✓",
+  "intuition": "Dijkstra’s correctness needs “expand closest first.” A FIFO queue expands in discovery order, not distance order, so a farther tentative label can be settled before a better one arrives. A min-heap always gives you the current best unsettled label. (Bellman-Ford is a different algorithm for negatives — not a “brute Dijkstra.”)",
   "approaches": [
     {
-      "title": "Brute: Bellman-Ford style relax-all (works but slower)",
-      "idea": "Relax every edge |V|-1 times — handles negatives too, but O(nm).",
-      "code": "def bellman_ref(n, edges, src):\n    # edges: (u,v,w)\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for _ in range(n - 1):\n        for u, v, w in edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
-      "language": "python",
-      "time": "O(n·m)",
-      "space": "O(n)",
-      "flags": [
-        "TLE"
+      "title": "Wrong: FIFO queue + settle on first pop",
+      "idea": "Copy BFS: dequeue front, mark settled forever. With uneven weights the front is not the closest node → wrong distances.",
+      "algorithm": [
+        "queue ← [(0, src)], dist[src]=0",
+        "While queue: pop front (d,u); if already settled, skip; else settle u",
+        "Relax outs and push to the back",
+        "Bug: first time you see u may not be with the best d"
       ],
+      "code": "from collections import deque, defaultdict\n\ndef dijkstra_fifo_wrong(n, edges, src=0):\n    \"\"\"Demonstrates the bug — do NOT use in production.\"\"\"\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    q = deque([(0, src)])\n    settled = [False] * n\n    while q:\n        d, u = q.popleft()  # FIFO — not closest-first\n        if settled[u]:\n            continue\n        settled[u] = True  # may freeze a BAD distance\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                q.append((nd, v))\n    return dist\n\n# dijkstra_fifo_wrong(3, [(0,1,1),(0,2,100),(1,2,1)], 0)\n# → [0, 1, 100]  (should be [0, 1, 2])",
+      "language": "python",
+      "time": "can be wrong",
+      "space": "O(n+m)",
+      "flags": ["WA"],
+      "dryRun": "Settle 2 at 100 because 2@100 sits in front of 2@2 in the FIFO.",
       "limitations": [
-        "Correct for non-negative too, but too slow when Dijkstra applies"
+        "Works for unit weights (then it is BFS) — fails when weights vary"
       ]
     },
     {
-      "title": "Optimal: Dijkstra with min-heap",
-      "idea": "dist[], heap of (d,u); skip stale entries.",
-      "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n        # g[v].append((u, w))  # if undirected\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue  # stale\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
+      "title": "Slow but correct: scan for the min unsettled (no heap)",
+      "idea": "Each step scan all unsettled nodes for the one with smallest dist — classic O(n²) Dijkstra. Same greedy idea, just a dumb “priority queue.”",
+      "code": "def dijkstra_array(n, edges, src=0):\n    g = [[] for _ in range(n)]\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    settled = [False] * n\n    for _ in range(n):\n        u = -1\n        best = float('inf')\n        for i in range(n):\n            if not settled[i] and dist[i] < best:\n                best, u = dist[i], i\n        if u < 0:\n            break\n        settled[u] = True\n        for v, w in g[u]:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
       "language": "python",
-      "time": "O((n + m) log n) with binary heap",
+      "time": "O(n² + m)",
       "space": "O(n + m)",
-      "dryRun": "Settle nodes in increasing distance order; once popped with dist[u], it is final (non-negative weights).",
-      "whyWorks": "Non-negative weights ⇒ no future path can improve a settled node.",
-      "flags": [
-        "WA"
-      ],
+      "flags": ["TLE"],
+      "whyWorks": "Still expands closest-first; the scan is just a slow priority queue.",
       "limitations": [
-        "Negative edge → WRONG — algorithm assumption violated"
+        "Fine for dense graphs / small n; heap wins on sparse graphs"
       ]
+    },
+    {
+      "title": "Optimal: min-heap priority queue",
+      "idea": "Heap stores (dist, node). Always pop the smallest tentative distance. Skip stale entries (d != dist[u]). That is the efficient closest-first selection.",
+      "algorithm": [
+        "dist[src]=0; push (0, src) into min-heap",
+        "Pop (d,u); if d != dist[u] → stale, continue",
+        "Else settle / relax outs; push improved neighbors",
+        "Non-negative weights ⇒ first time d==dist[u] is final"
+      ],
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)  # closest first\n        if d != dist[u]:\n            continue  # stale\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist\n\n# → [0, 1, 2] on the example",
+      "language": "python",
+      "time": "O((n + m) log n) binary heap",
+      "space": "O(n + m)",
+      "dryRun": "Heap order pops 1@1, then 2@2, then skips stale 2@100.",
+      "whyWorks": "Min-heap = closest-first. Non-negative edges ⇒ no later path can improve a settled node."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
+      "notes": "Priority queue = always expand the current closest unsettled node."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class DijkstraWhyPQ {\n    public static long[] dijkstra(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n        pq.add(new long[]{0, src});\n        while (!pq.isEmpty()) {\n            long[] cur = pq.poll();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n}",
+      "notes": "PriorityQueue is the min-heap; ArrayDeque FIFO would break uneven weights."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<long long> dijkstra(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) {\n            if (d + w < dist[v]) {\n                dist[v] = d + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+      "notes": "priority_queue<..., greater<>> = min-heap."
+    }
+  },
   "specialTechnique": {
-    "title": "Algorithm choice table",
-    "body": "Unweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges → Bellman-Ford\n0/1 weights → 0-1 BFS\nAll-pairs → Floyd-Warshall (dense) / Dijkstra from each (sparse)"
+    "title": "Interview answer (say this)",
+    "body": "Dijkstra needs closest-first expansion.\n• FIFO queue = discovery order ≠ distance order → can settle a bad label (wrong) or thrash.\n• Array scan = correct closest-first but O(n²).\n• Min-heap PQ = correct closest-first in O((n+m) log n).\n\nBellman-Ford is NOT “brute Dijkstra.” It is the right algorithm when edges can be negative (or you need negative-cycle detection). Dijkstra simply does not apply there."
   },
   "complexity": {
-    "time": "O((n+m) log n)",
+    "time": "O((n+m) log n) with binary heap",
     "space": "O(n+m)"
   },
   "edgeCases": [
-    "Unreachable nodes (inf)",
-    "Zero-weight edges",
-    "Disconnected graph"
+    "Unit weights → FIFO BFS is enough (special case of Dijkstra)",
+    "Stale heap entries (same node many times)",
+    "Disconnected nodes stay ∞"
   ],
   "commonMistakes": [
-    "Running Dijkstra with negatives",
-    "Forgetting stale heap entries",
-    "Using visited-before-relax incorrectly"
+    "Calling Bellman-Ford the “brute force” for Dijkstra",
+    "Using queue instead of priority queue on weighted graphs",
+    "Settling a node on first pop without d == dist[u]"
   ],
   "patternRecognition": [
-    "“Shortest path” + weights ≥ 0"
+    "Follow-up after Dijkstra: “Why heap, not queue?”"
   ],
   "followUps": [
-    "Negative edges?",
-    "Why priority queue not queue?",
-    "Reconstruct path via parent[]?",
-    "K shortest paths / constraints on stops?"
+    "Set-based Dijkstra (ordered set) vs binary heap?",
+    "When is O(n²) better than heap?",
+    "Negatives → Bellman-Ford / Johnson?"
   ],
-  "interviewInsight": "Draw the comparison table on the board before coding — that habit separates strong interview answers.",
+  "interviewInsight": "One line: “The priority queue implements the greedy closest-first choice; a normal queue doesn’t.”",
   "related": [
-    {
-      "id": "djisktrslgrithm",
-      "title": "Djisktra's Algorithm"
-    },
-    {
-      "id": "shrtstpthinbinrymz",
-      "title": "Shortest path in a binary maze"
-    },
-    {
-      "id": "shrtstpthindg",
-      "title": "Shortest Path in DAG"
-    }
+    { "id": "djisktrslgrithm", "title": "Djisktra's Algorithm" },
+    { "id": "bllmnfrdlgrithm", "title": "Bellman Ford Algorithm" },
+    { "id": "shrtstpthingwithnitwights", "title": "Shortest Path in UG with unit weights" },
+    { "id": "shrtstpthindg", "title": "Shortest Path in DAG" }
   ]
 }

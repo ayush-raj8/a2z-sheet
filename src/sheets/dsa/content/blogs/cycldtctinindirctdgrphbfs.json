@@ -9,83 +9,87 @@
   "subcategory": "Topo Sort and Problems",
   "difficulty": "hard",
   "topicType": "algorithm",
-  "sourceUrl": null,
+  "sourceUrl": "https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-kahns-algorithm-g-23/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "bfs"
-  ],
-  "pattern": "bfs",
-  "problemStatement": "Traverse a graph breadth-first: visit nodes level by level from a source. BFS is the algorithm for shortest paths in unweighted graphs.",
-  "example": "Adj: 0:[1,2] 1:[3] 2:[3] → BFS from 0 order: 0,1,2,3 with dist [0,1,1,2]",
-  "intuition": "DFS dives deep; BFS expands a wavefront. The first time you reach a node in an unweighted graph is via a shortest path — that is the interview punchline.",
+  "tags": ["graph", "bfs", "kahn", "cycle"],
+  "pattern": "kahn-cycle",
+  "problemStatement": "Given a directed graph with n nodes, detect whether it contains a cycle. Use Kahn’s BFS (indegree peeling): if you cannot order all n nodes, a cycle exists.",
+  "example": "n = 4\nedges: 0→1, 1→2, 2→3, 3→1\n\nKahn takes 0, then stalls — nodes 1,2,3 remain with indegree > 0 → cycle = true\n\nWithout 3→1 the graph is a DAG → cycle = false, topo = [0,1,2,3]",
+  "intuition": "In a DAG, Kahn eventually peels every node. A directed cycle traps a set of nodes that never reach indegree 0. So “processed count < n” is exactly cycle detection — same code as topo sort, different return value.",
   "approaches": [
     {
-      "title": "Brute / wrong instinct: DFS for “shortest”",
-      "idea": "DFS can find a path, but not the shortest unweighted path. Include this only to contrast.",
-      "code": "def path_exists_dfs(g, src, dst, seen=None):\n    if seen is None:\n        seen = set()\n    if src == dst:\n        return True\n    seen.add(src)\n    for v in g[src]:\n        if v not in seen and path_exists_dfs(g, v, dst, seen):\n            return True\n    return False\n# Finds SOME path — NOT shortest. Using this for distances → WA.",
-      "language": "python",
-      "time": "O(n + m) to explore",
-      "space": "O(n) stack",
-      "flags": [
-        "WA"
-      ],
-      "limitations": [
-        "Wrong tool for unweighted shortest paths"
-      ]
-    },
-    {
-      "title": "Optimal: BFS with distance array",
-      "idea": "Queue + visited. dist[v] = dist[u] + 1 when first discovered.",
-      "code": "from collections import defaultdict, deque\n\ndef bfs(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    order = []\n    q = deque([src])\n    dist[src] = 0\n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return order, dist",
+      "title": "DFS 3-color (also correct)",
+      "idea": "Back-edge to a node still on the recursion stack ⇒ directed cycle.",
+      "code": "from collections import defaultdict\n\ndef has_cycle_dfs(n, edges):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n    state = [0] * n  # 0 unseen, 1 active, 2 done\n\n    def dfs(u):\n        state[u] = 1\n        for v in g[u]:\n            if state[v] == 1:\n                return True\n            if state[v] == 0 and dfs(v):\n                return True\n        state[u] = 2\n        return False\n\n    for u in range(n):\n        if state[u] == 0 and dfs(u):\n            return True\n    return False",
       "language": "python",
       "time": "O(n + m)",
       "space": "O(n + m)",
-      "dryRun": "src=0\nqueue=[0] dist0=0\npop0 → push1,2\npop1 → push3\npop2 → 3 already seen\npop3 done",
-      "whyWorks": "Edges have equal weight 1, so FIFO order expands by increasing distance."
+      "limitations": ["This topic focuses on the BFS/Kahn view"]
+    },
+    {
+      "title": "Optimal for this topic: Kahn BFS",
+      "idea": "Run topo Kahn. If order length < n → cycle.",
+      "algorithm": [
+        "Build indegrees and adjacency",
+        "Queue all indegree-0 nodes",
+        "Peel; count how many nodes were taken",
+        "return count != n"
+      ],
+      "code": "from collections import defaultdict, deque\n\ndef has_cycle_kahn(n, edges):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v in edges:\n        g[u].append(v)\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    taken = 0\n    while q:\n        u = q.popleft()\n        taken += 1\n        for v in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return taken != n  # True ⇒ cycle",
+      "language": "python",
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "dryRun": "Start: indeg=[0,2,1,1], queue=[0]\nTake 0 → indeg[1]=1, queue empty\ntaken=1 < 4 → cycle",
+      "whyWorks": "Nodes on a directed cycle keep positive indegree forever inside the peel."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "from collections import defaultdict, deque\n\ndef has_cycle_kahn(n, edges):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v in edges:\n        g[u].append(v)\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    taken = 0\n    while q:\n        u = q.popleft()\n        taken += 1\n        for v in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return taken != n",
+      "notes": "True means a directed cycle exists."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class DirectedCycleBFS {\n    public static boolean hasCycleKahn(int n, int[][] edges) {\n        List<List<Integer>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        int[] indeg = new int[n];\n        for (int[] e : edges) {\n            g.get(e[0]).add(e[1]);\n            indeg[e[1]]++;\n        }\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) if (indeg[i] == 0) q.add(i);\n        int taken = 0;\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            taken++;\n            for (int v : g.get(u)) if (--indeg[v] == 0) q.add(v);\n        }\n        return taken != n;\n    }\n}",
+      "notes": "Same Kahn peel; compare taken to n."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nbool hasCycleKahn(int n, vector<pair<int,int>> edges) {\n    vector<vector<int>> g(n);\n    vector<int> indeg(n, 0);\n    for (auto [u, v] : edges) {\n        g[u].push_back(v);\n        indeg[v]++;\n    }\n    queue<int> q;\n    for (int i = 0; i < n; i++) if (indeg[i] == 0) q.push(i);\n    int taken = 0;\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        taken++;\n        for (int v : g[u]) if (--indeg[v] == 0) q.push(v);\n    }\n    return taken != n;\n}",
+      "notes": "true = cycle present."
+    }
+  },
   "specialTechnique": {
-    "title": "When BFS beats DFS",
-    "body": "Unweighted shortest path, minimum moves on a grid, multi-source spreading (rotten oranges), bipartite check via 2-coloring — all BFS-shaped."
+    "title": "BFS cycle check = failed topo",
+    "body": "Topo Sort and Directed Cycle (BFS) are the same algorithm.\n- Need an order → return the list (or [] on cycle)\n- Need a boolean → return taken != n\n\nDFS cycle check uses the recursion-stack color instead."
   },
   "complexity": {
     "time": "O(n + m)",
     "space": "O(n + m)"
   },
   "edgeCases": [
-    "Disconnected nodes (dist stays -1)",
-    "Single node",
-    "Self-loops / parallel edges"
+    "Self-loop u→u",
+    "Cycle not reachable from an indegree-0 source (still detected — leftover nodes)",
+    "Disconnected components",
+    "Empty edge list → no cycle"
   ],
   "commonMistakes": [
-    "Marking visited too late → exponential blow-up / TLE",
-    "Using DFS for shortest unweighted path",
-    "Forgetting 0-index vs 1-index"
+    "Using undirected-cycle parent logic on a digraph",
+    "Stopping after finding one indegree-0 component and ignoring leftovers",
+    "Confusing this topic with plain BFS shortest path"
   ],
   "patternRecognition": [
-    "“Minimum number of edges / moves” + unweighted → BFS",
-    "Level-by-level expansion"
+    "“Detect cycle in directed graph” + BFS/Kahn in the sheet",
+    "Same code path as Course Schedule I"
   ],
   "followUps": [
-    "What if edges have weights?",
-    "0-1 weights → 0-1 BFS (deque)",
-    "Multi-source BFS?",
-    "Why can DFS not guarantee shortest paths?"
+    "Return any node on the cycle?",
+    "DFS 3-color version?",
+    "Course Schedule I equivalence?"
   ],
-  "interviewInsight": "State “unweighted ⇒ BFS” in the first 10 seconds. Then code clean visited-on-enqueue.",
+  "interviewInsight": "One sentence: “I run Kahn; if I can’t dequeue n nodes, there is a directed cycle.”",
   "related": [
-    {
-      "id": "khnslgrithm",
-      "title": "Kahn's Algorithm"
-    },
-    {
-      "id": "crsschdli",
-      "title": "Course Schedule - I"
-    },
-    {
-      "id": "tpsrt",
-      "title": "Topo Sort"
-    }
+    { "id": "tpsrt", "title": "Topo Sort" },
+    { "id": "khnslgrithm", "title": "Kahn's Algorithm" },
+    { "id": "cycldtctinindirctdgrphdfs", "title": "Cycle Detection in Directed Graph (DFS)" },
+    { "id": "crsschdli", "title": "Course Schedule - I" }
   ]
 }

@@ -11,48 +11,57 @@
   "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/dijkstras-algorithm-using-set-g-33/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "shortest-path"
-  ],
+  "tags": ["graph", "shortest-path", "dijkstra"],
   "pattern": "dijkstra",
-  "problemStatement": "Single-source shortest paths on a graph with non-negative edge weights.",
-  "intuition": "Greedily settle the closest unsettled node (like BFS, but priority queue replaces FIFO). Fails with negative edges — use Bellman-Ford there.",
+  "problemStatement": "Single-source shortest paths on a weighted graph with non-negative edge weights. Return dist[0…n-1] (∞ / −1 for unreachable).",
+  "example": "n = 5, src = 0\nedges: 0→1 (2), 0→2 (4), 1→2 (1), 1→3 (7), 2→4 (3), 3→4 (1)\n\ndist = [0, 2, 3, 9, 6]",
+  "intuition": "Greedily settle the closest unsettled node (BFS with a min-heap instead of FIFO). Needs non-negative weights. Negatives → use Bellman-Ford (a different algorithm, not a “brute” Dijkstra).",
   "approaches": [
     {
-      "title": "Brute: Bellman-Ford style relax-all (works but slower)",
-      "idea": "Relax every edge |V|-1 times — handles negatives too, but O(nm).",
-      "code": "def bellman_ref(n, edges, src):\n    # edges: (u,v,w)\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for _ in range(n - 1):\n        for u, v, w in edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
+      "title": "Brute: O(n²) Dijkstra (scan for min each time)",
+      "idea": "Same greedy: repeatedly pick the unsettled node with smallest dist by scanning an array — no heap. Correct, slow on sparse graphs.",
+      "code": "def dijkstra_array(n, edges, src=0):\n    g = [[] for _ in range(n)]\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    settled = [False] * n\n    for _ in range(n):\n        u, best = -1, float('inf')\n        for i in range(n):\n            if not settled[i] and dist[i] < best:\n                best, u = dist[i], i\n        if u < 0:\n            break\n        settled[u] = True\n        for v, w in g[u]:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
       "language": "python",
-      "time": "O(n·m)",
-      "space": "O(n)",
-      "flags": [
-        "TLE"
-      ],
+      "time": "O(n² + m)",
+      "space": "O(n + m)",
+      "flags": ["TLE"],
       "limitations": [
-        "Correct for non-negative too, but too slow when Dijkstra applies"
+        "Still requires non-negative weights",
+        "Not Bellman-Ford — that is for negatives / cycle detect"
       ]
     },
     {
       "title": "Optimal: Dijkstra with min-heap",
-      "idea": "dist[], heap of (d,u); skip stale entries.",
+      "idea": "dist[], heap of (d,u); skip stale entries (d != dist[u]).",
       "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n        # g[v].append((u, w))  # if undirected\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue  # stale\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
       "language": "python",
       "time": "O((n + m) log n) with binary heap",
       "space": "O(n + m)",
       "dryRun": "Settle nodes in increasing distance order; once popped with dist[u], it is final (non-negative weights).",
       "whyWorks": "Non-negative weights ⇒ no future path can improve a settled node.",
-      "flags": [
-        "WA"
-      ],
+      "flags": ["WA"],
       "limitations": [
-        "Negative edge → WRONG — algorithm assumption violated"
+        "Negative edge → WRONG — use Bellman-Ford instead"
       ]
     }
   ],
+  "languages": {
+    "python": {
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
+      "notes": "Skip stale heap entries with d != dist[u]."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class Dijkstra {\n    public static long[] dijkstra(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n        pq.add(new long[]{0, src});\n        while (!pq.isEmpty()) {\n            long[] cur = pq.poll();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n}",
+      "notes": "edges[i] = {u, v, w}."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<long long> dijkstra(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) if (d + w < dist[v]) {\n            dist[v] = d + w;\n            pq.push({dist[v], v});\n        }\n    }\n    return dist;\n}",
+      "notes": "Min-heap via greater<>."
+    }
+  },
   "specialTechnique": {
     "title": "Algorithm choice table",
-    "body": "Unweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges → Bellman-Ford\n0/1 weights → 0-1 BFS\nAll-pairs → Floyd-Warshall (dense) / Dijkstra from each (sparse)"
+    "body": "Unweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges / neg-cycle detect → Bellman-Ford (optimal for that problem — not “brute force”)\n0/1 weights → 0-1 BFS\nDAG → topo + relax\nAll-pairs → Floyd-Warshall (dense) / Dijkstra from each (sparse, w≥0)"
   },
   "complexity": {
     "time": "O((n+m) log n)",
@@ -66,30 +75,22 @@
   "commonMistakes": [
     "Running Dijkstra with negatives",
     "Forgetting stale heap entries",
-    "Using visited-before-relax incorrectly"
+    "Labeling Bellman-Ford as brute force for this problem"
   ],
   "patternRecognition": [
     "“Shortest path” + weights ≥ 0"
   ],
   "followUps": [
-    "Negative edges?",
+    "Negative edges? → Bellman-Ford",
     "Why priority queue not queue?",
     "Reconstruct path via parent[]?",
     "K shortest paths / constraints on stops?"
   ],
-  "interviewInsight": "Draw the comparison table on the board before coding — that habit separates strong interview answers.",
+  "interviewInsight": "State the weight assumption before coding. If negatives appear, switch algorithms — don’t call Bellman-Ford a brute.",
   "related": [
-    {
-      "id": "shrtstpthindg",
-      "title": "Shortest Path in DAG"
-    },
-    {
-      "id": "whyprirityqissdindjisktrslgrithm",
-      "title": "Why priority Queue is used in Djisktra's Algorithm"
-    },
-    {
-      "id": "shrtstpthingwithnitwights",
-      "title": "Shortest Path in UG with unit weights"
-    }
+    { "id": "whyprirityqissdindjisktrslgrithm", "title": "Why priority Queue is used in Djisktra's Algorithm" },
+    { "id": "bllmnfrdlgrithm", "title": "Bellman Ford Algorithm" },
+    { "id": "shrtstpthindg", "title": "Shortest Path in DAG" },
+    { "id": "shrtstpthingwithnitwights", "title": "Shortest Path in UG with unit weights" }
   ]
 }

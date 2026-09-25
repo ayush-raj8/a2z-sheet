@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getVizForTopic } from './registry';
+import { getVizSpecsForTopic } from './registry';
 import type { VizEdge, VizFrame, VizNode } from './types';
 
 function NodeCircle({
@@ -15,10 +15,10 @@ function NodeCircle({
   const stroke = active ? 'var(--viz-active-stroke)' : 'var(--viz-stroke)';
   return (
     <g>
-      <circle cx={n.x} cy={n.y} r={16} fill={fill} stroke={stroke} strokeWidth={2} />
+      <circle cx={n.x} cy={n.y} r={18} fill={fill} stroke={stroke} strokeWidth={2} />
       <text
         x={n.x}
-        y={n.y + 4}
+        y={n.sub ? n.y - 2 : n.y + 4}
         textAnchor="middle"
         fontSize={12}
         fontWeight={600}
@@ -26,6 +26,17 @@ function NodeCircle({
       >
         {n.label}
       </text>
+      {n.sub ? (
+        <text
+          x={n.x}
+          y={n.y + 12}
+          textAnchor="middle"
+          fontSize={9}
+          fill="var(--viz-muted)"
+        >
+          {n.sub}
+        </text>
+      ) : null}
     </g>
   );
 }
@@ -43,18 +54,29 @@ function EdgeLine({
   const b = nodes.get(e.to);
   if (!a || !b) return null;
   const stroke = active ? 'var(--viz-active-stroke)' : 'var(--viz-stroke)';
-  const mx = (a.x + b.x) / 2;
-  const my = (a.y + b.y) / 2;
+  // Shorten endpoints so arrowheads sit on the circle rim (not under the fill)
+  const r = 18;
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len;
+  const uy = dy / len;
+  const x1 = a.x + ux * r;
+  const y1 = a.y + uy * r;
+  const x2 = b.x - ux * r;
+  const y2 = b.y - uy * r;
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
   return (
     <g>
       <line
-        x1={a.x}
-        y1={a.y}
-        x2={b.x}
-        y2={b.y}
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
         stroke={stroke}
         strokeWidth={active ? 2.5 : 1.5}
-        markerEnd={e.directed ? 'url(#viz-arrow)' : undefined}
+        markerEnd={e.directed ? (active ? 'url(#viz-arrow-active)' : 'url(#viz-arrow)') : undefined}
       />
       {e.label ? (
         <text x={mx} y={my - 6} textAnchor="middle" fontSize={10} fill="var(--viz-muted)">
@@ -116,6 +138,9 @@ function GraphCanvas({ frame }: { frame: VizFrame }) {
         <marker id="viz-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L6,3 L0,6 Z" fill="var(--viz-stroke)" />
         </marker>
+        <marker id="viz-arrow-active" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="var(--viz-active-stroke)" />
+        </marker>
       </defs>
       {(frame.edges || []).map((e) => (
         <EdgeLine key={e.id} e={e} nodes={nodeMap} active={activeEdges.has(e.id)} />
@@ -142,14 +167,23 @@ function ChipRow({ label, items }: { label: string; items?: string[] }) {
 }
 
 export default function AlgoViz({ topicId }: { topicId: string }) {
-  const spec = useMemo(() => getVizForTopic(topicId), [topicId]);
+  const specs = useMemo(() => getVizSpecsForTopic(topicId), [topicId]);
+  const [modeIdx, setModeIdx] = useState(0);
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
+
+  const spec = specs[Math.min(modeIdx, Math.max(0, specs.length - 1))] ?? null;
+
+  useEffect(() => {
+    setModeIdx(0);
+    setIdx(0);
+    setPlaying(false);
+  }, [topicId]);
 
   useEffect(() => {
     setIdx(0);
     setPlaying(false);
-  }, [topicId]);
+  }, [modeIdx]);
 
   useEffect(() => {
     if (!playing || !spec) return;
@@ -167,6 +201,30 @@ export default function AlgoViz({ topicId }: { topicId: string }) {
   return (
     <section className="blog-section viz-section">
       <h2>Visualization — {spec.title}</h2>
+      {specs.length > 1 ? (
+        <div className="blog-lang-tabs" role="tablist" aria-label="Algorithm variant">
+          {specs.map((s, i) => (
+            <button
+              key={s.title}
+              type="button"
+              role="tab"
+              aria-selected={i === modeIdx}
+              className={`blog-lang-tab${i === modeIdx ? ' active' : ''}`}
+              onClick={() => setModeIdx(i)}
+            >
+              {s.title.includes('FIFO') || s.title.includes('wrong')
+                ? 'FIFO (wrong)'
+                : s.title.includes('Priority') || s.title.includes('correct')
+                  ? 'Priority queue'
+                  : s.title.includes('DFS')
+                    ? '3-color DFS'
+                    : s.title.includes('Kahn')
+                      ? 'Kahn'
+                      : s.title}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <p className="viz-input">
         <strong>Default input</strong> (matches optimal signature):{' '}
         <code>{spec.inputSummary}</code>

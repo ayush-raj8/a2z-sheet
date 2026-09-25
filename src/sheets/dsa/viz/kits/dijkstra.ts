@@ -1,5 +1,5 @@
 import { directedEdgeId, layoutGraphCircle } from '../layout';
-import type { VizEdge, VizFrame, VizSpec } from '../types';
+import type { VizEdge, VizFrame, VizNode, VizSpec } from '../types';
 
 /** Matches dijkstra(n, edges, src) blog signature — directed weighted. */
 export const DEFAULT_DIJKSTRA = {
@@ -15,22 +15,227 @@ export const DEFAULT_DIJKSTRA = {
   src: 0,
 };
 
-export function buildDijkstra(): VizSpec {
-  const { n, edges, src } = DEFAULT_DIJKSTRA;
-  const nodes = layoutGraphCircle(n);
-  const eObjs: VizEdge[] = edges.map(([u, v, w]) => ({
+/** Tiny graph where FIFO+early-settle gets dist[2] wrong (100 instead of 2). */
+export const WHY_PQ_GRAPH = {
+  n: 3,
+  edges: [
+    [0, 1, 1],
+    [0, 2, 100],
+    [1, 2, 1],
+  ] as Array<[number, number, number]>,
+  src: 0,
+};
+
+export type DijkstraVizMode = 'standard' | 'fifoWrong' | 'pqCorrect';
+
+function edgeObjs(edges: Array<[number, number, number]>): VizEdge[] {
+  return edges.map(([u, v, w]) => ({
     id: directedEdgeId(u, v),
     from: String(u),
     to: String(v),
     label: String(w),
     directed: true,
   }));
+}
+
+function withDist(base: VizNode[], dist: number[]): VizNode[] {
+  return base.map((node) => ({
+    ...node,
+    sub: dist[Number(node.id)] === Infinity ? '∞' : `d=${dist[Number(node.id)]}`,
+  }));
+}
+
+function buildAdj(n: number, edges: Array<[number, number, number]>) {
   const g: Array<Array<[number, number]>> = Array.from({ length: n }, () => []);
   for (const [u, v, w] of edges) g[u].push([v, w]);
+  return g;
+}
+
+/** FIFO queue + settle on first pop → wrong on WHY_PQ_GRAPH. */
+function buildFifoWrong(): VizSpec {
+  const { n, edges, src } = WHY_PQ_GRAPH;
+  const base = layoutGraphCircle(n);
+  const eObjs = edgeObjs(edges);
+  const g = buildAdj(n, edges);
+  const dist = Array(n).fill(Infinity);
+  dist[src] = 0;
+  const settled = Array(n).fill(false);
+  type Item = [number, number];
+  const q: Item[] = [[0, src]];
+  const frames: VizFrame[] = [];
+  const visited: string[] = [];
+
+  const fmt = () => dist.map((d) => (d === Infinity ? '∞' : String(d))).join(',');
+
+  frames.push({
+    caption: 'FIFO “Dijkstra”: settle on first pop — will freeze a bad label',
+    nodes: withDist(base, dist),
+    edges: eObjs,
+    active: [String(src)],
+    queue: q.map(([d, u]) => `${u}@${d}`),
+    aux: { dist: fmt(), structure: 'queue (FIFO)' },
+  });
+
+  while (q.length) {
+    const [d, u] = q.shift()!;
+    if (settled[u]) {
+      frames.push({
+        caption: `Skip ${u}@${d} — already settled (better label wasted!)`,
+        nodes: withDist(base, dist),
+        edges: eObjs,
+        visited: [...visited],
+        queue: q.map(([dd, uu]) => `${uu}@${dd}`),
+        aux: { dist: fmt() },
+      });
+      continue;
+    }
+    // Bug: freeze the FIFO-front distance even if a better label is already in dist[]
+    dist[u] = d;
+    settled[u] = true;
+    visited.push(String(u));
+    frames.push({
+      caption: `Settle ${u} at ${d} from FIFO front (not closest-first!)`,
+      nodes: withDist(base, dist),
+      edges: eObjs,
+      active: [String(u)],
+      visited: [...visited],
+      queue: q.map(([dd, uu]) => `${uu}@${dd}`),
+      aux: { dist: fmt(), settled: String(u) },
+    });
+    for (const [v, w] of g[u]) {
+      if (settled[v]) continue;
+      const nd = d + w;
+      if (nd < dist[v]) {
+        dist[v] = nd;
+        q.push([nd, v]);
+        frames.push({
+          caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${nd}, push back of queue`,
+          nodes: withDist(base, dist),
+          edges: eObjs,
+          active: [String(u), String(v)],
+          activeEdges: [directedEdgeId(u, v)],
+          visited: [...visited],
+          queue: q.map(([dd, uu]) => `${uu}@${dd}`),
+          aux: { dist: fmt() },
+        });
+      }
+    }
+  }
+
+  const out = dist.map((d) => (d === Infinity ? -1 : d));
+  frames.push({
+    caption: `WRONG result dist=${JSON.stringify(out)}  (true is [0,1,2]) — FIFO settled 2 too early`,
+    nodes: withDist(base, dist),
+    edges: eObjs,
+    visited: [...visited],
+    aux: { dist: out.join(','), expected: '0,1,2', ok: 'false' },
+  });
+
+  return {
+    kit: 'dijkstra',
+    title: 'FIFO queue (wrong)',
+    inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
+    expectedOutput: '[0, 1, 100]  // buggy — true answer [0,1,2]',
+    frames,
+  };
+}
+
+/** Same graph with min-heap → correct. */
+function buildPqCorrect(): VizSpec {
+  const { n, edges, src } = WHY_PQ_GRAPH;
+  const base = layoutGraphCircle(n);
+  const eObjs = edgeObjs(edges);
+  const g = buildAdj(n, edges);
+  const dist = Array(n).fill(Infinity);
+  dist[src] = 0;
+  type Item = [number, number];
+  const pq: Item[] = [[0, src]];
+  const frames: VizFrame[] = [];
+  const visited: string[] = [];
+
+  const fmt = () => dist.map((d) => (d === Infinity ? '∞' : String(d))).join(',');
+
+  frames.push({
+    caption: 'Min-heap Dijkstra — always pop the smallest tentative distance',
+    nodes: withDist(base, dist),
+    edges: eObjs,
+    active: [String(src)],
+    queue: pq.map(([d, u]) => `${u}@${d}`),
+    aux: { dist: fmt(), structure: 'min-heap PQ' },
+  });
+
+  while (pq.length) {
+    pq.sort((a, b) => a[0] - b[0]);
+    const [d, u] = pq.shift()!;
+    if (d !== dist[u]) {
+      frames.push({
+        caption: `Stale ${u}@${d} (dist[${u}]=${dist[u]}) — skip`,
+        nodes: withDist(base, dist),
+        edges: eObjs,
+        visited: [...visited],
+        queue: [...pq].sort((a, b) => a[0] - b[0]).map(([dd, uu]) => `${uu}@${dd}`),
+        aux: { dist: fmt(), stale: `${u}@${d}` },
+      });
+      continue;
+    }
+    visited.push(String(u));
+    frames.push({
+      caption: `Pop closest ${u}@${d} — final (weights ≥ 0)`,
+      nodes: withDist(base, dist),
+      edges: eObjs,
+      active: [String(u)],
+      visited: [...visited],
+      queue: [...pq].sort((a, b) => a[0] - b[0]).map(([dd, uu]) => `${uu}@${dd}`),
+      aux: { dist: fmt() },
+    });
+    for (const [v, w] of g[u]) {
+      const nd = d + w;
+      if (nd < dist[v]) {
+        dist[v] = nd;
+        pq.push([nd, v]);
+        frames.push({
+          caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${nd}, push heap`,
+          nodes: withDist(base, dist),
+          edges: eObjs,
+          active: [String(u), String(v)],
+          activeEdges: [directedEdgeId(u, v)],
+          visited: [...visited],
+          queue: [...pq].sort((a, b) => a[0] - b[0]).map(([dd, uu]) => `${uu}@${dd}`),
+          aux: { dist: fmt() },
+        });
+      }
+    }
+  }
+
+  const out = dist.map((d) => (d === Infinity ? -1 : d));
+  frames.push({
+    caption: `Correct dist=${JSON.stringify(out)} — PQ popped 2@2 before stale 2@100`,
+    nodes: withDist(base, dist),
+    edges: eObjs,
+    visited: [...visited],
+    aux: { dist: out.join(','), ok: 'true' },
+  });
+
+  return {
+    kit: 'dijkstra',
+    title: 'Priority queue (correct)',
+    inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
+    expectedOutput: JSON.stringify(out),
+    frames,
+  };
+}
+
+export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
+  if (mode === 'fifoWrong') return buildFifoWrong();
+  if (mode === 'pqCorrect') return buildPqCorrect();
+
+  const { n, edges, src } = DEFAULT_DIJKSTRA;
+  const base = layoutGraphCircle(n);
+  const eObjs = edgeObjs(edges);
+  const g = buildAdj(n, edges);
 
   const dist = Array(n).fill(Infinity);
   dist[src] = 0;
-  const done = Array(n).fill(false);
   type Item = [number, number];
   const pq: Item[] = [[0, src]];
   const frames: VizFrame[] = [];
@@ -40,7 +245,7 @@ export function buildDijkstra(): VizSpec {
 
   frames.push({
     caption: `Dijkstra from ${src} — dist[${src}]=0`,
-    nodes,
+    nodes: withDist(base, dist),
     edges: eObjs,
     active: [String(src)],
     queue: pq.map(([d, u]) => `${u}@${d}`),
@@ -50,17 +255,15 @@ export function buildDijkstra(): VizSpec {
   while (pq.length) {
     pq.sort((a, b) => a[0] - b[0]);
     const [d, u] = pq.shift()!;
-    if (done[u]) continue;
     if (d !== dist[u]) continue;
-    done[u] = true;
     visited.push(String(u));
     frames.push({
       caption: `Settle node ${u} with distance ${d}`,
-      nodes,
+      nodes: withDist(base, dist),
       edges: eObjs,
       active: [String(u)],
       visited: [...visited],
-      queue: pq.map(([dd, uu]) => `${uu}@${dd}`),
+      queue: [...pq].sort((a, b) => a[0] - b[0]).map(([dd, uu]) => `${uu}@${dd}`),
       aux: { dist: fmtDist() },
     });
     for (const [v, w] of g[u]) {
@@ -69,12 +272,12 @@ export function buildDijkstra(): VizSpec {
         pq.push([dist[v], v]);
         frames.push({
           caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${dist[v]}`,
-          nodes,
+          nodes: withDist(base, dist),
           edges: eObjs,
           active: [String(u), String(v)],
           activeEdges: [directedEdgeId(u, v)],
           visited: [...visited],
-          queue: pq.map(([dd, uu]) => `${uu}@${dd}`),
+          queue: [...pq].sort((a, b) => a[0] - b[0]).map(([dd, uu]) => `${uu}@${dd}`),
           aux: { dist: fmtDist() },
         });
       }
@@ -84,7 +287,7 @@ export function buildDijkstra(): VizSpec {
   const out = dist.map((d) => (d === Infinity ? -1 : d));
   frames.push({
     caption: `Done. dist=${JSON.stringify(out)}`,
-    nodes,
+    nodes: withDist(base, dist),
     edges: eObjs,
     visited: [...visited],
     queue: [],
@@ -93,9 +296,14 @@ export function buildDijkstra(): VizSpec {
 
   return {
     kit: 'dijkstra',
-    title: 'Dijkstra (min-heap relaxations)',
+    title: 'Dijkstra (min-heap)',
     inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
     expectedOutput: JSON.stringify(out),
     frames,
   };
+}
+
+/** Topic #360 — contrast FIFO bug vs PQ. */
+export function buildWhyPriorityQueue(): VizSpec[] {
+  return [buildFifoWrong(), buildPqCorrect()];
 }

@@ -1,5 +1,5 @@
-import { directedEdgeId, layoutGraphCircle } from '../layout';
-import type { BellmanFloydMode, VizEdge, VizFrame, VizSpec } from '../types';
+import { directedEdgeId, layoutDagLayers, layoutGraphCircle } from '../layout';
+import type { BellmanFloydMode, VizEdge, VizFrame, VizNode, VizSpec } from '../types';
 
 /** Directed weighted graph — Bellman-Ford / Floyd demos. */
 export const DEFAULT_BF = {
@@ -126,54 +126,85 @@ export function buildBellmanFloyd(mode: BellmanFloydMode = 'bellman'): VizSpec {
   }
 
   if (mode === 'dagSp') {
+    // Classic teaching DAG (same as TUF G-27 style example)
     const { n, edges, src } = DEFAULT_DAG_SP;
-    const nodes = layoutGraphCircle(n);
+    const { nodes: baseNodes, topo } = layoutDagLayers(
+      n,
+      edges.map(([u, v]) => [u, v] as [number, number]),
+    );
     const eObjs = edgeObjs(edges);
     const g: Array<Array<[number, number]>> = Array.from({ length: n }, () => []);
-    const indeg = Array(n).fill(0);
-    for (const [u, v, w] of edges) {
-      g[u].push([v, w]);
-      indeg[v]++;
-    }
-    const q: number[] = [];
-    for (let i = 0; i < n; i++) if (indeg[i] === 0) q.push(i);
-    const topo: number[] = [];
-    const indeg2 = [...indeg];
-    const qq = [...q];
-    while (qq.length) {
-      const u = qq.shift()!;
-      topo.push(u);
-      for (const [v] of g[u]) {
-        indeg2[v]--;
-        if (indeg2[v] === 0) qq.push(v);
-      }
-    }
+    for (const [u, v, w] of edges) g[u].push([v, w]);
 
     const INF = 1e12;
     const dist = Array(n).fill(INF);
     dist[src] = 0;
+
+    function withDist(active: string[] = [], visited: string[] = []): VizNode[] {
+      return baseNodes.map((node) => {
+        const id = Number(node.id);
+        const d = dist[id];
+        return {
+          ...node,
+          sub: d >= INF ? '∞' : `d=${d}`,
+        };
+      });
+    }
+
     const frames: VizFrame[] = [
       {
-        caption: `DAG SP: topo = [${topo.join(',')}], relax in order from ${src}`,
-        nodes,
+        caption: `Layered DAG (left→right = topo level). Source=${src}, dist[${src}]=0`,
+        nodes: withDist([String(src)]),
+        edges: eObjs,
+        active: [String(src)],
+        output: topo.map(String),
+        aux: { topo: topo.join(' → '), dist: fmt(dist) },
+      },
+      {
+        caption: `Topo order (Kahn / DFS finish): ${topo.join(' → ')}. Relax edges in this order.`,
+        nodes: withDist(),
         edges: eObjs,
         output: topo.map(String),
-        aux: { dist: fmt(dist) },
+        aux: { tip: 'Only need one pass — DAG has no cycles' },
       },
     ];
 
     for (const u of topo) {
+      frames.push({
+        caption:
+          dist[u] >= INF
+            ? `Skip ${u} — unreachable from ${src} (dist=∞)`
+            : `Process ${u} (dist=${dist[u]}) — try all outgoing edges`,
+        nodes: withDist([String(u)], topo.filter((x) => topo.indexOf(x) < topo.indexOf(u)).map(String)),
+        edges: eObjs,
+        active: [String(u)],
+        visited: topo.filter((x) => topo.indexOf(x) < topo.indexOf(u)).map(String),
+        aux: { dist: fmt(dist) },
+      });
       if (dist[u] >= INF) continue;
       for (const [v, w] of g[u]) {
-        if (dist[u] + w < dist[v]) {
-          dist[v] = dist[u] + w;
+        const before = dist[v];
+        const cand = dist[u] + w;
+        if (cand < dist[v]) {
+          dist[v] = cand;
           frames.push({
-            caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${dist[v]}`,
-            nodes,
+            caption: `Relax ${u}→${v} (w=${w}): ${before >= INF ? '∞' : before} → ${cand}`,
+            nodes: withDist([String(u), String(v)]),
             edges: eObjs,
             active: [String(u), String(v)],
             activeEdges: [directedEdgeId(u, v)],
             visited: topo.filter((x) => topo.indexOf(x) <= topo.indexOf(u)).map(String),
+            aux: { dist: fmt(dist), edge: `${u}→${v}` },
+          });
+        } else {
+          frames.push({
+            caption: `No improve ${u}→${v}: cand=${cand} ≥ dist[${v}]=${
+              before >= INF ? '∞' : before
+            }`,
+            nodes: withDist([String(u), String(v)]),
+            edges: eObjs,
+            active: [String(u), String(v)],
+            activeEdges: [directedEdgeId(u, v)],
             aux: { dist: fmt(dist) },
           });
         }
@@ -182,11 +213,15 @@ export function buildBellmanFloyd(mode: BellmanFloydMode = 'bellman'): VizSpec {
 
     const out = dist.map((d) => (d >= INF ? -1 : d));
     frames.push({
-      caption: `Done. dist=${JSON.stringify(out)}`,
-      nodes,
+      caption: `Done. shortest paths from ${src}: [${out.join(', ')}] (−1 = unreachable)`,
+      nodes: withDist(
+        [],
+        out.map((d, i) => (d >= 0 ? String(i) : '')).filter(Boolean),
+      ),
       edges: eObjs,
-      aux: { dist: out.join(',') },
+      visited: out.map((d, i) => (d >= 0 ? String(i) : '')).filter(Boolean),
       output: out.map(String),
+      aux: { dist: out.join(','), answer: JSON.stringify(out) },
     });
 
     return {

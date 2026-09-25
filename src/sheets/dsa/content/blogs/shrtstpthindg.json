@@ -11,77 +11,104 @@
   "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/shortest-path-in-directed-acyclic-graph-topological-sort-g-27/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "revamped"
-  ],
-  "pattern": "graph",
-  "problemStatement": "Master “Shortest Path in DAG” (Shortest Path Algorithms and Problems) the way an interviewer expects: classify, brute, optimize, prove.",
-  "intuition": "\"Shortest Path in DAG\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
+  "tags": ["graph", "dag", "topo", "shortest-path"],
+  "pattern": "topo + relax",
+  "problemStatement": "Given a weighted Directed Acyclic Graph (DAG) with n nodes (0…n-1) and a source src, find the shortest path distance from src to every node. Unreachable nodes should be reported as −1 (or ∞). Edges may have any real weights (including negative) — acyclicity is what makes one topo pass enough.",
+  "example": "n = 6, src = 0\nedges (u → v, w):\n  0→1 (2), 0→4 (1), 1→2 (3), 4→2 (2), 4→5 (4), 2→3 (6), 5→3 (1)\n\nOutput distances: [0, 2, 3, 6, 1, 5]\n(path to 3 is 0→4→5→3 with cost 1+4+1 = 6)",
+  "intuition": "In a DAG every edge goes forward in topological order. If you process nodes in topo order and relax outgoing edges, when you reach u every predecessor of u is already finalized — so one pass gives correct single-source distances. No priority queue needed (unlike Dijkstra), and negatives are fine (unlike Dijkstra) because there are no cycles.",
   "approaches": [
     {
-      "title": "Clarify + brute exploration",
-      "idea": "Enumerate paths/states naively for \"Shortest Path in DAG\" to lock meaning.",
-      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Shortest Path in DAG\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
+      "title": "Brute: enumerate / Dijkstra-style without using DAG",
+      "idea": "Ignore acyclicity and run a general shortest-path algorithm (e.g. Dijkstra if weights ≥ 0, or Bellman-Ford). Correct but slower / heavier than needed.",
+      "algorithm": [
+        "Build adjacency list from weighted directed edges",
+        "Run Dijkstra (non-negative) or Bellman-Ford (any weights)",
+        "Map ∞ → −1 for unreachable nodes"
+      ],
+      "code": "import heapq\nfrom collections import defaultdict\n\ndef shortest_dag_brute(n, edges, src=0):\n    \"\"\"Works on general digraphs with w≥0 — does not use DAG structure.\"\"\"\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return [-1 if d == float('inf') else d for d in dist]",
       "language": "python",
-      "time": "Often exponential or O(n·m) too large",
+      "time": "O((n+m) log n) Dijkstra / O(nm) Bellman-Ford",
       "space": "O(n+m)",
-      "flags": [
-        "TLE"
+      "flags": ["TLE"],
+      "limitations": [
+        "Dijkstra forbids negative weights",
+        "Wastes the DAG property that gives a linear pass"
       ]
     },
     {
-      "title": "Pattern-optimal algorithm",
-      "idea": "Apply the standard algorithm this sheet topic trains for \"Shortest Path in DAG\".",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Shortest Path in DAG\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
+      "title": "Optimal: topological order + one relaxation pass",
+      "idea": "Compute a topo order (Kahn or DFS). Set dist[src]=0, others ∞. For each u in topo order, relax all u→v. Because the graph is a DAG, each edge is considered after its start node is final.",
+      "algorithm": [
+        "Build adjacency list of (v, w) and indegree[]",
+        "Kahn BFS → topo[] (or DFS finish-time reverse)",
+        "dist = [∞]*n; dist[src] = 0",
+        "For u in topo: if dist[u] is finite, for each edge u→v (w): dist[v] = min(dist[v], dist[u]+w)",
+        "Replace ∞ with −1"
+      ],
+      "code": "from collections import defaultdict, deque\n\ndef shortest_path_dag(n, edges, src=0):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v, w in edges:\n        g[u].append((v, w))\n        indeg[v] += 1\n\n    # Kahn topo\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    topo = []\n    while q:\n        u = q.popleft()\n        topo.append(u)\n        for v, _ in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for u in topo:\n        if dist[u] == float('inf'):\n            continue\n        for v, w in g[u]:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n\n    return [-1 if d == float('inf') else int(d) for d in dist]\n\n# Example → [0, 2, 3, 6, 1, 5]\n# shortest_path_dag(6, [(0,1,2),(0,4,1),(1,2,3),(4,2,2),(4,5,4),(2,3,6),(5,3,1)], 0)",
       "language": "python",
-      "time": "Typically O(n+m) or O((n+m)log n)",
-      "space": "O(n+m)",
-      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "dryRun": "topo ≈ 0 → 1 → 4 → 2 → 5 → 3\ndist[0]=0\n0→1: dist[1]=2; 0→4: dist[4]=1\n1→2: dist[2]=5; 4→2: dist[2]=min(5,3)=3; 4→5: dist[5]=5\n2→3: dist[3]=9; 5→3: dist[3]=min(9,6)=6\nAnswer [0,2,3,6,1,5]",
+      "whyWorks": "Topo order guarantees every incoming edge to v is relaxed only after its start is done; no later edge can invalidate dist[u] once u is processed.",
+      "limitations": [
+        "Graph must be a DAG — a cycle makes topo incomplete / distances undefined under this method"
+      ]
     }
   ],
-  "specialTechnique": {
-    "title": "Graph algorithm cheat sheet",
-    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+  "languages": {
+    "python": {
+      "code": "from collections import defaultdict, deque\n\ndef shortest_path_dag(n, edges, src=0):\n    g = defaultdict(list)\n    indeg = [0] * n\n    for u, v, w in edges:\n        g[u].append((v, w))\n        indeg[v] += 1\n\n    q = deque([i for i in range(n) if indeg[i] == 0])\n    topo = []\n    while q:\n        u = q.popleft()\n        topo.append(u)\n        for v, _ in g[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n\n    INF = 10**18\n    dist = [INF] * n\n    dist[src] = 0\n    for u in topo:\n        if dist[u] == INF:\n            continue\n        for v, w in g[u]:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n\n    return [-1 if d == INF else d for d in dist]",
+      "notes": "Kahn topo + single relax pass. Same as optimal approach above."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class ShortestPathDAG {\n    public static int[] shortestPathDag(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        int[] indeg = new int[n];\n        for (int[] e : edges) {\n            int u = e[0], v = e[1], w = e[2];\n            g.get(u).add(new int[]{v, w});\n            indeg[v]++;\n        }\n\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) if (indeg[i] == 0) q.add(i);\n        List<Integer> topo = new ArrayList<>();\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            topo.add(u);\n            for (int[] e : g.get(u)) {\n                int v = e[0];\n                if (--indeg[v] == 0) q.add(v);\n            }\n        }\n\n        long INF = Long.MAX_VALUE / 4;\n        long[] dist = new long[n];\n        Arrays.fill(dist, INF);\n        dist[src] = 0;\n        for (int u : topo) {\n            if (dist[u] == INF) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (dist[u] + w < dist[v]) dist[v] = dist[u] + w;\n            }\n        }\n\n        int[] ans = new int[n];\n        for (int i = 0; i < n; i++) ans[i] = dist[i] == INF ? -1 : (int) dist[i];\n        return ans;\n    }\n}",
+      "notes": "edges[i] = {u, v, w}. Returns −1 for unreachable."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> shortestPathDag(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    vector<int> indeg(n, 0);\n    for (auto &e : edges) {\n        int u = e[0], v = e[1], w = e[2];\n        g[u].push_back({v, w});\n        indeg[v]++;\n    }\n\n    queue<int> q;\n    for (int i = 0; i < n; i++) if (indeg[i] == 0) q.push(i);\n    vector<int> topo;\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        topo.push_back(u);\n        for (auto [v, w] : g[u]) {\n            if (--indeg[v] == 0) q.push(v);\n        }\n    }\n\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    for (int u : topo) {\n        if (dist[u] == INF) continue;\n        for (auto [v, w] : g[u]) {\n            if (dist[u] + w < dist[v]) dist[v] = dist[u] + w;\n        }\n    }\n\n    vector<int> ans(n);\n    for (int i = 0; i < n; i++) ans[i] = dist[i] == INF ? -1 : (int)dist[i];\n    return ans;\n}",
+      "notes": "edges as {u,v,w}. O(n+m) time."
+    }
   },
+  "specialTechnique": {
+    "title": "When to use DAG shortest path",
+    "body": "Use this when the graph is a DAG (dependency / scheduling / course-style edges).\n\nUnweighted digraph → BFS\nDAG (any weights) → topo + relax  ← this topic\nNon-negative general → Dijkstra\nNegatives / detect neg cycle → Bellman-Ford\nAll-pairs → Floyd-Warshall"
+  },
+  "whyWorks": "A topological order linearizes the partial order of the DAG. Relaxing in that order is equivalent to dynamic programming on the DAG: dist[v] = min over edges u→v of dist[u]+w(u,v), with base dist[src]=0.",
   "complexity": {
-    "time": "Typically O(n+m) or O((n+m)log n)",
-    "space": "O(n+m)"
+    "time": "O(n + m)",
+    "space": "O(n + m)",
+    "auxSpace": "O(n) for dist + indegree / queue"
   },
   "edgeCases": [
-    "Empty / trivial sizes",
-    "Duplicates",
-    "Constraint extremes",
-    "Impossible cases"
+    "src unreachable from some nodes → those stay −1",
+    "Multiple indegree-0 nodes (forest of DAGs)",
+    "Negative edge weights (still OK on a DAG)",
+    "Disconnected components with no path from src",
+    "Single node / no edges"
   ],
   "commonMistakes": [
-    "Jumping to code without classifying constraints",
-    "Claiming O(1) recursion stack",
-    "Missing the brute→optimal story"
+    "Running Dijkstra and forbidding negatives when the graph is a DAG",
+    "Relaxing in arbitrary order (wrong without a heap)",
+    "Forgetting to skip nodes with dist=∞ (still fine, but wasteful)",
+    "Assuming the graph is a DAG without verifying (cycle → broken topo)"
   ],
   "patternRecognition": [
-    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
-    "Keywords in the title usually name the algorithm"
+    "“Shortest path” + directed + acyclic / dependencies",
+    "Sheet section: Shortest Path Algorithms after topo sort"
   ],
   "followUps": [
-    "Directed vs undirected?",
-    "Weighted?",
-    "Negative cycles?",
-    "Reconstruct path?"
+    "Reconstruct one shortest path with parent[]?",
+    "Count number of shortest paths?",
+    "Longest path in a DAG (flip min→max)?",
+    "What if a cycle appears?"
   ],
-  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
+  "interviewInsight": "Say out loud: “Because it’s a DAG I can topo-sort and DP in one pass — O(n+m), negatives allowed.” That one sentence is the point of the problem.",
   "related": [
-    {
-      "id": "shrtstpthingwithnitwights",
-      "title": "Shortest Path in UG with unit weights"
-    },
-    {
-      "id": "djisktrslgrithm",
-      "title": "Djisktra's Algorithm"
-    },
-    {
-      "id": "lindictinry",
-      "title": "Alien dictionary"
-    }
+    { "id": "tpsrt", "title": "Topo Sort" },
+    { "id": "khnslgrithm", "title": "Kahn's Algorithm" },
+    { "id": "djisktrslgrithm", "title": "Djisktra's Algorithm" },
+    { "id": "bllmnfrdlgrithm", "title": "Bellman Ford Algorithm" },
+    { "id": "shrtstpthingwithnitwights", "title": "Shortest Path in UG with unit weights" }
   ]
 }
