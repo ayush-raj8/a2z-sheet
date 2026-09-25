@@ -10,7 +10,7 @@ import {
   type CompanyProblem,
   type CompanyWindowId,
 } from '../lib/companyLoader';
-import { compareTopicsA2zOrder, pickCanonicalTopic } from '../lib/companyTopics';
+import { compareTopicsA2zOrder, pickCanonicalTopic, secondaryTopics } from '../lib/companyTopics';
 import { initStore, persistTopic, replaceUserData } from '../lib/db';
 import { DEFAULT_PALETTE } from '../lib/palettes';
 import '../styles.css';
@@ -30,11 +30,7 @@ function primaryTopic(p: CompanyProblem): string {
 }
 
 function otherTags(p: CompanyProblem): string[] {
-  const canon = primaryTopic(p);
-  return (p.topics || []).filter((t) => {
-    const bucket = pickCanonicalTopic([t]);
-    return bucket !== canon && t.trim() !== canon;
-  });
+  return secondaryTopics(p.topics, primaryTopic(p));
 }
 
 function sortProblems(list: CompanyProblem[]): CompanyProblem[] {
@@ -59,6 +55,86 @@ function clubByTopic(problems: CompanyProblem[]): TopicGroup[] {
   return [...map.entries()]
     .map(([topic, list]) => ({ topic, problems: sortProblems(list) }))
     .sort((a, b) => compareTopicsA2zOrder(a.topic, b.topic));
+}
+
+function TopicDistribution({
+  groups,
+  total,
+  onJumpTopic,
+}: {
+  groups: TopicGroup[];
+  total: number;
+  onJumpTopic: (topic: string) => void;
+}) {
+  if (!groups.length || total === 0) return null;
+  const maxCount = Math.max(...groups.map((g) => g.problems.length));
+  const top = [...groups].sort((a, b) => b.problems.length - a.problems.length).slice(0, 5);
+
+  const diffCounts = { EASY: 0, MEDIUM: 0, HARD: 0 };
+  for (const g of groups) {
+    for (const p of g.problems) {
+      const d = (p.difficulty || '').toUpperCase();
+      if (d === 'EASY' || d === 'MEDIUM' || d === 'HARD') diffCounts[d] += 1;
+    }
+  }
+
+  return (
+    <section className="company-distribution" aria-label="Topic distribution">
+      <h2>Topic distribution</h2>
+      <p className="company-distribution-blurb">
+        Each problem counts once. DP / Graph / Tree / BST / Binary Search / Recursion
+        own the problem even when LC also tags Array — Array here is the residual only.
+        Focus teaching on: <strong>{top.map((t) => t.topic).join(' · ')}</strong>
+        {top[0] ? (
+          <>
+            {' '}
+            ({top[0].topic} is {Math.round((top[0].problems.length / total) * 100)}%).
+          </>
+        ) : null}
+      </p>
+
+      <div className="company-diff-dist">
+        {(['EASY', 'MEDIUM', 'HARD'] as const).map((d) => {
+          const n = diffCounts[d];
+          const pct = total ? Math.round((n / total) * 100) : 0;
+          return (
+            <div key={d} className={`company-diff-pill diff-${d.toLowerCase()}`}>
+              <span>{d}</span>
+              <strong>
+                {n} · {pct}%
+              </strong>
+            </div>
+          );
+        })}
+      </div>
+
+      <ul className="company-dist-bars">
+        {groups.map((g) => {
+          const pct = total ? (g.problems.length / total) * 100 : 0;
+          const width = maxCount ? (g.problems.length / maxCount) * 100 : 0;
+          return (
+            <li key={g.topic}>
+              <button
+                type="button"
+                className="company-dist-row"
+                onClick={() => onJumpTopic(g.topic)}
+                title={`Filter to ${g.topic}`}
+              >
+                <span className="company-dist-label">{g.topic}</span>
+                <span className="company-dist-track" aria-hidden="true">
+                  <span className="company-dist-fill" style={{ width: `${width}%` }} />
+                </span>
+                <span className="company-dist-meta">
+                  {g.problems.length}
+                  <span className="company-dist-pct">{pct >= 1 ? `${Math.round(pct)}%` : '<1%'}</span>
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
 }
 
 function ProblemTable({
@@ -457,7 +533,7 @@ export default function CompanyDetailPage() {
             const open = openTopics.has(g.topic);
             const done = g.problems.filter((p) => progress[companyProgressId(p)]).length;
             return (
-              <section key={g.topic} className="company-topic-section">
+              <section key={g.topic} className="company-topic-section" id={`topic-${encodeURIComponent(g.topic)}`}>
                 <button
                   type="button"
                   className={`sub-collapsible company-topic-header${open ? ' active' : ''}${
@@ -491,6 +567,19 @@ export default function CompanyDetailPage() {
           })
         )}
       </main>
+
+      <TopicDistribution
+        groups={groups}
+        total={filtered.length}
+        onJumpTopic={(topic) => {
+          setTopicFilter(topic);
+          window.requestAnimationFrame(() => {
+            document
+              .getElementById(`topic-${encodeURIComponent(topic)}`)
+              ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }}
+      />
     </div>
   );
 }
