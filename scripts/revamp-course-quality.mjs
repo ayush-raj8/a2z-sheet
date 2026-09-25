@@ -314,7 +314,7 @@ def dijkstra(n, edges, src=0):
     'Reconstruct path via parent[]?',
     'K shortest paths / constraints on stops?',
   ],
-  interviewInsight: 'Draw the comparison table on the board before coding. That is SDE-2 behavior.',
+  interviewInsight: 'Draw the comparison table on the board before coding — that habit separates strong interview answers.',
 }));
 
 recipe((t) => titleAny(t, 'bellman'), (t) => ({

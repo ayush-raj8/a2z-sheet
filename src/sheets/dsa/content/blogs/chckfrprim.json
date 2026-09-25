@@ -68,7 +68,7 @@
     "Primality for n~1e18 (Miller-Rabin)?",
     "Count primes in [L,R]?"
   ],
-  "interviewInsight": "Connecting single-check √n vs sieve for many queries is the SDE-2 jump.",
+  "interviewInsight": "Connecting single-check √n vs sieve for many queries is the jump most candidates miss.",
   "related": [
     {
       "id": "printlldivisrs",

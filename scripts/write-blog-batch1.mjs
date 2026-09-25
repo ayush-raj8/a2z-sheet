@@ -277,7 +277,7 @@ def sum_array(a: list[int]) -> int:
     edgeCases: ['n=0', 'n=1', 'empty list'],
     commonMistakes: ['Off-by-one', 'Accidental O(n²) nested loops → TLE'],
     followUps: ['When is while clearer?', 'enumerate for index+value?'],
-    interviewInsight: 'Narrate “nested loop is O(n²); n=1e5 TLEs” — SDE-2 habit.',
+    interviewInsight: 'Narrate “nested loop is O(n²); n=1e5 TLEs” before coding.',
     related: rel('whillps', 'timcmplxitylrnbsicsndthnnlysinnxtstps'),
   }),
 );
@@ -436,7 +436,7 @@ def looks_quadratic(a: list[int]) -> int:
       'Amortized append complexity?',
     ],
     interviewInsight:
-      'Narrating complexity and TLE/MLE risk before coding is a strong SDE-2/3 signal.',
+      'Narrating complexity and TLE/MLE risk before coding is a strong interview signal.',
     related: rel('frlps', 'cntdigits'),
   }),
 );
@@ -914,7 +914,7 @@ blogs.push(
       'Primality for n~1e18 (Miller-Rabin)?',
       'Count primes in [L,R]?',
     ],
-    interviewInsight: 'Connecting single-check √n vs sieve for many queries is the SDE-2 jump.',
+    interviewInsight: 'Connecting single-check √n vs sieve for many queries is the jump most candidates miss.',
     related: rel('printlldivisrs'),
   }),
 );

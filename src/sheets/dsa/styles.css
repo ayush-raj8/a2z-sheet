@@ -740,6 +740,179 @@ tr.completed {
   margin-left: auto;
 }
 
+/* ===== Algorithm visualization (Wave 1) ===== */
+.viz-section {
+  --viz-node: color-mix(in srgb, var(--bg) 88%, var(--accent, #3b82f6) 12%);
+  --viz-visited: color-mix(in srgb, var(--bg) 70%, #22c55e 30%);
+  --viz-active: color-mix(in srgb, var(--bg) 55%, #f59e0b 45%);
+  --viz-stroke: var(--muted);
+  --viz-active-stroke: #d97706;
+  --viz-label: var(--text);
+  --viz-muted: var(--muted);
+}
+
+.viz-input,
+.viz-expected {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0.35rem 0;
+}
+
+.viz-input code,
+.viz-expected code {
+  font-size: 0.82rem;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.viz-player {
+  margin-top: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.85rem 1rem 1rem;
+  background: color-mix(in srgb, var(--bg) 92%, var(--text) 8%);
+}
+
+.viz-stage {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  margin-bottom: 0.5rem;
+}
+
+.viz-svg {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+}
+
+.viz-empty {
+  color: var(--muted);
+  padding: 2rem;
+}
+
+.viz-aux-only {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.viz-caption {
+  font-size: 0.95rem;
+  margin: 0.4rem 0 0.6rem;
+  min-height: 1.4em;
+}
+
+.viz-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.viz-chips-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-right: 0.25rem;
+}
+
+.viz-chip {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.viz-aux {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0.35rem 0 0.6rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.viz-btn {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.viz-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.viz-btn-primary {
+  background: color-mix(in srgb, var(--bg) 75%, var(--accent, #3b82f6) 25%);
+  border-color: color-mix(in srgb, var(--line) 60%, var(--accent, #3b82f6) 40%);
+}
+
+.viz-step {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.viz-grid {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0.5rem;
+}
+
+.viz-grid-row {
+  display: flex;
+  gap: 4px;
+}
+
+.viz-cell {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  background: var(--bg);
+}
+
+.viz-cell-active {
+  outline: 2px solid #d97706;
+  outline-offset: 1px;
+}
+
+.viz-cell-rotten {
+  background: color-mix(in srgb, var(--bg) 65%, #ef4444 35%);
+}
+
+.viz-cell-empty {
+  opacity: 0.55;
+}
+
 @media (max-width: 800px) {
   .topbar {
     flex-direction: column;

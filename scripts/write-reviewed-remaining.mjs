@@ -5923,7 +5923,7 @@ class Trie:
         'Edge cases?',
         'Related sheet problems?',
       ],
-      insight: `Constraints-first reasoning is what separates SDE-2 answers on "${name}".`,
+      insight: `Constraints-first reasoning is what separates strong answers on "${name}".`,
     },
   };
 

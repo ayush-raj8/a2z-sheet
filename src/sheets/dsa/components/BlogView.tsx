@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import type { ApproachBlock, BlogLang, DsaBlog } from '../content/blogTypes';
 import { BLOG_LANG_LABELS, BLOG_LANG_ORDER } from '../content/blogTypes';
 import inventoryData from '../content/topicInventory.json';
+import AlgoViz from '../viz/AlgoViz';
 
 type InventoryTopic = {
   topicNumber: number;
@@ -160,6 +161,8 @@ export default function BlogView({ blog }: { blog: DsaBlog }) {
           <ApproachSection block={block} />
         </section>
       ))}
+
+      <AlgoViz topicId={blog.id} />
 
       {!blog.approaches?.length && blog.approach?.length ? (
         <section className="blog-section">
