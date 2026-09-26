@@ -14,6 +14,7 @@ import { runLcs } from './lcs';
 import { runNextGreaterElement } from './nextGreater';
 import { runSlidingWindowK } from './slidingWindow';
 import { runTopoDfs } from './topoDfs';
+import { runUnitWeightShortest } from './unitWeightBfs';
 import { runTwoSum } from './twoSum';
 import { runValidParentheses } from './validParentheses';
 
@@ -31,6 +32,7 @@ const RUNNERS: Record<string, Runner> = {
   pthwithminimmffrt: () => runDijkstra(),
   bllmnfrdlgrithm: () => runBellmanFord(),
   shrtstpthindg: () => runDagShortest(),
+  shrtstpthingwithnitwights: () => runUnitWeightShortest(),
 
   // Graphs — topo (3-color DFS)
   tpsrt: () => runTopoDfs(),

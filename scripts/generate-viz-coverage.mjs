@@ -24,6 +24,7 @@ const FIRST_CLASS = new Set([
   'pthwithminimmffrt',
   'bllmnfrdlgrithm',
   'shrtstpthindg',
+  'shrtstpthingwithnitwights',
   'tpsrt',
   'binrysrchtfindxinsrtdrry',
   'implmntlwrbnd',

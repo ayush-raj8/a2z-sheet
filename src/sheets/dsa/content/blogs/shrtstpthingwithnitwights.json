@@ -7,81 +7,88 @@
   "subStepTitle": "Shortest Path Algorithms and Problems",
   "category": "Graphs [Concepts & Problems]",
   "subcategory": "Shortest Path Algorithms and Problems",
-  "difficulty": "hard",
+  "difficulty": "medium",
   "topicType": "coding-problem",
-  "sourceUrl": "https://takeuforward.org/data-structure/shortest-path-in-undirected-graph-with-unit-distance-g-28/",
+  "sourceUrl": "https://takeuforward.org/data-structure/shortest-path-in-undirected-graph-with-unit-weights-g-28/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "revamped"
-  ],
-  "pattern": "graph",
-  "problemStatement": "Master “Shortest Path in UG with unit weights” (Shortest Path Algorithms and Problems) the way an interviewer expects: classify, brute, optimize, prove.",
-  "intuition": "\"Shortest Path in UG with unit weights\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
+  "tags": ["graph", "bfs", "shortest-path", "undirected"],
+  "pattern": "bfs-distance",
+  "problemStatement": "Given an undirected graph with n nodes (0…n-1) where every edge has weight 1, and a source src, return the shortest-path distance from src to every node. Unreachable nodes should be −1.",
+  "example": "n = 5, src = 0\nedges: 0-1, 0-2, 1-3, 2-3, 3-4\n\ndist = [0, 1, 1, 2, 3]",
+  "intuition": "When every edge costs 1, BFS explores level by level. The first time you reach a node is via a minimum number of edges — so queue order = distance order. No priority queue needed (unlike Dijkstra).",
   "approaches": [
     {
-      "title": "Clarify + brute exploration",
-      "idea": "Enumerate paths/states naively for \"Shortest Path in UG with unit weights\" to lock meaning.",
-      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Shortest Path in UG with unit weights\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
+      "title": "Brute: DFS with path length / re-explore",
+      "idea": "Try all simple paths and keep the minimum length. Correct but exponential / messy on general graphs.",
+      "code": "def shortest_ug_brute(n, edges, src=0):\n    g = [[] for _ in range(n)]\n    for u, v in edges:\n        g[u].append(v); g[v].append(u)\n    best = [10**9] * n\n    def dfs(u, d, seen):\n        best[u] = min(best[u], d)\n        for v in g[u]:\n            if v not in seen:\n                dfs(v, d + 1, seen | {v})\n    dfs(src, 0, {src})\n    return [-1 if x >= 10**9 else x for x in best]",
       "language": "python",
-      "time": "Often exponential or O(n·m) too large",
-      "space": "O(n+m)",
-      "flags": [
-        "TLE"
-      ]
+      "time": "exponential",
+      "space": "O(n)",
+      "flags": ["TLE"],
+      "limitations": ["Do not use in interviews as the solution"]
     },
     {
-      "title": "Pattern-optimal algorithm",
-      "idea": "Apply the standard algorithm this sheet topic trains for \"Shortest Path in UG with unit weights\".",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Shortest Path in UG with unit weights\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
+      "title": "Optimal: BFS distances",
+      "idea": "dist[src]=0; BFS. When you first discover v from u, set dist[v]=dist[u]+1. Never revisit.",
+      "algorithm": [
+        "Build undirected adjacency list",
+        "dist = [-1]*n; dist[src]=0; queue=[src]",
+        "While queue: pop u; for each unseen neighbor v: dist[v]=dist[u]+1; enqueue v",
+        "Return dist (−1 means unreachable)"
+      ],
+      "code": "from collections import defaultdict, deque\n\ndef shortest_ug_unit(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    dist[src] = 0\n    q = deque([src])\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
       "language": "python",
-      "time": "Typically O(n+m) or O((n+m)log n)",
-      "space": "O(n+m)",
-      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "dryRun": "src=0 → dist[1]=1, dist[2]=1 → dist[3]=2 → dist[4]=3",
+      "whyWorks": "Unit weights ⇒ every edge advances distance by exactly 1. BFS never finds a shorter path later."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "from collections import defaultdict, deque\n\ndef shortest_ug_unit(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v in edges:\n        g[u].append(v)\n        g[v].append(u)\n    dist = [-1] * n\n    dist[src] = 0\n    q = deque([src])\n    while q:\n        u = q.popleft()\n        for v in g[u]:\n            if dist[v] < 0:\n                dist[v] = dist[u] + 1\n                q.append(v)\n    return dist",
+      "notes": "Undirected: add both directions. dist[v] < 0 means unseen."
+    },
+    "java": {
+      "code": "import java.util.*;\n\npublic class ShortestUGUnit {\n    public static int[] shortest(int n, int[][] edges, int src) {\n        List<List<Integer>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) {\n            g.get(e[0]).add(e[1]);\n            g.get(e[1]).add(e[0]);\n        }\n        int[] dist = new int[n];\n        Arrays.fill(dist, -1);\n        ArrayDeque<Integer> q = new ArrayDeque<>();\n        dist[src] = 0;\n        q.add(src);\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            for (int v : g.get(u)) if (dist[v] < 0) {\n                dist[v] = dist[u] + 1;\n                q.add(v);\n            }\n        }\n        return dist;\n    }\n}",
+      "notes": "edges[i] = {u, v}."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> shortestUgUnit(int n, vector<pair<int,int>> edges, int src = 0) {\n    vector<vector<int>> g(n);\n    for (auto [u, v] : edges) {\n        g[u].push_back(v);\n        g[v].push_back(u);\n    }\n    vector<int> dist(n, -1);\n    queue<int> q;\n    dist[src] = 0;\n    q.push(src);\n    while (!q.empty()) {\n        int u = q.front(); q.pop();\n        for (int v : g[u]) if (dist[v] < 0) {\n            dist[v] = dist[u] + 1;\n            q.push(v);\n        }\n    }\n    return dist;\n}",
+      "notes": "Same BFS distance array."
+    }
+  },
   "specialTechnique": {
-    "title": "Graph algorithm cheat sheet",
-    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+    "title": "When BFS is enough",
+    "body": "Unweighted / unit weights → BFS\n0-1 weights → 0-1 BFS (deque)\nNon-negative weights → Dijkstra\nNegative weights → Bellman-Ford\nDAG → topo + relax"
   },
   "complexity": {
-    "time": "Typically O(n+m) or O((n+m)log n)",
-    "space": "O(n+m)"
+    "time": "O(n + m)",
+    "space": "O(n + m)"
   },
   "edgeCases": [
-    "Empty / trivial sizes",
-    "Duplicates",
-    "Constraint extremes",
-    "Impossible cases"
+    "src unreachable components stay −1",
+    "Self-loop / duplicate edges (harmless if you mark visited via dist)",
+    "Single node graph → [0]"
   ],
   "commonMistakes": [
-    "Jumping to code without classifying constraints",
-    "Claiming O(1) recursion stack",
-    "Missing the brute→optimal story"
+    "Using Dijkstra/PQ for unit weights (overkill)",
+    "Forgetting to add both undirected directions",
+    "Updating dist again after first visit (BFS already optimal)"
   ],
   "patternRecognition": [
-    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
-    "Keywords in the title usually name the algorithm"
+    "“Shortest path” + undirected + unit / unweighted edges"
   ],
   "followUps": [
-    "Directed vs undirected?",
-    "Weighted?",
-    "Negative cycles?",
-    "Reconstruct path?"
+    "Reconstruct one shortest path via parent[]?",
+    "0-1 BFS when weights are only 0 or 1?",
+    "Multi-source BFS?"
   ],
-  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
+  "interviewInsight": "Say out loud: “Unit weights ⇒ BFS; first touch is shortest.”",
   "related": [
-    {
-      "id": "lindictinry",
-      "title": "Alien dictionary"
-    },
-    {
-      "id": "shrtstpthindg",
-      "title": "Shortest Path in DAG"
-    },
-    {
-      "id": "findvntlsfstts",
-      "title": "Find eventual safe states"
-    }
+    { "id": "bfs", "title": "BFS" },
+    { "id": "djisktrslgrithm", "title": "Djisktra's Algorithm" },
+    { "id": "shrtstpthindg", "title": "Shortest Path in DAG" },
+    { "id": "bllmnfrdlgrithm", "title": "Bellman Ford Algorithm" }
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-26T08:39:10.134Z",
+  "generatedAt": "2026-09-26T11:48:14.383Z",
   "summary": {
     "total": 455,
     "implemented": 98,
     "planned": 329,
     "skip": 28,
-    "firstClass": 22,
-    "legacyKit": 76
+    "firstClass": 23,
+    "legacyKit": 75
   },
   "entries": [
     {
@@ -4716,8 +4716,7 @@
       "visualizationTypes": [
         "GRAPH"
       ],
-      "runner": "legacy-kit",
-      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+      "runner": "first-class"
     },
     {
       "problemId": "shrtstpthindg",
