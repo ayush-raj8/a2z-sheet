@@ -13,7 +13,8 @@
     "blogs:batch2": "node scripts/write-blog-batch2.mjs",
     "blogs:remaining": "node scripts/write-reviewed-remaining.mjs",
     "blogs:inventory": "node scripts/build-topic-inventory.mjs",
-    "companies:build": "node scripts/build-company-data.mjs"
+    "companies:build": "node scripts/build-company-data.mjs",
+    "viz:coverage": "node scripts/generate-viz-coverage.mjs"
   },
   "dependencies": {
     "mermaid": "^11.12.0",

@@ -48,6 +48,16 @@ export type VizEdge = {
   directed?: boolean;
 };
 
+/** Canonical traced source shown beside the viz player (kit-owned). */
+export type VizSource = {
+  language: string;
+  title?: string;
+  /** Full snippet; line numbers are 1-indexed */
+  code: string;
+  /** Named PC labels → inclusive 1-indexed line or [start, end] range */
+  steps: Record<string, [number, number] | number>;
+};
+
 export type VizFrame = {
   caption: string;
   nodes?: VizNode[];
@@ -65,6 +75,10 @@ export type VizFrame = {
   /** optional grid overlay (cell values as strings) */
   grid?: string[][];
   gridHighlight?: Array<[number, number]>;
+  /** Key into VizSpec.source.steps (stable across code edits) */
+  step?: string;
+  /** Optional explicit 1-indexed lines (merged with step range) */
+  lines?: number[];
 };
 
 export type VizSpec = {
@@ -75,4 +89,6 @@ export type VizSpec = {
   /** Expected result from running optimal algo on the default input */
   expectedOutput: string;
   frames: VizFrame[];
+  /** Optional code pane synced to frame.step / frame.lines */
+  source?: VizSource;
 };

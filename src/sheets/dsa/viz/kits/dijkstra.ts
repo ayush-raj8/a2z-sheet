@@ -1,5 +1,5 @@
 import { directedEdgeId, layoutGraphCircle } from '../layout';
-import type { VizEdge, VizFrame, VizNode, VizSpec } from '../types';
+import type { VizEdge, VizFrame, VizNode, VizSource, VizSpec } from '../types';
 
 /** Matches dijkstra(n, edges, src) blog signature — directed weighted. */
 export const DEFAULT_DIJKSTRA = {
@@ -27,6 +27,78 @@ export const WHY_PQ_GRAPH = {
 };
 
 export type DijkstraVizMode = 'standard' | 'fifoWrong' | 'pqCorrect';
+
+/** Canonical optimal — line ranges must match this string exactly. */
+const DIJKSTRA_PQ_CODE = `import heapq
+from collections import defaultdict
+
+def dijkstra(n, edges, src=0):
+    g = defaultdict(list)
+    for u, v, w in edges:
+        g[u].append((v, w))
+    dist = [float('inf')] * n
+    dist[src] = 0
+    h = [(0, src)]
+    while h:
+        d, u = heapq.heappop(h)
+        if d != dist[u]:
+            continue  # stale
+        for v, w in g[u]:
+            nd = d + w
+            if nd < dist[v]:
+                dist[v] = nd
+                heapq.heappush(h, (nd, v))
+    return dist`;
+
+const DIJKSTRA_PQ_SOURCE: VizSource = {
+  language: 'python',
+  title: 'Optimal (min-heap)',
+  code: DIJKSTRA_PQ_CODE,
+  steps: {
+    init: [8, 10],
+    pop: [12, 14],
+    relax: [15, 19],
+    done: 20,
+  },
+};
+
+const DIJKSTRA_FIFO_CODE = `from collections import deque, defaultdict
+
+def dijkstra_fifo_wrong(n, edges, src=0):
+    g = defaultdict(list)
+    for u, v, w in edges:
+        g[u].append((v, w))
+    dist = [float('inf')] * n
+    dist[src] = 0
+    q = deque([(0, src)])
+    settled = [False] * n
+    while q:
+        d, u = q.popleft()  # FIFO — not closest-first
+        if settled[u]:
+            continue
+        dist[u] = d          # freeze FIFO-front label
+        settled[u] = True
+        for v, w in g[u]:
+            if settled[v]:
+                continue
+            nd = d + w
+            if nd < dist[v]:
+                dist[v] = nd
+                q.append((nd, v))
+    return dist`;
+
+const DIJKSTRA_FIFO_SOURCE: VizSource = {
+  language: 'python',
+  title: 'FIFO + settle (buggy)',
+  code: DIJKSTRA_FIFO_CODE,
+  steps: {
+    init: [7, 10],
+    skip: [13, 14],
+    settle: [15, 16],
+    relax: [17, 23],
+    done: 24,
+  },
+};
 
 function edgeObjs(edges: Array<[number, number, number]>): VizEdge[] {
   return edges.map(([u, v, w]) => ({
@@ -68,6 +140,7 @@ function buildFifoWrong(): VizSpec {
   const fmt = () => dist.map((d) => (d === Infinity ? '∞' : String(d))).join(',');
 
   frames.push({
+    step: 'init',
     caption: 'FIFO “Dijkstra”: settle on first pop — will freeze a bad label',
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -80,6 +153,7 @@ function buildFifoWrong(): VizSpec {
     const [d, u] = q.shift()!;
     if (settled[u]) {
       frames.push({
+        step: 'skip',
         caption: `Skip ${u}@${d} — already settled (better label wasted!)`,
         nodes: withDist(base, dist),
         edges: eObjs,
@@ -89,11 +163,11 @@ function buildFifoWrong(): VizSpec {
       });
       continue;
     }
-    // Bug: freeze the FIFO-front distance even if a better label is already in dist[]
     dist[u] = d;
     settled[u] = true;
     visited.push(String(u));
     frames.push({
+      step: 'settle',
       caption: `Settle ${u} at ${d} from FIFO front (not closest-first!)`,
       nodes: withDist(base, dist),
       edges: eObjs,
@@ -109,6 +183,7 @@ function buildFifoWrong(): VizSpec {
         dist[v] = nd;
         q.push([nd, v]);
         frames.push({
+          step: 'relax',
           caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${nd}, push back of queue`,
           nodes: withDist(base, dist),
           edges: eObjs,
@@ -124,6 +199,7 @@ function buildFifoWrong(): VizSpec {
 
   const out = dist.map((d) => (d === Infinity ? -1 : d));
   frames.push({
+    step: 'done',
     caption: `WRONG result dist=${JSON.stringify(out)}  (true is [0,1,2]) — FIFO settled 2 too early`,
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -136,6 +212,7 @@ function buildFifoWrong(): VizSpec {
     title: 'FIFO queue (wrong)',
     inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
     expectedOutput: '[0, 1, 100]  // buggy — true answer [0,1,2]',
+    source: DIJKSTRA_FIFO_SOURCE,
     frames,
   };
 }
@@ -156,6 +233,7 @@ function buildPqCorrect(): VizSpec {
   const fmt = () => dist.map((d) => (d === Infinity ? '∞' : String(d))).join(',');
 
   frames.push({
+    step: 'init',
     caption: 'Min-heap Dijkstra — always pop the smallest tentative distance',
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -169,6 +247,7 @@ function buildPqCorrect(): VizSpec {
     const [d, u] = pq.shift()!;
     if (d !== dist[u]) {
       frames.push({
+        step: 'pop',
         caption: `Stale ${u}@${d} (dist[${u}]=${dist[u]}) — skip`,
         nodes: withDist(base, dist),
         edges: eObjs,
@@ -180,6 +259,7 @@ function buildPqCorrect(): VizSpec {
     }
     visited.push(String(u));
     frames.push({
+      step: 'pop',
       caption: `Pop closest ${u}@${d} — final (weights ≥ 0)`,
       nodes: withDist(base, dist),
       edges: eObjs,
@@ -194,6 +274,7 @@ function buildPqCorrect(): VizSpec {
         dist[v] = nd;
         pq.push([nd, v]);
         frames.push({
+          step: 'relax',
           caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${nd}, push heap`,
           nodes: withDist(base, dist),
           edges: eObjs,
@@ -209,6 +290,7 @@ function buildPqCorrect(): VizSpec {
 
   const out = dist.map((d) => (d === Infinity ? -1 : d));
   frames.push({
+    step: 'done',
     caption: `Correct dist=${JSON.stringify(out)} — PQ popped 2@2 before stale 2@100`,
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -221,6 +303,7 @@ function buildPqCorrect(): VizSpec {
     title: 'Priority queue (correct)',
     inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
     expectedOutput: JSON.stringify(out),
+    source: DIJKSTRA_PQ_SOURCE,
     frames,
   };
 }
@@ -244,6 +327,7 @@ export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
   const fmtDist = () => dist.map((d) => (d === Infinity ? '∞' : String(d))).join(',');
 
   frames.push({
+    step: 'init',
     caption: `Dijkstra from ${src} — dist[${src}]=0`,
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -258,6 +342,7 @@ export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
     if (d !== dist[u]) continue;
     visited.push(String(u));
     frames.push({
+      step: 'pop',
       caption: `Settle node ${u} with distance ${d}`,
       nodes: withDist(base, dist),
       edges: eObjs,
@@ -271,6 +356,7 @@ export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
         dist[v] = dist[u] + w;
         pq.push([dist[v], v]);
         frames.push({
+          step: 'relax',
           caption: `Relax ${u}→${v} (w=${w}) → dist[${v}]=${dist[v]}`,
           nodes: withDist(base, dist),
           edges: eObjs,
@@ -286,6 +372,7 @@ export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
 
   const out = dist.map((d) => (d === Infinity ? -1 : d));
   frames.push({
+    step: 'done',
     caption: `Done. dist=${JSON.stringify(out)}`,
     nodes: withDist(base, dist),
     edges: eObjs,
@@ -299,6 +386,7 @@ export function buildDijkstra(mode: DijkstraVizMode = 'standard'): VizSpec {
     title: 'Dijkstra (min-heap)',
     inputSummary: `n=${n}, edges=${JSON.stringify(edges)}, src=${src}`,
     expectedOutput: JSON.stringify(out),
+    source: DIJKSTRA_PQ_SOURCE,
     frames,
   };
 }

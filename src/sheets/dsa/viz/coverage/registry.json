@@ -1,0 +1,5984 @@
+{
+  "generatedAt": "2026-09-26T08:39:10.134Z",
+  "summary": {
+    "total": 455,
+    "implemented": 98,
+    "planned": 329,
+    "skip": 28,
+    "firstClass": 22,
+    "legacyKit": 76
+  },
+  "entries": [
+    {
+      "problemId": "srinpttpt",
+      "topicNumber": 1,
+      "title": "User Input / Output",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "dttyps",
+      "topicNumber": 2,
+      "title": "Data Types",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "iflssttmnts",
+      "topicNumber": 3,
+      "title": "If Else statements",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "switchsttmnt",
+      "topicNumber": 4,
+      "title": "Switch Statement",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "whtrrrysstrings",
+      "topicNumber": 5,
+      "title": "What are arrays, strings?",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "frlps",
+      "topicNumber": 6,
+      "title": "For loops",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "whillps",
+      "topicNumber": 7,
+      "title": "While loops",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "fnctinspssbyrfrncndvl",
+      "topicNumber": 8,
+      "title": "Functions (Pass by Reference and Value)",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "timcmplxitylrnbsicsndthnnlysinnxtstps",
+      "topicNumber": 9,
+      "title": "Time Complexity [Learn Basics, and then analyse in next Steps]",
+      "category": "Learn the basics",
+      "subcategory": "Things to Know in C++/Java/Python or any language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "pttrns",
+      "topicNumber": 10,
+      "title": "Patterns",
+      "category": "Learn the basics",
+      "subcategory": "Build-up Logical Thinking",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "cstl",
+      "topicNumber": 11,
+      "title": "C++ STL",
+      "category": "Learn the basics",
+      "subcategory": "Learn STL/Java-Collections or similar thing in your language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "jvcllctins",
+      "topicNumber": 12,
+      "title": "Java Collections",
+      "category": "Learn the basics",
+      "subcategory": "Learn STL/Java-Collections or similar thing in your language",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "cntdigits",
+      "topicNumber": 13,
+      "title": "Count Digits",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "implemented",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "rvrsnmbr",
+      "topicNumber": 14,
+      "title": "Reverse a Number",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckplindrm",
+      "topicNumber": 15,
+      "title": "Check Palindrome",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "gcdrhcf",
+      "topicNumber": 16,
+      "title": "GCD Or HCF",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmstrngnmbrs",
+      "topicNumber": 17,
+      "title": "Armstrong Numbers",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printlldivisrs",
+      "topicNumber": 18,
+      "title": "Print all Divisors",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckfrprim",
+      "topicNumber": 19,
+      "title": "Check for Prime",
+      "category": "Learn the basics",
+      "subcategory": "Know Basic Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ndrstndrcrsinbyprintsmthingntims",
+      "topicNumber": 20,
+      "title": "Understand recursion by print something N times",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "printnmntimssingrcrsin",
+      "topicNumber": 21,
+      "title": "Print name N times using recursion",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "print1tnsingrcrsin",
+      "topicNumber": 22,
+      "title": "Print 1 to N using recursion",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "printnt1singrcrsin",
+      "topicNumber": 23,
+      "title": "Print N to 1 using recursion",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "smffirstnnmbrs",
+      "topicNumber": 24,
+      "title": "Sum of first N numbers",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "fctrilfnnmbrs",
+      "topicNumber": 25,
+      "title": "Factorial of N numbers",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsnrry",
+      "topicNumber": 26,
+      "title": "Reverse an array",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifstringisplindrmrnt",
+      "topicNumber": 27,
+      "title": "Check if a string is palindrome or not",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "fibnccinmbr",
+      "topicNumber": 28,
+      "title": "Fibonacci Number",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Recursion",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "hshingthry",
+      "topicNumber": 29,
+      "title": "Hashing Theory",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Hashing",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "cntingfrqncisfrrylmnts",
+      "topicNumber": 30,
+      "title": "Counting frequencies of array elements",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Hashing",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "findthhighstlwstfrqncylmnt",
+      "topicNumber": 31,
+      "title": "Find the highest/lowest frequency element",
+      "category": "Learn the basics",
+      "subcategory": "Learn Basic Hashing",
+      "status": "planned",
+      "visualizationTypes": [
+        "HASH_MAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "slctinsrt",
+      "topicNumber": 32,
+      "title": "Selection Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-I",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bbblsrt",
+      "topicNumber": 33,
+      "title": "Bubble Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-I",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "insrtinsrt",
+      "topicNumber": 34,
+      "title": "Insertion Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-I",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrgsrt",
+      "topicNumber": 35,
+      "title": "Merge Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-II",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rcrsivbbblsrt",
+      "topicNumber": 36,
+      "title": "Recursive Bubble Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-II",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rcrsivinsrtinsrt",
+      "topicNumber": 37,
+      "title": "Recursive Insertion Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-II",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "qicksrt",
+      "topicNumber": 38,
+      "title": "Quick Sort",
+      "category": "Learn Important Sorting Techniques",
+      "subcategory": "Sorting-II",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstlmntinnrry",
+      "topicNumber": 39,
+      "title": "Largest Element in an Array",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "scndlrgstlmntinnrrywithtsrting",
+      "topicNumber": 40,
+      "title": "Second Largest Element in an Array without sorting",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifthrryissrtd",
+      "topicNumber": 41,
+      "title": "Check if the array is sorted",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmvdplictsfrmsrtdrry",
+      "topicNumber": 42,
+      "title": "Remove duplicates from Sorted array",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lftrttnrrybynplc",
+      "topicNumber": 43,
+      "title": "Left Rotate an array by one place",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lftrttnrrybydplcs",
+      "topicNumber": 44,
+      "title": "Left rotate an array by D places",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mvzrstnd",
+      "topicNumber": 45,
+      "title": "Move Zeros to end",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "linrsrch",
+      "topicNumber": 46,
+      "title": "Linear Search",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthnin",
+      "topicNumber": 47,
+      "title": "Find the Union",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "UNION_FIND"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findmissingnmbrinnrry",
+      "topicNumber": 48,
+      "title": "Find missing number in an array",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmcnsctivns",
+      "topicNumber": 49,
+      "title": "Maximum Consecutive Ones",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthnmbrthtpprsncndthrnmbrstwic",
+      "topicNumber": 50,
+      "title": "Find the number that appears once, and other numbers twice.",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "longestsubarraywithsumpositives",
+      "topicNumber": 51,
+      "title": "Longest subarray with given sum K(positives)",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "longestsubarraywithsumkposneg",
+      "topicNumber": 52,
+      "title": "Longest subarray with sum K (Positives + Negatives)",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Easy",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "2smprblm",
+      "topicNumber": 53,
+      "title": "2Sum Problem",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "srtnrryf0s1snd2s",
+      "topicNumber": 54,
+      "title": "Sort an array of 0's 1's and 2's",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mjritylmntn2tims",
+      "topicNumber": 55,
+      "title": "Majority Element (>n/2 times)",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kdnslgrithmmximmsbrrysm",
+      "topicNumber": 56,
+      "title": "Kadane's Algorithm, maximum subarray sum",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printsbrrywithmximmsbrrysmxtnddvrsinfbvprblm",
+      "topicNumber": 57,
+      "title": "Print subarray with maximum subarray sum (extended version of above problem)",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "stckbyndsll",
+      "topicNumber": 58,
+      "title": "Stock Buy and Sell",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rrrngthrryinltrntingpsitivndngtivitms",
+      "topicNumber": 59,
+      "title": "Rearrange the array in alternating positive and negative items",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nxtprmttin",
+      "topicNumber": 60,
+      "title": "Next Permutation",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ldrsinnrryprblm",
+      "topicNumber": 61,
+      "title": "Leaders in an Array problem",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstcnsctivsqncinnrry",
+      "topicNumber": 62,
+      "title": "Longest Consecutive Sequence in an Array",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "stmtrixzrs",
+      "topicNumber": 63,
+      "title": "Set Matrix Zeros",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rttmtrixby90dgrs",
+      "topicNumber": 64,
+      "title": "Rotate Matrix by 90 degrees",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printthmtrixinspirlmnnr",
+      "topicNumber": 65,
+      "title": "Print the matrix in spiral manner",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sbrrywithgivnsm",
+      "topicNumber": 66,
+      "title": "Count subarrays with given sum",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Medium",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "psclstringl",
+      "topicNumber": 67,
+      "title": "Pascal's Triangle",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mjritylmntn3tims",
+      "topicNumber": 68,
+      "title": "Majority Element (n/3 times)",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "3smprblm",
+      "topicNumber": 69,
+      "title": "3-Sum Problem",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "4smprblm",
+      "topicNumber": 70,
+      "title": "4-Sum Problem",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstsbrrywith0sm",
+      "topicNumber": 71,
+      "title": "Largest Subarray with 0 Sum",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntnmbrfsbrryswithgivnxrk",
+      "topicNumber": 72,
+      "title": "Count number of subarrays with given xor K",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrgvrlppingsbintrvls",
+      "topicNumber": 73,
+      "title": "Merge Overlapping Subintervals",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrgtwsrtdrryswithtxtrspc",
+      "topicNumber": 74,
+      "title": "Merge two sorted arrays without extra space",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthrptingndmissingnmbr-i",
+      "topicNumber": 75,
+      "title": "Find the repeating and missing number",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntinvrsins",
+      "topicNumber": 76,
+      "title": "Count Inversions",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrspirs",
+      "topicNumber": 77,
+      "title": "Reverse Pairs",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmprdctsbrry",
+      "topicNumber": 78,
+      "title": "Maximum Product Subarray",
+      "category": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
+      "subcategory": "Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "binrysrchtfindxinsrtdrry",
+      "topicNumber": 79,
+      "title": "Binary Search to find X in sorted array",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "implmntlwrbnd",
+      "topicNumber": 80,
+      "title": "Implement Lower Bound",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "implmntpprbnd",
+      "topicNumber": 81,
+      "title": "Implement Upper Bound",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "srchinsrtpsitin",
+      "topicNumber": 82,
+      "title": "Search Insert Position",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifinptrryissrtd",
+      "topicNumber": 83,
+      "title": "Floor/Ceil in Sorted Array",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthfirstrlstccrrncfgivnnmbrinsrtdrry",
+      "topicNumber": 84,
+      "title": "Find the first or last occurrence of a given number in a sorted array",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntccrrncsfnmbrinsrtdrrywithdplicts",
+      "topicNumber": 85,
+      "title": "Count occurrences of a number in a sorted array with duplicates",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srchinrttdsrtdrryi",
+      "topicNumber": 86,
+      "title": "Search in Rotated Sorted Array I",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "srchinrttdsrtdrryii",
+      "topicNumber": 87,
+      "title": "Search in Rotated Sorted Array II",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "findminimminrttdsrtdrry",
+      "topicNumber": 88,
+      "title": "Find minimum in Rotated Sorted Array",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "findthwmnytimshsnrrybnrttd",
+      "topicNumber": 89,
+      "title": "Find out how many times has an array been rotated",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "singllmntinsrtdrry",
+      "topicNumber": 90,
+      "title": "Single element in a Sorted Array",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findpklmnt",
+      "topicNumber": 91,
+      "title": "Find peak element",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 1D Arrays",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "findsqrrtfnmbrinlgn",
+      "topicNumber": 92,
+      "title": "Find square root of a number in log n",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthnthrtfnmbrsingbinrysrch",
+      "topicNumber": 93,
+      "title": "Find the Nth root of a number using binary search",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kktingbnns",
+      "topicNumber": 94,
+      "title": "Koko Eating Bananas",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmdystmkmbqts",
+      "topicNumber": 95,
+      "title": "Minimum days to make M bouquets",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthsmllstdivisr",
+      "topicNumber": 96,
+      "title": "Find the smallest Divisor",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cpcitytshippckgswithinddys",
+      "topicNumber": 97,
+      "title": "Capacity to Ship Packages within D Days",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kthmissingpsitivnmbr",
+      "topicNumber": 98,
+      "title": "Kth Missing Positive Number",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ggrssivcws",
+      "topicNumber": 99,
+      "title": "Aggressive Cows",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bkllctinprblm",
+      "topicNumber": 100,
+      "title": "Book Allocation Problem",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "splitrrylrgstsm",
+      "topicNumber": 101,
+      "title": "Split array - Largest Sum",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "painterspartition",
+      "topicNumber": 102,
+      "title": "Painter's partition",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimizmxdistnctgssttin",
+      "topicNumber": 103,
+      "title": "Minimize Max Distance to Gas Station",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mdinf2srtdrrys",
+      "topicNumber": 104,
+      "title": "Median of 2 sorted arrays",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kthlmntf2srtdrrys",
+      "topicNumber": 105,
+      "title": "Kth element of 2 sorted arrays",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on Answers",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthrwwithmximmnmbrf1s",
+      "topicNumber": 106,
+      "title": "Find the row with maximum number of 1's",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 2D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srchin2dmtrix",
+      "topicNumber": 107,
+      "title": "Search in a 2 D matrix",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 2D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "SearchRowColumnWiseSortedMatrix",
+      "topicNumber": 108,
+      "title": "Search in a row and column wise sorted matrix",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 2D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findpklmnt-i",
+      "topicNumber": 109,
+      "title": "Find Peak Element (2D Matrix)",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 2D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mtrixmdin",
+      "topicNumber": 110,
+      "title": "Matrix Median",
+      "category": "Binary Search [1D, 2D Arrays, Search Space]",
+      "subcategory": "BS on 2D Arrays",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "MATRIX",
+        "BITSET",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmvtrmstprnthsis",
+      "topicNumber": 111,
+      "title": "Remove outermost Paranthesis",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrswrdsingivnstringplindrmchck",
+      "topicNumber": 112,
+      "title": "Reverse words in a given string / Palindrome Check",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstddnmbrinstring",
+      "topicNumber": 113,
+      "title": "Largest odd number in a string",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstcmmnprfix",
+      "topicNumber": 114,
+      "title": "Longest Common Prefix",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ismrphicstring",
+      "topicNumber": 115,
+      "title": "Isomorphic String",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckwhthrnstringisrttinfnthr",
+      "topicNumber": 116,
+      "title": "check whether one string is a rotation of another",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckiftwstringsrngrmfchthr",
+      "topicNumber": 117,
+      "title": "Check if two strings are anagram of each other",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Basic and Easy String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srtchrctrsbyfrqncy",
+      "topicNumber": 118,
+      "title": "Sort Characters by frequency",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "HASH_MAP",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmnstingdpthfprnthsis",
+      "topicNumber": 119,
+      "title": "Maximum Nesting Depth of Paranthesis",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmnnmbrtintgrndvicvrs",
+      "topicNumber": 120,
+      "title": "Roman Number to Integer and vice versa",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntti",
+      "topicNumber": 121,
+      "title": "Implement Atoi",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntnmbrfsbstrings",
+      "topicNumber": 122,
+      "title": "Count Number of Substrings",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstplindrmicsbstringditwithtdp",
+      "topicNumber": 123,
+      "title": "Longest Palindromic Substring[Do it without DP]",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "smfbtyfllsbstring",
+      "topicNumber": 124,
+      "title": "Sum of Beauty of all substring",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "LINKED_LIST",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsvrywrdinstring",
+      "topicNumber": 125,
+      "title": "Reverse Every Word in A String",
+      "category": "Strings [Basic and Medium]",
+      "subcategory": "Medium String Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctintlinkdlistlrnbtstrctndhwisndrprsntd",
+      "topicNumber": 126,
+      "title": "Introduction to LinkedList, learn about struct, and how is node represented",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn 1D LinkedList",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "insrtingndinlinkdlist",
+      "topicNumber": 127,
+      "title": "Inserting a node in LinkedList",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn 1D LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dltingndinlinkdlist",
+      "topicNumber": 128,
+      "title": "Deleting a node in LinkedList",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn 1D LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthlngthfthlinkdlistlrntrvrsl",
+      "topicNumber": 129,
+      "title": "Find the length of the linkedlist [learn traversal]",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn 1D LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srchnlmntinthll",
+      "topicNumber": 130,
+      "title": "Search an element in the LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn 1D LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctintdlllrnbtstrctndhwisndrprsntd",
+      "topicNumber": 131,
+      "title": "Introduction to DLL, learn about struct, and how is node represented",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn Doubly LinkedList",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "insrtndindll",
+      "topicNumber": 132,
+      "title": "Insert a node in DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn Doubly LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dltndindll",
+      "topicNumber": 133,
+      "title": "Delete a node in DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn Doubly LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsdll",
+      "topicNumber": 134,
+      "title": "Reverse a DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Learn Doubly LinkedList",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "middlflinkdlisttrtishrmthd",
+      "topicNumber": 135,
+      "title": "Middle of a LinkedList [TortoiseHare Method]",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrslinkdlistitrtiv",
+      "topicNumber": 136,
+      "title": "Reverse a LinkedList [Iterative]",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsllrcrsiv",
+      "topicNumber": 137,
+      "title": "Reverse a LL [Recursive]",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dtctlpinll",
+      "topicNumber": 138,
+      "title": "Detect a loop in LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthstrtingpintinll",
+      "topicNumber": 139,
+      "title": "Find the starting point in LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngthflpinll",
+      "topicNumber": 140,
+      "title": "Length of Loop in LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifllisplindrmrnt",
+      "topicNumber": 141,
+      "title": "Check if LL is palindrome or not",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sgrrgtddndvnndsinll",
+      "topicNumber": 142,
+      "title": "Segrregate odd and even nodes in LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmvnthndfrmthbckfthll",
+      "topicNumber": 143,
+      "title": "Remove Nth node from the back of the LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dltthmiddlndfll",
+      "topicNumber": 144,
+      "title": "Delete the middle node of LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srtll",
+      "topicNumber": 145,
+      "title": "Sort LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srtllf0s1snd2sbychnginglinks",
+      "topicNumber": 146,
+      "title": "Sort a LL of 0's 1's and 2's by changing links",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthintrsctinpintfyll",
+      "topicNumber": 147,
+      "title": "Find the intersection point of Y LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dd1tnmbrrprsntdbyll",
+      "topicNumber": 148,
+      "title": "Add 1 to a number represented by LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dd2nmbrsinll",
+      "topicNumber": 149,
+      "title": "Add 2 numbers in LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dltllccrrncsfkyindll",
+      "topicNumber": 150,
+      "title": "Delete all occurrences of a key in DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of DLL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findpirswithgivnsmindll",
+      "topicNumber": 151,
+      "title": "Find pairs with given sum in DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of DLL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmvdplictsfrmsrtddll",
+      "topicNumber": 152,
+      "title": "Remove duplicates from sorted DLL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Medium Problems of DLL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsllingrpfgivnsizk",
+      "topicNumber": 153,
+      "title": "Reverse LL in group of given size K",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Hard Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rttll",
+      "topicNumber": 154,
+      "title": "Rotate a LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Hard Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "flttningfll",
+      "topicNumber": 155,
+      "title": "Flattening of LL",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Hard Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "clnlinkdlistwithrndmndnxtpintr",
+      "topicNumber": 156,
+      "title": "Clone a Linked List with random and next pointer",
+      "category": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
+      "subcategory": "Hard Problems of LL",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rcrsivimplmnttinfti",
+      "topicNumber": 157,
+      "title": "Recursive Implementation of atoi()",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Get a Strong Hold",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pwxn",
+      "topicNumber": 158,
+      "title": "Pow(x, n)",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Get a Strong Hold",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntgdnmbrs",
+      "topicNumber": 159,
+      "title": "Count Good numbers",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Get a Strong Hold",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srtstcksingrcrsin",
+      "topicNumber": 160,
+      "title": "Sort a stack using recursion",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Get a Strong Hold",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "RECURSION",
+        "CALL_STACK",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rvrsstcksingrcrsin",
+      "topicNumber": 161,
+      "title": "Reverse a stack using recursion",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Get a Strong Hold",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "gnrtllbinrystrings",
+      "topicNumber": 162,
+      "title": "Generate all binary strings",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "gnrtprnthsis",
+      "topicNumber": 163,
+      "title": "Generate Paranthesis",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printllsbsqncspwrst",
+      "topicNumber": 164,
+      "title": "Print all subsequences/Power Set",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrnllpttrnsfsbsqncsthry",
+      "topicNumber": 165,
+      "title": "Learn All Patterns of Subsequences (Theory)",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "cntllsbsqncswithsmk",
+      "topicNumber": 166,
+      "title": "Count all subsequences with sum K",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifthrxistssbsqncwithsmk",
+      "topicNumber": 167,
+      "title": "Check if there exists a subsequence with sum K",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cmbintinsm",
+      "topicNumber": 168,
+      "title": "Combination Sum",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cmbintinsmii",
+      "topicNumber": 169,
+      "title": "Combination Sum-II",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sbstsmi",
+      "topicNumber": 170,
+      "title": "Subset Sum-I",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sbstsmii",
+      "topicNumber": 171,
+      "title": "Subset Sum-II",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cmbintinsmiii",
+      "topicNumber": 172,
+      "title": "Combination Sum - III",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lttrcmbintinsfphnnmbr",
+      "topicNumber": 173,
+      "title": "Letter Combinations of a Phone number",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Subsequences Pattern",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "plindrmprtitining",
+      "topicNumber": 174,
+      "title": "Palindrome Partitioning",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "wrdsrch",
+      "topicNumber": 175,
+      "title": "Word Search",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nqn",
+      "topicNumber": 176,
+      "title": "N Queen",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rtinmz",
+      "topicNumber": 177,
+      "title": "Rat in a Maze",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "wrdbrk",
+      "topicNumber": 178,
+      "title": "Word Break",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mclringprblm",
+      "topicNumber": 179,
+      "title": "M Coloring Problem",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sdkslvr",
+      "topicNumber": 180,
+      "title": "Sudoko Solver",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "xprssinddprtrs",
+      "topicNumber": 181,
+      "title": "Expression Add Operators",
+      "category": "Recursion [PatternWise]",
+      "subcategory": "Trying out all Combos / Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "RECURSION",
+        "CALL_STACK"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctintbitmnipltinthry",
+      "topicNumber": 182,
+      "title": "Introduction to Bit Manipulation [Theory]",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "chckifthithbitisstrnt",
+      "topicNumber": 183,
+      "title": "Check if the i-th bit is set or not",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifnmbrisddrnt",
+      "topicNumber": 184,
+      "title": "Check if a number is odd or not",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifnmbrispwrf2rnt",
+      "topicNumber": 185,
+      "title": "Check if a number is power of 2 or not",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntthnmbrfstbits",
+      "topicNumber": 186,
+      "title": "Count the number of set bits",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "stnstthrightmstnstbit",
+      "topicNumber": 187,
+      "title": "Set/Unset the rightmost unset bit",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "swptwnmbrs",
+      "topicNumber": 188,
+      "title": "Swap two numbers",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dividtwintgrswithtsingmltiplictindivisinndmdprtr",
+      "topicNumber": 189,
+      "title": "Divide two integers without using multiplication, division and mod operator",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Learn Bit Manipulation",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntnmbrfbitstbflippdtcnvrttb",
+      "topicNumber": 190,
+      "title": "Count number of bits to be flipped to convert A to B",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Interview Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthnmbrthtpprsddnmbrftims",
+      "topicNumber": 191,
+      "title": "Find the number that appears odd number of times",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Interview Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pwrst",
+      "topicNumber": 192,
+      "title": "Power Set",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Interview Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "fndxrfnmbrsfrmltr",
+      "topicNumber": 193,
+      "title": "Find xor of numbers from L to R",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Interview Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findthtwnmbrsppringddnmbrftims",
+      "topicNumber": 194,
+      "title": "Find the two numbers appearing odd number of times",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Interview Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printprimfctrsfnmbr",
+      "topicNumber": 195,
+      "title": "Print Prime Factors of a Number",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Advanced Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lldivisrsfnmbr",
+      "topicNumber": 196,
+      "title": "All Divisors of a Number",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Advanced Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sivfrtsthns",
+      "topicNumber": 197,
+      "title": "Sieve of Eratosthenes",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Advanced Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findprimfctristinfnmbrsingsiv",
+      "topicNumber": 198,
+      "title": "Find Prime Factorisation of a Number using Sieve",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Advanced Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pwrnx",
+      "topicNumber": 199,
+      "title": "Power(n, x)",
+      "category": "Bit Manipulation [Concepts & Problems]",
+      "subcategory": "Advanced Maths",
+      "status": "planned",
+      "visualizationTypes": [
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntstcksingrrys",
+      "topicNumber": 200,
+      "title": "Implement Stack using Arrays",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntqsingrrys",
+      "topicNumber": 201,
+      "title": "Implement Queue using Arrays",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntstcksingq",
+      "topicNumber": 202,
+      "title": "Implement Stack using Queue",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntqsingstck",
+      "topicNumber": 203,
+      "title": "Implement Queue using Stack",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntstcksinglinkdlist",
+      "topicNumber": 204,
+      "title": "Implement stack using Linkedlist",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntqsinglinkdlist",
+      "topicNumber": 205,
+      "title": "Implement queue using Linkedlist",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckfrblncdprnthsis",
+      "topicNumber": 206,
+      "title": "Check for balanced paranthesis",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmntminstck",
+      "topicNumber": 207,
+      "title": "Implement Min Stack",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "infixtpstfixcnvrsinsingstck",
+      "topicNumber": 208,
+      "title": "Infix to Postfix Conversion using Stack",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prfixtinfixcnvrsin",
+      "topicNumber": 209,
+      "title": "Prefix to Infix Conversion",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prfixtpstfixcnvrsin",
+      "topicNumber": 210,
+      "title": "Prefix to Postfix Conversion",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pstfixtprfixcnvrsin",
+      "topicNumber": 211,
+      "title": "Postfix to Prefix Conversion",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pstfixtinfix",
+      "topicNumber": 212,
+      "title": "Postfix to Infix",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cnvrtinfixtprfixnttin",
+      "topicNumber": 213,
+      "title": "Convert Infix To Prefix Notation",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Prefix, Infix, PostFix Conversion Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nxtgrtrlmnt",
+      "topicNumber": 214,
+      "title": "Next Greater Element",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "nxtgrtrlmnt2",
+      "topicNumber": 215,
+      "title": "Next Greater Element 2",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "nxtsmllrlmnt",
+      "topicNumber": 216,
+      "title": "Next Smaller Element",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nmbrfngstthright",
+      "topicNumber": 217,
+      "title": "Number of NGEs to the right",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "trppingrinwtr",
+      "topicNumber": 218,
+      "title": "Trapping Rainwater",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "smfsbrryminimm",
+      "topicNumber": 219,
+      "title": "Sum of subarray minimum",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "stridcllisin",
+      "topicNumber": 220,
+      "title": "Asteroid Collision",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "smfsbrryrngs",
+      "topicNumber": 221,
+      "title": "Sum of subarray ranges",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rmvkdigits",
+      "topicNumber": 222,
+      "title": "Remove k Digits",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstrctnglinhistgrm",
+      "topicNumber": 223,
+      "title": "Largest rectangle in a histogram",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximlrctngls",
+      "topicNumber": 224,
+      "title": "Maximal Rectangles",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Monotonic Stack/Queue Problems [VVV. Imp]",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "slidingwindwmximm",
+      "topicNumber": 225,
+      "title": "Sliding Window maximum",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Implementation Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "WINDOW",
+        "STACK",
+        "QUEUE"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "stckspnprblm",
+      "topicNumber": 226,
+      "title": "Stock span problem",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Implementation Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "thclbrityprblm",
+      "topicNumber": 227,
+      "title": "The Celebrity Problem",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Implementation Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrcchimprtnt",
+      "topicNumber": 228,
+      "title": "LRU cache (IMPORTANT)",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Implementation Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE",
+        "LINKED_LIST"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lfcch",
+      "topicNumber": 229,
+      "title": "LFU cache",
+      "category": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+      "subcategory": "Implementation Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STACK",
+        "QUEUE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstsbstringwithtrptingchrctrs",
+      "topicNumber": 230,
+      "title": "Longest Substring Without Repeating Characters",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "POINTER",
+        "WINDOW",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mxcnsctivnsiii",
+      "topicNumber": 231,
+      "title": "Max Consecutive Ones III",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "fritintbskts",
+      "topicNumber": 232,
+      "title": "Fruit Into Baskets",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstrptingchrctrrplcmnt",
+      "topicNumber": 233,
+      "title": "longest repeating character replacement",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "binrysbrrywithsm",
+      "topicNumber": 234,
+      "title": "Binary subarray with sum",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "POINTER",
+        "WINDOW",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntnmbrfnicsbrrys",
+      "topicNumber": 235,
+      "title": "Count number of nice subarrays",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nmbrfsbstringcntiningllthrchrctrs",
+      "topicNumber": 236,
+      "title": "Number of substring containing all three characters",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "POINTER",
+        "WINDOW",
+        "LINKED_LIST",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmpintycnbtinfrmcrds",
+      "topicNumber": 237,
+      "title": "Maximum point you can obtain from cards",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstsbstringwithtmstkdistinctchrctrs",
+      "topicNumber": 238,
+      "title": "Longest Substring with At Most K Distinct Characters",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "POINTER",
+        "WINDOW",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sbrrywithkdiffrntintgrs",
+      "topicNumber": 239,
+      "title": "Subarray with k different integers",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmwindwsbstring",
+      "topicNumber": 240,
+      "title": "Minimum Window Substring",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "POINTER",
+        "WINDOW",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmwindwsbsqnc",
+      "topicNumber": 241,
+      "title": "Minimum Window Subsequence",
+      "category": "Sliding Window & Two Pointer Combined Problems",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctintprirityqssingbinryhps",
+      "topicNumber": 242,
+      "title": "Introduction to Priority Queues using Binary Heaps",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Learning",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "minhpndmxhpimplmnttin",
+      "topicNumber": 243,
+      "title": "Min Heap and Max Heap Implementation",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifnrryrprsntsminhprnt",
+      "topicNumber": 244,
+      "title": "Check if an array represents a min-heap or not",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cnvrtminhptmxhp",
+      "topicNumber": 245,
+      "title": "Convert min Heap to max Heap",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kthlrgstlmntinnrrysprirityq",
+      "topicNumber": 246,
+      "title": "Kth largest element in an array [use priority queue]",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kthsmllstlmntinnrrysprirityq",
+      "topicNumber": 247,
+      "title": "Kth smallest element in an array [use priority queue]",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "srtksrtdrry",
+      "topicNumber": 248,
+      "title": "Sort K sorted array",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrgmsrtdlists",
+      "topicNumber": 249,
+      "title": "Merge M sorted Lists",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rplcchrrylmntbyitscrrspndingrnk",
+      "topicNumber": 250,
+      "title": "Replace each array element by its corresponding rank",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "tskschdlr",
+      "topicNumber": 251,
+      "title": "Task Scheduler",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "hndsfstrights",
+      "topicNumber": 252,
+      "title": "Hands of Straights",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dsigntwittr",
+      "topicNumber": 253,
+      "title": "Design twitter",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cnnctnrpswithminimlcst",
+      "topicNumber": 254,
+      "title": "Connect `n` ropes with minimal cost",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kthlrgstlmntinstrmfrnningintgrs",
+      "topicNumber": 255,
+      "title": "Kth largest element in a stream of running integers",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmsmcmbintin",
+      "topicNumber": 256,
+      "title": "Maximum Sum Combination",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "findmdinfrmdtstrm",
+      "topicNumber": 257,
+      "title": "Find Median from Data Stream",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kmstfrqntlmnts",
+      "topicNumber": 258,
+      "title": "K most frequent elements",
+      "category": "Heaps [Learning, Medium, Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ssignckis",
+      "topicNumber": 259,
+      "title": "Assign Cookies",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Easy Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "frctinlknpsckprblm",
+      "topicNumber": 260,
+      "title": "Fractional Knapsack Problem",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Easy Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "grdylgrithmtfindminimmnmbrfcins",
+      "topicNumber": 261,
+      "title": "Greedy algorithm to find minimum number of coins",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Easy Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lmndchng",
+      "topicNumber": 262,
+      "title": "Lemonade Change",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Easy Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "vlidprnthsischckr",
+      "topicNumber": 263,
+      "title": "Valid Paranthesis Checker",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Easy Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "nmtingsinnrm",
+      "topicNumber": 264,
+      "title": "N meetings in one room",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "jmpgm",
+      "topicNumber": 265,
+      "title": "Jump Game",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "jmpgm2",
+      "topicNumber": 266,
+      "title": "Jump Game 2",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmnmbrfpltfrmsrqirdfrrilwy",
+      "topicNumber": 267,
+      "title": "Minimum number of platforms required for a railway",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "jbsqncingprblm",
+      "topicNumber": 268,
+      "title": "Job sequencing Problem",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cndy",
+      "topicNumber": 269,
+      "title": "Candy",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prgrmfrshrtstjbfirstrsjfcpschdling",
+      "topicNumber": 270,
+      "title": "Program for Shortest Job First (or SJF) CPU Scheduling",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prgrmfrlstrcntlysdlrpgrplcmntlgrithm",
+      "topicNumber": 271,
+      "title": "Program for Least Recently Used (LRU) Page Replacement Algorithm",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "insrtintrvl",
+      "topicNumber": 272,
+      "title": "Insert Interval",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrgintrvls",
+      "topicNumber": 273,
+      "title": "Merge Intervals",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nnvrlppingintrvls",
+      "topicNumber": 274,
+      "title": "Non-overlapping Intervals",
+      "category": "Greedy Algorithms [Easy, Medium/Hard]",
+      "subcategory": "Medium/Hard",
+      "status": "planned",
+      "visualizationTypes": [
+        "VARS"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctinttrs",
+      "topicNumber": 275,
+      "title": "Introduction to Trees",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "binrytrrprsnttininc",
+      "topicNumber": 276,
+      "title": "Binary Tree Representation in C++",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "binrytrrprsnttininjv",
+      "topicNumber": 277,
+      "title": "Binary Tree Representation in Java",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "binrytrtrvrslsinbinrytr",
+      "topicNumber": 278,
+      "title": "Binary Tree Traversals in Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "prrdrtrvrslfbinrytr",
+      "topicNumber": 279,
+      "title": "Preorder Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "inrdrtrvrslfbinrytr",
+      "topicNumber": 280,
+      "title": "Inorder Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "pstrdrtrvrslfbinrytr",
+      "topicNumber": 281,
+      "title": "Post-order Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "lvlrdrtrvrsllvlrdrtrvrslinspirlfrm",
+      "topicNumber": 282,
+      "title": "Level order Traversal / Level order traversal in spiral form",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "MATRIX",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "itrtivprrdrtrvrslfbinrytr",
+      "topicNumber": 283,
+      "title": "Iterative Preorder Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "itrtivinrdrtrvrslfbinrytr",
+      "topicNumber": 284,
+      "title": "Iterative Inorder Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "pstrdrtrvrslfbinrytrsing2stck",
+      "topicNumber": 285,
+      "title": "Post-order Traversal of Binary Tree using 2 stack",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STACK",
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "pstrdrtrvrslfbinrytrsing1stck",
+      "topicNumber": 286,
+      "title": "Post-order Traversal of Binary Tree using 1 stack",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STACK",
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "prrdrinrdrndpstrdrtrvrslinntrvrsl",
+      "topicNumber": 287,
+      "title": "Preorder, Inorder, and Postorder Traversal in one Traversal",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Traversals",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "hightfbinrytr",
+      "topicNumber": 288,
+      "title": "Height of a Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckifthbinrytrishightblncdrnt",
+      "topicNumber": 289,
+      "title": "Check if the Binary tree is height-balanced or not",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "dimtrfbinrytr",
+      "topicNumber": 290,
+      "title": "Diameter of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmpthsm",
+      "topicNumber": 291,
+      "title": "Maximum path sum",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "chckiftwtrsridnticlrnt",
+      "topicNumber": 292,
+      "title": "Check if two trees are identical or not",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "zigzgtrvrslfbinrytr",
+      "topicNumber": 293,
+      "title": "Zig Zag Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "bndrytrvrslfbinrytr",
+      "topicNumber": 294,
+      "title": "Boundary Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "vrticlrdrtrvrslfbinrytr",
+      "topicNumber": 295,
+      "title": "Vertical Order Traversal of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "tpviwfbinrytr",
+      "topicNumber": 296,
+      "title": "Top View of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "bttmviwfbinrytr",
+      "topicNumber": 297,
+      "title": "Bottom View of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "rightlftviwfbinrytr",
+      "topicNumber": 298,
+      "title": "Right/Left View of Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "symmtricbinrytr",
+      "topicNumber": 299,
+      "title": "Symmetric Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Medium Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rttndpthinbinrytr",
+      "topicNumber": 300,
+      "title": "Root to Node Path in Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "lcinbinrytr",
+      "topicNumber": 301,
+      "title": "LCA in Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mximmwidthfbinrytr",
+      "topicNumber": 302,
+      "title": "Maximum width of a Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "chckfrchildrnsmprprty",
+      "topicNumber": 303,
+      "title": "Check for Children Sum Property",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printllthndstdistncfkinbinrytr",
+      "topicNumber": 304,
+      "title": "Print all the Nodes at a distance of K in a Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "minimmtimtkntbrnthbinrytrfrmnd",
+      "topicNumber": 305,
+      "title": "Minimum time taken to BURN the Binary Tree from a Node",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cntttlndsincmpltbinrytr",
+      "topicNumber": 306,
+      "title": "Count total Nodes in a COMPLETE Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rqirmntsnddtcnstrctniqbinrytrthry",
+      "topicNumber": 307,
+      "title": "Requirements needed to construct a Unique Binary Tree | Theory",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "cnstrctbinrytrfrminrdrndprrdr",
+      "topicNumber": 308,
+      "title": "Construct Binary Tree from inorder and preorder",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cnstrctthbinrytrfrmpstrdrndinrdrtrvrsl",
+      "topicNumber": 309,
+      "title": "Construct the Binary Tree from Postorder and Inorder Traversal",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "sriliznddsrilizbinrytr",
+      "topicNumber": 310,
+      "title": "Serialize and deserialize Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mrrisprrdrtrvrslfbinrytr",
+      "topicNumber": 311,
+      "title": "Morris Preorder Traversal of a Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mrrisinrdrtrvrslfbinrytr",
+      "topicNumber": 312,
+      "title": "Morris Inorder Traversal of a Binary Tree",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "flttnbinrytrtlinkdlist",
+      "topicNumber": 313,
+      "title": "Flatten Binary Tree to LinkedList",
+      "category": "Binary Trees [Traversals, Medium and Hard Problems]",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "TREE",
+        "DP_TABLE",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "intrdctintbinrysrchtr",
+      "topicNumber": 314,
+      "title": "Introduction to Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Concepts",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "srchinbinrysrchtr",
+      "topicNumber": 315,
+      "title": "Search in a Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Concepts",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "findminmxinbst",
+      "topicNumber": 316,
+      "title": "Find Min/Max in BST",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Concepts",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cilinbinrysrchtr",
+      "topicNumber": 317,
+      "title": "Ceil in a Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "flrinbinrysrchtr",
+      "topicNumber": 318,
+      "title": "Floor in a Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "insrtgivnndinbinrysrchtr",
+      "topicNumber": 319,
+      "title": "Insert a given Node in Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "dltndinbinrysrchtr",
+      "topicNumber": 320,
+      "title": "Delete a Node in Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "findkthsmllstlrgstlmntinbst",
+      "topicNumber": 321,
+      "title": "Find K-th smallest/largest element in BST",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "chckiftrisbstrbt",
+      "topicNumber": 322,
+      "title": "Check if a tree is a BST or BT",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "lcinbinrysrchtr",
+      "topicNumber": 323,
+      "title": "LCA in Binary Search Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cnstrctbstfrmprrdrtrvrsl",
+      "topicNumber": 324,
+      "title": "Construct a BST from a preorder traversal",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "inrdrsccssrprdcssrinbst",
+      "topicNumber": 325,
+      "title": "Inorder Successor/Predecessor in BST",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mrg2bsts",
+      "topicNumber": 326,
+      "title": "Merge 2 BST's",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "twsminbstchckifthrxistspirwithsmk",
+      "topicNumber": 327,
+      "title": "Two Sum In BST | Check if there exists a pair with Sum K",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "POINTER",
+        "TREE",
+        "HASH_MAP",
+        "BITSET",
+        "WINDOW"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "rcvrbstcrrctbstwithtwndsswppd",
+      "topicNumber": 328,
+      "title": "Recover BST | Correct BST with two nodes swapped",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstbstinbinrytr",
+      "topicNumber": 329,
+      "title": "Largest BST in Binary Tree",
+      "category": "Binary Search Trees [Concept and Problems]",
+      "subcategory": "Practice Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "TREE",
+        "BITSET",
+        "ARRAY",
+        "POINTER",
+        "WINDOW"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "grphndtyps",
+      "topicNumber": 330,
+      "title": "Graph and Types",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "grphrprsnttinc",
+      "topicNumber": 331,
+      "title": "Graph Representation | C++",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "grphrprsnttinjv",
+      "topicNumber": 332,
+      "title": "Graph Representation | Java",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cnnctdcmpnntslgicxplntin",
+      "topicNumber": 333,
+      "title": "Connected Components | Logic Explanation",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "bfs",
+      "topicNumber": 334,
+      "title": "BFS",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "dfs",
+      "topicNumber": 335,
+      "title": "DFS",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Learning",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "nmbrfprvincsltcd",
+      "topicNumber": 336,
+      "title": "Number of provinces (leetcode)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cnnctdcmpnntsprblminmtrix",
+      "topicNumber": 337,
+      "title": "Connected Components Problem in Matrix",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH",
+        "MATRIX"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "rttnrngs",
+      "topicNumber": 338,
+      "title": "Rotten Oranges",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "fldfill",
+      "topicNumber": 339,
+      "title": "Flood fill",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "LINKED_LIST",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cycldtctininnirctdgrphbfs",
+      "topicNumber": 340,
+      "title": "Cycle Detection in unirected Graph (bfs)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cycldtctininndirctdgrphdfs",
+      "topicNumber": 341,
+      "title": "Cycle Detection in undirected Graph (dfs)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "01mtrixbfsprblm",
+      "topicNumber": 342,
+      "title": "0/1 Matrix (Bfs Problem)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH",
+        "MATRIX"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "srrnddrginsdfs",
+      "topicNumber": 343,
+      "title": "Surrounded Regions (dfs)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "nmbrfnclvsfldfillimplmnttinmltisrc",
+      "topicNumber": 344,
+      "title": "Number of Enclaves [flood fill implementation - multisource]",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "LINKED_LIST",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "wrdlddr1",
+      "topicNumber": 345,
+      "title": "Word ladder - 1",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "planned",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "wrdlddr2",
+      "topicNumber": 346,
+      "title": "Word ladder - 2",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "planned",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nmbrfdistinctislndsdfsmltisrc",
+      "topicNumber": 347,
+      "title": "Number of Distinct Islands [dfs multisource]",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "planned",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "biprtitgrphdfs",
+      "topicNumber": 348,
+      "title": "Bipartite Graph (DFS)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cycldtctinindirctdgrphdfs",
+      "topicNumber": 349,
+      "title": "Cycle Detection in Directed Graph (DFS)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Problems on BFS/DFS",
+      "status": "planned",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "tpsrt",
+      "topicNumber": 350,
+      "title": "Topo Sort",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "khnslgrithm",
+      "topicNumber": 351,
+      "title": "Kahn's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "cycldtctinindirctdgrphbfs",
+      "topicNumber": 352,
+      "title": "Cycle Detection in Directed Graph (BFS)",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "QUEUE",
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "crsschdli",
+      "topicNumber": 353,
+      "title": "Course Schedule - I",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "crsschdlii",
+      "topicNumber": 354,
+      "title": "Course Schedule - II",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "findvntlsfstts",
+      "topicNumber": 355,
+      "title": "Find eventual safe states",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "lindictinry",
+      "topicNumber": 356,
+      "title": "Alien dictionary",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Topo Sort and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "ARRAY"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "shrtstpthingwithnitwights",
+      "topicNumber": 357,
+      "title": "Shortest Path in UG with unit weights",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "shrtstpthindg",
+      "topicNumber": 358,
+      "title": "Shortest Path in DAG",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "djisktrslgrithm",
+      "topicNumber": 359,
+      "title": "Djisktra's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "whyprirityqissdindjisktrslgrithm",
+      "topicNumber": 360,
+      "title": "Why priority Queue is used in Djisktra's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "HEAP",
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "shrtstpthinbinrymz",
+      "topicNumber": 361,
+      "title": "Shortest path in a binary maze",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH",
+        "BITSET"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "pthwithminimmffrt",
+      "topicNumber": 362,
+      "title": "Path with minimum effort",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "chpstflightswithinkstps",
+      "topicNumber": 363,
+      "title": "Cheapest flights within k stops",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "HEAP",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ntwrkdlytim",
+      "topicNumber": 364,
+      "title": "Network Delay time",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "nmbrfwystrrivtdstintin",
+      "topicNumber": 365,
+      "title": "Number of ways to arrive at destination",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmstpstrchndfrmstrtbyprfrmingmltiplictinndmdprtinswithrrylmnts",
+      "topicNumber": 366,
+      "title": "Minimum steps to reach end from start by performing multiplication and mod operations with array elements",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "GRAPH"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bllmnfrdlgrithm",
+      "topicNumber": 367,
+      "title": "Bellman Ford Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "flydwrshllgrithm",
+      "topicNumber": 368,
+      "title": "Floyd Warshal Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "findthcitywiththsmllstnmbrfnighbrsinthrshlddistnc",
+      "topicNumber": 369,
+      "title": "Find the city with the smallest number of neighbors in a threshold distance",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Shortest Path Algorithms and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "minimmspnningtr",
+      "topicNumber": 370,
+      "title": "Minimum Spanning Tree",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "primslgrithm",
+      "topicNumber": 371,
+      "title": "Prim's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "disjintstninbyrnk",
+      "topicNumber": 372,
+      "title": "Disjoint Set [Union by Rank]",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "disjintstninbysiz",
+      "topicNumber": 373,
+      "title": "Disjoint Set [Union by Size]",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "krsklslgrithm",
+      "topicNumber": 374,
+      "title": "Kruskal's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "nmbrfprtinstmkntwrkcnnctd",
+      "topicNumber": 375,
+      "title": "Number of operations to make network connected",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mststnsrmvdwithsmrwsrclmns",
+      "topicNumber": 376,
+      "title": "Most stones removed with same rows or columns",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "ccntsmrg",
+      "topicNumber": 377,
+      "title": "Accounts merge",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "nmbrfislndii",
+      "topicNumber": 378,
+      "title": "Number of island II",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mkinglrgislnd",
+      "topicNumber": 379,
+      "title": "Making a Large Island",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "swiminrisingwtr",
+      "topicNumber": 380,
+      "title": "Swim in rising water",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "MinimumSpanningTree/Disjoint Set and Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "GRAPH",
+        "UNION_FIND"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bridgsingrph",
+      "topicNumber": 381,
+      "title": "Bridges in Graph",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Other Algorithms",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "rticltinpint",
+      "topicNumber": 382,
+      "title": "Articulation Point",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Other Algorithms",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "ksrjslgrithm",
+      "topicNumber": 383,
+      "title": "Kosaraju's Algorithm",
+      "category": "Graphs [Concepts & Problems]",
+      "subcategory": "Other Algorithms",
+      "status": "implemented",
+      "visualizationTypes": [
+        "GRAPH"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "dynmicprgrmmingintrdctin",
+      "topicNumber": 384,
+      "title": "Dynamic Programming Introduction",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "Introduction to DP",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "climbingstrs",
+      "topicNumber": 385,
+      "title": "Climbing Stars",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "1D DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "frgjmpdp3",
+      "topicNumber": 386,
+      "title": "Frog Jump(DP-3)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "1D DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "frgjmpwithkdistncsdp4",
+      "topicNumber": 387,
+      "title": "Frog Jump with k distances(DP-4)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "1D DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmsmfnndjcntlmntsdp5",
+      "topicNumber": 388,
+      "title": "Maximum sum of non-adjacent elements (DP 5)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "1D DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "hsrbbrdp6",
+      "topicNumber": 389,
+      "title": "House Robber (DP 6)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "1D DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ninjstriningdp7",
+      "topicNumber": 390,
+      "title": "Ninja's Training (DP 7)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "gridniqpthsdpngridsdp8",
+      "topicNumber": 391,
+      "title": "Grid Unique Paths : DP on Grids (DP8)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "gridniqpths2dp9",
+      "topicNumber": 392,
+      "title": "Grid Unique Paths 2 (DP 9)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmpthsmingriddp10",
+      "topicNumber": 393,
+      "title": "Minimum path sum in Grid (DP 10)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmpthsmintringlrgriddp11",
+      "topicNumber": 394,
+      "title": "Minimum path sum in Triangular Grid (DP 11)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmmximmfllingpthsmdp12",
+      "topicNumber": 395,
+      "title": "Minimum/Maximum Falling Path Sum (DP-12)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "3ddpninjndhisfrindsdp13",
+      "topicNumber": 396,
+      "title": "3-d DP : Ninja and his friends (DP-13)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "2D/3D DP and DP on Grids",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "sbstsmqlttrgtdp14",
+      "topicNumber": 397,
+      "title": "Subset sum equal to target (DP- 14)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prtitinqlsbstsmdp15",
+      "topicNumber": 398,
+      "title": "Partition Equal Subset Sum (DP- 15)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prtitinstint2sbstswithminbsltsmdiffdp16",
+      "topicNumber": 399,
+      "title": "Partition Set Into 2 Subsets With Min Absolute Sum Diff (DP- 16)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntsbstswithsmkdp17",
+      "topicNumber": 400,
+      "title": "Count Subsets with Sum K (DP - 17)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntprtitinswithgivndiffrncdp18",
+      "topicNumber": 401,
+      "title": "Count Partitions with Given Difference (DP - 18)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "01knpsckdp19",
+      "topicNumber": 402,
+      "title": "Assign Cookies",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmcinsdp20",
+      "topicNumber": 403,
+      "title": "Minimum Coins (DP - 20)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "trgtsmdp21",
+      "topicNumber": 404,
+      "title": "Target Sum (DP - 21)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cinchng2dp22",
+      "topicNumber": 405,
+      "title": "Coin Change 2 (DP - 22)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nbnddknpsckdp23",
+      "topicNumber": 406,
+      "title": "Unbounded Knapsack (DP - 23)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "rdcttingprblmdp24",
+      "topicNumber": 407,
+      "title": "Rod Cutting Problem | (DP - 24)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Subsequences",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstcmmnsbsqncdp25",
+      "topicNumber": 408,
+      "title": "Longest Common Subsequence | (DP - 25)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "printlngstcmmnsbsqncdp26",
+      "topicNumber": 409,
+      "title": "Print Longest Common Subsequence | (DP - 26)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "runner": "first-class"
+    },
+    {
+      "problemId": "lngstcmmnsbstringdp27",
+      "topicNumber": 410,
+      "title": "Longest Common Substring | (DP - 27)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstplindrmicsbsqncdp28",
+      "topicNumber": 411,
+      "title": "Longest Palindromic Subsequence | (DP-28)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimminsrtinstmkstringplindrmdp29",
+      "topicNumber": 412,
+      "title": "Minimum insertions to make string palindrome | DP-29",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimminsrtinsdltinstcnvrtstringdp30",
+      "topicNumber": 413,
+      "title": "Minimum Insertions/Deletions to Convert String | (DP- 30)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE",
+        "ARRAY"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "shrtstcmmnsprsqncdp31",
+      "topicNumber": 414,
+      "title": "Shortest Common Supersequence | (DP - 31)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "distinctsbsqncsdp32",
+      "topicNumber": 415,
+      "title": "Distinct Subsequences| (DP-32)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "ditdistncdp33",
+      "topicNumber": 416,
+      "title": "Edit Distance | (DP-33)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "wildcrdmtchingdp34",
+      "topicNumber": 417,
+      "title": "Wildcard Matching | (DP-34)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Strings",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bsttimtbyndsllstckdp35",
+      "topicNumber": 418,
+      "title": "Best Time to Buy and Sell Stock |(DP-35)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "byndsllstckiidp36",
+      "topicNumber": 419,
+      "title": "Buy and Sell Stock - II|(DP-36)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "byndsllstcksiiidp37",
+      "topicNumber": 420,
+      "title": "Buy and Sell Stocks III|(DP-37)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "byndstcksllivdp38",
+      "topicNumber": 421,
+      "title": "Buy and Stock Sell IV |(DP-38)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "byndsllstckswithcldwndp39",
+      "topicNumber": 422,
+      "title": "Buy and Sell Stocks With Cooldown|(DP-39)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "byndsllstckswithtrnsctinfdp40",
+      "topicNumber": 423,
+      "title": "Buy and Sell Stocks With Transaction Fee|(DP-40)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Stocks",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstincrsingsbsqncdp41",
+      "topicNumber": 424,
+      "title": "Longest Increasing Subsequence |(DP-41)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "printinglngstincrsingsbsqncdp42",
+      "topicNumber": 425,
+      "title": "Printing Longest Increasing Subsequence|(DP-42)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstincrsingsbsqncdp43",
+      "topicNumber": 426,
+      "title": "Longest Increasing Subsequence |(DP-43)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lrgstdivisiblsbstdp44",
+      "topicNumber": 427,
+      "title": "Largest Divisible Subset|(DP-44)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngststringchindp45",
+      "topicNumber": 428,
+      "title": "Longest String Chain|(DP-45)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngstbitnicsbsqncdp46",
+      "topicNumber": 429,
+      "title": "Longest Bitonic Subsequence |(DP-46)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "nmbrflngstincrsingsbsqncsdp47",
+      "topicNumber": 430,
+      "title": "Number of Longest Increasing Subsequences|(DP-47)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on LIS",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mtrixchinmltiplictindp48",
+      "topicNumber": 431,
+      "title": "Matrix Chain Multiplication|(DP-48)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE",
+        "MATRIX"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mtrixchinmltiplictinbttmpdp49",
+      "topicNumber": 432,
+      "title": "Matrix Chain Multiplication | Bottom-Up|(DP-49)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE",
+        "MATRIX"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "minimmcsttctthstickdp50",
+      "topicNumber": 433,
+      "title": "Minimum Cost to Cut the Stick|(DP-50)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "brstbllnsdp51",
+      "topicNumber": 434,
+      "title": "Burst Balloons|(DP-51)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "vltblnxprssinttrdp52",
+      "topicNumber": 435,
+      "title": "Evaluate Boolean Expression to True|(DP-52)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "plindrmprtitiningiidp53",
+      "topicNumber": 436,
+      "title": "Palindrome Partitioning - II|(DP-53)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "RECURSION",
+        "CALL_STACK",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "prtitinrryfrmximmsmdp54",
+      "topicNumber": 437,
+      "title": "Partition Array for Maximum Sum|(DP-54)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "MCM DP | Partition DP",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "mximmrctnglrwithll1sdp55",
+      "topicNumber": 438,
+      "title": "Maximum Rectangle Area with all 1's|(DP-55)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Squares",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntsqrsbmtricswithllnsdp56",
+      "topicNumber": 439,
+      "title": "Count Square Submatrices with All Ones|(DP-56)",
+      "category": "Dynamic Programming [Patterns and Problems]",
+      "subcategory": "DP on Squares",
+      "status": "planned",
+      "visualizationTypes": [
+        "LINKED_LIST",
+        "DP_TABLE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "implmnttriinsrtsrchstrtswith",
+      "topicNumber": 440,
+      "title": "Implement TRIE | INSERT | SEARCH | STARTSWITH",
+      "category": "Tries",
+      "subcategory": "Theory",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "implmnttri2prfixtr",
+      "topicNumber": 441,
+      "title": "Implement Trie - 2 (Prefix Tree)",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "lngststringwithllprfixs",
+      "topicNumber": 442,
+      "title": "Longest String with All Prefixes",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "STRING",
+        "LINKED_LIST",
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "nmbrfdistinctsbstringsinstring",
+      "topicNumber": 443,
+      "title": "Number of Distinct Substrings in a String",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "bitprrqisitsfrtriprblms",
+      "topicNumber": 444,
+      "title": "Bit PreRequisites for TRIE Problems",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "BITSET",
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mximmxrftwnmbrsinnrry",
+      "topicNumber": 445,
+      "title": "Maximum XOR of two numbers in an array",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "BITSET",
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "mximmxrwithnlmntfrmrry",
+      "topicNumber": 446,
+      "title": "Maximum XOR With an Element From Array",
+      "category": "Tries",
+      "subcategory": "Problems",
+      "status": "implemented",
+      "visualizationTypes": [
+        "ARRAY",
+        "BITSET",
+        "TREE"
+      ],
+      "runner": "legacy-kit",
+      "reason": "adapted via legacyAdapter — migrate to first-class for line-by-line + structures"
+    },
+    {
+      "problemId": "minimmnmbrfbrcktrvrslsnddtmknxprssinblncd",
+      "topicNumber": 447,
+      "title": "Minimum number of bracket reversals needed to make an expression balanced",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntndsy",
+      "topicNumber": 448,
+      "title": "Count and say",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "hshinginstringsthry",
+      "topicNumber": 449,
+      "title": "Hashing In Strings | Theory",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "skip",
+      "visualizationTypes": [],
+      "reason": "concept / theory — variable panel optional later"
+    },
+    {
+      "problemId": "rbinkrp",
+      "topicNumber": 450,
+      "title": "Rabin Karp",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "zfnctin",
+      "topicNumber": 451,
+      "title": "Z-Function",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "kmplglpspirry",
+      "topicNumber": 452,
+      "title": "KMP algo / LPS(pi) array",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "ARRAY",
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "shrtstplindrm",
+      "topicNumber": 453,
+      "title": "Shortest Palindrome",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "lngsthppyprfix",
+      "topicNumber": 454,
+      "title": "Longest happy prefix",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING",
+        "TREE"
+      ],
+      "reason": "classified; runner not yet authored"
+    },
+    {
+      "problemId": "cntplindrmicsbsqncingivnstring",
+      "topicNumber": 455,
+      "title": "Count palindromic subsequence in given string",
+      "category": "Strings",
+      "subcategory": "Hard Problems",
+      "status": "planned",
+      "visualizationTypes": [
+        "STRING"
+      ],
+      "reason": "classified; runner not yet authored"
+    }
+  ]
+}
