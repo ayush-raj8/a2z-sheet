@@ -11,77 +11,95 @@
   "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "revamped"
-  ],
-  "pattern": "graph",
-  "problemStatement": "Master “Shortest path in a binary maze” (Shortest Path Algorithms and Problems) the way an interviewer expects: classify, brute, optimize, prove.",
-  "intuition": "\"Shortest path in a binary maze\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
+  "tags": ["graph", "bfs", "grid", "shortest-path"],
+  "pattern": "grid-bfs",
+  "problemStatement": "Given an n×n binary matrix grid where 0 is open and 1 is blocked, return the length of the shortest clear path from (0,0) to (n-1,n-1). You may move to any of the 8 adjacent cells. Path length = number of cells visited. If no path exists, return −1.",
+  "example": "grid = [[0,1],[1,0]]\n→ 2  (path (0,0)→(1,1))\n\ngrid = [[0,0,0],[1,1,0],[1,1,0]]\n→ 4\n\ngrid = [[1,0],[1,0]]\n→ -1  (start blocked)",
+  "intuition": "Every move costs 1, so BFS on the grid finds the shortest path. Process the queue level-by-level (or store dist in the queue); mark cells visited when enqueued so you do not re-expand them. Eight directions = king moves on a chessboard.",
   "approaches": [
     {
-      "title": "Clarify + brute exploration",
-      "idea": "Enumerate paths/states naively for \"Shortest path in a binary maze\" to lock meaning.",
-      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Shortest path in a binary maze\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
+      "title": "Brute: DFS all paths",
+      "idea": "Explore every simple path of 0-cells and take the minimum length. Correct but exponential.",
+      "code": "def shortestPathBinaryMatrix_brute(grid):\n    n = len(grid)\n    if grid[0][0] or grid[n-1][n-1]:\n        return -1\n    dirs = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(-1,1),(1,-1),(-1,-1)]\n    best = float('inf')\n    def dfs(r, c, d, seen):\n        nonlocal best\n        if r == n-1 and c == n-1:\n            best = min(best, d)\n            return\n        for dr, dc in dirs:\n            nr, nc = r+dr, c+dc\n            if 0 <= nr < n and 0 <= nc < n and grid[nr][nc] == 0 and (nr,nc) not in seen:\n                dfs(nr, nc, d+1, seen | {(nr,nc)})\n    dfs(0, 0, 1, {(0,0)})\n    return -1 if best == float('inf') else best",
       "language": "python",
-      "time": "Often exponential or O(n·m) too large",
-      "space": "O(n+m)",
-      "flags": [
-        "TLE"
-      ]
+      "time": "exponential",
+      "space": "O(n²)",
+      "flags": ["TLE"]
     },
     {
-      "title": "Pattern-optimal algorithm",
-      "idea": "Apply the standard algorithm this sheet topic trains for \"Shortest path in a binary maze\".",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Shortest path in a binary maze\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
+      "title": "Better: BFS with dist in the queue",
+      "idea": "Store (r, c, dist) in the queue. First time you reach a cell is optimal. Same asymptotics as level BFS; slightly more memory per entry.",
+      "code": "from collections import deque\n\ndef shortestPathBinaryMatrix_better(grid):\n    n = len(grid)\n    if grid[0][0] or grid[n-1][n-1]:\n        return -1\n    dirs = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(-1,1),(1,-1),(-1,-1)]\n    q = deque([(0, 0, 1)])  # r, c, dist\n    grid[0][0] = 1\n    while q:\n        r, c, d = q.popleft()\n        if r == n-1 and c == n-1:\n            return d\n        for dr, dc in dirs:\n            nr, nc = r+dr, c+dc\n            if 0 <= nr < n and 0 <= nc < n and grid[nr][nc] == 0:\n                grid[nr][nc] = 1\n                q.append((nr, nc, d+1))\n    return -1",
       "language": "python",
-      "time": "Typically O(n+m) or O((n+m)log n)",
-      "space": "O(n+m)",
-      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
+      "time": "O(n²)",
+      "space": "O(n²)",
+      "whyWorks": "Unit cost + BFS ⇒ first visit is shortest."
+    },
+    {
+      "title": "Optimal: 8-direction BFS (level order)",
+      "idea": "BFS from (0,0). Freeze layer size with n = len(queue); bump dist once per layer. Mark grid[r][c]=1 when enqueued. First time you reach the bottom-right, return dist.",
+      "algorithm": [
+        "If start or end is 1 → return -1",
+        "Enqueue (0,0), mark visited, dist = 1",
+        "While queue: process current layer size; for each cell try 8 neighbors",
+        "Enqueue open (0) cells and mark them 1",
+        "After a full layer, dist += 1",
+        "If queue empties without reaching end → -1"
+      ],
+      "code": "from typing import List\nfrom collections import deque\n\nclass Solution:\n    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:\n        rows, cols = len(grid), len(grid[0])\n        directions = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]]\n        if grid[0][0] or grid[-1][-1]:\n            return -1\n\n        queue = deque()\n        queue.append((0, 0))\n        dist = 1\n        grid[0][0] = 1\n\n        while queue:\n            n = len(queue)\n\n            for _ in range(0, n):\n                r, c = queue.popleft()\n                if r == rows - 1 and c == cols - 1:\n                    return dist\n                for dr, dc in directions:\n                    nr, nc = r + dr, c + dc\n\n                    if (\n                        0 <= nr < rows and\n                        0 <= nc < cols\n                        and grid[nr][nc] == 0\n                    ):\n                        grid[nr][nc] = 1\n                        queue.append((nr, nc))\n            dist += 1\n\n        return -1",
+      "language": "python",
+      "time": "O(n²)",
+      "space": "O(n²)",
+      "dryRun": "2×2 [[0,1],[1,0]]: start (0,0) dist=1 → enqueue diagonal (1,1) → next layer returns 2",
+      "whyWorks": "Unit step cost + BFS ⇒ first hit on the target is shortest. Marking on enqueue prevents duplicate work."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "from typing import List\nfrom collections import deque\n\nclass Solution:\n    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:\n        rows, cols = len(grid), len(grid[0])\n        directions = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]]\n        if grid[0][0] or grid[-1][-1]:\n            return -1\n\n        queue = deque()\n        queue.append((0, 0))\n        dist = 1\n        grid[0][0] = 1\n\n        while queue:\n            n = len(queue)\n\n            for _ in range(0, n):\n                r, c = queue.popleft()\n                if r == rows - 1 and c == cols - 1:\n                    return dist\n                for dr, dc in directions:\n                    nr, nc = r + dr, c + dc\n\n                    if (\n                        0 <= nr < rows and\n                        0 <= nc < cols\n                        and grid[nr][nc] == 0\n                    ):\n                        grid[nr][nc] = 1\n                        queue.append((nr, nc))\n            dist += 1\n\n        return -1",
+      "notes": "Level-order BFS: n = len(queue) freezes the current layer. Mutates grid as visited (1)."
+    },
+    "java": {
+      "code": "import java.util.*;\n\nclass Solution {\n    public int shortestPathBinaryMatrix(int[][] grid) {\n        int rows = grid.length, cols = grid[0].length;\n        int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1}};\n        if (grid[0][0] == 1 || grid[rows-1][cols-1] == 1) return -1;\n\n        ArrayDeque<int[]> q = new ArrayDeque<>();\n        q.add(new int[]{0, 0});\n        grid[0][0] = 1;\n        int dist = 1;\n\n        while (!q.isEmpty()) {\n            int sz = q.size();\n            for (int i = 0; i < sz; i++) {\n                int[] cur = q.poll();\n                int r = cur[0], c = cur[1];\n                if (r == rows - 1 && c == cols - 1) return dist;\n                for (int[] d : dirs) {\n                    int nr = r + d[0], nc = c + d[1];\n                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == 0) {\n                        grid[nr][nc] = 1;\n                        q.add(new int[]{nr, nc});\n                    }\n                }\n            }\n            dist++;\n        }\n        return -1;\n    }\n}",
+      "notes": "Same layer BFS; mark visited when pushing."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {\n        int rows = grid.size(), cols = grid[0].size();\n        vector<pair<int,int>> dirs = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1}};\n        if (grid[0][0] || grid[rows-1][cols-1]) return -1;\n\n        queue<pair<int,int>> q;\n        q.push({0, 0});\n        grid[0][0] = 1;\n        int dist = 1;\n\n        while (!q.empty()) {\n            int sz = (int)q.size();\n            for (int i = 0; i < sz; i++) {\n                auto [r, c] = q.front(); q.pop();\n                if (r == rows - 1 && c == cols - 1) return dist;\n                for (auto [dr, dc] : dirs) {\n                    int nr = r + dr, nc = c + dc;\n                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == 0) {\n                        grid[nr][nc] = 1;\n                        q.push({nr, nc});\n                    }\n                }\n            }\n            dist++;\n        }\n        return -1;\n    }\n};",
+      "notes": "8-neigh BFS; path length counted per layer."
+    }
+  },
   "specialTechnique": {
-    "title": "Graph algorithm cheat sheet",
-    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+    "title": "Grid shortest path",
+    "body": "Clear cells + unit cost → BFS (not Dijkstra).\n4-neigh vs 8-neigh only changes the directions array.\nMark visited on enqueue to avoid duplicates."
   },
   "complexity": {
-    "time": "Typically O(n+m) or O((n+m)log n)",
-    "space": "O(n+m)"
+    "time": "O(n²)",
+    "space": "O(n²)"
   },
   "edgeCases": [
-    "Empty / trivial sizes",
-    "Duplicates",
-    "Constraint extremes",
-    "Impossible cases"
+    "grid[0][0] == 1 or end blocked → -1",
+    "1×1 [[0]] → 1",
+    "Fully open grid → diagonal-ish path length n (with 8 dirs)"
   ],
   "commonMistakes": [
-    "Jumping to code without classifying constraints",
-    "Claiming O(1) recursion stack",
-    "Missing the brute→optimal story"
+    "Using only 4 directions when the problem allows 8",
+    "Incrementing dist per cell instead of per BFS layer (or forgetting to store dist in the queue)",
+    "Not marking visited → TLE / revisits"
   ],
   "patternRecognition": [
-    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
-    "Keywords in the title usually name the algorithm"
+    "Shortest path in a binary grid / maze",
+    "LeetCode 1091-style “binary matrix”"
   ],
   "followUps": [
-    "Directed vs undirected?",
-    "Weighted?",
-    "Negative cycles?",
-    "Reconstruct path?"
+    "4-directional only?",
+    "Obstacles with weights → Dijkstra on grid?",
+    "Reconstruct the path?"
   ],
-  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
+  "interviewInsight": "Say: “Unit cost on a grid ⇒ multisource/level BFS; 8 dirs for diagonal moves.”",
   "related": [
-    {
-      "id": "whyprirityqissdindjisktrslgrithm",
-      "title": "Why priority Queue is used in Djisktra's Algorithm"
-    },
-    {
-      "id": "pthwithminimmffrt",
-      "title": "Path with minimum effort"
-    },
-    {
-      "id": "djisktrslgrithm",
-      "title": "Djisktra's Algorithm"
-    }
+    { "id": "shrtstpthingwithnitwights", "title": "Shortest Path in UG with unit weights" },
+    { "id": "rttnrngs", "title": "Rotten Oranges" },
+    { "id": "01mtrixbfsprblm", "title": "01 Matrix (BFS)" },
+    { "id": "djisktrslgrithm", "title": "Djisktra's Algorithm" }
   ]
 }

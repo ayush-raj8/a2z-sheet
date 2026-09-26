@@ -69,20 +69,20 @@
   "languages": {
     "python": {
       "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
-      "notes": "Priority queue = always expand the current closest unsettled node."
+      "notes": "Priority queue = always expand the current closest unsettled node. Python has no ordered set like C++ set — do not try set-based Dijkstra with the built-in set."
     },
     "java": {
       "code": "import java.util.*;\n\npublic class DijkstraWhyPQ {\n    public static long[] dijkstra(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n        pq.add(new long[]{0, src});\n        while (!pq.isEmpty()) {\n            long[] cur = pq.poll();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n}",
-      "notes": "PriorityQueue is the min-heap; ArrayDeque FIFO would break uneven weights."
+      "notes": "PriorityQueue is the usual choice. TreeSet also works (ascending order like C++ set) — see Dijkstra topic for the set erase/insert pattern."
     },
     "cpp": {
       "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<long long> dijkstra(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) {\n            if (d + w < dist[v]) {\n                dist[v] = d + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
-      "notes": "priority_queue<..., greater<>> = min-heap."
+      "notes": "priority_queue min-heap, or use set<{dist,node}> (ascending) — begin() is closest; erase old key on improve."
     }
   },
   "specialTechnique": {
     "title": "Interview answer (say this)",
-    "body": "Dijkstra needs closest-first expansion.\n• FIFO queue = discovery order ≠ distance order → can settle a bad label (wrong) or thrash.\n• Array scan = correct closest-first but O(n²).\n• Min-heap PQ = correct closest-first in O((n+m) log n).\n\nBellman-Ford is NOT “brute Dijkstra.” It is the right algorithm when edges can be negative (or you need negative-cycle detection). Dijkstra simply does not apply there."
+    "body": "Dijkstra needs closest-first expansion.\n• FIFO queue = discovery order ≠ distance order → can settle a bad label (wrong) or thrash.\n• Array scan = correct closest-first but O(n²).\n• Min-heap PQ = correct closest-first in O((n+m) log n).\n• C++ set / Java TreeSet = also closest-first (sorted ascending); erase+insert on improve.\n• Python = heapq only — built-in set is unordered.\n\nBellman-Ford is NOT “brute Dijkstra.” It is the right algorithm when edges can be negative (or you need negative-cycle detection). Dijkstra simply does not apply there."
   },
   "complexity": {
     "time": "O((n+m) log n) with binary heap",

@@ -31,8 +31,8 @@
       ]
     },
     {
-      "title": "Optimal: Dijkstra with min-heap",
-      "idea": "dist[], heap of (d,u); skip stale entries (d != dist[u]).",
+      "title": "Better: Dijkstra with min-heap (priority queue)",
+      "idea": "dist[], heap of (d,u); skip stale entries (d != dist[u]). Default interview solution in Python/Java/C++.",
       "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n        # g[v].append((u, w))  # if undirected\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue  # stale\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
       "language": "python",
       "time": "O((n + m) log n) with binary heap",
@@ -41,27 +41,40 @@
       "whyWorks": "Non-negative weights ⇒ no future path can improve a settled node.",
       "flags": ["WA"],
       "limitations": [
-        "Negative edge → WRONG — use Bellman-Ford instead"
+        "Negative edge → WRONG — use Bellman-Ford instead",
+        "May keep stale (d,u) pairs in the heap"
+      ]
+    },
+    {
+      "title": "Optimal: ordered set (C++ set / Java TreeSet)",
+      "idea": "std::set and TreeSet keep {dist, node} in ascending order, so begin()/first() is always the closest unsettled label — same role as a min-heap. On improve you erase the old {dist[v], v} then insert the new pair (fewer stale keys than PQ). Python’s built-in set is unordered — stay on the Better (heapq) version.",
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<long long> dijkstra_set(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    set<pair<long long,int>> st;  // ascending by distance\n    st.insert({0, src});\n    while (!st.empty()) {\n        auto [d, u] = *st.begin();\n        st.erase(st.begin());\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) {\n            if (d + w < dist[v]) {\n                st.erase({dist[v], v});  // drop old key if present\n                dist[v] = d + w;\n                st.insert({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+      "language": "cpp",
+      "time": "O((n + m) log n)",
+      "space": "O(n + m)",
+      "whyWorks": "Ordered set’s smallest element = closest-first, same greedy as the PQ version, with explicit erase of outdated keys.",
+      "limitations": [
+        "Python: no std::set equivalent in the stdlib for this — use heapq (Better)"
       ]
     }
   ],
   "languages": {
     "python": {
       "code": "import heapq\nfrom collections import defaultdict\n\ndef dijkstra(n, edges, src=0):\n    g = defaultdict(list)\n    for u, v, w in edges:\n        g[u].append((v, w))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    h = [(0, src)]\n    while h:\n        d, u = heapq.heappop(h)\n        if d != dist[u]:\n            continue\n        for v, w in g[u]:\n            nd = d + w\n            if nd < dist[v]:\n                dist[v] = nd\n                heapq.heappush(h, (nd, v))\n    return dist",
-      "notes": "Skip stale heap entries with d != dist[u]."
+      "notes": "Use heapq only. Python’s set is unordered — you cannot mirror C++ set / Java TreeSet Dijkstra with the built-in set. (SortedList is 3rd-party.)"
     },
     "java": {
-      "code": "import java.util.*;\n\npublic class Dijkstra {\n    public static long[] dijkstra(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n        pq.add(new long[]{0, src});\n        while (!pq.isEmpty()) {\n            long[] cur = pq.poll();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n}",
-      "notes": "edges[i] = {u, v, w}."
+      "code": "import java.util.*;\n\npublic class Dijkstra {\n    /** PriorityQueue version (common). */\n    public static long[] dijkstraPQ(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n        pq.add(new long[]{0, src});\n        while (!pq.isEmpty()) {\n            long[] cur = pq.poll();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    dist[v] = d + w;\n                    pq.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n\n    /** TreeSet version — ordered ascending like C++ set. */\n    public static long[] dijkstraSet(int n, int[][] edges, int src) {\n        List<List<int[]>> g = new ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new ArrayList<>());\n        for (int[] e : edges) g.get(e[0]).add(new int[]{e[1], e[2]});\n        long[] dist = new long[n];\n        Arrays.fill(dist, Long.MAX_VALUE / 4);\n        dist[src] = 0;\n        TreeSet<long[]> st = new TreeSet<>((a, b) -> a[0] != b[0] ? Long.compare(a[0], b[0]) : Long.compare(a[1], b[1]));\n        st.add(new long[]{0, src});\n        while (!st.isEmpty()) {\n            long[] cur = st.pollFirst();\n            long d = cur[0]; int u = (int) cur[1];\n            if (d != dist[u]) continue;\n            for (int[] e : g.get(u)) {\n                int v = e[0], w = e[1];\n                if (d + w < dist[v]) {\n                    st.remove(new long[]{dist[v], v});\n                    dist[v] = d + w;\n                    st.add(new long[]{dist[v], v});\n                }\n            }\n        }\n        return dist;\n    }\n}",
+      "notes": "TreeSet keeps {dist,node} ascending — same idea as C++ set. Prefer PriorityQueue in most Java interviews; TreeSet erase/insert avoids stale keys."
     },
     "cpp": {
-      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<long long> dijkstra(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) if (d + w < dist[v]) {\n            dist[v] = d + w;\n            pq.push({dist[v], v});\n        }\n    }\n    return dist;\n}",
-      "notes": "Min-heap via greater<>."
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\n// set version — stores {dist, node} in ascending order (TUF G-33 style)\nvector<long long> dijkstra_set(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    set<pair<long long,int>> st;\n    st.insert({0, src});\n    while (!st.empty()) {\n        auto [d, u] = *st.begin();\n        st.erase(st.begin());\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) {\n            if (d + w < dist[v]) {\n                st.erase({dist[v], v});\n                dist[v] = d + w;\n                st.insert({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}\n\n// priority_queue version — also fine\nvector<long long> dijkstra_pq(int n, vector<array<int,3>> edges, int src = 0) {\n    vector<vector<pair<int,int>>> g(n);\n    for (auto [u, v, w] : edges) g[u].push_back({v, w});\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if (d != dist[u]) continue;\n        for (auto [v, w] : g[u]) if (d + w < dist[v]) {\n            dist[v] = d + w;\n            pq.push({dist[v], v});\n        }\n    }\n    return dist;\n}",
+      "notes": "set keeps pairs sorted ascending — begin() is closest. Erase old {dist[v],v} before insert to avoid duplicates. PQ also works (stale skips)."
     }
   },
   "specialTechnique": {
-    "title": "Algorithm choice table",
-    "body": "Unweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges / neg-cycle detect → Bellman-Ford (optimal for that problem — not “brute force”)\n0/1 weights → 0-1 BFS\nDAG → topo + relax\nAll-pairs → Floyd-Warshall (dense) / Dijkstra from each (sparse, w≥0)"
+    "title": "PQ vs ordered set vs Python",
+    "body": "Closest-first structure options:\n• C++ priority_queue / Java PriorityQueue — allow duplicate keys; skip if d != dist[u]\n• C++ set / Java TreeSet — ordered ascending; erase+insert on improve (fewer stale entries)\n• Python — use heapq only. Built-in set is unordered, so the set-based Dijkstra pattern does not apply.\n\nAlgorithm choice:\nUnweighted → BFS\nNon-negative weights → Dijkstra\nNegative edges / neg-cycle → Bellman-Ford\n0/1 weights → 0-1 BFS\nDAG → topo + relax"
   },
   "complexity": {
     "time": "O((n+m) log n)",
