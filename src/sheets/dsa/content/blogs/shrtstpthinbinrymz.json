@@ -69,8 +69,8 @@
     }
   },
   "specialTechnique": {
-    "title": "Grid shortest path",
-    "body": "Clear cells + unit cost → BFS (not Dijkstra).\n4-neigh vs 8-neigh only changes the directions array.\nMark visited on enqueue to avoid duplicates."
+    "title": "BFS vs Dijkstra on a binary maze",
+    "body": "All moves cost 1 ⇒ equal-weight edges.\n\nBFS is a specialized, more efficient Dijkstra for equal-weight edges:\n• BFS      → O(n²)     (queue, no heap)\n• Dijkstra → O(n² log n) (priority queue / set)\n\nSame answer, but Dijkstra is slightly worse here — don’t reach for a PQ when every edge weight is 1.\n\n4-neigh vs 8-neigh only changes the directions array. Mark visited on enqueue to avoid duplicates."
   },
   "complexity": {
     "time": "O(n²)",
@@ -84,7 +84,8 @@
   "commonMistakes": [
     "Using only 4 directions when the problem allows 8",
     "Incrementing dist per cell instead of per BFS layer (or forgetting to store dist in the queue)",
-    "Not marking visited → TLE / revisits"
+    "Not marking visited → TLE / revisits",
+    "Running Dijkstra / PQ on unit-weight grid (correct but O(n² log n) — BFS is enough)"
   ],
   "patternRecognition": [
     "Shortest path in a binary grid / maze",
@@ -95,7 +96,7 @@
     "Obstacles with weights → Dijkstra on grid?",
     "Reconstruct the path?"
   ],
-  "interviewInsight": "Say: “Unit cost on a grid ⇒ multisource/level BFS; 8 dirs for diagonal moves.”",
+  "interviewInsight": "Say: “Unit cost on a grid ⇒ BFS, not Dijkstra. Dijkstra still works but is O(n² log n); BFS is O(n²).”",
   "related": [
     { "id": "shrtstpthingwithnitwights", "title": "Shortest Path in UG with unit weights" },
     { "id": "rttnrngs", "title": "Rotten Oranges" },
