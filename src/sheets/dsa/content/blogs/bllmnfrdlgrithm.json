@@ -11,73 +11,112 @@
   "topicType": "algorithm",
   "sourceUrl": "https://takeuforward.org/data-structure/bellman-ford-algorithm-g-41/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "shortest-path"
-  ],
+  "tags": ["graph", "shortest-path", "bellman-ford", "negative-cycle"],
   "pattern": "bellman-ford",
-  "problemStatement": "Single-source shortest paths with possible negative edge weights; detect negative cycles reachable from source.",
-  "intuition": "Relax all edges |V|-1 times. A further improvement ⇒ negative cycle. Slower than Dijkstra on non-negative graphs, but it is the correct general SSSP algorithm when negatives exist — not a brute-force fallback.",
+  "problemStatement": "Single-source shortest paths on a weighted directed graph that may contain negative edge weights. Also detect whether a negative-weight cycle is reachable from the source. (Dijkstra fails here and can loop forever on negative cycles.)",
+  "example": "Teaching graph (directed), src = 0:\n\n          6           5\n     0 ──────→ 1 ──────→ 3\n     │         │ ╲      ↗\n    7│        8│  ╲-4 ╱ 7\n     │         │   ╲ ╱\n     ↓         ↓    ↘\n     2 ──────→ 4 ──────→ 0\n          -3        2\n\nEdges: (0,1,6) (0,2,7) (1,2,8) (1,3,5) (1,4,-4)\n       (2,3,-3) (2,4,9) (3,1,-2) (4,3,7) (4,0,2)\n\nAfter n−1 = 4 relax rounds (no neg-cycle from 0):\ndist ≈ [0, 2, 7, 4, -2]\n\nNegative-cycle sketch (sum = −1 < 0):\n\n         -2\n    1 ────────→ 2\n    ↑           │\n   +2│          │ -1\n    │           ↓\n    └────────── 3\n\nLoop 1→2→3→1: −2 + (−1) + 2 = −1 → negative cycle.",
+  "intuition": "A simple path has ≤ V−1 edges (V edges ⇒ a repeated vertex ⇒ a cycle). Without negative cycles we never need cycles on a shortest path, so relax all edges V−1 times and every shortest simple path can fully propagate. One more improving pass ⇒ reachable negative cycle. Works with negative weights; Dijkstra does not — BF is the correct algorithm for negatives / cycle detect, not a “brute Dijkstra.”",
   "approaches": [
     {
-      "title": "Only Dijkstra (trap)",
-      "idea": "Tempting if you ignore negatives — incorrect.",
-      "code": "# Do NOT use Dijkstra when negative weights exist.",
+      "title": "Trap: Dijkstra on negatives",
+      "idea": "Dijkstra assumes once a node is settled at min cost, it is final. Negative edges break that; a negative cycle can make distances decrease forever. Use Bellman-Ford instead.",
+      "code": "# Do NOT use Dijkstra when negative weights (or neg-cycle detect) exist.\n# Dijkstra → wrong answers / non-termination on negative cycles.",
       "language": "python",
       "time": "—",
       "space": "—",
-      "flags": [
-        "WA"
+      "flags": ["WA"],
+      "limitations": [
+        "Cannot correctly handle negative edges",
+        "Cannot detect negative cycles"
       ]
     },
     {
-      "title": "Optimal: Bellman-Ford",
-      "idea": "Initialize dist[src]=0; relax edges n-1 times; one more pass for cycle detect. This is the standard algorithm for negatives — not a brute-force substitute for Dijkstra.",
-      "code": "def bellman_ford(n, edges, src=0):\n    dist = [float('inf')] * n\n    dist[src] = 0\n    for _ in range(n - 1):\n        updated = False\n        for u, v, w in edges:\n            if dist[u] != float('inf') and dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n                updated = True\n        if not updated:\n            break\n    # negative cycle reachable?\n    for u, v, w in edges:\n        if dist[u] != float('inf') and dist[u] + w < dist[v]:\n            return None  # or raise / flag cycle\n    return dist",
+      "title": "Optimal: Bellman-Ford (+ nth pass for cycle)",
+      "idea": "dist[src]=0, others ∞. Relax all edges n−1 times. Then one more pass: if any edge still improves → negative cycle (return e.g. [-1]). Skip relaxations from unreachable u (dist[u]=∞).",
+      "algorithm": [
+        "Build edge list of (u, v, w) on a directed graph",
+        "dist[src] = 0; dist[i] = ∞ for i ≠ src",
+        "For iter = 1 … n−1: for each edge (u,v,w), if dist[u] + w < dist[v] → dist[v] = dist[u] + w",
+        "Nth pass: if any edge still relaxes → negative cycle reachable from src",
+        "Else return dist (∞ / −1 for unreachable)"
+      ],
+      "code": "def bellman_ford(n, edges, src=0):\n    \"\"\"edges: list of (u, v, w). Returns dist, or None if neg-cycle from src.\"\"\"\n    INF = 10**18\n    dist = [INF] * n\n    dist[src] = 0\n\n    # n−1 rounds — longest simple path has ≤ n−1 edges\n    for _ in range(n - 1):\n        updated = False\n        for u, v, w in edges:\n            if dist[u] != INF and dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n                updated = True\n        if not updated:\n            break  # early exit\n\n    # nth pass — still improving ⇒ negative cycle\n    for u, v, w in edges:\n        if dist[u] != INF and dist[u] + w < dist[v]:\n            return None  # or [-1] * n\n\n    return dist",
       "language": "python",
-      "time": "O(n·m)",
-      "space": "O(n)",
-      "whyWorks": "A simple path has ≤ n−1 edges; n−1 full relax passes propagate the shortest path. One more improving relaxation ⇒ negative cycle.",
+      "time": "O(V · E)",
+      "space": "O(V)",
+      "whyWorks": "V vertices + ≥ V edges on a path ⇒ some vertex repeats ⇒ a cycle. Shortest paths (no neg-cycle) are simple ⇒ ≤ V−1 edges ⇒ V−1 full relax passes suffice. A further improve means the improving “path” has a cycle whose total weight is < 0.",
+      "dryRun": "Propagation along a chain (worst case needs V−1 passes):\n\n    0 → 1 → 2 → 3 → 4     (4 edges, V=5 ⇒ V−1 = 4)\n\n    Pass 1: 0 → 1\n    Pass 2: 0 → 1 → 2\n    Pass 3: 0 → 1 → 2 → 3\n    Pass 4: 0 → 1 → 2 → 3 → 4\n\nEdge order can let several hops update in one pass — V−1 is the guarantee, not “exactly one new edge each time.”\n\nNumeric example, src=0, n=4:\n\n         4\n    0 ───────→ 1\n    │          │\n   5│         -3\n    │          │\n    ↓    2     ↓\n    2 ───────→ 3\n\nEdges: (0,1,4) (0,2,5) (1,3,-3) (2,3,2)\n\nInit:     dist = [0, ∞, ∞, ∞]\nRound 1:  → [0, 4, 5, 1]\nRounds 2–3: no further improves\nNth pass: no improve → no neg-cycle\nAnswer: [0, 4, 5, 1]\n\nIf a reachable cycle still improves on the nth pass → return [-1].",
       "limitations": [
-        "Slower than Dijkstra when all weights are non-negative",
-        "Dense graphs: prefer Floyd or Johnson carefully"
+        "Slower than Dijkstra when all weights ≥ 0 — still choose BF when negatives / cycle detect matter",
+        "Works on directed graphs; undirected needs conversion (see notes)"
       ]
     }
   ],
+  "languages": {
+    "python": {
+      "code": "def bellman_ford(n, edges, src=0):\n    INF = 10**18\n    dist = [INF] * n\n    dist[src] = 0\n\n    for _ in range(n - 1):\n        updated = False\n        for u, v, w in edges:\n            if dist[u] != INF and dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n                updated = True\n        if not updated:\n            break\n\n    for u, v, w in edges:\n        if dist[u] != INF and dist[u] + w < dist[v]:\n            return [-1]  # negative cycle\n\n    return [(-1 if d >= INF else d) for d in dist]",
+      "notes": "Edge list (u,v,w). Guard dist[u] != INF so ∞+w never “updates.” Return [-1] (or None) on neg-cycle."
+    },
+    "java": {
+      "code": "import java.util.*;\n\nclass BellmanFord {\n    /** @return dist, or null if negative cycle reachable from src */\n    static long[] bellmanFord(int n, int[][] edges, int src) {\n        long INF = (long) 1e18;\n        long[] dist = new long[n];\n        Arrays.fill(dist, INF);\n        dist[src] = 0;\n\n        for (int i = 0; i < n - 1; i++) {\n            boolean updated = false;\n            for (int[] e : edges) {\n                int u = e[0], v = e[1], w = e[2];\n                if (dist[u] != INF && dist[u] + w < dist[v]) {\n                    dist[v] = dist[u] + w;\n                    updated = true;\n                }\n            }\n            if (!updated) break;\n        }\n\n        for (int[] e : edges) {\n            int u = e[0], v = e[1], w = e[2];\n            if (dist[u] != INF && dist[u] + w < dist[v]) {\n                return null; // negative cycle\n            }\n        }\n        return dist;\n    }\n}",
+      "notes": "Same n−1 + nth pass. null ⇒ cycle."
+    },
+    "cpp": {
+      "code": "#include <bits/stdc++.h>\nusing namespace std;\n\n// returns dist; empty vector means negative cycle from src\nvector<long long> bellman_ford(int n, vector<array<int,3>>& edges, int src = 0) {\n    const long long INF = 1e18;\n    vector<long long> dist(n, INF);\n    dist[src] = 0;\n\n    for (int i = 0; i < n - 1; i++) {\n        bool updated = false;\n        for (auto [u, v, w] : edges) {\n            if (dist[u] != INF && dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                updated = true;\n            }\n        }\n        if (!updated) break;\n    }\n\n    for (auto [u, v, w] : edges) {\n        if (dist[u] != INF && dist[u] + w < dist[v]) {\n            return {}; // negative cycle\n        }\n    }\n    return dist;\n}",
+      "notes": "Empty return = neg-cycle. Use long long for negative weights."
+    }
+  },
+  "specialTechnique": {
+    "title": "Why V−1 iterations, what one pass means, nth-pass cycle detect",
+    "body": "1) Why V − 1 iterations?\n\n   A simple path can contain at most V − 1 edges.\n\n   Why? If a path visits V vertices and uses V or more edges, some vertex must repeat → that is a cycle.\n\n   For shortest paths without negative cycles we never need a cycle: removing a non-negative cycle cannot make the path worse. So the shortest path is a simple path with at most V−1 edges.\n\n   ⇒ Bellman-Ford relaxes all edges V−1 times.\n\n2) What does one iteration actually mean?\n\n   Important intuition — information propagates along the path:\n\n       0 → 1 → 2 → 3 → 4\n\n   Shortest path 0→4 uses 4 edges (V=5 ⇒ need up to 4 passes):\n\n       Pass 1: 0 → 1\n       Pass 2: 0 → 1 → 2\n       Pass 3: 0 → 1 → 2 → 3\n       Pass 4: 0 → 1 → 2 → 3 → 4\n\n   After at most V−1 passes, every shortest simple path has had enough opportunities to propagate.\n\n   Caveat: not necessarily exactly one new edge per iteration — edge ordering can let several vertices update in a single pass. V−1 is a worst-case guarantee.\n\n3) Why does one extra pass detect a negative cycle?\n\n   After V−1 complete relaxation passes, if there is no reachable negative cycle, distances are already optimal.\n\n   One more pass:\n\n       for u, v, w in edges:\n           if dist[u] + w < dist[v]:\n               return [-1]\n\n   If something can still become smaller, the improving walk must use ≥ V edges ⇒ it contains a cycle. Because traversing that cycle made the cost smaller, that cycle’s total weight is < 0.\n\n   ⇒ reachable negative cycle.\n\n——— Extra notes ———\n\n4) Undirected → directed\n   u ——w—— v  ⇒  u→v (w) and v→u (w).\n   ⚠ If w < 0, those two edges form a neg-cycle of weight 2w.\n\n5) Negative-cycle sketch\n\n         -2\n    1 ────────→ 2\n    ↑           │\n   +2│          │ -1\n    │           ↓\n    └────────── 3\n\n   −2 + (−1) + 2 = −1 < 0.\n\n6) Complexity\n   BF O(V·E) vs Dijkstra O((V+E) log V). Choose BF for negatives / cycle detect.\n\n7) Interview: “at most k edges” ⇒ only k BF rounds (cheapest flights within k stops)."
+  },
+  "whyWorks": "1) V−1: path with ≥ V edges repeats a vertex (cycle). No neg-cycle ⇒ shortest path is simple ⇒ ≤ V−1 edges ⇒ V−1 relax rounds suffice.\n\n2) One pass: each full scan of all edges can push the shortest-path “frontier” one hop further along a chain (0→1, then →2, …). Edge order may advance several hops in one pass; V−1 is the guarantee.\n\n3) Extra pass: any improve after V−1 means the walk has a cycle and that cycle lowered cost ⇒ total cycle weight < 0 (reachable neg-cycle).",
   "complexity": {
-    "time": "O(n·m)",
-    "space": "O(n)"
+    "time": "O(V · E)",
+    "space": "O(V)"
   },
   "edgeCases": [
-    "Negative cycle",
-    "Unreachable negatives",
-    "src disconnected"
+    "Negative cycle reachable from src → report cycle (don’t return finite dist)",
+    "Negative edges but no cycle → valid shortest paths",
+    "Unreachable nodes stay ∞ / −1",
+    "src disconnected from the rest",
+    "Undirected graph with a negative edge → conversion creates a neg-cycle"
   ],
   "commonMistakes": [
-    "Not checking nth relaxation",
-    "Relaxing uninitialized inf+w"
+    "Calling Bellman-Ford the “brute force” for Dijkstra",
+    "Skipping the nth pass (miss negative cycles)",
+    "Relaxing when dist[u] is ∞ (∞ + w garbage)",
+    "Running Dijkstra when negatives exist",
+    "Forgetting undirected → two directed edges (and the neg-edge trap)"
   ],
   "patternRecognition": [
-    "Negatives or cycle detection on weighted graphs"
+    "Shortest path + negative weights",
+    "Detect negative cycle in a weighted digraph",
+    "“At most k edges” → BF with k rounds (e.g. cheapest flights)"
   ],
   "followUps": [
-    "Difference constraints system?",
+    "Difference-constraints system?",
     "SPFA practical variant?",
-    "vs Floyd?"
+    "vs Floyd-Warshall (all-pairs)?",
+    "Cheapest flights within k stops — only k+1 rounds?"
   ],
-  "interviewInsight": "Say when you refuse Dijkstra — negative edges / cycle detect requirement.",
+  "interviewInsight": "Say three things: (1) simple path ≤ V−1 edges else a vertex repeats; (2) each pass can extend the path by one hop along 0→1→2→… so V−1 passes suffice; (3) one more improve ⇒ cycle with weight < 0. Then contrast Dijkstra.",
   "related": [
     {
-      "id": "minimmstpstrchndfrmstrtbyprfrmingmltiplictinndmdprtinswithrrylmnts",
-      "title": "Minimum steps to reach end from start by performing multiplication and mod operations with array elements"
+      "id": "djisktrslgrithm",
+      "title": "Djisktra's Algorithm"
+    },
+    {
+      "id": "whyprirityqissdindjisktrslgrithm",
+      "title": "Why priority Queue is used in Djisktra's Algorithm"
+    },
+    {
+      "id": "chpstflightswithinkstps",
+      "title": "Cheapest flights within k stops"
     },
     {
       "id": "flydwrshllgrithm",
       "title": "Floyd Warshal Algorithm"
-    },
-    {
-      "id": "nmbrfwystrrivtdstintin",
-      "title": "Number of ways to arrive at destination"
     }
   ]
 }
