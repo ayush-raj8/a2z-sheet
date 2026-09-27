@@ -11,77 +11,115 @@
   "topicType": "coding-problem",
   "sourceUrl": "https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/",
   "quality": "reviewed",
-  "tags": [
-    "graph",
-    "revamped"
-  ],
-  "pattern": "graph",
-  "problemStatement": "Master “Cheapest flights within k stops” (Shortest Path Algorithms and Problems) the way an interviewer expects: classify, brute, optimize, prove.",
-  "intuition": "\"Cheapest flights within k stops\": classify the graph (directed?, weighted?, cyclic?) then pick BFS / DFS / Dijkstra / Bellman-Ford / topo / DSU. Never skip that classification.",
+  "tags": ["graph", "bfs", "bellman-ford", "shortest-path", "k-stops"],
+  "pattern": "k-stop-shortest",
+  "problemStatement": "LC 787. There are n cities connected by flights[i] = [fromi, toi, pricei]. Find the cheapest price from src to dst with at most k stops (≤ k + 1 edges). If impossible, return −1.",
+  "example": "n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1\n→ 700  (0→1→3)\n\nn = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1\n→ 200  (0→1→2; the direct 500 is worse)\n\nn = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 0\n→ 500  (only the direct flight; 0→1→2 uses 1 stop)",
+  "intuition": "Constraint is on hops (stops), not just price. Standard Dijkstra settles by cheapest price and can discard a slightly costlier path that still has stop budget left — that path may be the only one that reaches dst within k. Stops increase by exactly +1 per flight, so process level-by-level with a FIFO queue (no PQ). Bellman-Ford with at most k+1 relaxations is the cleanest optimal.",
   "approaches": [
     {
-      "title": "Clarify + brute exploration",
-      "idea": "Enumerate paths/states naively for \"Cheapest flights within k stops\" to lock meaning.",
-      "code": "def solve_brute(*args):\n    # Exhaustive / multi-source scan shaped for: Cheapest flights within k stops\n    # Correctness reference — expect TLE on large n,m\n    raise NotImplementedError",
+      "title": "Trap: standard Dijkstra (fails)",
+      "idea": "Run classic Dijkstra on prices only (min-heap by cost, settle a city when first popped). Wrong under a stop limit: a cheap path that burns many stops can “win” and block a pricier path with fewer stops that still fits in k.",
+      "code": "import heapq\n\ndef findCheapestPrice_dijkstra_wrong(n, flights, src, dst, k):\n    # WRONG for this problem — illustrative only\n    adj = [[] for _ in range(n)]\n    for u, v, c in flights:\n        adj[u].append((v, c))\n    dist = [float('inf')] * n\n    dist[src] = 0\n    pq = [(0, src)]  # price, node — NO stop dimension\n    while pq:\n        price, u = heapq.heappop(pq)\n        if price > dist[u]:\n            continue\n        for v, c in adj[u]:\n            if price + c < dist[v]:\n                dist[v] = price + c\n                heapq.heappush(pq, (dist[v], v))\n    return -1 if dist[dst] == float('inf') else dist[dst]\n    # Ignores k entirely; even with stops in the heap, settling by price alone is unsafe",
       "language": "python",
-      "time": "Often exponential or O(n·m) too large",
+      "time": "O((n+m) log n) if it were correct",
       "space": "O(n+m)",
-      "flags": [
-        "TLE"
-      ]
+      "flags": ["WA"],
+      "whyWorks": "It doesn’t. Dijkstra assumes once a node is settled at minimum cost, that label is final. With ≤ k stops, “minimum cost so far” is not enough — state is (node, stops_used). A first-pop settle can freeze a cheap/many-stops label and never explore a dearer/few-stops continuation that alone reaches dst in budget."
     },
     {
-      "title": "Pattern-optimal algorithm",
-      "idea": "Apply the standard algorithm this sheet topic trains for \"Cheapest flights within k stops\".",
-      "code": "from collections import defaultdict, deque\n\ndef solve(n, edges, src=0):\n    g=defaultdict(list)\n    for e in edges:\n        if len(e)==2: u,v=e; g[u].append(v); g[v].append(u)\n        else: u,v,w=e; g[u].append((v,w))\n    # BFS distances as a common baseline — replace with Dijkstra/DFS/topo as required by \"Cheapest flights within k stops\"\n    dist=[-1]*n; q=deque([src]); dist[src]=0\n    while q:\n        u=q.popleft()\n        for item in g[u]:\n            v = item[0] if isinstance(item, tuple) else item\n            if dist[v]<0:\n                dist[v]=dist[u]+1; q.append(v)\n    return dist",
+      "title": "Better: BFS by stops (no PQ)",
+      "idea": "Each flight adds exactly one stop. Queue states (city, stop_count, price). Skip when stop_count == k+1. Relax neighbor if cheaper price; FIFO order = increasing stops, so no priority queue and no log factor.",
+      "algorithm": [
+        "Build adjacency list: u → (v, cost)",
+        "price_taken[i] = ∞; price_taken[src] = 0",
+        "Queue: (src, stop_count=0, price=0)",
+        "While queue: pop (u, stops, price); if stops == k+1 → continue",
+        "For each flight u→v with cost dp: np = price + dp; if np < price_taken[v] → update and enqueue (v, stops+1, np)",
+        "Answer price_taken[dst], or −1 if still ∞"
+      ],
+      "code": "from collections import deque\n\nclass Solution:\n    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n        adj_list = [[] for _ in range(n)]\n        price_taken = [float(\"inf\") for _ in range(n)]\n        for u, v, c in flights:\n            adj_list[u].append((v, c))\n\n        price_taken[src] = 0\n        # no PQ — stops increase uniformly by +1 each hop\n        q = deque()\n        q.append((src, 0, 0))  # city, stop_count, price\n\n        while q:\n            u, stop_count, price = q.popleft()\n            if stop_count == k + 1:\n                continue\n\n            for v, dp in adj_list[u]:\n                np = dp + price\n                if np < price_taken[v]:\n                    price_taken[v] = np\n                    q.append((v, stop_count + 1, np))\n\n        return -1 if price_taken[dst] == float(\"inf\") else price_taken[dst]",
       "language": "python",
-      "time": "Typically O(n+m) or O((n+m)log n)",
-      "space": "O(n+m)",
-      "whyWorks": "Match algorithm to constraints: unweighted→BFS, ≥0 weights→Dijkstra, negatives→Bellman-Ford, ordering→topo, connectivity→DSU/DFS."
+      "time": "O(n · k) worst-case expansions bounded by stops (practically O(m · k))",
+      "space": "O(n + m)",
+      "whyWorks": "Stops are the constrained resource and grow by +1 every edge — BFS layers = stop layers. FIFO already expands in the order that makes the price_taken pruning safe: fewer-stop paths are processed before more-stop ones, so a dearer path never blocks a cheaper later path incorrectly the way Dijkstra’s price-first settle does. No heap ⇒ no log overhead.",
+      "dryRun": "k=0, flights 0→1:100, 0→2:500, 1→2:100, src=0,dst=2:\nqueue starts (0,0,0) → enqueue (1,1,100), (2,1,500); price_taken[2]=500\nstop_count==1==k+1 → no further edges from 1 or 2 → answer 500"
+    },
+    {
+      "title": "Optimal: Bellman-Ford (≤ k+1 relaxations)",
+      "idea": "Cheapest path with at most k stops = shortest path using at most k+1 edges. Run Bellman-Ford for exactly k+1 rounds; each round allows one more edge. Copy dist before each round so updates use only the previous hop count.",
+      "algorithm": [
+        "dist[src] = 0; others ∞",
+        "Repeat (k+1) times:",
+        "  temp = copy(dist)",
+        "  for each flight u→v with cost w: if dist[u] + w < temp[v] → temp[v] = dist[u] + w",
+        "  dist = temp",
+        "Return dist[dst] or −1"
+      ],
+      "code": "class Solution:\n    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n        dist = [float(\"inf\")] * n\n        dist[src] = 0\n\n        for _ in range(k + 1):\n            temp = dist[:]\n            for u, v, w in flights:\n                if dist[u] != float(\"inf\") and dist[u] + w < temp[v]:\n                    temp[v] = dist[u] + w\n            dist = temp\n\n        return -1 if dist[dst] == float(\"inf\") else dist[dst]",
+      "language": "python",
+      "time": "O(m · k)",
+      "space": "O(n)",
+      "whyWorks": "After t relax rounds, dist[v] is the cheapest way to v using ≤ t edges. Cap rounds at k+1 (= at most k stops). The temp array prevents using an edge twice in the same round (same hop count).",
+      "dryRun": "k=1 → 2 rounds. Round 1: only direct edges from src. Round 2: one-stop paths. Matches BFS layers."
     }
   ],
+  "languages": {
+    "python": {
+      "code": "class Solution:\n    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n        dist = [float(\"inf\")] * n\n        dist[src] = 0\n\n        for _ in range(k + 1):\n            temp = dist[:]\n            for u, v, w in flights:\n                if dist[u] != float(\"inf\") and dist[u] + w < temp[v]:\n                    temp[v] = dist[u] + w\n            dist = temp\n\n        return -1 if dist[dst] == float(\"inf\") else dist[dst]",
+      "notes": "Optimal: Bellman-Ford capped at k+1 edge relaxations. Prefer this in interviews as the cleanest O(m·k) solution."
+    },
+    "java": {
+      "code": "class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        int INF = Integer.MAX_VALUE / 4;\n        int[] dist = new int[n];\n        java.util.Arrays.fill(dist, INF);\n        dist[src] = 0;\n\n        for (int i = 0; i <= k; i++) {\n            int[] temp = dist.clone();\n            for (int[] f : flights) {\n                int u = f[0], v = f[1], w = f[2];\n                if (dist[u] != INF && dist[u] + w < temp[v]) {\n                    temp[v] = dist[u] + w;\n                }\n            }\n            dist = temp;\n        }\n        return dist[dst] == INF ? -1 : dist[dst];\n    }\n}",
+      "notes": "Same k+1 Bellman-Ford rounds; clone before each round."
+    },
+    "cpp": {
+      "code": "class Solution {\npublic:\n    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {\n        const int INF = 1e9;\n        vector<int> dist(n, INF);\n        dist[src] = 0;\n\n        for (int i = 0; i <= k; i++) {\n            vector<int> temp = dist;\n            for (auto& f : flights) {\n                int u = f[0], v = f[1], w = f[2];\n                if (dist[u] != INF && dist[u] + w < temp[v]) {\n                    temp[v] = dist[u] + w;\n                }\n            }\n            dist.swap(temp);\n        }\n        return dist[dst] == INF ? -1 : dist[dst];\n    }\n};",
+      "notes": "Bellman-Ford with ≤ k+1 edges."
+    }
+  },
   "specialTechnique": {
-    "title": "Graph algorithm cheat sheet",
-    "body": "Unweighted shortest: BFS\nNon-neg weighted: Dijkstra\nNegative: Bellman-Ford\n0-1 weights: 0-1 BFS\nAll pairs dense: Floyd\nDependencies: Kahn / DFS topo\nUndirected cycle: DFS parent / DSU\nDirected cycle: 3-color DFS / Kahn leftover"
+    "title": "Why standard Dijkstra fails, but stop-BFS works (no PQ)",
+    "body": "State is (city, stops), not city alone.\n\nStandard Dijkstra (price-first settle):\n• Settles a city at the globally cheapest price seen so far.\n• That path may have used many stops.\n• A slightly costlier path with fewer stops is never expanded — yet it may be the only one that still reaches dst within k.\n• Fixing Dijkstra needs an explicit stops dimension (and careful settling); a plain PQ on price is not enough.\n\nWhy normal BFS / FIFO works without a PQ:\n• Every flight increases stop_count by exactly +1 (uniform hop growth).\n• FIFO ⇒ process in increasing stops — same role a PQ plays for distance in Dijkstra.\n• You are shortest-path-ing on the stop metric (unit per edge), while price is only the value you minimize with a dist array.\n• No heap ⇒ avoid O(log) overhead; complexity is driven by O(m·k) style expansions.\n\nBellman-Ford (optimal here):\n• At most k stops ⇒ at most k+1 edges ⇒ exactly k+1 relax rounds.\n• Cleanest statement of the constraint; preferred optimal."
   },
   "complexity": {
-    "time": "Typically O(n+m) or O((n+m)log n)",
-    "space": "O(n+m)"
+    "time": "O(m · k)",
+    "space": "O(n)"
   },
   "edgeCases": [
-    "Empty / trivial sizes",
-    "Duplicates",
-    "Constraint extremes",
-    "Impossible cases"
+    "k = 0 → only direct src→dst flights",
+    "src == dst → 0",
+    "No path within k stops → −1",
+    "Cheaper path uses too many stops; dearer path fits in k"
   ],
   "commonMistakes": [
-    "Jumping to code without classifying constraints",
-    "Claiming O(1) recursion stack",
-    "Missing the brute→optimal story"
+    "Plain Dijkstra on price only (ignores / mishandles k)",
+    "Relaxing in place in Bellman-Ford without a temp copy (uses > t edges in one round)",
+    "Off-by-one: k stops ⇒ k+1 edges / k+1 BFS layers",
+    "Using a PQ “because weighted” when the ordered dimension is stops (+1), not price"
   ],
   "patternRecognition": [
-    "Sheet section “Graphs [Concepts & Problems]” signals the intended family",
-    "Keywords in the title usually name the algorithm"
+    "Cheapest / shortest with at most K edges or K stops",
+    "LeetCode 787 — constrained hop shortest path"
   ],
   "followUps": [
-    "Directed vs undirected?",
-    "Weighted?",
-    "Negative cycles?",
-    "Reconstruct path?"
+    "What if edges can be negative? (Bellman-Ford still fine; Dijkstra still wrong)",
+    "Reconstruct the flight itinerary?",
+    "At most k cost instead of k stops?"
   ],
-  "interviewInsight": "The first minute of a graph interview is taxonomy, not code.",
+  "interviewInsight": "Say: “Standard Dijkstra fails because settling by price ignores remaining stop budget. Stops grow by +1 ⇒ BFS/queue, no PQ. Optimal: Bellman-Ford for k+1 rounds.”",
   "related": [
     {
-      "id": "pthwithminimmffrt",
-      "title": "Path with minimum effort"
+      "id": "bllmnfrdlgrithm",
+      "title": "Bellman Ford Algorithm"
     },
     {
       "id": "ntwrkdlytim",
       "title": "Network Delay time"
     },
     {
-      "id": "shrtstpthinbinrymz",
-      "title": "Shortest path in a binary maze"
+      "id": "nmbrfwystrrivtdstintin",
+      "title": "Number of ways to arrive at destination"
     }
   ]
 }
