@@ -5,7 +5,7 @@ import { buildBackup, downloadBackup, parseBackup } from './lib/backup';
 import { a2zIdsForCompanyFilter, companiesOnA2zSheet } from './lib/companyLoader';
 import { initStore, persistNote, persistPalette, persistTopic, replaceUserData } from './lib/db';
 import { applyPalette, DEFAULT_PALETTE } from './lib/palettes';
-import { collectExpandKeys, countProgress } from './lib/topics';
+import { collectExpandKeys, countProgress, progressTierClass } from './lib/topics';
 import NoteEditor from './components/NoteEditor';
 import PalettePicker from './components/PalettePicker';
 import StepSection from './components/StepSection';
@@ -230,7 +230,10 @@ export default function DsaSheet() {
           </span>
         </div>
         <div className="overview-bar" aria-hidden="true">
-          <div className="overview-bar-fill" style={{ width: `${rawPercent}%` }} />
+          <div
+            className={`overview-bar-fill ${progressTierClass(rawPercent)}`}
+            style={{ width: `${rawPercent}%` }}
+          />
         </div>
         <div className="company-filter-row">
           <label>

@@ -8,6 +8,12 @@
   --success: #7dcea0;
   --warning: #e0a96d;
   --danger: #d97a6c;
+  /* Tab / bar progress tiers (besides green at 100%) */
+  --progress-0: #5c5c5c;
+  --progress-50: #c9a227;
+  --progress-75: #5b9fd4;
+  --progress-90: #6bbf8a;
+  --progress-100: #7dcea0;
   --shadow: color-mix(in srgb, var(--bg) 70%, black);
   --line: color-mix(in srgb, var(--muted) 28%, transparent);
   --fill: color-mix(in srgb, var(--accent) 22%, var(--surface));
@@ -201,8 +207,8 @@ input {
 
 .overview-bar-fill {
   height: 100%;
-  background: var(--accent);
-  transition: width 0.25s ease;
+  background: var(--progress-color, var(--progress-0, var(--accent)));
+  transition: width 0.25s ease, background 0.25s ease;
 }
 
 .status-message {
@@ -250,8 +256,63 @@ input {
   bottom: 0;
   height: 3px;
   width: var(--progress-width, 0%);
-  background: var(--accent);
-  transition: width 0.3s ease;
+  background: var(--progress-color, var(--progress-0, var(--accent)));
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.progress-tier-0 {
+  --progress-color: var(--progress-0);
+}
+
+.progress-tier-50 {
+  --progress-color: var(--progress-50);
+}
+
+.progress-tier-75 {
+  --progress-color: var(--progress-75);
+}
+
+.progress-tier-90 {
+  --progress-color: var(--progress-90);
+}
+
+.progress-tier-100 {
+  --progress-color: var(--progress-100);
+}
+
+.progress-tier-50.collapsible,
+.progress-tier-50.sub-collapsible {
+  box-shadow: inset 3px 0 0 var(--progress-50);
+}
+
+.progress-tier-75.collapsible,
+.progress-tier-75.sub-collapsible {
+  box-shadow: inset 3px 0 0 var(--progress-75);
+}
+
+.progress-tier-90.collapsible,
+.progress-tier-90.sub-collapsible {
+  box-shadow: inset 3px 0 0 var(--progress-90);
+}
+
+.collapsible.progress-tier-50 .progress-counter,
+.sub-collapsible.progress-tier-50 .progress-counter {
+  color: var(--progress-50);
+}
+
+.collapsible.progress-tier-75 .progress-counter,
+.sub-collapsible.progress-tier-75 .progress-counter {
+  color: var(--progress-75);
+}
+
+.collapsible.progress-tier-90 .progress-counter,
+.sub-collapsible.progress-tier-90 .progress-counter {
+  color: var(--progress-90);
+}
+
+.collapsible.progress-tier-100 .progress-counter,
+.sub-collapsible.progress-tier-100 .progress-counter {
+  color: var(--progress-100);
 }
 
 .collapsible {

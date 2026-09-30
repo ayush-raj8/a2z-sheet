@@ -34,6 +34,15 @@ export function countGroup(topics, progress) {
   return { total, completed, percent, isComplete: total > 0 && completed === total };
 }
 
+/** Progress bar / tab tint by completion: <50 · ≥50 · >75 · ≥90 · 100 */
+export function progressTierClass(percent) {
+  if (percent >= 100) return 'progress-tier-100';
+  if (percent >= 90) return 'progress-tier-90';
+  if (percent > 75) return 'progress-tier-75';
+  if (percent >= 50) return 'progress-tier-50';
+  return 'progress-tier-0';
+}
+
 export function collectExpandKeys(steps) {
   const keys = [];
   for (const step of steps) {

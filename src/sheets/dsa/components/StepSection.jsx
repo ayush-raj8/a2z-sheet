@@ -1,11 +1,12 @@
-import { countGroup } from '../lib/topics';
+import { countGroup, progressTierClass } from '../lib/topics';
 import TopicTable from './TopicTable';
 
 function CollapsibleButton({ className, open, complete, percent, title, count, onClick }) {
+  const tier = progressTierClass(percent);
   return (
     <button
       type="button"
-      className={`${className}${open ? ' active' : ''}${complete ? ' completed' : ''}`}
+      className={`${className}${open ? ' active' : ''}${complete ? ' completed' : ''} ${tier}`}
       style={{ '--progress-width': `${percent}%` }}
       onClick={onClick}
       aria-expanded={open}

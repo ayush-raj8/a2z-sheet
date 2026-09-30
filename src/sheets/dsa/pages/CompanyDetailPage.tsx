@@ -13,6 +13,7 @@ import {
 import { compareTopicsA2zOrder, pickCanonicalTopic, secondaryTopics } from '../lib/companyTopics';
 import { initStore, persistTopic, replaceUserData } from '../lib/db';
 import { DEFAULT_PALETTE } from '../lib/palettes';
+import { progressTierClass } from '../lib/topics';
 import '../styles.css';
 
 const WINDOW_TABS: Array<{ id: CompanyWindowId | 'all'; label: string }> = [
@@ -456,7 +457,10 @@ export default function CompanyDetailPage() {
           </span>
         </div>
         <div className="overview-bar" aria-hidden="true">
-          <div className="overview-bar-fill" style={{ width: `${pct}%` }} />
+          <div
+            className={`overview-bar-fill ${progressTierClass(pct)}`}
+            style={{ width: `${pct}%` }}
+          />
         </div>
         {message ? <p className="status-message">{message}</p> : null}
       </section>
@@ -532,17 +536,17 @@ export default function CompanyDetailPage() {
           visibleGroups.map((g) => {
             const open = openTopics.has(g.topic);
             const done = g.problems.filter((p) => progress[companyProgressId(p)]).length;
+            const percent = g.problems.length ? (done / g.problems.length) * 100 : 0;
+            const complete = done === g.problems.length && g.problems.length > 0;
             return (
               <section key={g.topic} className="company-topic-section" id={`topic-${encodeURIComponent(g.topic)}`}>
                 <button
                   type="button"
                   className={`sub-collapsible company-topic-header${open ? ' active' : ''}${
-                    done === g.problems.length && g.problems.length > 0 ? ' completed' : ''
-                  }`}
+                    complete ? ' completed' : ''
+                  } ${progressTierClass(percent)}`}
                   style={{
-                    '--progress-width': `${
-                      g.problems.length ? (done / g.problems.length) * 100 : 0
-                    }%`,
+                    '--progress-width': `${percent}%`,
                   } as CSSProperties}
                   onClick={() => toggleTopic(g.topic)}
                   aria-expanded={open}
