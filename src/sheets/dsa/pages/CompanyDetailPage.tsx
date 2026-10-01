@@ -11,9 +11,10 @@ import {
   type CompanyWindowId,
 } from '../lib/companyLoader';
 import { compareTopicsA2zOrder, pickCanonicalTopic, secondaryTopics } from '../lib/companyTopics';
-import { initStore, persistTopic, replaceUserData } from '../lib/db';
-import { DEFAULT_PALETTE } from '../lib/palettes';
 import { progressTierClass } from '../lib/topics';
+import { useProgressStore } from '../sync';
+import SyncDialog from '../components/SyncDialog';
+import SyncIndicator from '../components/SyncIndicator';
 import '../styles.css';
 
 const WINDOW_TABS: Array<{ id: CompanyWindowId | 'all'; label: string }> = [
@@ -25,6 +26,17 @@ const WINDOW_TABS: Array<{ id: CompanyWindowId | 'all'; label: string }> = [
 ];
 
 const DIFF_ORDER: Record<string, number> = { EASY: 0, MEDIUM: 1, HARD: 2 };
+
+function askImportMode(): 'additive' | 'replace' | null {
+  const merge = window.confirm(
+    'Merge imported progress with what is already saved on this device?\n\nOK = Merge (additive)\nCancel = Replace or abort',
+  );
+  if (merge) return 'additive';
+  const replace = window.confirm(
+    'Replace ALL progress and notes in this browser with the file?\n\nOK = Replace\nCancel = Abort import',
+  );
+  return replace ? 'replace' : null;
+}
 
 function primaryTopic(p: CompanyProblem): string {
   return pickCanonicalTopic(p.topics);
@@ -213,6 +225,17 @@ function ProblemTable({
 
 export default function CompanyDetailPage() {
   const { companySlug = '' } = useParams();
+  const {
+    progress,
+    notes,
+    ready: progressReady,
+    sync,
+    toggleTopic: toggleDone,
+    importData,
+    exportData,
+    syncApi,
+  } = useProgressStore();
+
   const [data, setData] = useState<CompanyDetail | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [windowId, setWindowId] = useState<CompanyWindowId | 'all'>('3m');
@@ -221,26 +244,9 @@ export default function CompanyDetailPage() {
   const [a2zOnly, setA2zOnly] = useState(false);
   const [topicFilter, setTopicFilter] = useState('');
   const [openTopics, setOpenTopics] = useState<Set<string>>(() => new Set());
-  const [progress, setProgress] = useState<Record<string, boolean>>({});
-  const [usingIndexedDb, setUsingIndexedDb] = useState(true);
   const [message, setMessage] = useState('');
+  const [syncOpen, setSyncOpen] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    initStore()
-      .then((store) => {
-        if (cancelled) return;
-        setProgress(store.progress);
-        setUsingIndexedDb(store.usingIndexedDb);
-      })
-      .catch(() => {
-        /* sheet still usable without persist */
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -329,21 +335,9 @@ export default function CompanyDetailPage() {
     setOpenTopics(new Set());
   }
 
-  function toggleDone(id: string) {
-    const nextValue = !progress[id];
-    const nextProgress = { ...progress };
-    if (nextValue) nextProgress[id] = true;
-    else delete nextProgress[id];
-    setProgress(nextProgress);
-    persistTopic(id, nextValue, usingIndexedDb, {
-      progress: nextProgress,
-      notes: {},
-      palette: DEFAULT_PALETTE,
-    });
-  }
-
   function exportProgress() {
-    downloadBackup(buildBackup({ progress, notes: {} }));
+    const dataSnap = exportData();
+    downloadBackup(buildBackup({ progress: dataSnap.progress, notes: dataSnap.notes }));
     setMessage('Backup downloaded (includes A2Z + company progress).');
   }
 
@@ -357,30 +351,35 @@ export default function CompanyDetailPage() {
     if (!file) return;
     try {
       const parsed = parseBackup(await file.text());
-      const confirmed = window.confirm(
-        'Replace all progress saved in this browser (A2Z + company)? Notes on A2Z are kept unless the backup includes notes.',
+      const mode = askImportMode();
+      if (!mode) {
+        setMessage('Import cancelled.');
+        return;
+      }
+      const notesPayload =
+        Object.keys(parsed.notes).length > 0
+          ? parsed.notes
+          : mode === 'replace'
+            ? notes
+            : parsed.notes;
+      await importData(
+        {
+          progress: parsed.progress as Record<string, boolean>,
+          notes: notesPayload as Record<string, string>,
+        },
+        mode,
       );
-      if (!confirmed) return;
-      // Keep existing notes from store — re-init notes from current if backup empty
-      const store = await initStore();
-      const nextProgress = parsed.progress as Record<string, boolean>;
-      const notes = (Object.keys(parsed.notes).length ? parsed.notes : store.notes) as Record<
-        string,
-        string
-      >;
-      await replaceUserData(
-        { progress: nextProgress, notes },
-        usingIndexedDb,
-        { progress: nextProgress, notes, palette: store.palette },
+      setMessage(
+        mode === 'additive'
+          ? `Merged ${Object.keys(parsed.progress).length} completed items from file.`
+          : `Replaced with ${Object.keys(parsed.progress).length} completed items.`,
       );
-      setProgress(nextProgress);
-      setMessage(`Imported ${Object.keys(nextProgress).length} completed items.`);
     } catch (err) {
       setMessage(err instanceof Error ? err.message : 'Could not import that file.');
     }
   }
 
-  if (status === 'loading') {
+  if (status === 'loading' || !progressReady) {
     return (
       <div className="app">
         <p className="page-status">Loading company…</p>
@@ -423,11 +422,15 @@ export default function CompanyDetailPage() {
           </p>
         </div>
         <div className="topbar-actions">
+          <SyncIndicator status={sync.status} peerCount={sync.peerCount} onClick={() => setSyncOpen(true)} />
           <button type="button" className="ghost-btn" onClick={exportProgress}>
             Export
           </button>
           <button type="button" className="ghost-btn" onClick={importProgress}>
             Import
+          </button>
+          <button type="button" className="ghost-btn" onClick={() => setSyncOpen(true)}>
+            Sync
           </button>
           <button
             type="button"
@@ -583,6 +586,15 @@ export default function CompanyDetailPage() {
               ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
         }}
+      />
+
+      <SyncDialog
+        open={syncOpen}
+        onClose={() => setSyncOpen(false)}
+        sync={sync}
+        onCreate={syncApi.create}
+        onJoin={syncApi.join}
+        onDisconnect={syncApi.disconnect}
       />
     </div>
   );

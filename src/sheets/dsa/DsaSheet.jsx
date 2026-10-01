@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import roadmap from '../../../a2z.json';
 import { buildBackup, downloadBackup, parseBackup } from './lib/backup';
 import { a2zIdsForCompanyFilter, companiesOnA2zSheet } from './lib/companyLoader';
-import { initStore, persistNote, persistPalette, persistTopic, replaceUserData } from './lib/db';
+import { initStore, persistPalette } from './lib/db';
 import { applyPalette, DEFAULT_PALETTE } from './lib/palettes';
 import { collectExpandKeys, countProgress, progressTierClass } from './lib/topics';
+import { useProgressStore } from './sync';
 import NoteEditor from './components/NoteEditor';
 import PalettePicker from './components/PalettePicker';
 import StepSection from './components/StepSection';
+import SyncDialog from './components/SyncDialog';
+import SyncIndicator from './components/SyncIndicator';
 import './styles.css';
 
 const OPEN_KEYS_STORAGE = 'a2z-dsa-open-keys';
@@ -24,17 +27,38 @@ function readOpenKeys() {
   }
 }
 
+function askImportMode() {
+  const merge = window.confirm(
+    'Merge imported progress with what is already saved on this device?\n\nOK = Merge (additive)\nCancel = Replace or abort',
+  );
+  if (merge) return 'additive';
+  const replace = window.confirm(
+    'Replace ALL progress and notes in this browser with the file?\n\nOK = Replace\nCancel = Abort import',
+  );
+  return replace ? 'replace' : null;
+}
+
 export default function DsaSheet() {
-  const [progress, setProgress] = useState({});
-  const [notes, setNotes] = useState({});
+  const {
+    progress,
+    notes,
+    ready,
+    bootError,
+    sync,
+    toggleTopic,
+    setNote,
+    importData,
+    exportData,
+    syncApi,
+  } = useProgressStore();
+
   const [palette, setPalette] = useState(DEFAULT_PALETTE);
-  const [openKeys, setOpenKeys] = useState(readOpenKeys);
   const [usingIndexedDb, setUsingIndexedDb] = useState(true);
-  const [status, setStatus] = useState('loading');
-  const [error, setError] = useState('');
+  const [openKeys, setOpenKeys] = useState(readOpenKeys);
   const [message, setMessage] = useState('');
   const [editingTopic, setEditingTopic] = useState(null);
   const [companyFilter, setCompanyFilter] = useState('');
+  const [syncOpen, setSyncOpen] = useState(false);
   const fileRef = useRef(null);
 
   const companyOptions = useMemo(() => companiesOnA2zSheet(), []);
@@ -58,28 +82,20 @@ export default function DsaSheet() {
   const percentLabel = rawPercent > 0 && rawPercent < 1 ? '<1%' : `${Math.round(rawPercent)}%`;
   const allKeys = useMemo(() => collectExpandKeys(roadmap), []);
   const allExpanded = openKeys.size === allKeys.length && allKeys.length > 0;
-  const fallbackState = { progress, notes, palette };
 
   useEffect(() => {
     applyPalette(DEFAULT_PALETTE);
     let cancelled = false;
-
     initStore()
       .then((store) => {
         if (cancelled) return;
-        setProgress(store.progress);
-        setNotes(store.notes);
         setPalette(store.palette || DEFAULT_PALETTE);
         setUsingIndexedDb(store.usingIndexedDb);
         applyPalette(store.palette || DEFAULT_PALETTE);
-        setStatus('ready');
       })
-      .catch((err) => {
-        if (cancelled) return;
-        setError(err.message || 'Failed to load saved progress.');
-        setStatus('error');
+      .catch(() => {
+        /* palette optional */
       });
-
     return () => {
       cancelled = true;
     };
@@ -95,7 +111,7 @@ export default function DsaSheet() {
     try {
       sessionStorage.setItem(OPEN_KEYS_STORAGE, JSON.stringify([...openKeys]));
     } catch {
-      /* ignore quota / private mode */
+      /* ignore */
     }
   }, [openKeys]);
 
@@ -117,32 +133,19 @@ export default function DsaSheet() {
     setOpenKeys(allExpanded ? new Set() : new Set(allKeys));
   }
 
-  function toggleTopic(id) {
-    const nextValue = !progress[id];
-    const nextProgress = { ...progress };
-    if (nextValue) nextProgress[id] = true;
-    else delete nextProgress[id];
-    setProgress(nextProgress);
-    persistTopic(id, nextValue, usingIndexedDb, { ...fallbackState, progress: nextProgress });
-  }
-
   function saveNote(id, text) {
-    const trimmed = text.trim();
-    const nextNotes = { ...notes };
-    if (trimmed) nextNotes[id] = trimmed;
-    else delete nextNotes[id];
-    setNotes(nextNotes);
-    persistNote(id, trimmed, usingIndexedDb, { ...fallbackState, notes: nextNotes });
+    setNote(id, text);
   }
 
   function changePalette(nextPalette) {
     setPalette(nextPalette);
     applyPalette(nextPalette);
-    persistPalette(nextPalette, usingIndexedDb, { ...fallbackState, palette: nextPalette });
+    persistPalette(nextPalette, usingIndexedDb, { progress, notes, palette: nextPalette });
   }
 
   function exportProgress() {
-    downloadBackup(buildBackup({ progress, notes }));
+    const data = exportData();
+    downloadBackup(buildBackup(data));
     setMessage('Backup downloaded.');
   }
 
@@ -157,33 +160,38 @@ export default function DsaSheet() {
 
     try {
       const parsed = parseBackup(await file.text());
-      const confirmed = window.confirm('Replace the progress and notes saved in this browser?');
-      if (!confirmed) return;
+      const mode = askImportMode();
+      if (!mode) {
+        setMessage('Import cancelled.');
+        return;
+      }
 
-      await replaceUserData(parsed, usingIndexedDb, { ...fallbackState, ...parsed });
-      setProgress(parsed.progress);
-      setNotes(parsed.notes);
+      await importData(parsed, mode);
       const noteCount = Object.keys(parsed.notes).length;
       const doneCount = Object.keys(parsed.progress).length;
-      setMessage(`Imported ${doneCount} completed topics and ${noteCount} notes.`);
+      setMessage(
+        mode === 'additive'
+          ? `Merged ${doneCount} completed topics and ${noteCount} notes from file.`
+          : `Replaced with ${doneCount} completed topics and ${noteCount} notes.`,
+      );
     } catch (err) {
       setMessage(err.message || 'Could not import that file.');
     }
   }
 
-  if (status === 'loading') {
+  if (bootError) {
     return (
       <div className="app">
-        <p className="page-status">Loading roadmap…</p>
+        <h1>Could not load progress</h1>
+        <p>{bootError}</p>
       </div>
     );
   }
 
-  if (status === 'error') {
+  if (!ready) {
     return (
       <div className="app">
-        <h1>Could not load the roadmap</h1>
-        <p>{error}</p>
+        <p className="page-status">Loading roadmap…</p>
       </div>
     );
   }
@@ -196,18 +204,22 @@ export default function DsaSheet() {
             ← Sheets
           </Link>
           <h1>A2Z DSA Roadmap</h1>
-          <p className="storage-note">Progress is saved in this browser.</p>
+          <p className="storage-note">Progress is saved in this browser. Sync is optional.</p>
         </div>
         <div className="topbar-actions">
           <Link to="/dsa/companies" className="ghost-btn">
             Companies
           </Link>
+          <SyncIndicator status={sync.status} peerCount={sync.peerCount} onClick={() => setSyncOpen(true)} />
           <PalettePicker value={palette} onChange={changePalette} />
           <button type="button" className="ghost-btn" onClick={exportProgress}>
             Export
           </button>
           <button type="button" className="ghost-btn" onClick={importProgress}>
             Import
+          </button>
+          <button type="button" className="ghost-btn" onClick={() => setSyncOpen(true)}>
+            Sync
           </button>
           <button type="button" className="ghost-btn" onClick={toggleAll}>
             {allExpanded ? 'Collapse all' : 'Expand all'}
@@ -288,6 +300,15 @@ export default function DsaSheet() {
           onClose={() => setEditingTopic(null)}
         />
       ) : null}
+
+      <SyncDialog
+        open={syncOpen}
+        onClose={() => setSyncOpen(false)}
+        sync={sync}
+        onCreate={syncApi.create}
+        onJoin={syncApi.join}
+        onDisconnect={syncApi.disconnect}
+      />
     </div>
   );
 }
