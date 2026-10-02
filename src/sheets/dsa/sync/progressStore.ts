@@ -61,9 +61,8 @@ let syncingTimer: ReturnType<typeof setTimeout> | null = null;
 
 const listeners = new Set<Listener>();
 
-function emit() {
-  for (const l of listeners) l();
-}
+/** Cached for useSyncExternalStore — must be referentially stable between emits. */
+let cachedSnapshot: ProgressStoreSnapshot | null = null;
 
 function mapsToSnapshot(): UserDataSnapshot {
   if (!legacyMode && progressMap && notesMap) {
@@ -80,7 +79,7 @@ function mapsToSnapshot(): UserDataSnapshot {
   return { progress: { ...legacyProgress }, notes: { ...legacyNotes } };
 }
 
-function getSnapshot(): ProgressStoreSnapshot {
+function buildSnapshot(): ProgressStoreSnapshot {
   const data = mapsToSnapshot();
   return {
     ...data,
@@ -88,6 +87,16 @@ function getSnapshot(): ProgressStoreSnapshot {
     usingYjs: !legacyMode,
     sync: { ...syncInfo },
   };
+}
+
+function getSnapshot(): ProgressStoreSnapshot {
+  if (!cachedSnapshot) cachedSnapshot = buildSnapshot();
+  return cachedSnapshot;
+}
+
+function emit() {
+  cachedSnapshot = buildSnapshot();
+  for (const l of listeners) l();
 }
 
 function setSyncStatus(status: SyncStatus, patch: Partial<SyncSessionInfo> = {}) {
